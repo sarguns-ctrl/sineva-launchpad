@@ -122,7 +122,7 @@ const Hero = () => {
 
           {/* Dynamic Statistics with real data */}
           <div 
-            className={`grid grid-cols-3 gap-8 max-w-4xl mx-auto transition-all duration-1000 ${
+            className={`grid grid-cols-3 gap-12 md:gap-16 max-w-5xl mx-auto py-12 transition-all duration-1000 ${
               isVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
             style={{ animationDelay: '900ms' }}
@@ -130,18 +130,18 @@ const Hero = () => {
             {loading ? (
               // Loading placeholders
               Array.from({ length: 3 }).map((_, index) => (
-                <div key={index} className="text-center group">
-                  <div className="text-3xl sm:text-4xl font-clash font-bold mb-2">
-                    <div className="h-10 bg-muted/30 rounded animate-pulse"></div>
+                <div key={index} className="text-center group px-6 py-8">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold mb-4">
+                    <div className="h-12 bg-muted/30 rounded animate-pulse"></div>
                   </div>
-                  <div className="h-4 bg-muted/20 rounded animate-pulse"></div>
+                  <div className="h-5 bg-muted/20 rounded animate-pulse"></div>
                 </div>
               ))
             ) : marketData.length > 0 ? (
               // Dynamic market data
               marketData.slice(0, 3).map((metric, index) => (
-                <div key={metric.id} className="text-center group">
-                  <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                <div key={metric.id} className="text-center group px-6 py-8">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
                     <AnimatedCounter 
                       end={metric.metric_value} 
                       suffix={metric.metric_suffix}
@@ -149,7 +149,7 @@ const Hero = () => {
                       duration={2000}
                     />
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-sm sm:text-base capitalize">
+                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg capitalize">
                     {metric.metric_name.replace(/_/g, ' ')}
                   </p>
                 </div>
@@ -157,25 +157,25 @@ const Hero = () => {
             ) : (
               // Fallback static data
               <>
-                <div className="text-center group">
-                  <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                <div className="text-center group px-6 py-8">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
                     <AnimatedCounter end={2500} duration={2000} />+
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Properties Sold</p>
+                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Properties Sold</p>
                 </div>
                 
-                <div className="text-center group">
-                  <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                <div className="text-center group px-6 py-8">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
                     <AnimatedCounter end={95} duration={2000} />%
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Client Satisfaction</p>
+                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Client Satisfaction</p>
                 </div>
                 
-                <div className="text-center group">
-                  <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                <div className="text-center group px-6 py-8">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
                     <AnimatedCounter end={150} duration={2000} />+
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Markets Served</p>
+                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Markets Served</p>
                 </div>
               </>
             )}
