@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { BusinessCard } from '@/components/BusinessCard';
 import { BusinessFilters } from '@/components/BusinessFilters';
-import { useBusinesses, BusinessFilters as BusinessFiltersType } from '@/hooks/useBusinesses';
+import { useBusinesses, BusinessFilters as BusinessFiltersType, useBusinessCategories } from '@/hooks/useBusinesses';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -56,6 +56,8 @@ const BusinessBrokerage = () => {
     removeFromFavorites 
   } = useBusinesses(filters);
 
+  const { categories } = useBusinessCategories();
+
   const handleSearch = () => {
     setFilters(prev => ({
       ...prev,
@@ -80,34 +82,56 @@ const BusinessBrokerage = () => {
     {
       icon: Building2,
       title: 'Restaurants & Food Service',
-      description: 'Established restaurants, cafes, and food service businesses with proven customer bases.',
-      investmentRange: '$150K - $2M',
+      description: 'Established restaurants, cafes, bars, and food service businesses with proven customer bases and growth potential.',
+      investmentRange: '$200K - $2M',
       avgROI: '15-25%',
-      visaEligible: true
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Restaurants & Food Service').length
     },
     {
       icon: Users,
       title: 'Retail & E-commerce',
-      description: 'Physical stores and online businesses with strong brand presence and customer loyalty.',
-      investmentRange: '$100K - $5M',
-      avgROI: '12-20%',
-      visaEligible: true
+      description: 'Physical stores, online businesses, and franchises with strong brand presence and loyal customer followings.',
+      investmentRange: '$150K - $3M',
+      avgROI: '12-28%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Retail & E-commerce').length
     },
     {
       icon: TrendingUp,
       title: 'Technology & Software',
-      description: 'Growing tech companies and SaaS businesses with recurring revenue streams.',
-      investmentRange: '$500K - $10M',
+      description: 'SaaS companies, software development firms, and tech startups with recurring revenue and scalability.',
+      investmentRange: '$500K - $5M',
       avgROI: '20-35%',
-      visaEligible: false
+      visaEligible: false,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Technology & Software').length
     },
     {
       icon: Shield,
       title: 'Healthcare & Medical',
-      description: 'Medical practices, clinics, and healthcare service providers with stable income.',
-      investmentRange: '$300K - $3M',
-      avgROI: '18-28%',
-      visaEligible: true
+      description: 'Medical practices, clinics, and healthcare service providers with stable income and growth opportunities.',
+      investmentRange: '$300K - $2M',
+      avgROI: '18-30%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Healthcare & Medical').length
+    },
+    {
+      icon: Briefcase,
+      title: 'Professional Services',
+      description: 'Consulting firms, marketing agencies, and service-based businesses with established client relationships.',
+      investmentRange: '$200K - $1.5M',
+      avgROI: '25-35%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Professional Services').length
+    },
+    {
+      icon: Globe,
+      title: 'Manufacturing & Production',
+      description: 'Manufacturing facilities, production companies, and industrial businesses with equipment and contracts.',
+      investmentRange: '$800K - $5M',
+      avgROI: '15-25%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Manufacturing & Production').length
     }
   ];
 
@@ -329,96 +353,120 @@ const BusinessBrokerage = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-              How Our Process Works
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From initial consultation to business ownership - we guide you through every step
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {howItWorksSteps.map((step, index) => (
-              <InteractiveCard 
-                key={step.step}
-                delay={index * 150}
-                className="text-center relative overflow-hidden"
-              >
-                <div className="space-y-6">
-                  <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground text-2xl font-bold flex items-center justify-center mx-auto">
-                    {step.step}
+      <section ref={howItWorksRef} className="py-20 bg-secondary/10">
+        <div className="container mx-auto px-4">
+          <div className={`max-w-6xl mx-auto transition-all duration-1000 ${howItWorksVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">How It Works</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Our streamlined process makes business acquisition simple and secure for international investors
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {howItWorksSteps.map((step, index) => (
+                <div 
+                  key={step.step}
+                  className="text-center relative group"
+                >
+                  <div className="space-y-6">
+                    <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground text-2xl font-bold flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                      {step.step}
+                    </div>
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-bold">{step.title}</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                    </div>
                   </div>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
-                  </div>
+                  {index < howItWorksSteps.length - 1 && (
+                    <div className="hidden lg:block absolute top-8 -right-4 w-8 h-0.5 bg-gradient-to-r from-primary to-primary/50"></div>
+                  )}
                 </div>
-                {index < howItWorksSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-8 -right-4 w-8 h-0.5 bg-gradient-primary"></div>
-                )}
-              </InteractiveCard>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Business Categories */}
-      <section className="py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-              Business Categories
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Diverse portfolio of profitable businesses across multiple industries
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {businessTypes.map((type, index) => (
-              <InteractiveCard 
-                key={index}
-                delay={index * 100}
-                className="group"
-              >
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
-                      {type.title}
-                    </h3>
-                    <Badge className="bg-accent text-accent-foreground">
-                      {type.investmentRange}
-                    </Badge>
+      <section ref={categoriesRef} className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className={`max-w-6xl mx-auto transition-all duration-1000 ${categoriesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">Business Categories</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Explore diverse business opportunities across multiple industries, each with unique investment potential
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {businessTypes.map((type, index) => (
+                <div
+                  key={type.title}
+                  className="group bg-card rounded-xl p-6 border border-border hover:border-primary/20 transition-all duration-300 hover:shadow-lg cursor-pointer"
+                  onClick={() => {
+                    const category = categories.find(c => c.name === type.title);
+                    if (category) {
+                      setFilters({ category: category.id });
+                      document.getElementById('business-listings')?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <type.icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                          {type.title}
+                        </h3>
+                        <Badge variant="secondary" className="mt-1">
+                          {type.count} available
+                        </Badge>
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="space-y-3">
+                  
+                  <div className="space-y-4">
                     <p className="text-muted-foreground text-sm leading-relaxed">{type.description}</p>
-                    <div className="flex items-center space-x-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
-                      <span className="text-muted-foreground">ROI: {type.avgROI}</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-sm">
-                      <Shield className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                      <span className="text-muted-foreground">
-                        {type.visaEligible ? 'Visa Eligible' : 'Not Visa Eligible'}
-                      </span>
+                    
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div className="flex items-center space-x-2">
+                        <DollarSign className="w-4 h-4 text-green-600" />
+                        <span className="text-muted-foreground">ROI: {type.avgROI}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <TrendingUp className="w-4 h-4 text-blue-600" />
+                        <span className="text-muted-foreground">{type.investmentRange}</span>
+                      </div>
+                      <div className="flex items-center space-x-2 col-span-2">
+                        {type.visaEligible ? (
+                          <>
+                            <CheckCircle className="w-4 h-4 text-green-600" />
+                            <span className="text-muted-foreground">Visa Eligible</span>
+                          </>
+                        ) : (
+                          <>
+                            <Shield className="w-4 h-4 text-orange-600" />
+                            <span className="text-muted-foreground">Investment Only</span>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <div className="text-sm text-muted-foreground">
-                      Investment Range
-                    </div>
-                    <Button variant="outline" size="sm">
-                      View Listings
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-border mt-4">
+                    <span className="text-sm text-muted-foreground">
+                      View {type.count} listings
+                    </span>
+                    <Button variant="outline" size="sm" className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      Browse →
                     </Button>
                   </div>
                 </div>
-              </InteractiveCard>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
