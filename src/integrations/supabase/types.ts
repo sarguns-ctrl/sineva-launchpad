@@ -14,6 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_commissions: {
+        Row: {
+          agent_id: string | null
+          client_id: string | null
+          commission_amount: number
+          commission_rate: number
+          created_at: string | null
+          id: string
+          notes: string | null
+          property_id: string | null
+          sale_price: number
+          status: string | null
+          transaction_date: string
+          transaction_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          agent_id?: string | null
+          client_id?: string | null
+          commission_amount: number
+          commission_rate: number
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          property_id?: string | null
+          sale_price: number
+          status?: string | null
+          transaction_date: string
+          transaction_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          agent_id?: string | null
+          client_id?: string | null
+          commission_amount?: number
+          commission_rate?: number
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          property_id?: string | null
+          sale_price?: number
+          status?: string | null
+          transaction_date?: string
+          transaction_type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_commissions_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "employee_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agent_commissions_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_training_sessions: {
         Row: {
           ai_response: string | null
@@ -389,6 +452,101 @@ export type Database = {
           },
         ]
       }
+      email_campaigns: {
+        Row: {
+          campaign_name: string
+          campaign_type: string
+          created_at: string | null
+          created_by: string | null
+          email_content: string
+          id: string
+          scheduled_at: string | null
+          sent_at: string | null
+          status: string | null
+          subject_line: string
+          target_criteria: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          campaign_name: string
+          campaign_type: string
+          created_at?: string | null
+          created_by?: string | null
+          email_content: string
+          id?: string
+          scheduled_at?: string | null
+          sent_at?: string | null
+          status?: string | null
+          subject_line: string
+          target_criteria?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          campaign_name?: string
+          campaign_type?: string
+          created_at?: string | null
+          created_by?: string | null
+          email_content?: string
+          id?: string
+          scheduled_at?: string | null
+          sent_at?: string | null
+          status?: string | null
+          subject_line?: string
+          target_criteria?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      email_recipients: {
+        Row: {
+          bounce_reason: string | null
+          bounced: boolean | null
+          campaign_id: string | null
+          clicked_at: string | null
+          delivered_at: string | null
+          email_address: string
+          id: string
+          opened_at: string | null
+          sent_at: string | null
+          unsubscribed_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          bounce_reason?: string | null
+          bounced?: boolean | null
+          campaign_id?: string | null
+          clicked_at?: string | null
+          delivered_at?: string | null
+          email_address: string
+          id?: string
+          opened_at?: string | null
+          sent_at?: string | null
+          unsubscribed_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          bounce_reason?: string | null
+          bounced?: boolean | null
+          campaign_id?: string | null
+          clicked_at?: string | null
+          delivered_at?: string | null
+          email_address?: string
+          id?: string
+          opened_at?: string | null
+          sent_at?: string | null
+          unsubscribed_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_recipients_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "email_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       employee_certificates: {
         Row: {
           certificate_data: Json
@@ -710,6 +868,108 @@ export type Database = {
           title?: string
           updated_at?: string | null
           updated_by?: string | null
+        }
+        Relationships: []
+      }
+      leads: {
+        Row: {
+          agent_id: string | null
+          contact_info: Json
+          conversion_date: string | null
+          created_at: string | null
+          estimated_value: number | null
+          id: string
+          last_contact_at: string | null
+          lead_source: string
+          lead_status: string | null
+          notes: string | null
+          priority: string | null
+          property_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          agent_id?: string | null
+          contact_info: Json
+          conversion_date?: string | null
+          created_at?: string | null
+          estimated_value?: number | null
+          id?: string
+          last_contact_at?: string | null
+          lead_source: string
+          lead_status?: string | null
+          notes?: string | null
+          priority?: string | null
+          property_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          agent_id?: string | null
+          contact_info?: Json
+          conversion_date?: string | null
+          created_at?: string | null
+          estimated_value?: number | null
+          id?: string
+          last_contact_at?: string | null
+          lead_source?: string
+          lead_status?: string | null
+          notes?: string | null
+          priority?: string | null
+          property_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leads_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "employee_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "leads_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      market_insights: {
+        Row: {
+          created_at: string | null
+          data_points: Json
+          data_source: string | null
+          id: string
+          insight_summary: string | null
+          insight_type: string
+          location: string
+          time_period: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          data_points: Json
+          data_source?: string | null
+          id?: string
+          insight_summary?: string | null
+          insight_type: string
+          location: string
+          time_period: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          data_points?: Json
+          data_source?: string | null
+          id?: string
+          insight_summary?: string | null
+          insight_type?: string
+          location?: string
+          time_period?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -1090,6 +1350,112 @@ export type Database = {
           },
         ]
       }
+      property_analytics: {
+        Row: {
+          contact_agent: number | null
+          created_at: string | null
+          date: string
+          favorites: number | null
+          id: string
+          inquiries: number | null
+          property_id: string | null
+          views: number | null
+          virtual_tours: number | null
+        }
+        Insert: {
+          contact_agent?: number | null
+          created_at?: string | null
+          date: string
+          favorites?: number | null
+          id?: string
+          inquiries?: number | null
+          property_id?: string | null
+          views?: number | null
+          virtual_tours?: number | null
+        }
+        Update: {
+          contact_agent?: number | null
+          created_at?: string | null
+          date?: string
+          favorites?: number | null
+          id?: string
+          inquiries?: number | null
+          property_id?: string | null
+          views?: number | null
+          virtual_tours?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_analytics_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      property_comparisons: {
+        Row: {
+          comparison_criteria: Json | null
+          created_at: string | null
+          id: string
+          property_ids: string[]
+          user_id: string | null
+        }
+        Insert: {
+          comparison_criteria?: Json | null
+          created_at?: string | null
+          id?: string
+          property_ids: string[]
+          user_id?: string | null
+        }
+        Update: {
+          comparison_criteria?: Json | null
+          created_at?: string | null
+          id?: string
+          property_ids?: string[]
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      property_recommendations: {
+        Row: {
+          algorithm_version: string | null
+          created_at: string | null
+          id: string
+          property_id: string | null
+          recommendation_reasons: Json | null
+          recommendation_score: number | null
+          user_id: string | null
+        }
+        Insert: {
+          algorithm_version?: string | null
+          created_at?: string | null
+          id?: string
+          property_id?: string | null
+          recommendation_reasons?: Json | null
+          recommendation_score?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          algorithm_version?: string | null
+          created_at?: string | null
+          id?: string
+          property_id?: string | null
+          recommendation_reasons?: Json | null
+          recommendation_score?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_recommendations_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       property_views: {
         Row: {
           id: string
@@ -1326,6 +1692,81 @@ export type Database = {
         }
         Relationships: []
       }
+      system_notifications: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          end_date: string | null
+          id: string
+          is_active: boolean | null
+          message: string
+          notification_type: string
+          priority: string | null
+          start_date: string | null
+          target_audience: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          message: string
+          notification_type: string
+          priority?: string | null
+          start_date?: string | null
+          target_audience?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          message?: string
+          notification_type?: string
+          priority?: string | null
+          start_date?: string | null
+          target_audience?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      system_settings: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          is_public: boolean | null
+          setting_key: string
+          setting_type: string
+          setting_value: Json
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          setting_key: string
+          setting_type: string
+          setting_value: Json
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          setting_key?: string
+          setting_type?: string
+          setting_value?: Json
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       training_modules: {
         Row: {
           content: string | null
@@ -1493,6 +1934,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_activity: {
+        Row: {
+          activity_data: Json | null
+          activity_type: string
+          created_at: string | null
+          id: string
+          ip_address: unknown | null
+          referrer: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          activity_data?: Json | null
+          activity_type: string
+          created_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          referrer?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          activity_data?: Json | null
+          activity_type?: string
+          created_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          referrer?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
       }
       user_favorites: {
         Row: {
