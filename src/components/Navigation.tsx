@@ -15,8 +15,21 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: 'Properties', href: '/properties' },
+    { name: 'Businesses', href: '/businesses' },
     { name: 'Services', href: '/services' },
-    { name: 'About', href: '/about' },
+    { name: 'Market Insights', href: '/insights' },
+    { name: 'Franchise with Us', href: '/franchise' },
+  ];
+
+  const agentItems = [
+    { name: 'Find an Agent', href: '/agents' },
+    { name: 'Join as Agent', href: '/join-team' },
+  ];
+
+  const moreServicesItems = [
+    { name: 'Concierge Services', href: '/concierge-services' },
+    { name: 'Investment Advisory', href: '/investment-advisory' },
+    { name: 'International Services', href: '/international-services' },
   ];
 
   return (
@@ -38,19 +51,91 @@ const Navigation = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation - Clean & Simple */}
+          {/* Desktop Navigation with dropdown */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigationItems.map((item, index) => {
+            {navigationItems.slice(0, 3).map((item, index) => {
               const isActive = location.pathname === item.href;
               return (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`font-space text-sm font-medium transition-colors duration-200 relative group ${
+                  className={`font-space text-sm font-medium transition-all duration-300 hover:scale-105 relative group ${
                     isActive 
-                      ? 'text-accent' 
+                      ? 'text-accent font-semibold' 
                       : 'text-foreground hover:text-accent'
                   }`}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {item.name}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} />
+                </Link>
+              );
+            })}
+            
+            {/* Agents Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 p-0 h-auto bg-transparent hover:bg-transparent"
+                >
+                  Agents
+                  <ChevronDown className="ml-1 h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48 bg-background border shadow-lg z-50">
+                {agentItems.map((item) => (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link
+                      to={item.href}
+                      className="w-full cursor-pointer"
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* More Services Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 p-0 h-auto bg-transparent hover:bg-transparent"
+                >
+                  More Services
+                  <ChevronDown className="ml-1 h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48 bg-background border shadow-lg z-50">
+                {moreServicesItems.map((item) => (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link
+                      to={item.href}
+                      className="w-full cursor-pointer"
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {navigationItems.slice(3).map((item, index) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`font-space text-sm font-medium transition-all duration-300 hover:scale-105 relative group ${
+                    isActive 
+                      ? 'text-accent font-semibold' 
+                      : 'text-foreground hover:text-accent'
+                  }`}
+                  style={{ animationDelay: `${(index + 4) * 100}ms` }}
                 >
                   {item.name}
                   <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${
@@ -61,11 +146,15 @@ const Navigation = () => {
             })}
           </div>
 
-          {/* Desktop CTAs - Simplified */}
-          <div className="hidden lg:flex items-center space-x-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/contact">Contact Us</Link>
-            </Button>
+          {/* Desktop CTAs with full functionality */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <NavigationSearch />
+            <LanguageSwitcher />
+            
+            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <Phone className="w-4 h-4" />
+              <span className="font-mono">+1 (555) 123-4567</span>
+            </div>
             
             {user ? (
               <DropdownMenu>
@@ -76,7 +165,7 @@ const Navigation = () => {
                     <ChevronDown className="w-3 h-3 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-background border shadow-lg">
+                <DropdownMenuContent align="end" className="w-48 bg-background border shadow-lg z-50">
                   <DropdownMenuItem asChild>
                     <Link to="/dashboard" className="cursor-pointer">
                       <User className="w-4 h-4 mr-2" />
@@ -97,64 +186,106 @@ const Navigation = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden">
+          <div className="lg:hidden flex items-center space-x-2">
+            <NavigationSearch />
+            <LanguageSwitcher />
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="hover:bg-muted"
+              className="hover:bg-accent/10"
             >
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation - Simplified */}
+      {/* Mobile Navigation with full functionality */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-background border-t border-border/50">
-          <div className="px-4 py-4 space-y-2">
-            {navigationItems.map((item) => {
+        <div className="lg:hidden bg-card/95 backdrop-blur-xl border-t border-border/50 shadow-elegant">
+          <div className="px-4 py-6 space-y-4">
+            {navigationItems.map((item, index) => {
               const isActive = location.pathname === item.href;
               return (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block font-medium py-3 px-2 rounded-lg transition-colors ${
+                  className={`block font-space text-base font-medium transition-all duration-300 py-2 border-b border-border/30 last:border-b-0 ${
                     isActive 
-                      ? 'text-accent bg-accent/10' 
-                      : 'text-foreground hover:text-accent hover:bg-muted'
+                      ? 'text-accent font-semibold bg-accent/10' 
+                      : 'text-foreground hover:text-accent hover:bg-accent/5'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {item.name}
                 </Link>
               );
             })}
             
-            <div className="pt-4 border-t border-border/30 space-y-3">
-              <Button variant="outline" className="w-full" asChild>
-                <Link to="/contact">Contact Us</Link>
-              </Button>
+            {/* Mobile Agents Section */}
+            <div className="space-y-2">
+              <div className="font-space text-base font-medium text-foreground py-2 border-b border-border/30">
+                Agents
+              </div>
+              {agentItems.map((item, index) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="block font-space text-sm text-muted-foreground hover:text-accent transition-all duration-300 py-2 pl-4"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{ animationDelay: `${(navigationItems.length + index) * 50}ms` }}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* Mobile More Services Section */}
+            <div className="space-y-2">
+              <div className="font-space text-base font-medium text-foreground py-2 border-b border-border/30">
+                More Services
+              </div>
+              {moreServicesItems.map((item, index) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="block font-space text-sm text-muted-foreground hover:text-accent transition-all duration-300 py-2 pl-4"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{ animationDelay: `${(navigationItems.length + agentItems.length + index) * 50}ms` }}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+            
+            <div className="pt-4 space-y-3">
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground px-3">
+                <Phone className="w-4 h-4" />
+                <span className="font-mono">+1 (555) 123-4567</span>
+              </div>
               
-              {user ? (
-                <div className="space-y-2">
-                  <Button variant="outline" className="w-full" asChild>
-                    <Link to="/dashboard">
-                      <User className="w-4 h-4 mr-2" />
-                      Dashboard
-                    </Link>
+              <div className="flex space-x-3">
+                {user ? (
+                  <>
+                    <Button variant="outline" className="flex-1" asChild>
+                      <Link to="/dashboard">
+                        <User className="w-4 h-4 mr-2" />
+                        Dashboard
+                      </Link>
+                    </Button>
+                    <Button variant="destructive" className="flex-1" onClick={() => signOut()}>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <Button className="w-full" asChild>
+                    <Link to="/auth">Get Started</Link>
                   </Button>
-                  <Button variant="ghost" className="w-full text-destructive" onClick={() => signOut()}>
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Sign Out
-                  </Button>
-                </div>
-              ) : (
-                <Button className="w-full" asChild>
-                  <Link to="/auth">Get Started</Link>
-                </Button>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>
