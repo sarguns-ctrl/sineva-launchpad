@@ -98,7 +98,7 @@ export const EnhancedPropertySearch: React.FC = () => {
       
       const matchesPrice = property.price >= filters.priceRange[0] && property.price <= filters.priceRange[1];
       const matchesType = !filters.propertyType || property.property_type === filters.propertyType;
-      const matchesListing = !filters.listingType || property.listing_type === filters.listingType;
+      const matchesListing = !filters.listingType || property.status === filters.listingType;
       const matchesBedrooms = !filters.bedrooms || (property.bedrooms && property.bedrooms >= parseInt(filters.bedrooms));
       const matchesBathrooms = !filters.bathrooms || (property.bathrooms && property.bathrooms >= parseFloat(filters.bathrooms));
       const matchesSize = !property.size_sqft || 
@@ -119,9 +119,9 @@ export const EnhancedPropertySearch: React.FC = () => {
       case 'price-high':
         return sorted.sort((a, b) => b.price - a.price);
       case 'newest':
-        return sorted.sort((a, b) => new Date(b.created_at || '').getTime() - new Date(a.created_at || '').getTime());
+        return sorted.sort((a, b) => new Date(b.listing_date).getTime() - new Date(a.listing_date).getTime());
       case 'featured':
-        return sorted.sort((a, b) => Number(b.featured) - Number(a.featured));
+        return sorted.sort((a, b) => Number(b.is_featured) - Number(a.is_featured));
       default:
         return sorted;
     }
@@ -420,14 +420,14 @@ export const EnhancedPropertySearch: React.FC = () => {
                       
                       {/* Property badges */}
                       <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
-                        {property.featured && (
+                        {property.is_featured && (
                           <Badge className="bg-accent text-accent-foreground font-medium">
                             <Star className="w-3 h-3 mr-1" />
                             Featured
                           </Badge>
                         )}
                         <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm">
-                          {property.listing_type}
+                          {property.status}
                         </Badge>
                       </div>
 
@@ -494,10 +494,10 @@ export const EnhancedPropertySearch: React.FC = () => {
                             <span>{property.bathrooms}</span>
                           </div>
                         )}
-                        {property.square_feet && (
-                          <div className="flex items-center gap-1">
-                            <Square className="h-4 w-4" />
-                            <span>{property.square_feet.toLocaleString()} sqft</span>
+                            {property.size_sqft && (
+                              <div className="flex items-center gap-1">
+                                <Square className="h-4 w-4" />
+                                <span>{property.size_sqft.toLocaleString()} sqft</span>
                           </div>
                         )}
                       </div>
@@ -601,10 +601,10 @@ export const EnhancedPropertySearch: React.FC = () => {
                                 <span>{property.bathrooms} bath</span>
                               </div>
                             )}
-                            {property.square_feet && (
+                            {property.size_sqft && (
                               <div className="flex items-center gap-1">
                                 <Square className="h-4 w-4" />
-                                <span>{property.square_feet.toLocaleString()} sqft</span>
+                                <span>{property.size_sqft.toLocaleString()} sqft</span>
                               </div>
                             )}
                           </div>
@@ -615,9 +615,9 @@ export const EnhancedPropertySearch: React.FC = () => {
                                 {property.property_type}
                               </Badge>
                               <Badge variant="outline" className="text-xs">
-                                {property.listing_type}
+                                {property.status}
                               </Badge>
-                              {property.featured && (
+                              {property.is_featured && (
                                 <Badge className="bg-accent text-accent-foreground text-xs">
                                   Featured
                                 </Badge>
