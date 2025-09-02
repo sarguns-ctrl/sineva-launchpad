@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import LanguageSwitcher from './LanguageSwitcher';
 import MagneticButton from './MagneticButton';
-import { Menu, X, Phone, Mail } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { Menu, X, Phone, Mail, User, LogOut } from 'lucide-react';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   const navigationItems = [
     { name: 'Properties', href: '/properties' },
@@ -59,22 +61,51 @@ const Navigation = () => {
               <span className="font-mono">+1 (555) 123-4567</span>
             </div>
             
-            <MagneticButton 
-              variant="outline" 
-              size="sm"
-              className="border-primary/30 hover:bg-primary hover:border-primary"
-            >
-              <Mail className="w-4 h-4" />
-              Contact
-            </MagneticButton>
-            
-            <MagneticButton 
-              variant="accent" 
-              size="sm"
-              className="shadow-accent"
-            >
-              Get Started
-            </MagneticButton>
+            {user ? (
+              <>
+                <MagneticButton 
+                  variant="outline" 
+                  size="sm"
+                  className="border-primary/30 hover:bg-primary hover:border-primary"
+                >
+                  <User className="w-4 h-4" />
+                  {user.user_metadata?.full_name || 'Profile'}
+                </MagneticButton>
+                
+                <MagneticButton 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => signOut()}
+                  className="hover:bg-destructive hover:text-destructive-foreground"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </MagneticButton>
+              </>
+            ) : (
+              <>
+                <MagneticButton 
+                  variant="outline" 
+                  size="sm"
+                  className="border-primary/30 hover:bg-primary hover:border-primary"
+                  asChild
+                >
+                  <Link to="/auth">
+                    <Mail className="w-4 h-4" />
+                    Sign In
+                  </Link>
+                </MagneticButton>
+                
+                <MagneticButton 
+                  variant="accent" 
+                  size="sm"
+                  className="shadow-accent"
+                  asChild
+                >
+                  <Link to="/auth">Get Started</Link>
+                </MagneticButton>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -115,13 +146,30 @@ const Navigation = () => {
               </div>
               
               <div className="flex space-x-3">
-                <Button variant="outline" className="flex-1">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Contact
-                </Button>
-                <Button variant="accent" className="flex-1">
-                  Get Started
-                </Button>
+                {user ? (
+                  <>
+                    <Button variant="outline" className="flex-1">
+                      <User className="w-4 h-4 mr-2" />
+                      Profile
+                    </Button>
+                    <Button variant="destructive" className="flex-1" onClick={() => signOut()}>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="outline" className="flex-1" asChild>
+                      <Link to="/auth">
+                        <Mail className="w-4 h-4 mr-2" />
+                        Sign In
+                      </Link>
+                    </Button>
+                    <Button variant="accent" className="flex-1" asChild>
+                      <Link to="/auth">Get Started</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useProperties } from "@/hooks/useProperties";
 import { 
   Search,
   Filter,
@@ -31,12 +32,17 @@ import { useState } from "react";
 const Properties = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  
+  const { properties, loading, totalCount } = useProperties({ 
+    type: activeFilter, 
+    search: searchTerm 
+  });
 
   const propertyTypes = [
-    { id: "all", label: "All Properties", count: 847 },
-    { id: "commercial", label: "Commercial", count: 234 },
-    { id: "residential", label: "Residential", count: 456 }, 
-    { id: "business", label: "Businesses", count: 157 }
+    { id: "all", label: "All Properties", count: totalCount || 0 },
+    { id: "commercial", label: "Commercial", count: properties.filter(p => p.property_type === 'commercial').length },
+    { id: "residential", label: "Residential", count: properties.filter(p => p.property_type === 'residential').length }, 
+    { id: "business", label: "Businesses", count: properties.filter(p => p.property_type === 'business').length }
   ];
 
   const featuredProperties = [
@@ -263,7 +269,14 @@ const Properties = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-3xl font-bold text-foreground font-playfair">
-              Featured Properties ({filteredProperties.length})
+              {loading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                  <span>Loading Properties...</span>
+                </div>
+              ) : (
+                `Featured Properties (${properties.length})`
+              )}
             </h2>
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <span>Sort by:</span>
@@ -273,8 +286,36 @@ const Properties = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProperties.map((property) => (
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <Card key={index} className="overflow-hidden animate-pulse">
+                  <div className="h-64 bg-muted"></div>
+                  <CardContent className="p-6 space-y-4">
+                    <div className="h-4 bg-muted rounded w-3/4"></div>
+                    <div className="h-3 bg-muted rounded w-1/2"></div>
+                    <div className="space-y-2">
+                      <div className="h-3 bg-muted rounded"></div>
+                      <div className="h-3 bg-muted rounded w-2/3"></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : properties.length === 0 ? (
+            <div className="text-center py-16">
+              <Building2 className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">No Properties Found</h3>
+              <p className="text-muted-foreground">
+                {searchTerm 
+                  ? `No properties match your search for "${searchTerm}"` 
+                  : "No properties available in this category"
+                }
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {properties.map((property) => (
               <Card key={property.id} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card overflow-hidden">
                 {/* Property Image */}
                 <div className="relative h-64 bg-muted overflow-hidden">
@@ -282,7 +323,7 @@ const Properties = () => {
                   
                   {/* Badges */}
                   <Badge className="absolute top-4 left-4 z-10 bg-accent text-accent-foreground">
-                    {property.badge}
+                    {property.category}
                   </Badge>
                   
                   {/* Favorite Button */}
@@ -297,9 +338,9 @@ const Properties = () => {
                   {/* Property Image Placeholder */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
-                      {property.type === 'business' ? (
+                      {property.property_type === 'business' ? (
                         <Briefcase className="h-8 w-8 text-primary" />
-                      ) : property.type === 'commercial' ? (
+                      ) : property.property_type === 'commercial' ? (
                         <Building2 className="h-8 w-8 text-primary" />
                       ) : (
                         <Home className="h-8 w-8 text-primary" />
@@ -311,7 +352,7 @@ const Properties = () => {
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
                     <div className="flex items-center space-x-1 bg-black/50 backdrop-blur-sm rounded px-2 py-1">
                       <Camera className="h-3 w-3 text-white" />
-                      <span className="text-xs text-white">{property.views} views</span>
+                      <span className="text-xs text-white">{property.views_count} views</span>
                     </div>
                     <div className="flex items-center space-x-1 bg-black/50 backdrop-blur-sm rounded px-2 py-1">
                       <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
@@ -332,42 +373,42 @@ const Properties = () => {
                       </span>
                     </div>
                     
-                    <div className="flex items-center space-x-1 text-muted-foreground">
-                      <MapPin className="h-4 w-4" />
-                      <span className="text-sm">{property.location}</span>
-                    </div>
+                     <div className="flex items-center space-x-1 text-muted-foreground">
+                       <MapPin className="h-4 w-4" />
+                       <span className="text-sm">{property.city}, {property.state}</span>
+                     </div>
                   </div>
 
                   {/* Property Details */}
                   <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
-                    {property.beds && (
+                    {property.bedrooms && (
                       <div className="flex items-center space-x-1">
                         <Bed className="h-4 w-4" />
-                        <span>{property.beds} bed</span>
+                        <span>{property.bedrooms} bed</span>
                       </div>
                     )}
-                    {property.baths && (
+                    {property.bathrooms && (
                       <div className="flex items-center space-x-1">
                         <Bath className="h-4 w-4" />
-                        <span>{property.baths} bath</span>
+                        <span>{property.bathrooms} bath</span>
                       </div>
                     )}
-                    {property.size && (
+                    {property.size_sqft && (
                       <div className="flex items-center space-x-1">
                         <Square className="h-4 w-4" />
-                        <span>{property.size}</span>
+                        <span>{property.size_sqft.toLocaleString()} sq ft</span>
                       </div>
                     )}
-                    {property.employees && (
+                    {property.employee_count && (
                       <div className="flex items-center space-x-1">
                         <Users className="h-4 w-4" />
-                        <span>{property.employees} employees</span>
+                        <span>{property.employee_count} employees</span>
                       </div>
                     )}
-                    {property.revenue && (
+                    {property.annual_revenue && (
                       <div className="flex items-center space-x-1">
                         <DollarSign className="h-4 w-4" />
-                        <span>{property.revenue} revenue</span>
+                        <span>${(property.annual_revenue / 1000000).toFixed(1)}M revenue</span>
                       </div>
                     )}
                   </div>
@@ -395,7 +436,7 @@ const Properties = () => {
                       Visa Eligible:
                     </div>
                     <div className="flex flex-wrap gap-1">
-                      {property.visaEligible.map((visa, idx) => (
+                      {property.visa_eligible.map((visa, idx) => (
                         <Badge key={idx} variant="secondary" className="text-xs">
                           {visa}
                         </Badge>
@@ -419,6 +460,7 @@ const Properties = () => {
               </Card>
             ))}
           </div>
+          )}
 
           {/* Load More */}
           <div className="text-center mt-12">

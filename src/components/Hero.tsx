@@ -1,11 +1,14 @@
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import AnimatedCounter from './AnimatedCounter';
-import DualSearchBar from './DualSearchBar';
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useMarketData } from "@/hooks/useMarketData";
+import AnimatedCounter from "./AnimatedCounter";
+import MagneticButton from "./MagneticButton";
+import DualSearchBar from "./DualSearchBar";
+import { Badge } from "./ui/badge";
 import { Building, Users, MapPin, ArrowRight, Play } from 'lucide-react';
-import MagneticButton from './MagneticButton';
 
 const Hero = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  const { marketData, loading } = useMarketData();
 
   return (
     <section 
@@ -27,12 +30,12 @@ const Hero = () => {
             isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-20'
           }`}
         >
-          {/* Clean badge */}
+          {/* Enhanced badge with real-time indicator */}
           <div className="inline-block mb-8">
-            <span className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-space font-medium border border-accent/20">
-              <span className="w-2 h-2 bg-accent rounded-full animate-glow"></span>
-              Grupo Sineva Real Estate Division
-            </span>
+            <Badge className="bg-accent/10 text-accent px-6 py-3 text-sm font-space font-medium border border-accent/20 backdrop-blur-sm">
+              <span className="w-2 h-2 bg-accent rounded-full animate-glow mr-3"></span>
+              Premium Real Estate • International Investors
+            </Badge>
           </div>
           
           {/* Powerful headline */}
@@ -86,33 +89,65 @@ const Hero = () => {
             <DualSearchBar />
           </div>
 
-          {/* Clean stats grid */}
+          {/* Dynamic Statistics with real data */}
           <div 
             className={`grid grid-cols-3 gap-8 max-w-4xl mx-auto transition-all duration-1000 ${
               isVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
             style={{ animationDelay: '900ms' }}
           >
-            <div className="text-center group">
-              <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-                <AnimatedCounter end={2500} duration={2000} />+
-              </div>
-              <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Properties Sold</p>
-            </div>
-            
-            <div className="text-center group">
-              <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-                <AnimatedCounter end={95} duration={2000} />%
-              </div>
-              <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Client Satisfaction</p>
-            </div>
-            
-            <div className="text-center group">
-              <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-                <AnimatedCounter end={150} duration={2000} />+
-              </div>
-              <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Markets Served</p>
-            </div>
+            {loading ? (
+              // Loading placeholders
+              Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="text-center group">
+                  <div className="text-3xl sm:text-4xl font-clash font-bold mb-2">
+                    <div className="h-10 bg-muted/30 rounded animate-pulse"></div>
+                  </div>
+                  <div className="h-4 bg-muted/20 rounded animate-pulse"></div>
+                </div>
+              ))
+            ) : marketData.length > 0 ? (
+              // Dynamic market data
+              marketData.slice(0, 3).map((metric, index) => (
+                <div key={metric.id} className="text-center group">
+                  <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                    <AnimatedCounter 
+                      end={metric.metric_value} 
+                      suffix={metric.metric_suffix}
+                      delay={index * 200}
+                      duration={2000}
+                    />
+                  </div>
+                  <p className="text-muted-foreground font-satoshi text-sm sm:text-base capitalize">
+                    {metric.metric_name.replace(/_/g, ' ')}
+                  </p>
+                </div>
+              ))
+            ) : (
+              // Fallback static data
+              <>
+                <div className="text-center group">
+                  <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                    <AnimatedCounter end={2500} duration={2000} />+
+                  </div>
+                  <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Properties Sold</p>
+                </div>
+                
+                <div className="text-center group">
+                  <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                    <AnimatedCounter end={95} duration={2000} />%
+                  </div>
+                  <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Client Satisfaction</p>
+                </div>
+                
+                <div className="text-center group">
+                  <div className="text-3xl sm:text-4xl font-clash font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+                    <AnimatedCounter end={150} duration={2000} />+
+                  </div>
+                  <p className="text-muted-foreground font-satoshi text-sm sm:text-base">Markets Served</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
