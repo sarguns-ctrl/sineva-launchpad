@@ -67,7 +67,7 @@ export const AdminDashboard: React.FC = () => {
         supabase.from('employee_profiles').select('*', { count: 'exact', head: true }).eq('is_active', true),
         supabase.from('leads').select('*').in('lead_status', ['new', 'contacted', 'qualified']),
         supabase.from('agent_commissions').select('*').eq('status', 'pending'),
-        supabase.from('system_notifications').select('*', { count: 'exact', head: true }).eq('is_active', true)
+        supabase.from('notifications').select('*', { count: 'exact', head: true }).eq('is_read', false)
       ]);
 
       // Calculate total revenue from commissions
@@ -83,19 +83,19 @@ export const AdminDashboard: React.FC = () => {
         systemAlerts: alertsCount || 0
       });
 
-      // Load recent activity (simplified for demo)
-      const { data: activityData } = await supabase
-        .from('user_activity')
-        .select('*')
+      // Load recent activity from available tables
+      const { data: recentLeads } = await supabase
+        .from('leads')
+        .select('id, lead_source, created_at, lead_status')
         .order('created_at', { ascending: false })
-        .limit(10);
+        .limit(5);
 
-      if (activityData) {
-        const formattedActivity = activityData.map(activity => ({
-          id: activity.id,
-          type: activity.activity_type,
-          description: `User performed ${activity.activity_type}`,
-          timestamp: activity.created_at,
+      if (recentLeads) {
+        const formattedActivity = recentLeads.map(lead => ({
+          id: lead.id,
+          type: lead.lead_status || 'lead',
+          description: `New lead from ${lead.lead_source}`,
+          timestamp: lead.created_at,
           priority: 'normal'
         }));
         setRecentActivity(formattedActivity);
@@ -114,10 +114,10 @@ export const AdminDashboard: React.FC = () => {
   const setupRealTimeUpdates = () => {
     const channel = supabase
       .channel('admin-dashboard')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_activity' }, () => {
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, () => {
         loadDashboardData();
       })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'leads' }, () => {
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'properties' }, () => {
         loadDashboardData();
       })
       .subscribe();
