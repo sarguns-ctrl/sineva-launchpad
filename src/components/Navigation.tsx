@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
 import LanguageSwitcher from './LanguageSwitcher';
 import MagneticButton from './MagneticButton';
 import { useAuth } from '@/hooks/useAuth';
-import { Menu, X, Phone, Mail, User, LogOut } from 'lucide-react';
+import { Menu, X, Phone, User, LogOut, ChevronDown } from 'lucide-react';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,11 +13,15 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: 'Properties', href: '/properties' },
-    { name: 'AI Search', href: '/ai-search' },
+    { name: 'Businesses', href: '/businesses' },
     { name: 'Services', href: '/services' },
-    { name: 'Agents', href: '/agents' },
     { name: 'Market Insights', href: '/insights' },
-    { name: 'About', href: '/about' },
+    { name: 'Franchise with Us', href: '/franchise' },
+  ];
+
+  const agentItems = [
+    { name: 'Find an Agent', href: '/agents' },
+    { name: 'Join as Agent', href: '/join-team' },
   ];
 
   return (
@@ -38,19 +43,62 @@ const Navigation = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation with asymmetric spacing */}
+          {/* Desktop Navigation with dropdown */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigationItems.map((item, index) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
+            <NavigationMenu>
+              <NavigationMenuList className="flex items-center space-x-8">
+                {navigationItems.slice(0, 3).map((item, index) => (
+                  <NavigationMenuItem key={item.name}>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        to={item.href}
+                        className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
+                        style={{ animationDelay: `${index * 100}ms` }}
+                      >
+                        {item.name}
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
+                
+                {/* Agents Dropdown */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 bg-transparent hover:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
+                    Agents
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="p-2 w-48">
+                      {agentItems.map((item) => (
+                        <NavigationMenuLink key={item.name} asChild>
+                          <Link
+                            to={item.href}
+                            className="block px-3 py-2 text-sm text-foreground hover:text-accent hover:bg-accent/10 rounded-md transition-colors"
+                          >
+                            {item.name}
+                          </Link>
+                        </NavigationMenuLink>
+                      ))}
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                {navigationItems.slice(3).map((item, index) => (
+                  <NavigationMenuItem key={item.name}>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        to={item.href}
+                        className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
+                        style={{ animationDelay: `${(index + 4) * 100}ms` }}
+                      >
+                        {item.name}
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
 
           {/* Desktop CTAs with new design */}
@@ -119,6 +167,24 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            
+            {/* Mobile Agents Section */}
+            <div className="space-y-2">
+              <div className="font-space text-base font-medium text-foreground py-2 border-b border-border/30">
+                Agents
+              </div>
+              {agentItems.map((item, index) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="block font-space text-sm text-muted-foreground hover:text-accent transition-all duration-300 py-2 pl-4"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{ animationDelay: `${(navigationItems.length + index) * 50}ms` }}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
             
             <div className="pt-4 space-y-3">
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">

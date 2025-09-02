@@ -37,6 +37,7 @@ import GlobalPresence from "./pages/GlobalPresence";
 import Careers from "./pages/Careers";
 import PressMedia from "./pages/PressMedia";
 import LegalDocuments from "./pages/LegalDocuments";
+import FranchiseWithUs from "./pages/FranchiseWithUs";
 import { PropertySearch } from "@/components/PropertySearch";
 import { UserDashboard } from "@/components/UserDashboard";
 import { MortgageCalculator } from "@/components/MortgageCalculator";
@@ -96,6 +97,7 @@ const App = () => (
         <Route path="/commercial-real-estate" element={<CommercialRealEstate />} />
         <Route path="/residential-properties" element={<ResidentialProperties />} />
         <Route path="/international-services" element={<InternationalServices />} />
+        <Route path="/businesses" element={<BusinessBrokerage />} />
         <Route path="/join-team" element={<JoinTeam />} />
         <Route path="/commission-structure" element={<CommissionStructure />} />
         <Route path="/agent-packages" element={<AgentPackages />} />
@@ -105,6 +107,7 @@ const App = () => (
         <Route path="/careers" element={<Careers />} />
         <Route path="/press-media" element={<PressMedia />} />
         <Route path="/legal-documents" element={<LegalDocuments />} />
+        <Route path="/franchise" element={<FranchiseWithUs />} />
         <Route path="/help" element={<HelpCenter />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
