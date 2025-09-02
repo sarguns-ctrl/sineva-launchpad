@@ -1,0 +1,1461 @@
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "13.0.4"
+  }
+  public: {
+    Tables: {
+      ai_training_sessions: {
+        Row: {
+          ai_response: string | null
+          created_at: string
+          id: string
+          module_id: string
+          prompt: string | null
+          session_data: Json | null
+          session_type: string
+          user_feedback: number | null
+          user_id: string
+        }
+        Insert: {
+          ai_response?: string | null
+          created_at?: string
+          id?: string
+          module_id: string
+          prompt?: string | null
+          session_data?: Json | null
+          session_type: string
+          user_feedback?: number | null
+          user_id: string
+        }
+        Update: {
+          ai_response?: string | null
+          created_at?: string
+          id?: string
+          module_id?: string
+          prompt?: string | null
+          session_data?: Json | null
+          session_type?: string
+          user_feedback?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_training_sessions_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "training_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brand_profiles: {
+        Row: {
+          accent_color: string | null
+          created_at: string
+          description: string | null
+          font_family: string | null
+          id: string
+          industry: string | null
+          keywords: string[] | null
+          logo_url: string | null
+          name: string
+          primary_color: string | null
+          secondary_color: string | null
+          target_audience: string | null
+          tone_of_voice: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          accent_color?: string | null
+          created_at?: string
+          description?: string | null
+          font_family?: string | null
+          id?: string
+          industry?: string | null
+          keywords?: string[] | null
+          logo_url?: string | null
+          name: string
+          primary_color?: string | null
+          secondary_color?: string | null
+          target_audience?: string | null
+          tone_of_voice?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          accent_color?: string | null
+          created_at?: string
+          description?: string | null
+          font_family?: string | null
+          id?: string
+          industry?: string | null
+          keywords?: string[] | null
+          logo_url?: string | null
+          name?: string
+          primary_color?: string | null
+          secondary_color?: string | null
+          target_audience?: string | null
+          tone_of_voice?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      certificate_templates: {
+        Row: {
+          background_image_url: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          is_active: boolean
+          is_default: boolean
+          name: string
+          template_data: Json
+          updated_at: string
+        }
+        Insert: {
+          background_image_url?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_default?: boolean
+          name: string
+          template_data?: Json
+          updated_at?: string
+        }
+        Update: {
+          background_image_url?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_default?: boolean
+          name?: string
+          template_data?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      content_assets: {
+        Row: {
+          asset_format: string | null
+          asset_type: string
+          asset_url: string
+          created_at: string
+          generation_prompt: string | null
+          id: string
+          post_id: string | null
+          user_id: string
+        }
+        Insert: {
+          asset_format?: string | null
+          asset_type: string
+          asset_url: string
+          created_at?: string
+          generation_prompt?: string | null
+          id?: string
+          post_id?: string | null
+          user_id: string
+        }
+        Update: {
+          asset_format?: string | null
+          asset_type?: string
+          asset_url?: string
+          created_at?: string
+          generation_prompt?: string | null
+          id?: string
+          post_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_assets_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      custom_training_paths: {
+        Row: {
+          created_at: string
+          description: string | null
+          employee_profile_id: string | null
+          estimated_completion_weeks: number | null
+          id: string
+          is_active: boolean | null
+          modules_sequence: Json | null
+          path_name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          employee_profile_id?: string | null
+          estimated_completion_weeks?: number | null
+          id?: string
+          is_active?: boolean | null
+          modules_sequence?: Json | null
+          path_name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          employee_profile_id?: string | null
+          estimated_completion_weeks?: number | null
+          id?: string
+          is_active?: boolean | null
+          modules_sequence?: Json | null
+          path_name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "custom_training_paths_employee_profile_id_fkey"
+            columns: ["employee_profile_id"]
+            isOneToOne: false
+            referencedRelation: "employee_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      departments: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      documents: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          document_type: Database["public"]["Enums"]["document_type"] | null
+          employee_id: string | null
+          file_path: string
+          file_size: number | null
+          file_type: string
+          id: string
+          is_training_material: boolean | null
+          tags: string[] | null
+          title: string
+          training_record_id: string | null
+          updated_at: string | null
+          uploaded_by: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          document_type?: Database["public"]["Enums"]["document_type"] | null
+          employee_id?: string | null
+          file_path: string
+          file_size?: number | null
+          file_type: string
+          id?: string
+          is_training_material?: boolean | null
+          tags?: string[] | null
+          title: string
+          training_record_id?: string | null
+          updated_at?: string | null
+          uploaded_by: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          document_type?: Database["public"]["Enums"]["document_type"] | null
+          employee_id?: string | null
+          file_path?: string
+          file_size?: number | null
+          file_type?: string
+          id?: string
+          is_training_material?: boolean | null
+          tags?: string[] | null
+          title?: string
+          training_record_id?: string | null
+          updated_at?: string | null
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employee_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_training_record_id_fkey"
+            columns: ["training_record_id"]
+            isOneToOne: false
+            referencedRelation: "training_progress"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employee_certificates: {
+        Row: {
+          certificate_data: Json
+          created_at: string
+          employee_id: string
+          id: string
+          issued_at: string
+          module_id: string
+          pdf_url: string | null
+          template_id: string
+        }
+        Insert: {
+          certificate_data?: Json
+          created_at?: string
+          employee_id: string
+          id?: string
+          issued_at?: string
+          module_id: string
+          pdf_url?: string | null
+          template_id: string
+        }
+        Update: {
+          certificate_data?: Json
+          created_at?: string
+          employee_id?: string
+          id?: string
+          issued_at?: string
+          module_id?: string
+          pdf_url?: string | null
+          template_id?: string
+        }
+        Relationships: []
+      }
+      employee_documents_new: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          document_type: string | null
+          employee_id: string
+          file_path: string
+          file_size: number | null
+          file_type: string
+          id: string
+          is_training_material: boolean | null
+          tags: string[] | null
+          title: string
+          training_record_id: string | null
+          updated_at: string | null
+          uploaded_by: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          document_type?: string | null
+          employee_id: string
+          file_path: string
+          file_size?: number | null
+          file_type: string
+          id?: string
+          is_training_material?: boolean | null
+          tags?: string[] | null
+          title: string
+          training_record_id?: string | null
+          updated_at?: string | null
+          uploaded_by: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          document_type?: string | null
+          employee_id?: string
+          file_path?: string
+          file_size?: number | null
+          file_type?: string
+          id?: string
+          is_training_material?: boolean | null
+          tags?: string[] | null
+          title?: string
+          training_record_id?: string | null
+          updated_at?: string | null
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_documents_new_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employee_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employee_invitations: {
+        Row: {
+          created_at: string | null
+          department_id: string | null
+          email: string
+          expires_at: string | null
+          full_name: string
+          id: string
+          invited_by: string
+          is_used: boolean | null
+          position: string | null
+          temporary_password: string
+        }
+        Insert: {
+          created_at?: string | null
+          department_id?: string | null
+          email: string
+          expires_at?: string | null
+          full_name: string
+          id?: string
+          invited_by: string
+          is_used?: boolean | null
+          position?: string | null
+          temporary_password: string
+        }
+        Update: {
+          created_at?: string | null
+          department_id?: string | null
+          email?: string
+          expires_at?: string | null
+          full_name?: string
+          id?: string
+          invited_by?: string
+          is_used?: boolean | null
+          position?: string | null
+          temporary_password?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_invitations_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employee_profiles: {
+        Row: {
+          career_goals: string | null
+          created_at: string
+          current_skill_level: string | null
+          department_id: string | null
+          email: string
+          employee_id: string | null
+          full_name: string
+          hire_date: string | null
+          id: string
+          is_active: boolean
+          learning_preferences: string | null
+          manager_id: string | null
+          onboarding_completed: boolean | null
+          onboarding_modules: Json | null
+          position: string | null
+          preferred_learning_style: string | null
+          previous_training: string[] | null
+          updated_at: string
+          user_id: string
+          years_experience: number | null
+        }
+        Insert: {
+          career_goals?: string | null
+          created_at?: string
+          current_skill_level?: string | null
+          department_id?: string | null
+          email: string
+          employee_id?: string | null
+          full_name: string
+          hire_date?: string | null
+          id?: string
+          is_active?: boolean
+          learning_preferences?: string | null
+          manager_id?: string | null
+          onboarding_completed?: boolean | null
+          onboarding_modules?: Json | null
+          position?: string | null
+          preferred_learning_style?: string | null
+          previous_training?: string[] | null
+          updated_at?: string
+          user_id: string
+          years_experience?: number | null
+        }
+        Update: {
+          career_goals?: string | null
+          created_at?: string
+          current_skill_level?: string | null
+          department_id?: string | null
+          email?: string
+          employee_id?: string | null
+          full_name?: string
+          hire_date?: string | null
+          id?: string
+          is_active?: boolean
+          learning_preferences?: string | null
+          manager_id?: string | null
+          onboarding_completed?: boolean | null
+          onboarding_modules?: Json | null
+          position?: string | null
+          preferred_learning_style?: string | null
+          previous_training?: string[] | null
+          updated_at?: string
+          user_id?: string
+          years_experience?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_profiles_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employee_profiles_manager_id_fkey"
+            columns: ["manager_id"]
+            isOneToOne: false
+            referencedRelation: "employee_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_base: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string | null
+          created_by: string
+          id: string
+          is_published: boolean | null
+          tags: string[] | null
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          category?: string | null
+          content: string
+          created_at?: string | null
+          created_by: string
+          id?: string
+          is_published?: boolean | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          is_published?: boolean | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      notification_templates: {
+        Row: {
+          created_at: string
+          email_body: string
+          email_subject: string
+          id: string
+          is_active: boolean
+          push_body: string | null
+          push_title: string | null
+          template_name: string
+          updated_at: string
+          variables: Json | null
+        }
+        Insert: {
+          created_at?: string
+          email_body: string
+          email_subject: string
+          id?: string
+          is_active?: boolean
+          push_body?: string | null
+          push_title?: string | null
+          template_name: string
+          updated_at?: string
+          variables?: Json | null
+        }
+        Update: {
+          created_at?: string
+          email_body?: string
+          email_subject?: string
+          id?: string
+          is_active?: boolean
+          push_body?: string | null
+          push_title?: string | null
+          template_name?: string
+          updated_at?: string
+          variables?: Json | null
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          action_url: string | null
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          metadata: Json | null
+          priority: string | null
+          title: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          action_url?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          metadata?: Json | null
+          priority?: string | null
+          title: string
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          action_url?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          metadata?: Json | null
+          priority?: string | null
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      onboarding_steps: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          is_completed: boolean | null
+          step_name: string
+          step_order: number
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          is_completed?: boolean | null
+          step_name: string
+          step_order: number
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          is_completed?: boolean | null
+          step_name?: string
+          step_order?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      post_analytics: {
+        Row: {
+          clicks: number | null
+          comments: number | null
+          created_at: string
+          engagement_rate: number | null
+          id: string
+          impressions: number | null
+          last_updated: string | null
+          likes: number | null
+          platform: string
+          post_id: string
+          reach: number | null
+          shares: number | null
+        }
+        Insert: {
+          clicks?: number | null
+          comments?: number | null
+          created_at?: string
+          engagement_rate?: number | null
+          id?: string
+          impressions?: number | null
+          last_updated?: string | null
+          likes?: number | null
+          platform: string
+          post_id: string
+          reach?: number | null
+          shares?: number | null
+        }
+        Update: {
+          clicks?: number | null
+          comments?: number | null
+          created_at?: string
+          engagement_rate?: number | null
+          id?: string
+          impressions?: number | null
+          last_updated?: string | null
+          likes?: number | null
+          platform?: string
+          post_id?: string
+          reach?: number | null
+          shares?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_analytics_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      posts: {
+        Row: {
+          brand_profile_id: string | null
+          created_at: string
+          has_image: boolean | null
+          has_video: boolean | null
+          id: string
+          output_text: string
+          platform: string
+          post_url: string | null
+          published_platforms: string[] | null
+          scheduled_at: string | null
+          status: string | null
+          topic: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          brand_profile_id?: string | null
+          created_at?: string
+          has_image?: boolean | null
+          has_video?: boolean | null
+          id?: string
+          output_text: string
+          platform: string
+          post_url?: string | null
+          published_platforms?: string[] | null
+          scheduled_at?: string | null
+          status?: string | null
+          topic: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          brand_profile_id?: string | null
+          created_at?: string
+          has_image?: boolean | null
+          has_video?: boolean | null
+          id?: string
+          output_text?: string
+          platform?: string
+          post_url?: string | null
+          published_platforms?: string[] | null
+          scheduled_at?: string | null
+          status?: string | null
+          topic?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_brand_profile_id_fkey"
+            columns: ["brand_profile_id"]
+            isOneToOne: false
+            referencedRelation: "brand_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      quiz_attempts: {
+        Row: {
+          attempt_number: number
+          completed_at: string | null
+          created_at: string
+          id: string
+          module_id: string
+          passed: boolean
+          percentage: number
+          questions_data: Json
+          score: number
+          started_at: string
+          total_questions: number
+          user_answers: Json
+          user_id: string
+        }
+        Insert: {
+          attempt_number?: number
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          module_id: string
+          passed?: boolean
+          percentage: number
+          questions_data: Json
+          score: number
+          started_at?: string
+          total_questions: number
+          user_answers: Json
+          user_id: string
+        }
+        Update: {
+          attempt_number?: number
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          module_id?: string
+          passed?: boolean
+          percentage?: number
+          questions_data?: Json
+          score?: number
+          started_at?: string
+          total_questions?: number
+          user_answers?: Json
+          user_id?: string
+        }
+        Relationships: []
+      }
+      quiz_questions: {
+        Row: {
+          correct_answer: string
+          created_at: string
+          explanation: string | null
+          id: string
+          module_id: string
+          options: Json | null
+          question_order: number | null
+          question_text: string
+          question_type: string
+          updated_at: string
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          module_id: string
+          options?: Json | null
+          question_order?: number | null
+          question_text: string
+          question_type?: string
+          updated_at?: string
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          module_id?: string
+          options?: Json | null
+          question_order?: number | null
+          question_text?: string
+          question_type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      social_accounts: {
+        Row: {
+          access_token: string | null
+          account_name: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          platform: string
+          refresh_token: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          account_name: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          platform: string
+          refresh_token?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          account_name?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          platform?: string
+          refresh_token?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          generations_limit: number | null
+          generations_used: number | null
+          id: string
+          stripe_customer_id: string | null
+          subscribed: boolean
+          subscription_end: string | null
+          subscription_tier: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          generations_limit?: number | null
+          generations_used?: number | null
+          id?: string
+          stripe_customer_id?: string | null
+          subscribed?: boolean
+          subscription_end?: string | null
+          subscription_tier?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          generations_limit?: number | null
+          generations_used?: number | null
+          id?: string
+          stripe_customer_id?: string | null
+          subscribed?: boolean
+          subscription_end?: string | null
+          subscription_tier?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      training_modules: {
+        Row: {
+          content: string | null
+          created_at: string
+          created_by: string | null
+          department_id: string | null
+          description: string | null
+          difficulty_level: string | null
+          estimated_duration: number | null
+          id: string
+          is_active: boolean
+          is_mandatory: boolean
+          max_attempts: number
+          quiz_pass_percentage: number
+          quiz_questions_count: number
+          requires_quiz: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          description?: string | null
+          difficulty_level?: string | null
+          estimated_duration?: number | null
+          id?: string
+          is_active?: boolean
+          is_mandatory?: boolean
+          max_attempts?: number
+          quiz_pass_percentage?: number
+          quiz_questions_count?: number
+          requires_quiz?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          description?: string | null
+          difficulty_level?: string | null
+          estimated_duration?: number | null
+          id?: string
+          is_active?: boolean
+          is_mandatory?: boolean
+          max_attempts?: number
+          quiz_pass_percentage?: number
+          quiz_questions_count?: number
+          requires_quiz?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_modules_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      training_progress: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          module_id: string
+          progress_percentage: number | null
+          quiz_attempts: number
+          quiz_completed: boolean
+          quiz_passed: boolean
+          quiz_score: number | null
+          score: number | null
+          started_at: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          module_id: string
+          progress_percentage?: number | null
+          quiz_attempts?: number
+          quiz_completed?: boolean
+          quiz_passed?: boolean
+          quiz_score?: number | null
+          score?: number | null
+          started_at?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          module_id?: string
+          progress_percentage?: number | null
+          quiz_attempts?: number
+          quiz_completed?: boolean
+          quiz_passed?: boolean
+          quiz_score?: number | null
+          score?: number | null
+          started_at?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_progress_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "training_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      training_submodules: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          estimated_duration: number | null
+          id: string
+          is_required: boolean | null
+          module_id: string
+          sub_module_order: number
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          estimated_duration?: number | null
+          id?: string
+          is_required?: boolean | null
+          module_id: string
+          sub_module_order?: number
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          estimated_duration?: number | null
+          id?: string
+          is_required?: boolean | null
+          module_id?: string
+          sub_module_order?: number
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_submodules_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "training_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          assigned_at: string | null
+          assigned_by: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      webhook_settings: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          updated_at: string
+          user_id: string
+          webhook_type: string
+          webhook_url: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          user_id: string
+          webhook_type: string
+          webhook_url: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          user_id?: string
+          webhook_type?: string
+          webhook_url?: string
+        }
+        Relationships: []
+      }
+    }
+    Views: {
+      employee_documents: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          document_type: Database["public"]["Enums"]["document_type"] | null
+          employee_email: string | null
+          employee_id: string | null
+          employee_name: string | null
+          file_path: string | null
+          file_size: number | null
+          file_type: string | null
+          id: string | null
+          is_training_material: boolean | null
+          tags: string[] | null
+          title: string | null
+          training_module_title: string | null
+          training_record_id: string | null
+          training_status: string | null
+          updated_at: string | null
+          uploaded_by: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employee_profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_training_record_id_fkey"
+            columns: ["training_record_id"]
+            isOneToOne: false
+            referencedRelation: "training_progress"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+    }
+    Functions: {
+      create_notification: {
+        Args: {
+          p_action_url?: string
+          p_message: string
+          p_metadata?: Json
+          p_priority?: string
+          p_title: string
+          p_type: string
+          p_user_id: string
+        }
+        Returns: string
+      }
+      get_current_user_email: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      get_user_role: {
+        Args: { _user_id: string }
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+    }
+    Enums: {
+      app_role: "admin" | "hr" | "manager" | "employee"
+      document_type:
+        | "general"
+        | "employee_record"
+        | "training_certificate"
+        | "performance_review"
+        | "policy_acknowledgment"
+        | "training_material"
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+}
+
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+
+export type Tables<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
+
+export type TablesInsert<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
+
+export type TablesUpdate<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
+
+export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
+
+export const Constants = {
+  public: {
+    Enums: {
+      app_role: ["admin", "hr", "manager", "employee"],
+      document_type: [
+        "general",
+        "employee_record",
+        "training_certificate",
+        "performance_review",
+        "policy_acknowledgment",
+        "training_material",
+      ],
+    },
+  },
+} as const
