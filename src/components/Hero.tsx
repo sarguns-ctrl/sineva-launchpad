@@ -3,8 +3,9 @@ import { useMarketData } from "@/hooks/useMarketData";
 import AnimatedCounter from "./AnimatedCounter";
 import MagneticButton from "./MagneticButton";
 import DualSearchBar from "./DualSearchBar";
+import InteractivePropertyFinder from "./InteractivePropertyFinder";
 import { Badge } from "./ui/badge";
-import { Building, Users, MapPin, ArrowRight, Play } from 'lucide-react';
+import { Building, Users, MapPin, ArrowRight, Play, TrendingUp, Award, Globe } from 'lucide-react';
 
 const Hero = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
@@ -15,13 +16,15 @@ const Hero = () => {
       ref={elementRef} 
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Simplified background with subtle gradient */}
+      {/* Enhanced background with subtle gradient mesh */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/10" />
+      <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
       
-      {/* Subtle geometric accents */}
+      {/* Dynamic geometric accents */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-48 h-48 bg-primary/5 rounded-full blur-2xl" />
+        <div className="absolute top-20 right-20 w-64 h-64 bg-accent/8 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 left-20 w-48 h-48 bg-primary/8 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/3 rounded-full blur-3xl" />
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,29 +35,52 @@ const Hero = () => {
         >
           {/* Enhanced badge with real-time indicator */}
           <div className="inline-block mb-8">
-            <Badge className="bg-accent/10 text-accent px-6 py-3 text-sm font-space font-medium border border-accent/20 backdrop-blur-sm">
-              <span className="w-2 h-2 bg-accent rounded-full animate-glow mr-3"></span>
-              Premium Real Estate • International Investors
+            <Badge className="bg-accent/15 text-accent px-6 py-3 text-sm font-space font-medium border border-accent/30 backdrop-blur-sm hover:bg-accent/20 transition-all duration-300 group cursor-default">
+              <div className="flex items-center space-x-3">
+                <span className="w-2 h-2 bg-accent rounded-full animate-glow"></span>
+                <span>Premium Real Estate • International Investors</span>
+                <TrendingUp className="w-3 h-3 group-hover:scale-110 transition-transform" />
+              </div>
             </Badge>
           </div>
           
-          {/* Powerful headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-clash font-bold text-primary mb-6 leading-[0.9]">
+          {/* Powerful headline with enhanced typography */}
+          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-clash font-bold text-primary mb-8 leading-[0.85]">
             Premium Real Estate
             <br />
-            <span className="text-accent">Made Simple</span>
+            <span className="text-accent bg-gradient-accent bg-clip-text text-transparent">
+              Made Simple
+            </span>
           </h1>
           
-          {/* Clear value proposition */}
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 font-satoshi leading-relaxed">
-            Connect with North America's most trusted real estate professionals. 
-            <br className="hidden sm:block" />
-            <span className="text-primary font-medium">20+ years of expertise</span> backing every transaction.
-          </p>
+          {/* Enhanced value proposition with social proof */}
+          <div className="space-y-4 mb-12">
+            <p className="text-xl sm:text-2xl text-muted-foreground max-w-4xl mx-auto font-satoshi leading-relaxed">
+              Connect with North America's most trusted real estate professionals.
+              <br className="hidden sm:block" />
+              <span className="text-primary font-medium">20+ years of expertise</span> backing every transaction.
+            </p>
+            
+            {/* Live social proof */}
+            <div className="flex items-center justify-center space-x-6 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-2">
+                <Award className="w-4 h-4 text-accent" />
+                <span>Licensed Professionals</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Users className="w-4 h-4 text-accent" />
+                <span>500+ Successful Investors</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Globe className="w-4 h-4 text-accent" />
+                <span>15+ Countries Served</span>
+              </div>
+            </div>
+          </div>
 
-          {/* Clean CTA section */}
+          {/* Enhanced CTA section with hover effects */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 transition-all duration-1000 ${
+            className={`flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 transition-all duration-1000 ${
               isVisible ? 'animate-scale-in' : 'opacity-0 scale-95'
             }`}
             style={{ animationDelay: '300ms' }}
@@ -62,31 +88,32 @@ const Hero = () => {
             <MagneticButton 
               variant="accent" 
               size="lg"
-              className="shadow-accent group"
+              className="shadow-accent group relative overflow-hidden"
             >
               <Building className="w-5 h-5" />
               Browse Properties
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             </MagneticButton>
             
             <MagneticButton 
               variant="outline" 
               size="lg"
-              className="border-primary/20 hover:bg-primary/5"
+              className="border-primary/30 hover:bg-primary/10 backdrop-blur-sm group"
             >
-              <Play className="w-4 h-4" />
+              <Play className="w-4 h-4 group-hover:scale-110 transition-transform" />
               Watch Our Story
             </MagneticButton>
           </div>
 
-          {/* Search bar */}
+          {/* Interactive Property Finder */}
           <div 
             className={`mb-16 transition-all duration-1000 ${
               isVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
             style={{ animationDelay: '600ms' }}
           >
-            <DualSearchBar />
+            <InteractivePropertyFinder />
           </div>
 
           {/* Dynamic Statistics with real data */}
