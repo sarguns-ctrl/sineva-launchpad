@@ -10,7 +10,7 @@ const DynamicStatsSection = () => {
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-muted/30">
+      <section className="py-12 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Array.from({ length: 6 }).map((_, index) => (
@@ -27,7 +27,7 @@ const DynamicStatsSection = () => {
   }
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-12 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Dynamic Stats Cards */}
         <div 

@@ -138,7 +138,7 @@ const PersonalizationEngine = () => {
   }
 
   return (
-    <section className="py-16 bg-muted/20">
+    <section className="py-12 bg-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <Badge className="bg-accent/15 text-accent mb-4">

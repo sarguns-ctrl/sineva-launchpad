@@ -112,7 +112,7 @@ const TestimonialCarousel = () => {
   return (
     <section 
       ref={elementRef}
-      className="py-20 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden"
+      className="py-16 bg-gradient-to-br from-muted/30 to-background relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
