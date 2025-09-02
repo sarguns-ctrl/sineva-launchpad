@@ -109,6 +109,17 @@ const Services = () => {
                 <Button 
                   variant="outline" 
                   className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105 transition-all duration-300 border-primary/20 hover:border-primary"
+                  onClick={() => {
+                    const serviceRoutes = {
+                      "Business Brokerage": "/business-brokerage",
+                      "Commercial Real Estate": "/commercial-real-estate", 
+                      "Residential Properties": "/residential-properties",
+                      "International Services": "/international-services",
+                      "Concierge Services": "/concierge-services",
+                      "Investment Advisory": "/investment-advisory"
+                    };
+                    window.location.href = serviceRoutes[service.title] || '/services';
+                  }}
                 >
                   Learn More
                 </Button>
