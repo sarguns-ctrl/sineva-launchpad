@@ -41,12 +41,13 @@ import Careers from "./pages/Careers";
 import PressMedia from "./pages/PressMedia";
 import LegalDocuments from "./pages/LegalDocuments";
 import FranchiseWithUs from "./pages/FranchiseWithUs";
-import { PropertySearch } from "@/components/PropertySearch";
-import { UserDashboard } from "@/components/UserDashboard";
-import { MortgageCalculator } from "@/components/MortgageCalculator";
+import PropertySearchPage from "./pages/PropertySearchPage";
+import UserDashboardPage from "./pages/UserDashboardPage";
+import MortgageCalculatorPage from "./pages/MortgageCalculatorPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
 import { MessagingCenter } from "@/components/MessagingCenter";
 import { AppointmentScheduler } from "@/components/AppointmentScheduler";
-import { AdminDashboard } from "@/components/AdminDashboard";
+
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { LeadManagement } from "@/components/LeadManagement";
 import { EmailCampaignManager } from "@/components/EmailCampaignManager";
@@ -74,16 +75,20 @@ const App = () => (
           <Route path="/agents" element={<Agents />} />
           <Route path="/properties" element={<Properties />} />
           <Route path="/insights" element={<MarketInsights />} />
+          <Route path="/insights/trends" element={<MarketInsights />} />
+          <Route path="/insights/economic" element={<MarketInsights />} />
+          <Route path="/insights/cities" element={<MarketInsights />} />
+          <Route path="/insights/forecast" element={<MarketInsights />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
-          <Route path="/search" element={<PropertySearch />} />
+          <Route path="/search" element={<PropertySearchPage />} />
           <Route path="/ai-search" element={<AISearch />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/calculator" element={<MortgageCalculator />} />
+          <Route path="/dashboard" element={<UserDashboardPage />} />
+          <Route path="/calculator" element={<MortgageCalculatorPage />} />
           <Route path="/messages" element={<MessagingCenter />} />
           <Route path="/appointments" element={<AppointmentScheduler />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path="/analytics" element={<AnalyticsDashboard />} />
           <Route path="/leads" element={<LeadManagement />} />
           <Route path="/campaigns" element={<EmailCampaignManager />} />

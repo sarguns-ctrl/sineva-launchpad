@@ -56,12 +56,10 @@ const NavigationValidator = () => {
     '/list-business'
   ];
 
-  // Navigation menu items that should match routes
+  // Navigation menu items that should match routes (aligned with actual Navigation.tsx)
   const navigationItems = [
     { name: 'Properties', href: '/properties' },
     { name: 'Businesses', href: '/businesses' },
-    { name: 'Services', href: '/services' },
-    { name: 'Market Insights', href: '/insights' },
     { name: 'Franchise with Us', href: '/franchise' },
   ];
 

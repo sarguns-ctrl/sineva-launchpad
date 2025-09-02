@@ -26,6 +26,8 @@ const Navigation = () => {
 
   const servicesItems = [
     { name: 'All Services', href: '/services' },
+    { name: 'Commercial Real Estate', href: '/commercial-real-estate' },
+    { name: 'Residential Properties', href: '/residential-properties' },
     { name: 'Concierge Services', href: '/concierge-services' },
     { name: 'Investment Advisory', href: '/investment-advisory' },
     { name: 'International Services', href: '/international-services' },
