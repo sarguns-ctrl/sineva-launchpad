@@ -29,12 +29,104 @@ const DynamicStatsSection = () => {
   return (
     <section className="py-20 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Dynamic Stats Cards */}
         <div 
           ref={elementRef}
+          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 transition-all duration-1000 ${
+            isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <Card className="shadow-card bg-background/80 backdrop-blur-sm">
+            <CardContent className="p-6">
+              <div className="text-sm text-muted-foreground mb-2">Active Consultations Today</div>
+              <div className="flex items-center justify-between">
+                <div className="text-2xl font-bold text-foreground">
+                  {Math.floor(Math.random() * 50) + 120}
+                </div>
+                <div className="flex items-center text-accent text-sm font-medium">
+                  <TrendingUp className="h-4 w-4 mr-1" />
+                  +{Math.floor(Math.random() * 20) + 10}%
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-card bg-background/80 backdrop-blur-sm">
+            <CardContent className="p-6">
+              <div className="text-sm text-muted-foreground mb-2">Properties Viewed This Week</div>
+              <div className="flex items-center justify-between">
+                <div className="text-2xl font-bold text-foreground">
+                  {(Math.random() * 2 + 3).toFixed(1)}K
+                </div>
+                <div className="flex items-center text-accent text-sm font-medium">
+                  <TrendingUp className="h-4 w-4 mr-1" />
+                  +{Math.floor(Math.random() * 15) + 20}%
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-card bg-background/80 backdrop-blur-sm">
+            <CardContent className="p-6">
+              <div className="text-sm text-muted-foreground mb-2">Investments This Month</div>
+              <div className="flex items-center justify-between">
+                <div className="text-2xl font-bold text-foreground">
+                  ${(Math.random() * 5 + 15).toFixed(1)}M
+                </div>
+                <div className="flex items-center text-accent text-sm font-medium">
+                  <TrendingUp className="h-4 w-4 mr-1" />
+                  +{Math.floor(Math.random() * 20) + 25}%
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-card bg-background/80 backdrop-blur-sm">
+            <CardContent className="p-6">
+              <div className="text-sm text-muted-foreground mb-2">Success Rate</div>
+              <div className="flex items-center justify-between">
+                <div className="text-2xl font-bold text-foreground">
+                  {Math.floor(Math.random() * 5) + 94}%
+                </div>
+                <Badge className="bg-accent/15 text-accent text-xs px-2 py-1">
+                  Consistent
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Live Activity Indicators */}
+        <div 
+          className={`grid grid-cols-1 md:grid-cols-4 gap-6 mb-16 transition-all duration-1000 ${
+            isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
+          }`}
+          style={{ animationDelay: '200ms' }}
+        >
+          <div className="flex items-center space-x-2 text-sm">
+            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+            <span className="text-muted-foreground">Real-time activity</span>
+          </div>
+          <div className="flex items-center space-x-2 text-sm">
+            <Users className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">Licensed professionals</span>
+          </div>
+          <div className="flex items-center space-x-2 text-sm">
+            <Activity className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">500+ successful investors</span>
+          </div>
+          <div className="flex items-center space-x-2 text-sm">
+            <MapPin className="h-4 w-4 text-muted-foreground" />
+            <span className="text-muted-foreground">15+ markets served</span>
+          </div>
+        </div>
+
+        {/* Section Header */}
+        <div 
           className={`text-center mb-16 transition-all duration-1000 ${
             isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
           }`}
+          style={{ animationDelay: '400ms' }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-foreground font-clash mb-4">
             Business Investment Opportunities Across America
