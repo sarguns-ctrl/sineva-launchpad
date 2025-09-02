@@ -27,7 +27,10 @@ import {
   Phone,
   Mail
 } from "lucide-react";
+import RelatedServices from "@/components/RelatedServices";
+import CrossPageCTA from "@/components/CrossPageCTA";
 import { useState } from "react";
+import { Shield } from "lucide-react";
 
 const Properties = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -462,40 +465,64 @@ const Properties = () => {
           </div>
           )}
 
-          {/* Load More */}
+          {/* Load More Button */}
           <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            <Button size="lg" variant="outline" className="shadow-button">
               Load More Properties
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-primary rounded-2xl p-8 md:p-12 text-white space-y-6">
-            <Globe className="h-16 w-16 mx-auto text-accent" />
-            <h2 className="text-3xl md:text-4xl font-bold font-playfair">
-              Ready to Invest in Your Future?
-            </h2>
-            <p className="text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">
-              Schedule a consultation with our international real estate experts. 
-              We'll help you find the perfect property that aligns with your investment 
-              goals and immigration requirements.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button">
-                Schedule Property Tour
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                Get Investment Guide
-              </Button>
+      {/* Related Services Sidebar */}
+      <section className="py-16 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-3">
+              <h2 className="text-3xl font-bold text-foreground font-playfair mb-8">
+                Why Choose Our Properties?
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Card className="p-6 text-center">
+                  <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <h3 className="font-semibold mb-2">Visa Compliant</h3>
+                  <p className="text-sm text-muted-foreground">All properties meet immigration investment requirements</p>
+                </Card>
+                <Card className="p-6 text-center">
+                  <TrendingUp className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <h3 className="font-semibold mb-2">Investment Grade</h3>
+                  <p className="text-sm text-muted-foreground">Carefully selected for strong ROI potential</p>
+                </Card>
+                <Card className="p-6 text-center">
+                  <Globe className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <h3 className="font-semibold mb-2">International Support</h3>
+                  <p className="text-sm text-muted-foreground">Specialized guidance for foreign investors</p>
+                </Card>
+              </div>
+            </div>
+            
+            <div className="lg:col-span-1">
+              <RelatedServices 
+                currentService="Properties"
+                maxItems={4} 
+                showTitle={true}
+                variant="compact"
+              />
             </div>
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <CrossPageCTA
+        title="Need Help Finding the Perfect Property?"
+        description="Our expert team can help you navigate the complex world of immigration-compliant real estate investments. Get personalized recommendations based on your specific visa and investment goals."
+        primaryAction={{ text: "Schedule Property Consultation", href: "/contact" }}
+        secondaryAction={{ text: "Learn About Our Process", href: "/services" }}
+        variant="gradient"
+        showContactOptions={true}
+      />
 
       <Footer />
     </div>

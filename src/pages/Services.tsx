@@ -19,6 +19,8 @@ import {
   Award,
   Zap
 } from "lucide-react";
+import RelatedServices from "@/components/RelatedServices";
+import CrossPageCTA from "@/components/CrossPageCTA";
 
 const Services = () => {
   const mainServices = [
@@ -299,28 +301,22 @@ const Services = () => {
         </div>
       </section>
 
+      {/* Related Services */}
+      <RelatedServices 
+        maxItems={3} 
+        showTitle={true}
+        variant="default"
+      />
+
       {/* CTA Section */}
-      <section className="py-24 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-primary rounded-2xl p-8 md:p-12 text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playfair">
-              Ready to Start Your Journey?
-            </h2>
-            <p className="text-xl mb-8 text-white/90 leading-relaxed">
-              Schedule a consultation with our experts to discuss your specific needs 
-              and create a customized plan for your real estate and immigration goals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button">
-                Schedule Free Consultation
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                Download Service Guide
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CrossPageCTA
+        title="Ready to Start Your Journey?"
+        description="Schedule a consultation with our experts to discuss your specific needs and create a customized plan for your real estate and immigration goals."
+        primaryAction={{ text: "Schedule Free Consultation", href: "/contact" }}
+        secondaryAction={{ text: "Download Service Guide", href: "/about" }}
+        variant="gradient"
+        showContactOptions={true}
+      />
 
       <Footer />
     </div>

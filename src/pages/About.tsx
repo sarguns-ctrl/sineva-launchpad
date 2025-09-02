@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import CrossPageCTA from "@/components/CrossPageCTA";
 import { 
   Globe,
   Users,
@@ -465,6 +466,16 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Cross-Page CTA */}
+      <CrossPageCTA
+        title="Experience the Sineva Difference"
+        description="Ready to work with the most trusted name in international real estate? Let's discuss how our comprehensive services can help you achieve your goals."
+        primaryAction={{ text: "Explore Our Services", href: "/services" }}
+        secondaryAction={{ text: "View Properties", href: "/properties" }}
+        variant="default"
+        showContactOptions={true}
+      />
 
       <Footer />
     </div>
