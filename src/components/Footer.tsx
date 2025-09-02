@@ -20,13 +20,6 @@ const Footer = () => {
       { name: "Training Programs", href: "/training-programs" },
       { name: "Agent Resources", href: "/agent-resources" }
     ],
-    "Market Insights": [
-      { name: "Market Reports", href: "/insights" },
-      { name: "Investment Trends", href: "/insights/trends" },
-      { name: "Economic Indicators", href: "/insights/economic" },
-      { name: "City Comparisons", href: "/insights/cities" },
-      { name: "Forecast Analysis", href: "/insights/forecast" }
-    ],
     Company: [
       { name: "About Grupo Sineva", href: "/about" },
       { name: "Leadership Team", href: "/leadership" },
@@ -106,7 +99,7 @@ const Footer = () => {
             <div className="text-center md:text-left">
               <h3 className="text-xl font-bold mb-2">Stay Updated</h3>
               <p className="text-primary-foreground/80">
-                Get the latest market insights and property opportunities
+                Get the latest property opportunities and updates
               </p>
             </div>
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">

@@ -43,7 +43,6 @@ const NavigationSearch = () => {
     { title: 'Agent Resources', href: '/agent-resources', description: 'Tools and resources for agents', category: 'Agents' },
     
     // Company & Info
-    { title: 'Market Insights', href: '/insights', description: 'Market trends and analysis', category: 'Main' },
     { title: 'About Us', href: '/about', description: 'Learn about Grupo Sineva', category: 'Company' },
     { title: 'Contact', href: '/contact', description: 'Get in touch with our team', category: 'Company' },
     { title: 'Leadership', href: '/leadership', description: 'Meet our leadership team', category: 'Company' },

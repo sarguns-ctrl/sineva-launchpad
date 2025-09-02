@@ -10,7 +10,6 @@ import Auth from "./pages/Auth";
 import Services from "./pages/Services";
 import Agents from "./pages/Agents";
 import Properties from "./pages/Properties";
-import MarketInsights from "./pages/MarketInsights";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PropertyDetail from "./pages/PropertyDetail";
@@ -78,11 +77,6 @@ const App = () => (
         <Route path="/services" element={<Services />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/properties" element={<Properties />} />
-          <Route path="/insights" element={<MarketInsights />} />
-          <Route path="/insights/trends" element={<MarketInsights />} />
-          <Route path="/insights/economic" element={<MarketInsights />} />
-          <Route path="/insights/cities" element={<MarketInsights />} />
-          <Route path="/insights/forecast" element={<MarketInsights />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/property/:id" element={<PropertyDetail />} />

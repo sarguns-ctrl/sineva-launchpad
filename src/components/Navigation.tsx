@@ -16,7 +16,6 @@ const Navigation = () => {
   const navigationItems = [
     { name: 'Properties', href: '/properties' },
     { name: 'Businesses', href: '/businesses' },
-    { name: 'Market Insights', href: '/insights' },
     { name: 'Franchise with Us', href: '/franchise' },
   ];
 
