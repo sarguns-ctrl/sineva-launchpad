@@ -36,7 +36,7 @@ const DynamicStatsSection = () => {
             isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground font-clash mb-4">
             Business Investment Opportunities Across America
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
