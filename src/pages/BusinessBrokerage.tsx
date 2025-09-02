@@ -1,8 +1,17 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import { BusinessCard } from '@/components/BusinessCard';
+import { BusinessFilters } from '@/components/BusinessFilters';
+import { useBusinesses, BusinessFilters as BusinessFiltersType } from '@/hooks/useBusinesses';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Building2, MapPin, DollarSign, Users, TrendingUp, Shield, Clock, Award, Search, Plus } from 'lucide-react';
+import { useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import { 
   Briefcase,
   TrendingUp,

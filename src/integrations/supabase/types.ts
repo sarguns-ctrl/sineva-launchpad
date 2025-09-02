@@ -232,6 +232,248 @@ export type Database = {
         }
         Relationships: []
       }
+      business_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      business_documents: {
+        Row: {
+          business_id: string
+          created_at: string
+          document_type: string
+          file_name: string
+          file_path: string
+          file_size: number | null
+          id: string
+          uploaded_by: string
+        }
+        Insert: {
+          business_id: string
+          created_at?: string
+          document_type: string
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          id?: string
+          uploaded_by: string
+        }
+        Update: {
+          business_id?: string
+          created_at?: string
+          document_type?: string
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          id?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_documents_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_favorites: {
+        Row: {
+          business_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          business_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          business_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_favorites_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_inquiries: {
+        Row: {
+          business_id: string
+          created_at: string
+          id: string
+          inquirer_email: string
+          inquirer_id: string
+          inquirer_name: string
+          inquirer_phone: string | null
+          investment_budget: number | null
+          message: string
+          status: string | null
+          updated_at: string
+          visa_requirement: string | null
+        }
+        Insert: {
+          business_id: string
+          created_at?: string
+          id?: string
+          inquirer_email: string
+          inquirer_id: string
+          inquirer_name: string
+          inquirer_phone?: string | null
+          investment_budget?: number | null
+          message: string
+          status?: string | null
+          updated_at?: string
+          visa_requirement?: string | null
+        }
+        Update: {
+          business_id?: string
+          created_at?: string
+          id?: string
+          inquirer_email?: string
+          inquirer_id?: string
+          inquirer_name?: string
+          inquirer_phone?: string | null
+          investment_budget?: number | null
+          message?: string
+          status?: string | null
+          updated_at?: string
+          visa_requirement?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_inquiries_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      businesses: {
+        Row: {
+          annual_profit: number | null
+          annual_revenue: number | null
+          asking_price: number
+          assets_included: string[] | null
+          business_name: string
+          category_id: string | null
+          created_at: string
+          description: string
+          featured: boolean | null
+          financing_available: boolean | null
+          id: string
+          images: Json | null
+          industry: string
+          inventory_included: boolean | null
+          location_city: string
+          location_state: string
+          number_of_employees: number | null
+          reason_for_selling: string | null
+          roi_percentage: number | null
+          seller_id: string
+          status: string | null
+          training_provided: boolean | null
+          updated_at: string
+          visa_eligible: boolean | null
+          visa_types: string[] | null
+          years_established: number | null
+        }
+        Insert: {
+          annual_profit?: number | null
+          annual_revenue?: number | null
+          asking_price: number
+          assets_included?: string[] | null
+          business_name: string
+          category_id?: string | null
+          created_at?: string
+          description: string
+          featured?: boolean | null
+          financing_available?: boolean | null
+          id?: string
+          images?: Json | null
+          industry: string
+          inventory_included?: boolean | null
+          location_city: string
+          location_state: string
+          number_of_employees?: number | null
+          reason_for_selling?: string | null
+          roi_percentage?: number | null
+          seller_id: string
+          status?: string | null
+          training_provided?: boolean | null
+          updated_at?: string
+          visa_eligible?: boolean | null
+          visa_types?: string[] | null
+          years_established?: number | null
+        }
+        Update: {
+          annual_profit?: number | null
+          annual_revenue?: number | null
+          asking_price?: number
+          assets_included?: string[] | null
+          business_name?: string
+          category_id?: string | null
+          created_at?: string
+          description?: string
+          featured?: boolean | null
+          financing_available?: boolean | null
+          id?: string
+          images?: Json | null
+          industry?: string
+          inventory_included?: boolean | null
+          location_city?: string
+          location_state?: string
+          number_of_employees?: number | null
+          reason_for_selling?: string | null
+          roi_percentage?: number | null
+          seller_id?: string
+          status?: string | null
+          training_provided?: boolean | null
+          updated_at?: string
+          visa_eligible?: boolean | null
+          visa_types?: string[] | null
+          years_established?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "businesses_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "business_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       certificate_templates: {
         Row: {
           background_image_url: string | null

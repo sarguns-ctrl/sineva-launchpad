@@ -23,7 +23,9 @@ import ResidentialProperties from "@/pages/ResidentialProperties";
 import InternationalServices from "@/pages/InternationalServices";
 import ConciergeServices from "@/pages/ConciergeServices";
 import InvestmentAdvisory from "@/pages/InvestmentAdvisory";
-import BusinessBrokerage from "./pages/BusinessBrokerage";
+import BusinessBrokerage from './pages/BusinessBrokerage';
+import BusinessDetail from './pages/BusinessDetail';
+import ListBusiness from './pages/ListBusiness';
 import Leadership from "./pages/Leadership";
 import HelpCenter from "./pages/HelpCenter";
 import NotFound from "./pages/NotFound";
@@ -97,7 +99,9 @@ const App = () => (
         <Route path="/commercial-real-estate" element={<CommercialRealEstate />} />
         <Route path="/residential-properties" element={<ResidentialProperties />} />
         <Route path="/international-services" element={<InternationalServices />} />
-        <Route path="/businesses" element={<BusinessBrokerage />} />
+          <Route path="/businesses" element={<BusinessBrokerage />} />
+          <Route path="/business/:id" element={<BusinessDetail />} />
+          <Route path="/list-business" element={<ListBusiness />} />
         <Route path="/join-team" element={<JoinTeam />} />
         <Route path="/commission-structure" element={<CommissionStructure />} />
         <Route path="/agent-packages" element={<AgentPackages />} />
