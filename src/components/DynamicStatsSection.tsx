@@ -1,37 +1,22 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useDynamicStats } from '@/hooks/useDynamicStats';
-import { TrendingUp, Users, Building, Globe, Activity } from 'lucide-react';
+import { useBusinessMarketData } from '@/hooks/useBusinessMarketData';
+import { TrendingUp, Users, Building, Globe, Activity, MapPin } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const DynamicStatsSection = () => {
-  const { stats, isLoading, activityIndicators } = useDynamicStats();
+  const { marketData, isLoading } = useBusinessMarketData();
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
-
-  const getIcon = (statId: string) => {
-    switch (statId) {
-      case 'consultations':
-        return <Users className="w-5 h-5 text-accent" />;
-      case 'properties':
-        return <Building className="w-5 h-5 text-accent" />;
-      case 'investments':
-        return <TrendingUp className="w-5 h-5 text-accent" />;
-      case 'success':
-        return <Activity className="w-5 h-5 text-accent" />;
-      default:
-        return <TrendingUp className="w-5 h-5 text-accent" />;
-    }
-  };
 
   if (isLoading) {
     return (
       <section className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {Array.from({ length: 4 }).map((_, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 6 }).map((_, index) => (
               <Card key={index} className="shadow-card">
                 <CardContent className="p-6">
-                  <div className="h-24 bg-muted/30 rounded animate-pulse"></div>
+                  <div className="h-48 bg-muted/30 rounded animate-pulse"></div>
                 </CardContent>
               </Card>
             ))}
@@ -44,86 +29,169 @@ const DynamicStatsSection = () => {
   return (
     <section className="py-20 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Live Activity Banner */}
+        {/* Section Header */}
         <div 
           ref={elementRef}
-          className={`mb-12 transition-all duration-1000 ${
+          className={`text-center mb-16 transition-all duration-1000 ${
             isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="bg-accent/10 border border-accent/20 rounded-lg p-4 mb-8">
-            <div className="flex items-center justify-center space-x-2">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair mb-4">
+            Business Investment Opportunities Across America
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Explore dynamic business markets in major US states. Real-time data for entrepreneurs 
+            seeking investment opportunities and business immigration pathways.
+          </p>
+        </div>
+
+        {/* Live Activity Banner */}
+        <div 
+          className={`mb-12 transition-all duration-1000 ${
+            isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
+          }`}
+          style={{ animationDelay: '200ms' }}
+        >
+          <div className="bg-accent/10 border border-accent/20 rounded-lg p-4">
+            <div className="flex items-center justify-center space-x-2 mb-2">
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-accent">LIVE ACTIVITY</span>
+              <span className="text-sm font-medium text-accent">LIVE MARKET ACTIVITY</span>
             </div>
-            <div className="text-center mt-2">
+            <div className="text-center">
               <p className="text-sm text-muted-foreground">
-                {Math.random() > 0.5 ? 'Sophie D.' : 'Michael R.'} completed EB-5 investment documentation
+                {Math.random() > 0.5 ? 'Sarah M.' : 'David L.'} completed {Math.random() > 0.5 ? 'restaurant franchise' : 'tech startup'} acquisition
                 <span className="mx-2">•</span>
-                <span className="text-accent font-medium">${(1.2 + Math.random() * 0.8).toFixed(2)}M Investment Value</span>
+                <span className="text-accent font-medium">${(0.8 + Math.random() * 1.2).toFixed(1)}M Business Value</span>
                 <span className="mx-2">•</span>
-                <span className="text-xs">{Math.floor(Math.random() * 5) + 1} hours ago</span>
+                <span className="text-xs">{Math.floor(Math.random() * 3) + 1} hours ago</span>
                 <span className="mx-2">•</span>
-                <span className="text-xs">{Math.random() > 0.5 ? 'Houston, TX' : 'Miami, FL'}</span>
+                <span className="text-xs">{marketData.length > 0 ? marketData[Math.floor(Math.random() * marketData.length)].city + ', ' + marketData[Math.floor(Math.random() * marketData.length)].stateCode : 'Miami, FL'}</span>
               </p>
             </div>
           </div>
         </div>
 
-        {/* Dynamic Stats Grid */}
+        {/* Business Market Grid */}
         <div 
-          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 transition-all duration-1000 ${
+          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-1000 ${
             isVisible ? 'animate-fade-in' : 'opacity-0'
           }`}
-          style={{ animationDelay: '300ms' }}
+          style={{ animationDelay: '400ms' }}
         >
-          {stats.map((stat, index) => (
+          {marketData.map((market, index) => (
             <Card 
-              key={stat.id} 
-              className="shadow-card hover:shadow-elegant transition-all duration-300 group hover:scale-105"
+              key={market.id} 
+              className="shadow-card hover:shadow-elegant transition-all duration-300 group hover:scale-105 bg-background/80 backdrop-blur-sm"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardContent className="p-6">
+                {/* Header */}
                 <div className="flex items-center justify-between mb-4">
-                  {getIcon(stat.id)}
-                  <Badge 
-                    variant={stat.changeType === 'positive' ? 'default' : 'secondary'}
-                    className={`text-xs ${
-                      stat.changeType === 'positive' 
-                        ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' 
-                        : 'bg-muted text-muted-foreground'
-                    }`}
-                  >
-                    {stat.change}
+                  <div className="flex items-center space-x-3">
+                    <span className="text-xl">{market.flag}</span>
+                    <div>
+                      <h3 className="font-bold text-primary group-hover:text-accent transition-colors">
+                        {market.stateCode} {market.city}
+                      </h3>
+                      <p className="text-xs text-muted-foreground">{market.state}</p>
+                    </div>
+                  </div>
+                  <TrendingUp className="h-5 w-5 text-accent" />
+                </div>
+
+                {/* Business Type Badge */}
+                <div className="mb-4">
+                  <Badge className="bg-accent/15 text-accent text-xs px-3 py-1 rounded-full border border-accent/30">
+                    {market.businessType}
                   </Badge>
                 </div>
-                
-                <div className="space-y-2">
-                  <div className="text-3xl font-bold text-primary group-hover:text-accent transition-colors">
-                    {stat.value.toLocaleString()}{stat.suffix}
+
+                {/* Specialization */}
+                <p className="text-sm text-muted-foreground mb-4 font-medium">
+                  {market.specialization}
+                </p>
+
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="flex items-center space-x-2">
+                    <Building className="h-4 w-4 text-muted-foreground" />
+                    <div>
+                      <div className="font-bold text-primary">{market.properties.toLocaleString()}+</div>
+                      <div className="text-xs text-muted-foreground">Business Properties</div>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground font-medium">
-                    {stat.label}
-                  </p>
+                  <div className="flex items-center space-x-2">
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                    <div>
+                      <div className="font-bold text-primary">{market.specialists}</div>
+                      <div className="text-xs text-muted-foreground">Immigration Specialists</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Business Categories */}
+                <div className="mb-4">
+                  <div className="flex flex-wrap gap-1">
+                    {market.businessCategories.slice(0, 3).map((category, idx) => (
+                      <span key={idx} className="text-xs bg-muted/50 text-muted-foreground px-2 py-1 rounded">
+                        {category}
+                      </span>
+                    ))}
+                    {market.businessCategories.length > 3 && (
+                      <span className="text-xs text-muted-foreground px-2 py-1">
+                        +{market.businessCategories.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Bottom Stats */}
+                <div className="flex justify-between items-center pt-4 border-t">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-primary">{market.avgPrice}</div>
+                    <div className="text-xs text-muted-foreground">Avg Investment</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-accent">{market.growth}</div>
+                    <div className="text-xs text-muted-foreground">YoY Growth</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        {/* Activity Indicators */}
+        {/* Summary Stats */}
         <div 
-          className={`flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground transition-all duration-1000 ${
+          className={`mt-16 bg-gradient-primary rounded-2xl p-8 text-white transition-all duration-1000 ${
             isVisible ? 'animate-fade-in' : 'opacity-0'
           }`}
-          style={{ animationDelay: '600ms' }}
+          style={{ animationDelay: '800ms' }}
         >
-          {activityIndicators.map((indicator, index) => (
-            <div key={index} className="flex items-center space-x-2">
-              <span className="text-xs">{indicator.icon}</span>
-              <span>{indicator.text}</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-4xl font-bold mb-2">
+                {marketData.reduce((sum, market) => sum + market.properties, 0).toLocaleString()}+
+              </div>
+              <div className="text-white/80">Business Properties Available</div>
             </div>
-          ))}
+            <div>
+              <div className="text-4xl font-bold mb-2">
+                {marketData.reduce((sum, market) => sum + market.specialists, 0)}+
+              </div>
+              <div className="text-white/80">Immigration Specialists</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">{marketData.length}</div>
+              <div className="text-white/80">Major US Markets</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">
+                {Math.floor(marketData.reduce((sum, market) => sum + parseInt(market.growth.replace('+%', '')), 0) / marketData.length)}%
+              </div>
+              <div className="text-white/80">Average Growth Rate</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
