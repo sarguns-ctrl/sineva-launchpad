@@ -11,7 +11,7 @@ import AIPropertyAssistant from "@/components/AIPropertyAssistant";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import LazySection from "@/components/LazySection";
 import SEOHead from "@/components/SEOHead";
-import PersonalizationEngine from "@/components/PersonalizationEngine";
+// import PersonalizationEngine from "@/components/PersonalizationEngine";
 import ConversionOptimizer from "@/components/ConversionOptimizer";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
@@ -79,11 +79,7 @@ const Index = () => {
         <MarketLocationCards />
       </ErrorBoundary>
 
-      <ErrorBoundary>
-        <LazySection>
-          <PersonalizationEngine />
-        </LazySection>
-      </ErrorBoundary>
+      {/* Removed Recommended Properties section */}
       
       <ErrorBoundary>
         <LazySection>
