@@ -27,6 +27,7 @@ import BusinessBrokerage from "./pages/BusinessBrokerage";
 import Leadership from "./pages/Leadership";
 import HelpCenter from "./pages/HelpCenter";
 import NotFound from "./pages/NotFound";
+import AISearch from "./pages/AISearch";
 import { PropertySearch } from "@/components/PropertySearch";
 import { UserDashboard } from "@/components/UserDashboard";
 import { MortgageCalculator } from "@/components/MortgageCalculator";
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
           <Route path="/search" element={<PropertySearch />} />
+          <Route path="/ai-search" element={<AISearch />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/calculator" element={<MortgageCalculator />} />
           <Route path="/messages" element={<MessagingCenter />} />

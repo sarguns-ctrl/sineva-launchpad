@@ -12,6 +12,7 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: 'Properties', href: '/properties' },
+    { name: 'AI Search', href: '/ai-search' },
     { name: 'Services', href: '/services' },
     { name: 'Agents', href: '/agents' },
     { name: 'Market Insights', href: '/insights' },

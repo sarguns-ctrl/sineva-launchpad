@@ -8,9 +8,12 @@ import LeadCaptureForm from "@/components/LeadCaptureForm";
 import ExitIntentPopup, { useExitIntent } from "@/components/ExitIntentPopup";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import AIPropertyAssistant from "@/components/AIPropertyAssistant";
+import { useState } from "react";
 
 const Index = () => {
   const { showExitIntent, closeExitIntent } = useExitIntent();
+  const [isAssistantMinimized, setIsAssistantMinimized] = useState(true);
 
   return (
     <div className="min-h-screen">
@@ -43,6 +46,11 @@ const Index = () => {
       <ExitIntentPopup 
         isOpen={showExitIntent} 
         onClose={closeExitIntent} 
+      />
+      
+      <AIPropertyAssistant 
+        isMinimized={isAssistantMinimized}
+        onToggleMinimize={() => setIsAssistantMinimized(!isAssistantMinimized)}
       />
     </div>
   );
