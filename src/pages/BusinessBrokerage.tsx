@@ -24,7 +24,8 @@ import {
   ArrowRight,
   CheckCircle,
   Zap,
-  Target
+  Target,
+  MessageSquare
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
@@ -113,53 +114,53 @@ const BusinessBrokerage = () => {
   const howItWorksSteps = [
     {
       step: '01',
-      title: 'Browse Businesses',
-      description: 'Explore our curated selection of businesses across various industries and investment levels.'
+      title: 'Browse & Search',
+      description: 'Explore our curated marketplace of verified businesses. Use advanced filters to find opportunities that match your investment budget, industry preference, and visa requirements.'
     },
     {
       step: '02',
-      title: 'Due Diligence',
-      description: 'Review financial documents, meet with current owners, and assess business operations.'
+      title: 'Connect & Inquire',
+      description: 'Submit inquiries directly to business owners through our secure platform. Share your investment profile and schedule calls or meetings to discuss opportunities.'
     },
     {
       step: '03',
-      title: 'Visa Processing',
-      description: 'Our immigration experts guide you through E-2 or EB-5 visa applications if applicable.'
+      title: 'Due Diligence',
+      description: 'Access financial documents, review business operations, and conduct thorough analysis. Our platform facilitates secure document sharing and expert consultation.'
     },
     {
       step: '04',
-      title: 'Acquisition',
-      description: 'Complete the purchase with legal support and transition into business ownership.'
+      title: 'Close & Transition',
+      description: 'Complete the acquisition with legal support and seamless handover. Get guidance on visa applications, business operations, and smooth ownership transition.'
     }
   ];
 
   const successMetrics = [
-    { number: '500+', label: 'Businesses Sold', icon: Building2 },
-    { number: '85%', label: 'Visa Approval Rate', icon: Shield },
-    { number: '$2.3B', label: 'Total Transaction Value', icon: DollarSign },
-    { number: '95%', label: 'Client Satisfaction', icon: Award }
+    { number: '500+', label: 'Businesses Listed', icon: Building2 },
+    { number: '95%', label: 'Verified Listings', icon: Shield },
+    { number: '$2.3B', label: 'Total Deal Value', icon: DollarSign },
+    { number: '89%', label: 'Buyer Satisfaction', icon: Award }
   ];
 
   const keyFeatures = [
     {
       icon: Shield,
-      title: 'Verified Businesses',
-      description: 'All listings are thoroughly vetted and verified for accuracy and legitimacy.'
+      title: 'Verified Business Listings',
+      description: 'Every business undergoes thorough verification including financial review, legal compliance, and operational assessment before listing.'
     },
     {
-      icon: MapPin,
-      title: 'Nationwide Coverage',
-      description: 'Access businesses for sale across all 50 states with local market expertise.'
+      icon: Search,
+      title: 'Smart Matching System',
+      description: 'AI-powered search and filtering system helps you discover businesses that match your investment criteria and visa requirements.'
     },
     {
-      icon: Clock,
-      title: 'Fast Processing',
-      description: 'Streamlined acquisition process with dedicated support from start to finish.'
+      icon: MessageSquare,
+      title: 'Direct Communication',
+      description: 'Connect directly with business owners through our secure messaging system to discuss opportunities and schedule meetings.'
     },
     {
-      icon: TrendingUp,
-      title: 'Investment Analytics',
-      description: 'Detailed ROI analysis and market insights to make informed decisions.'
+      icon: Globe,
+      title: 'Visa Compliance Focus',
+      description: 'All listings clearly indicate visa eligibility for E-2, EB-5, and other investor programs with immigration guidance available.'
     }
   ];
 
