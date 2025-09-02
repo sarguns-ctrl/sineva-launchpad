@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { AdminNavigation } from '@/components/AdminNavigation';
 
 interface UserProfile {
   id: string;
@@ -197,8 +198,16 @@ export const UserDashboard: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">My Dashboard</h1>
+        <h1 className="text-3xl font-bold flex items-center gap-2">
+          <User className="h-8 w-8" />
+          My Dashboard
+        </h1>
         <p className="text-muted-foreground">Welcome back, {profile?.full_name || user?.email}</p>
+      </div>
+
+      {/* Admin Navigation for authenticated users */}
+      <div className="mb-8">
+        <AdminNavigation />
       </div>
 
       <Tabs defaultValue="overview" className="space-y-6">
@@ -256,6 +265,42 @@ export const UserDashboard: React.FC = () => {
                 </div>
               </CardContent>
             </Card>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            <Button 
+              className="h-20 flex-col gap-2" 
+              variant="outline"
+              onClick={() => window.location.href = '/search'}
+            >
+              <Search className="h-6 w-6" />
+              Property Search
+            </Button>
+            <Button 
+              className="h-20 flex-col gap-2" 
+              variant="outline"
+              onClick={() => window.location.href = '/calculator'}
+            >
+              <Calculator className="h-6 w-6" />
+              Mortgage Calculator
+            </Button>
+            <Button 
+              className="h-20 flex-col gap-2" 
+              variant="outline"
+              onClick={() => window.location.href = '/appointments'}
+            >
+              <Calendar className="h-6 w-6" />
+              Schedule Viewing
+            </Button>
+            <Button 
+              className="h-20 flex-col gap-2" 
+              variant="outline"
+              onClick={() => window.location.href = '/messages'}
+            >
+              <MessageSquare className="h-6 w-6" />
+              Messages
+            </Button>
           </div>
 
           {/* Recent Activity */}
@@ -420,7 +465,9 @@ export const UserDashboard: React.FC = () => {
                 <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-semibold mb-2">Messaging Center</h3>
                 <p className="text-muted-foreground">Connect with agents and other users</p>
-                <Button className="mt-4">Start a Conversation</Button>
+                <Button className="mt-4" onClick={() => window.location.href = '/messages'}>
+                  Start a Conversation
+                </Button>
               </div>
             </CardContent>
           </Card>

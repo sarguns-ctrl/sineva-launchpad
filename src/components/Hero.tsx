@@ -6,6 +6,7 @@ import DualSearchBar from "./DualSearchBar";
 import InteractivePropertyFinder from "./InteractivePropertyFinder";
 import { Badge } from "./ui/badge";
 import { Building, Users, MapPin, ArrowRight, Play, TrendingUp, Award, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
@@ -89,11 +90,14 @@ const Hero = () => {
               variant="accent" 
               size="lg"
               className="shadow-accent group relative overflow-hidden"
+              asChild
             >
-              <Building className="w-5 h-5" />
-              Browse Properties
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+              <Link to="/properties">
+                <Building className="w-5 h-5" />
+                Browse Properties
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+              </Link>
             </MagneticButton>
             
             <MagneticButton 

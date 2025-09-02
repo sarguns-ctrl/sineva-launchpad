@@ -14,7 +14,7 @@ const Navigation = () => {
     { name: 'Properties', href: '/properties' },
     { name: 'Services', href: '/services' },
     { name: 'Agents', href: '/agents' },
-    { name: 'Market Insights', href: '/market-insights' },
+    { name: 'Market Insights', href: '/insights' },
     { name: 'About', href: '/about' },
   ];
 
@@ -67,9 +67,12 @@ const Navigation = () => {
                   variant="outline" 
                   size="sm"
                   className="border-primary/30 hover:bg-primary hover:border-primary"
+                  asChild
                 >
-                  <User className="w-4 h-4" />
-                  {user.user_metadata?.full_name || 'Profile'}
+                  <Link to="/dashboard">
+                    <User className="w-4 h-4" />
+                    {user.user_metadata?.full_name || 'Dashboard'}
+                  </Link>
                 </MagneticButton>
                 
                 <MagneticButton 
@@ -148,9 +151,11 @@ const Navigation = () => {
               <div className="flex space-x-3">
                 {user ? (
                   <>
-                    <Button variant="outline" className="flex-1">
-                      <User className="w-4 h-4 mr-2" />
-                      Profile
+                    <Button variant="outline" className="flex-1" asChild>
+                      <Link to="/dashboard">
+                        <User className="w-4 h-4 mr-2" />
+                        Dashboard
+                      </Link>
                     </Button>
                     <Button variant="destructive" className="flex-1" onClick={() => signOut()}>
                       <LogOut className="w-4 h-4 mr-2" />
