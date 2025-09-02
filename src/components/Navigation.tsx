@@ -17,7 +17,6 @@ const Navigation = () => {
     { name: 'Properties', href: '/properties' },
     { name: 'Businesses', href: '/businesses' },
     { name: 'Franchise with Us', href: '/franchise' },
-    { name: 'Market Insights', href: '/insights' },
   ];
 
   const agentItems = [
@@ -182,8 +181,8 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button size="sm" asChild>
-                <Link to="/auth">Get Started</Link>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/auth">Sign In</Link>
               </Button>
             )}
           </div>
@@ -284,8 +283,8 @@ const Navigation = () => {
                     </Button>
                   </>
                 ) : (
-                  <Button className="w-full" asChild>
-                    <Link to="/auth">Get Started</Link>
+                  <Button variant="outline" className="w-full" asChild>
+                    <Link to="/auth">Sign In</Link>
                   </Button>
                 )}
               </div>
