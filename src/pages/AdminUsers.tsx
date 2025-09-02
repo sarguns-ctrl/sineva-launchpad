@@ -2,13 +2,13 @@ import React from 'react';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import RoleProtectedRoute from "@/components/RoleProtectedRoute";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users } from 'lucide-react';
 
 const AdminUsers = () => {
   return (
-    <ProtectedRoute>
+    <RoleProtectedRoute allowedRoles={['admin', 'hr']}>
       <div className="min-h-screen bg-background">
         <SEOHead 
           title="Admin - User Management | Grupo Sineva"
@@ -34,9 +34,9 @@ const AdminUsers = () => {
                 <div className="text-center py-12">
                   <Users className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
                   <h3 className="text-xl font-semibold mb-2">User Management</h3>
-                  <p className="text-muted-foreground">
-                    Advanced user management features are coming soon.
-                  </p>
+                <p className="text-muted-foreground">
+                  Comprehensive user management features coming soon. This will include user role management, permissions, activity monitoring, and account administration.
+                </p>
                 </div>
               </CardContent>
             </Card>
@@ -45,7 +45,7 @@ const AdminUsers = () => {
 
         <Footer />
       </div>
-    </ProtectedRoute>
+    </RoleProtectedRoute>
   );
 };
 

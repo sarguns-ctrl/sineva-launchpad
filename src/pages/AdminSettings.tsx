@@ -2,13 +2,13 @@ import React from 'react';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import RoleProtectedRoute from "@/components/RoleProtectedRoute";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Settings } from 'lucide-react';
 
 const AdminSettings = () => {
   return (
-    <ProtectedRoute>
+    <RoleProtectedRoute allowedRoles={['admin']}>
       <div className="min-h-screen bg-background">
         <SEOHead 
           title="Admin - System Settings | Grupo Sineva"
@@ -35,7 +35,7 @@ const AdminSettings = () => {
                   <Settings className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
                   <h3 className="text-xl font-semibold mb-2">System Settings</h3>
                   <p className="text-muted-foreground">
-                    Advanced system configuration options are coming soon.
+                    Advanced system configuration options including email templates, notification settings, payment processing, and integration management are being developed.
                   </p>
                 </div>
               </CardContent>
@@ -45,7 +45,7 @@ const AdminSettings = () => {
 
         <Footer />
       </div>
-    </ProtectedRoute>
+    </RoleProtectedRoute>
   );
 };
 

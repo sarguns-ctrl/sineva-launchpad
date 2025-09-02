@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useRole, UserRole } from '@/hooks/useRole';
 import { useOnboarding } from '@/hooks/useOnboarding';
@@ -25,6 +25,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { userRole, hasRole, loading: roleLoading } = useRole();
   const { isOnboardingComplete, loading: onboardingLoading } = useOnboarding();
   const location = useLocation();
+  const navigate = useNavigate();
   const [showOnboarding, setShowOnboarding] = React.useState(false);
 
   // Show loading while checking auth state
@@ -88,7 +89,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
             <p className="text-sm text-muted-foreground">
               Your role: <strong>{userRole || 'Not assigned'}</strong>
             </p>
-            <Button onClick={() => window.history.back()} variant="outline">
+            <Button onClick={() => navigate(-1)} variant="outline">
               Go Back
             </Button>
           </CardContent>

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -31,6 +31,7 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 
 const PropertyDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
 
   // Mock property data - in real app this would come from API/database
@@ -126,7 +127,7 @@ const PropertyDetail = () => {
       <section className="pt-24 pb-8 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-4 mb-6">
-            <Button variant="outline" size="sm" onClick={() => window.history.back()}>
+            <Button variant="outline" size="sm" onClick={() => navigate(-1)}>
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Properties
             </Button>

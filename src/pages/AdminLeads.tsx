@@ -2,13 +2,13 @@ import React from 'react';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import RoleProtectedRoute from "@/components/RoleProtectedRoute";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MessageSquare } from 'lucide-react';
 
 const AdminLeads = () => {
   return (
-    <ProtectedRoute>
+    <RoleProtectedRoute allowedRoles={['admin', 'manager', 'agent']}>
       <div className="min-h-screen bg-background">
         <SEOHead 
           title="Admin - Lead Management | Grupo Sineva"
@@ -35,7 +35,7 @@ const AdminLeads = () => {
                   <MessageSquare className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
                   <h3 className="text-xl font-semibold mb-2">Lead Management</h3>
                   <p className="text-muted-foreground">
-                    Comprehensive lead tracking and management features are coming soon.
+                    Comprehensive lead tracking, assignment, and management features are in development. This will include lead scoring, automated workflows, and performance analytics.
                   </p>
                 </div>
               </CardContent>
@@ -45,7 +45,7 @@ const AdminLeads = () => {
 
         <Footer />
       </div>
-    </ProtectedRoute>
+    </RoleProtectedRoute>
   );
 };
 

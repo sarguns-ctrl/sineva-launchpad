@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -27,6 +27,7 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 
 const AgentProfile = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
 
   // Mock agent data - in real app this would come from API/database
@@ -148,7 +149,7 @@ const AgentProfile = () => {
       <section className="pt-24 pb-12 bg-gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-4 mb-8">
-            <Button variant="outline" size="sm" onClick={() => window.history.back()} className="border-white text-white hover:bg-white hover:text-primary">
+            <Button variant="outline" size="sm" onClick={() => navigate(-1)} className="border-white text-white hover:bg-white hover:text-primary">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Agents
             </Button>

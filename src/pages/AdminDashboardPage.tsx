@@ -3,11 +3,11 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { AdminDashboard } from "@/components/AdminDashboard";
 import SEOHead from "@/components/SEOHead";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import RoleProtectedRoute from "@/components/RoleProtectedRoute";
 
 const AdminDashboardPage = () => {
   return (
-    <ProtectedRoute>
+    <RoleProtectedRoute allowedRoles={['admin', 'manager']}>
       <div className="min-h-screen bg-background">
         <SEOHead 
           title="Admin Dashboard - Platform Management | Grupo Sineva"
@@ -21,7 +21,7 @@ const AdminDashboardPage = () => {
 
         <Footer />
       </div>
-    </ProtectedRoute>
+    </RoleProtectedRoute>
   );
 };
 

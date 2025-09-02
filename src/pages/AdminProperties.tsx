@@ -2,13 +2,13 @@ import React from 'react';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import RoleProtectedRoute from "@/components/RoleProtectedRoute";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Home } from 'lucide-react';
 
 const AdminProperties = () => {
   return (
-    <ProtectedRoute>
+    <RoleProtectedRoute allowedRoles={['admin', 'manager']}>
       <div className="min-h-screen bg-background">
         <SEOHead 
           title="Admin - Property Management | Grupo Sineva"
@@ -45,7 +45,7 @@ const AdminProperties = () => {
 
         <Footer />
       </div>
-    </ProtectedRoute>
+    </RoleProtectedRoute>
   );
 };
 
