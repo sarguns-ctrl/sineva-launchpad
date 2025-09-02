@@ -1,0 +1,34 @@
+-- Phase 1: Content Population - Simplified approach
+-- Add sample properties
+INSERT INTO properties (title, description, property_type, listing_type, price, address, city, state, zip_code, bedrooms, bathrooms, square_feet, lot_size, year_built, status, featured, images, property_features) VALUES
+('Luxury Downtown Condo', 'Modern luxury condominium in the heart of downtown with stunning city views and premium amenities.', 'Condo', 'sale', 850000, '123 Main Street Unit 1205', 'Miami', 'FL', '33131', 2, 2, 1200, NULL, 2019, 'active', true, '["https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800"]', '["City Views", "Gym", "Pool", "Concierge", "Parking"]'),
+('Suburban Family Home', 'Beautiful 4-bedroom family home in quiet suburban neighborhood with large backyard and excellent schools.', 'Single Family', 'sale', 475000, '456 Oak Avenue', 'Orlando', 'FL', '32801', 4, 3, 2400, 8500, 2015, 'active', false, '["https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800"]', '["Large Yard", "Garage", "Updated Kitchen", "Hardwood Floors"]'),
+('Beachfront Villa', 'Spectacular oceanfront villa with private beach access and panoramic water views.', 'Single Family', 'sale', 2850000, '789 Ocean Drive', 'Key Biscayne', 'FL', '33149', 5, 4, 4200, 12000, 2018, 'active', true, '["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800"]', '["Ocean Views", "Private Beach", "Pool", "Wine Cellar", "Smart Home"]'),
+('Commercial Office Space', 'Prime commercial office space in business district, perfect for growing companies.', 'Commercial', 'lease', 8500, '321 Business Boulevard Suite 500', 'Tampa', 'FL', '33602', NULL, NULL, 3500, NULL, 2010, 'active', false, '["https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"]', '["Conference Rooms", "Parking", "Reception Area", "High-Speed Internet"]'),
+('Retail Storefront', 'High-traffic retail space in popular shopping district with excellent visibility.', 'Commercial', 'lease', 12000, '654 Shopping Center Drive', 'Jacksonville', 'FL', '32202', NULL, NULL, 2800, NULL, 2005, 'active', false, '["https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"]', '["Street Facing", "High Traffic", "Display Windows", "Storage Area"]'),
+('Investment Duplex', 'Excellent investment opportunity - duplex with two 2-bedroom units, currently rented.', 'Multi Family', 'sale', 320000, '987 Investment Lane', 'Gainesville', 'FL', '32601', 4, 4, 2000, 6000, 2008, 'active', false, '["https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800"]', '["Rental Income", "Separate Utilities", "Parking", "Laundry Hookups"]'),
+('Modern Townhouse', 'Contemporary townhouse with open floor plan and rooftop terrace in trendy neighborhood.', 'Townhouse', 'sale', 625000, '147 Modern Way', 'Fort Lauderdale', 'FL', '33301', 3, 2.5, 1800, 1200, 2020, 'active', true, '["https://images.unsplash.com/photo-1605276373954-0c4a0dac5cc0?w=800"]', '["Rooftop Terrace", "Open Floor Plan", "Modern Finishes", "Garage"]'),
+('Luxury Penthouse', 'Exclusive penthouse with 360-degree city views and premium finishes throughout.', 'Condo', 'sale', 1950000, '555 Skyline Tower Penthouse', 'Miami', 'FL', '33131', 3, 3, 2800, NULL, 2021, 'active', true, '["https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800"]', '["360 Views", "Private Elevator", "Terrace", "Premium Finishes", "Concierge"]'),
+('Starter Home', 'Perfect starter home for first-time buyers in established neighborhood with good schools.', 'Single Family', 'sale', 285000, '852 Maple Street', 'Tallahassee', 'FL', '32301', 3, 2, 1400, 5500, 2005, 'active', false, '["https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800"]', '["Move-in Ready", "Fenced Yard", "Updated Appliances", "Quiet Street"]'),
+('Golf Course Home', 'Stunning home on prestigious golf course with fairway views and club membership.', 'Single Family', 'sale', 1125000, '159 Fairway Drive', 'Naples', 'FL', '34102', 4, 3, 3200, 10000, 2012, 'active', true, '["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800"]', '["Golf Course Views", "Club Membership", "Pool", "Premium Location"]');
+
+-- Add market insights
+INSERT INTO market_insights (location, time_period, insight_type, data_source, insight_summary, data_points) VALUES
+('Miami-Dade County', '2024 Q4', 'Price Trends', 'MLS Data', 'Luxury condo market shows 8% growth year-over-year with strong international buyer interest.', '{"median_price": 650000, "price_change": 8.2, "days_on_market": 45, "inventory_level": "low"}'),
+('Orlando Metro', '2024 Q4', 'Inventory Analysis', 'Local MLS', 'Single-family home inventory remains tight with 2.1 months supply, favoring sellers.', '{"months_supply": 2.1, "new_listings": 1250, "pending_sales": 2100, "absorption_rate": 0.95}'),
+('Tampa Bay', '2024 Q4', 'Commercial Trends', 'Commercial Board', 'Office space demand recovering with 12% increase in leasing activity this quarter.', '{"vacancy_rate": 18.5, "lease_rate_psf": 28.50, "new_construction": 450000, "absorption": 125000}');
+
+-- Add sample businesses (using existing user from profiles table if available)
+DO $$
+DECLARE
+    sample_user_id uuid;
+BEGIN
+    -- Get a sample user_id from existing profiles, or use null if none exists
+    SELECT user_id INTO sample_user_id FROM profiles LIMIT 1;
+    
+    IF sample_user_id IS NOT NULL THEN
+        INSERT INTO businesses (business_name, description, industry, asking_price, annual_revenue, annual_profit, location_city, location_state, seller_id, status, visa_eligible, visa_types, years_established, number_of_employees, financing_available, training_provided, inventory_included, featured, images, reason_for_selling, roi_percentage) VALUES
+        ('Miami Beach Restaurant', 'Established beachfront restaurant with prime location and loyal customer base. Fully equipped kitchen and outdoor seating.', 'Food Service', 850000, 1200000, 180000, 'Miami Beach', 'FL', sample_user_id, 'approved', true, '{"E-2", "EB-5"}', 8, 12, true, true, true, true, '["https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800"]', 'Owner retiring, looking for motivated buyer to continue success', 15.2),
+        ('Orlando Tech Startup', 'Growing software development company with established client base and recurring revenue streams.', 'Technology', 450000, 680000, 95000, 'Orlando', 'FL', sample_user_id, 'approved', true, '{"E-2", "L-1"}', 4, 8, false, true, false, false, '["https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"]', 'Founder moving to West Coast, established business ready for new leadership', 14.0);
+    END IF;
+END $$;
