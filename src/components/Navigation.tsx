@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import LanguageSwitcher from './LanguageSwitcher';
 import MagneticButton from './MagneticButton';
 import { useAuth } from '@/hooks/useAuth';
@@ -45,60 +45,54 @@ const Navigation = () => {
 
           {/* Desktop Navigation with dropdown */}
           <div className="hidden lg:flex items-center space-x-8">
-            <NavigationMenu className="relative z-50">
-              <NavigationMenuList className="flex items-center space-x-8">
-                {navigationItems.slice(0, 3).map((item, index) => (
-                  <NavigationMenuItem key={item.name}>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to={item.href}
-                        className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
-                        style={{ animationDelay: `${index * 100}ms` }}
-                      >
-                        {item.name}
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
+            {navigationItems.slice(0, 3).map((item, index) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {item.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+              </Link>
+            ))}
+            
+            {/* Agents Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 p-0 h-auto bg-transparent hover:bg-transparent"
+                >
+                  Agents
+                  <ChevronDown className="ml-1 h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                {agentItems.map((item) => (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link
+                      to={item.href}
+                      className="w-full cursor-pointer"
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
                 ))}
-                
-                {/* Agents Dropdown */}
-                <NavigationMenuItem className="relative">
-                  <NavigationMenuTrigger className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 bg-transparent hover:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
-                    Agents
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="absolute top-full left-0 mt-1 z-[9999] min-w-[200px]">
-                    <div className="p-2 bg-card border border-border shadow-xl rounded-md">
-                      {agentItems.map((item) => (
-                        <NavigationMenuLink key={item.name} asChild>
-                          <Link
-                            to={item.href}
-                            className="block px-3 py-2 text-sm text-foreground hover:text-accent hover:bg-accent/10 rounded-md transition-colors whitespace-nowrap"
-                          >
-                            {item.name}
-                          </Link>
-                        </NavigationMenuLink>
-                      ))}
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-                {navigationItems.slice(3).map((item, index) => (
-                  <NavigationMenuItem key={item.name}>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to={item.href}
-                        className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
-                        style={{ animationDelay: `${(index + 4) * 100}ms` }}
-                      >
-                        {item.name}
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+            {navigationItems.slice(3).map((item, index) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
+                style={{ animationDelay: `${(index + 4) * 100}ms` }}
+              >
+                {item.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+              </Link>
+            ))}
           </div>
 
           {/* Desktop CTAs with new design */}
