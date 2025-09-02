@@ -27,6 +27,11 @@ import BusinessBrokerage from "./pages/BusinessBrokerage";
 import Leadership from "./pages/Leadership";
 import HelpCenter from "./pages/HelpCenter";
 import NotFound from "./pages/NotFound";
+import { PropertySearch } from "@/components/PropertySearch";
+import { UserDashboard } from "@/components/UserDashboard";
+import { MortgageCalculator } from "@/components/MortgageCalculator";
+import { MessagingCenter } from "@/components/MessagingCenter";
+import { AppointmentScheduler } from "@/components/AppointmentScheduler";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +52,11 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
+          <Route path="/search" element={<PropertySearch />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/calculator" element={<MortgageCalculator />} />
+          <Route path="/messages" element={<MessagingCenter />} />
+          <Route path="/appointments" element={<AppointmentScheduler />} />
           <Route path="/agent/:id" element={<AgentProfile />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/news" element={<News />} />
