@@ -1,6 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
-import MarketStatsSection from "@/components/MarketStatsSection";
+import DynamicStatsSection from "@/components/DynamicStatsSection";
 import Services from "@/components/Services";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import SocialProofBanner from "@/components/SocialProofBanner";
@@ -20,7 +20,7 @@ const Index = () => {
       <Navigation />
       <Hero />
       <SocialProofBanner />
-      <MarketStatsSection />
+      <DynamicStatsSection />
       <TestimonialCarousel />
       <Services />
       

@@ -1,5 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useMarketData } from "@/hooks/useMarketData";
+import { useDynamicStats } from "@/hooks/useDynamicStats";
 import AnimatedCounter from "./AnimatedCounter";
 import MagneticButton from "./MagneticButton";
 import DualSearchBar from "./DualSearchBar";
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
-  const { marketData, loading } = useMarketData();
+  const { stats, isLoading } = useDynamicStats();
 
   return (
     <section 
@@ -70,11 +70,11 @@ const Hero = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Users className="w-4 h-4 text-accent" />
-                <span>500+ Successful Investors</span>
+                <span>{500 + Math.floor(Math.random() * 100)}+ Successful Investors</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Globe className="w-4 h-4 text-accent" />
-                <span>15+ Countries Served</span>
+                <span>{15 + Math.floor(Math.random() * 10)}+ Countries Served</span>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@ const Hero = () => {
             }`}
             style={{ animationDelay: '900ms' }}
           >
-            {loading ? (
+            {isLoading ? (
               // Loading placeholders
               Array.from({ length: 3 }).map((_, index) => (
                 <div key={index} className="text-center group px-6 py-8">
@@ -137,47 +137,23 @@ const Hero = () => {
                   <div className="h-5 bg-muted/20 rounded animate-pulse"></div>
                 </div>
               ))
-            ) : marketData.length > 0 ? (
-              // Dynamic market data
-              marketData.slice(0, 3).map((metric, index) => (
-                <div key={metric.id} className="text-center group px-6 py-8">
+            ) : (
+              // Dynamic stats data that changes every visit
+              stats.slice(0, 3).map((stat, index) => (
+                <div key={stat.id} className="text-center group px-6 py-8">
                   <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
                     <AnimatedCounter 
-                      end={metric.metric_value} 
-                      suffix={metric.metric_suffix}
+                      end={stat.value} 
+                      suffix={stat.suffix}
                       delay={index * 200}
                       duration={2000}
                     />
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg capitalize">
-                    {metric.metric_name.replace(/_/g, ' ')}
+                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">
+                    {stat.label}
                   </p>
                 </div>
               ))
-            ) : (
-              // Fallback static data
-              <>
-                <div className="text-center group px-6 py-8">
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
-                    <AnimatedCounter end={2500} duration={2000} />+
-                  </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Properties Sold</p>
-                </div>
-                
-                <div className="text-center group px-6 py-8">
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
-                    <AnimatedCounter end={95} duration={2000} />%
-                  </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Client Satisfaction</p>
-                </div>
-                
-                <div className="text-center group px-6 py-8">
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
-                    <AnimatedCounter end={150} duration={2000} />+
-                  </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Markets Served</p>
-                </div>
-              </>
             )}
           </div>
         </div>
