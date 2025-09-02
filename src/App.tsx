@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import BreadcrumbNavigation from "@/components/BreadcrumbNavigation";
+import NavigationValidator from "@/components/NavigationValidator";
+import MobileNavigationTest from "@/components/MobileNavigationTest";
+import UserJourneyValidator from "@/components/UserJourneyValidator";
+import NavigationAuditReport from "@/components/NavigationAuditReport";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Services from "./pages/Services";
@@ -66,6 +70,10 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <NavigationValidator />
+          <MobileNavigationTest />
+          <UserJourneyValidator />
+          <NavigationAuditReport />
           <BreadcrumbNavigation />
         <Routes>
         <Route path="/" element={<Index />} />
