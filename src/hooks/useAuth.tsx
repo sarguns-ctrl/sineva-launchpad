@@ -7,10 +7,13 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  isNewUser: boolean;
   signUp: (email: string, password: string, fullName?: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error: any }>;
+  updatePassword: (newPassword: string) => Promise<{ error: any }>;
+  resendVerification: () => Promise<{ error: any }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,22 +34,34 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isNewUser, setIsNewUser] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
         
         if (event === 'SIGNED_IN') {
+          // Check if this is a new user by looking at when they were created
+          const userCreatedAt = session?.user?.created_at;
+          const now = new Date();
+          const createdAt = userCreatedAt ? new Date(userCreatedAt) : now;
+          const isRecentlyCreated = (now.getTime() - createdAt.getTime()) < 5 * 60 * 1000; // 5 minutes
+          
+          setIsNewUser(isRecentlyCreated);
+          
           toast({
-            title: "Welcome back!",
-            description: "You have successfully signed in.",
+            title: isRecentlyCreated ? "Welcome to Sineva Brokerage! 🎉" : "Welcome back!",
+            description: isRecentlyCreated ? 
+              "Your account has been created successfully." : 
+              "You have successfully signed in.",
           });
         } else if (event === 'SIGNED_OUT') {
+          setIsNewUser(false);
           toast({
             title: "Signed out",
             description: "You have been signed out successfully.",
@@ -152,14 +167,67 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return { error };
   };
 
+  const updatePassword = async (newPassword: string) => {
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) {
+      toast({
+        title: "Password update failed",
+        description: error.message,
+        variant: "destructive"
+      });
+    } else {
+      toast({
+        title: "Password updated",
+        description: "Your password has been updated successfully.",
+      });
+    }
+
+    return { error };
+  };
+
+  const resendVerification = async () => {
+    if (!user?.email) {
+      return { error: { message: 'No user email found' } };
+    }
+
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email: user.email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/`
+      }
+    });
+
+    if (error) {
+      toast({
+        title: "Verification email failed",
+        description: error.message,
+        variant: "destructive"
+      });
+    } else {
+      toast({
+        title: "Verification email sent",
+        description: "Please check your email for the verification link.",
+      });
+    }
+
+    return { error };
+  };
+
   const value: AuthContextType = {
     user,
     session,
     loading,
+    isNewUser,
     signUp,
     signIn,
     signOut,
     resetPassword,
+    updatePassword,
+    resendVerification,
   };
 
   return (
