@@ -108,12 +108,6 @@ const Index = () => {
           </Suspense>
         </LazySection>
       </ErrorBoundary>
-
-      <ErrorBoundary>
-        <LazySection>
-          <ConversionOptimizer />
-        </LazySection>
-      </ErrorBoundary>
       
       {/* Lead Capture Section */}
       <section className="py-20 bg-gradient-to-br from-muted/20 to-background">
