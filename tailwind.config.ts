@@ -70,7 +70,12 @@ export default {
 			},
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
-				'card': 'var(--shadow-card)'
+				'card': 'var(--shadow-card)',
+				'button': 'var(--shadow-button)'
+			},
+			fontFamily: {
+				'inter': ['Inter', 'system-ui', 'sans-serif'],
+				'playfair': ['Playfair Display', 'Georgia', 'serif'],
 			},
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)'

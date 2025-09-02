@@ -14,15 +14,17 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <Building2 className="h-8 w-8 text-primary" />
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <Building2 className="h-7 w-7 text-white" />
+            </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-primary">SINEVA</span>
-              <span className="text-xs text-muted-foreground -mt-1 tracking-wider">BROKERAGE</span>
+              <span className="text-2xl font-bold text-primary font-playfair">SINEVA</span>
+              <span className="text-xs text-muted-foreground -mt-1 tracking-wider font-medium">BROKERAGE</span>
             </div>
           </div>
 
@@ -32,17 +34,22 @@ const Navigation = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-foreground hover:text-primary transition-colors duration-200"
+                className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group"
               >
                 {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </div>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline">Sign In</Button>
-            <Button>Get Started</Button>
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              Client Portal
+            </Button>
+            <Button className="shadow-button">
+              Schedule Consultation
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -65,15 +72,19 @@ const Navigation = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors duration-200"
+                  className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors duration-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <div className="flex flex-col space-y-2 px-3 pt-4">
-                <Button variant="outline" className="w-full">Sign In</Button>
-                <Button className="w-full">Get Started</Button>
+              <div className="flex flex-col space-y-3 px-3 pt-4">
+                <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                  Client Portal
+                </Button>
+                <Button className="w-full shadow-button">
+                  Schedule Consultation
+                </Button>
               </div>
             </div>
           </div>
