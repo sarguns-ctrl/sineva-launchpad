@@ -1,5 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useMarketData } from "@/hooks/useMarketData";
+import { useOptimizedMarketData } from "@/hooks/useOptimizedMarketData";
 import AnimatedCounter from "./AnimatedCounter";
 import MagneticButton from "./MagneticButton";
 import DualSearchBar from "./DualSearchBar";
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
-  const { marketData, loading } = useMarketData();
+  const { data: marketData = [], isLoading: loading, error } = useOptimizedMarketData();
 
   return (
     <section 
