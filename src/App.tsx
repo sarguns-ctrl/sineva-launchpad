@@ -32,6 +32,11 @@ import { UserDashboard } from "@/components/UserDashboard";
 import { MortgageCalculator } from "@/components/MortgageCalculator";
 import { MessagingCenter } from "@/components/MessagingCenter";
 import { AppointmentScheduler } from "@/components/AppointmentScheduler";
+import { AdminDashboard } from "@/components/AdminDashboard";
+import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
+import { LeadManagement } from "@/components/LeadManagement";
+import { EmailCampaignManager } from "@/components/EmailCampaignManager";
+import { AIPropertyRecommendations } from "@/components/AIPropertyRecommendations";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +62,11 @@ const App = () => (
           <Route path="/calculator" element={<MortgageCalculator />} />
           <Route path="/messages" element={<MessagingCenter />} />
           <Route path="/appointments" element={<AppointmentScheduler />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/analytics" element={<AnalyticsDashboard />} />
+          <Route path="/leads" element={<LeadManagement />} />
+          <Route path="/campaigns" element={<EmailCampaignManager />} />
+          <Route path="/recommendations" element={<AIPropertyRecommendations />} />
           <Route path="/agent/:id" element={<AgentProfile />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/news" element={<News />} />
