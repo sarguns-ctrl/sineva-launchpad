@@ -1,35 +1,36 @@
 import { Building2, Mail, Phone, MapPin, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const footerLinks = {
     Services: [
-      "Business Brokerage",
-      "Commercial Real Estate", 
-      "Residential Properties",
-      "International Services",
-      "Concierge Services"
+      { name: "Business Brokerage", href: "/business-brokerage" },
+      { name: "Commercial Real Estate", href: "/commercial-real-estate" },
+      { name: "Residential Properties", href: "/residential-properties" },
+      { name: "International Services", href: "/international-services" },
+      { name: "Concierge Services", href: "/concierge-services" }
     ],
     "For Agents": [
-      "Join Our Team",
-      "Commission Structure",
-      "Agent Packages",
-      "Training Programs",
-      "Agent Resources"
+      { name: "Join Our Team", href: "/join-team" },
+      { name: "Commission Structure", href: "/commission-structure" },
+      { name: "Agent Packages", href: "/agent-packages" },
+      { name: "Training Programs", href: "/training-programs" },
+      { name: "Agent Resources", href: "/agent-resources" }
     ],
     Company: [
-      "About Grupo Sineva",
-      "Leadership Team",
-      "Global Presence",
-      "Careers",
-      "Press & Media"
+      { name: "About Grupo Sineva", href: "/about" },
+      { name: "Leadership Team", href: "/leadership" },
+      { name: "Global Presence", href: "/global-presence" },
+      { name: "Careers", href: "/careers" },
+      { name: "Press & Media", href: "/press-media" }
     ],
     Support: [
-      "Contact Us",
-      "Help Center", 
-      "Legal Documents",
-      "Privacy Policy",
-      "Terms of Service"
+      { name: "Contact Us", href: "/contact" },
+      { name: "Help Center", href: "/help" },
+      { name: "Legal Documents", href: "/legal-documents" },
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms of Service", href: "/terms" }
     ]
   };
 
@@ -75,13 +76,13 @@ const Footer = () => {
                 <h3 className="text-lg font-semibold text-accent">{category}</h3>
                 <ul className="space-y-2">
                   {links.map((link) => (
-                    <li key={link}>
-                      <a 
-                        href="#" 
+                    <li key={link.name}>
+                      <Link 
+                        to={link.href}
                         className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 text-sm"
                       >
-                        {link}
-                      </a>
+                        {link.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
