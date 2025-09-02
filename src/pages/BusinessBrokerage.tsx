@@ -266,6 +266,10 @@ const BusinessBrokerage = () => {
               >
                 Filters
               </Button>
+              <Button onClick={handleListBusiness}>
+                <Plus className="w-4 h-4 mr-2" />
+                List Your Business
+              </Button>
             </div>
 
             {/* Filter Panel */}
