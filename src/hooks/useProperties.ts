@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from './use-toast';
 
 export interface Property {
   id: string;
@@ -38,223 +40,264 @@ export interface Property {
   years_established?: number;
 }
 
-// Sample property data
-const sampleProperties: Property[] = [
-  {
-    id: '1',
-    title: 'Downtown Office Complex',
-    description: 'Prime commercial property in the heart of downtown Houston with excellent investment potential.',
-    property_type: 'commercial',
-    category: 'Investment Grade',
-    price: 2850000,
-    address: '1200 Main Street',
-    city: 'Houston',
-    state: 'TX',
-    zip_code: '77002',
-    country: 'USA',
-    size_sqft: 12500,
-    features: ['Prime downtown location', 'Fully leased', 'Strong ROI'],
-    amenities: ['Parking garage', 'Security', '24/7 access'],
-    images: ['/api/placeholder/400/250'],
-    status: 'active',
-    visa_eligible: ['E-2', 'EB-5'],
-    investment_highlights: ['High occupancy rate', 'Growing downtown area', 'Long-term leases'],
-    roi_potential: 8.5,
-    views_count: 324,
-    favorites_count: 45,
-    is_featured: true,
-    listing_date: '2024-01-15',
-    rating: 4.8
-  },
-  {
-    id: '2',
-    title: 'River Oaks Estate',
-    description: 'Luxury residential estate in prestigious River Oaks neighborhood.',
-    property_type: 'residential',
-    category: 'Luxury',
-    price: 1250000,
-    address: '2500 River Oaks Boulevard',
-    city: 'Houston',
-    state: 'TX',
-    zip_code: '77019',
-    country: 'USA',
-    size_sqft: 4200,
-    bedrooms: 5,
-    bathrooms: 4.5,
-    year_built: 2018,
-    features: ['Gated community', 'Pool & spa', 'Premium finishes'],
-    amenities: ['Swimming pool', 'Home gym', 'Wine cellar', 'Chef\'s kitchen'],
-    images: ['/api/placeholder/400/250'],
-    status: 'active',
-    visa_eligible: ['Investment Property'],
-    views_count: 189,
-    favorites_count: 67,
-    is_featured: true,
-    listing_date: '2024-01-20',
-    rating: 4.9
-  },
-  {
-    id: '3',
-    title: 'Tech Consulting Firm',
-    description: 'Established technology consulting business with strong client base.',
-    property_type: 'business',
-    category: 'E-2 Ready',
-    price: 750000,
-    address: '301 Congress Avenue',
-    city: 'Austin',
-    state: 'TX',
-    zip_code: '78701',
-    country: 'USA',
-    business_type: 'Technology Consulting',
-    industry: 'Technology',
-    annual_revenue: 1200000,
-    employee_count: '15-20',
-    years_established: 8,
-    features: ['Established client base', 'Scalable model', 'Remote-friendly'],
-    amenities: ['Modern office', 'Cloud infrastructure', 'Trained staff'],
-    images: ['/api/placeholder/400/250'],
-    status: 'active',
-    visa_eligible: ['E-2', 'L-1'],
-    investment_highlights: ['Recurring revenue model', 'Growing market', 'Experienced team'],
-    views_count: 267,
-    favorites_count: 32,
-    is_featured: true,
-    listing_date: '2024-01-10',
-    rating: 4.7
-  },
-  {
-    id: '4',
-    title: 'Retail Shopping Center',
-    description: 'Multi-tenant retail property with strong foot traffic and stable income.',
-    property_type: 'commercial',
-    category: 'High Yield',
-    price: 3200000,
-    address: '4500 Northwest Highway',
-    city: 'Dallas',
-    state: 'TX',
-    zip_code: '75220',
-    country: 'USA',
-    size_sqft: 18000,
-    features: ['Multiple tenants', 'Long-term leases', 'Growing area'],
-    amenities: ['Ample parking', 'High visibility', 'Anchor tenant'],
-    images: ['/api/placeholder/400/250'],
-    status: 'active',
-    visa_eligible: ['EB-5', 'E-2'],
-    investment_highlights: ['Stable cash flow', 'Prime location', 'Expansion potential'],
-    roi_potential: 9.2,
-    rental_income: 25000,
-    views_count: 412,
-    favorites_count: 58,
-    is_featured: false,
-    listing_date: '2024-01-08',
-    rating: 4.6
-  },
-  {
-    id: '5',
-    title: 'Manufacturing Business',
-    description: '20+ year established manufacturing business with consistent growth.',
-    property_type: 'business',
-    category: 'Established',
-    price: 1850000,
-    address: '8200 Industrial Drive',
-    city: 'San Antonio',
-    state: 'TX',
-    zip_code: '78218',
-    country: 'USA',
-    business_type: 'Manufacturing',
-    industry: 'Industrial',
-    annual_revenue: 3800000,
-    employee_count: '35-40',
-    years_established: 22,
-    features: ['20+ year history', 'Consistent growth', 'Key contracts'],
-    amenities: ['Modern facility', 'Automated systems', 'Skilled workforce'],
-    images: ['/api/placeholder/400/250'],
-    status: 'active',
-    visa_eligible: ['E-2', 'EB-5'],
-    investment_highlights: ['Long-term contracts', 'Growing demand', 'Established operations'],
-    views_count: 156,
-    favorites_count: 41,
-    is_featured: false,
-    listing_date: '2024-01-05',
-    rating: 4.8
-  },
-  {
-    id: '6',
-    title: 'Luxury Penthouse',
-    description: 'Stunning penthouse with panoramic city views in downtown Austin.',
-    property_type: 'residential',
-    category: 'City Views',
-    price: 890000,
-    address: '200 Congress Avenue, PH1',
-    city: 'Austin',
-    state: 'TX',
-    zip_code: '78701',
-    country: 'USA',
-    size_sqft: 2800,
-    bedrooms: 3,
-    bathrooms: 3,
-    year_built: 2020,
-    features: ['Panoramic views', 'Modern design', 'Concierge service'],
-    amenities: ['Rooftop terrace', 'Smart home', 'Premium appliances'],
-    images: ['/api/placeholder/400/250'],
-    status: 'active',
-    visa_eligible: ['Personal Residence'],
-    views_count: 298,
-    favorites_count: 89,
-    is_featured: true,
-    listing_date: '2024-01-12',
-    rating: 4.9
-  }
-];
+interface PropertyFilters {
+  type?: string;
+  search?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  city?: string;
+  state?: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  featured?: boolean;
+  status?: string;
+}
 
-export const useProperties = (filters?: { type?: string; search?: string }) => {
+export const useProperties = (filters?: PropertyFilters) => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const fetchProperties = async () => {
     try {
       setLoading(true);
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      let filteredProperties = [...sampleProperties];
-      
+      setError(null);
+
+      let query = supabase
+        .from('properties')
+        .select(`
+          *,
+          agent:employee_profiles(id, full_name, email),
+          property_analytics(views, favorites, inquiries)
+        `)
+        .eq('status', 'active');
+
       // Apply filters
       if (filters?.type && filters.type !== 'all') {
-        filteredProperties = filteredProperties.filter(
-          property => property.property_type === filters.type
-        );
+        query = query.eq('property_type', filters.type);
       }
-      
+
+      if (filters?.status) {
+        query = query.eq('status', filters.status);
+      } else {
+        query = query.in('status', ['active', 'pending']);
+      }
+
+      if (filters?.featured) {
+        query = query.eq('featured', true);
+      }
+
+      if (filters?.minPrice) {
+        query = query.gte('price', filters.minPrice);
+      }
+
+      if (filters?.maxPrice) {
+        query = query.lte('price', filters.maxPrice);
+      }
+
+      if (filters?.city) {
+        query = query.ilike('city', `%${filters.city}%`);
+      }
+
+      if (filters?.state) {
+        query = query.ilike('state', `%${filters.state}%`);
+      }
+
+      if (filters?.bedrooms) {
+        query = query.gte('bedrooms', filters.bedrooms);
+      }
+
+      if (filters?.bathrooms) {
+        query = query.gte('bathrooms', filters.bathrooms);
+      }
+
       if (filters?.search) {
-        const searchLower = filters.search.toLowerCase();
-        filteredProperties = filteredProperties.filter(
-          property => 
-            property.title.toLowerCase().includes(searchLower) ||
-            property.city.toLowerCase().includes(searchLower) ||
-            property.description?.toLowerCase().includes(searchLower)
-        );
+        query = query.or(`
+          title.ilike.%${filters.search}%,
+          description.ilike.%${filters.search}%,
+          city.ilike.%${filters.search}%,
+          address.ilike.%${filters.search}%
+        `);
       }
-      
-      setProperties(filteredProperties);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch properties');
+
+      const { data, error: queryError, count } = await query
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (queryError) throw queryError;
+
+      // Transform data to match our Property interface
+      const transformedProperties: Property[] = (data || []).map(property => {
+        // Safely extract arrays from JSON fields
+        const features = Array.isArray(property.property_features) ? 
+          property.property_features.map(f => String(f)) : [];
+        const images = Array.isArray(property.images) ? 
+          property.images.map(img => String(img)) : [];
+
+        return {
+          id: property.id,
+          title: property.title,
+          description: property.description || '',
+          property_type: property.property_type as Property['property_type'],
+          category: property.listing_type || 'Standard',
+          price: Number(property.price),
+          address: property.address,
+          city: property.city,
+          state: property.state,
+          zip_code: property.zip_code || '',
+          country: 'USA',
+          size_sqft: property.square_feet || 0,
+          bedrooms: property.bedrooms || 0,
+          bathrooms: Number(property.bathrooms) || 0,
+          year_built: property.year_built || 0,
+          features,
+          amenities: features,
+          images,
+          virtual_tour_url: property.virtual_tour_url || '',
+          status: property.status as Property['status'],
+          visa_eligible: ['Investment Property'],
+          investment_highlights: [],
+          roi_potential: 0,
+          rental_income: 0,
+          views_count: property.property_analytics?.[0]?.views || 0,
+          favorites_count: property.property_analytics?.[0]?.favorites || 0,
+          is_featured: property.featured || false,
+          listing_date: property.created_at,
+          rating: 4.5 // Default rating
+        };
+      });
+
+      setProperties(transformedProperties);
+    } catch (err: any) {
+      const errorMessage = err.message || 'Failed to fetch properties';
+      setError(errorMessage);
       console.error('Error fetching properties:', err);
+      
+      // Show error toast
+      toast({
+        title: "Error loading properties",
+        description: errorMessage,
+        variant: "destructive"
+      });
     } finally {
       setLoading(false);
     }
   };
 
+  const addToFavorites = async (propertyId: string) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Must be logged in');
+
+      const { error } = await supabase
+        .from('user_favorites')
+        .insert({
+          user_id: user.id,
+          property_id: propertyId
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Added to favorites",
+        description: "Property added to your favorites list"
+      });
+
+      return { success: true };
+    } catch (err: any) {
+      toast({
+        title: "Error",
+        description: err.message,
+        variant: "destructive"
+      });
+      return { success: false, error: err.message };
+    }
+  };
+
+  const removeFromFavorites = async (propertyId: string) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Must be logged in');
+
+      const { error } = await supabase
+        .from('user_favorites')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('property_id', propertyId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Removed from favorites",
+        description: "Property removed from your favorites list"
+      });
+
+      return { success: true };
+    } catch (err: any) {
+      toast({
+        title: "Error",
+        description: err.message,
+        variant: "destructive"
+      });
+      return { success: false, error: err.message };
+    }
+  };
+
+  const scheduleViewing = async (propertyId: string, viewingData: any) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Must be logged in');
+
+      const { error } = await supabase
+        .from('appointments')
+        .insert({
+          client_id: user.id,
+          property_id: propertyId,
+          appointment_type: 'viewing',
+          scheduled_at: viewingData.scheduledAt,
+          notes: viewingData.notes
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Viewing scheduled",
+        description: "Your property viewing has been scheduled successfully"
+      });
+
+      return { success: true };
+    } catch (err: any) {
+      toast({
+        title: "Error",
+        description: err.message,
+        variant: "destructive"
+      });
+      return { success: false, error: err.message };
+    }
+  };
+
   useEffect(() => {
     fetchProperties();
-  }, [filters?.type, filters?.search]);
+  }, [
+    filters?.type, 
+    filters?.search, 
+    filters?.minPrice, 
+    filters?.maxPrice, 
+    filters?.city, 
+    filters?.state,
+    filters?.featured,
+    filters?.status
+  ]);
 
   return { 
     properties, 
     loading, 
     error, 
     refetch: fetchProperties,
-    totalCount: properties.length 
+    totalCount: properties.length,
+    addToFavorites,
+    removeFromFavorites,
+    scheduleViewing
   };
 };
