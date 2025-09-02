@@ -109,6 +109,7 @@ const App = () => (
           <Route path="/news" element={<News />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+        <Route path="/business-brokerage" element={<BusinessBrokerage />} />
         <Route path="/commercial-real-estate" element={<CommercialRealEstate />} />
         <Route path="/residential-properties" element={<ResidentialProperties />} />
         <Route path="/international-services" element={<InternationalServices />} />

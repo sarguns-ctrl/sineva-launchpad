@@ -30,7 +30,7 @@ const RelatedServices = ({
       icon: Briefcase,
       title: "Business Brokerage",
       description: "Smart matching platform connecting buyers and sellers worldwide",
-      href: "/businesses",
+      href: "/business-brokerage",
       color: "text-accent",
       bgColor: "bg-accent/10"
     },

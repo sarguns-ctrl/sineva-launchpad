@@ -1,122 +1,242 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Key, Shield, Globe, CheckCircle, ArrowRight, Star, MapPin } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Home, 
+  Heart, 
+  Shield, 
+  Users,
+  MapPin,
+  DollarSign,
+  CheckCircle, 
+  ArrowRight,
+  Car,
+  Wifi,
+  Camera,
+  Key
+} from "lucide-react";
+import RelatedServices from "@/components/RelatedServices";
+import CrossPageCTA from "@/components/CrossPageCTA";
+import { Link } from "react-router-dom";
 
 const ResidentialProperties = () => {
-  const serviceTypes = [
+  const services = [
     {
       icon: Home,
-      title: "Luxury Homes",
-      description: "Exceptional properties in prestigious neighborhoods",
-      features: ["Premium locations", "Unique architecture", "High-end finishes", "Private amenities"]
+      title: "Luxury Home Sales",
+      description: "Premium residential properties in exclusive neighborhoods and gated communities",
+      features: [
+        "Single-family luxury homes",
+        "Executive estates", 
+        "Waterfront properties",
+        "Custom-built residences"
+      ]
     },
     {
-      icon: Key,
+      icon: DollarSign,
       title: "Investment Properties",
-      description: "Cash-flowing rental properties and appreciation opportunities",
-      features: ["Rental income", "Tax advantages", "Market appreciation", "Professional management"]
+      description: "High-yield rental properties and investment opportunities",
+      features: [
+        "Multi-family properties",
+        "Short-term rental properties",
+        "Luxury condominiums",
+        "Vacation rental homes"
+      ]
+    },
+    {
+      icon: Users,
+      title: "Relocation Services",
+      description: "Complete support for international buyers relocating to the US",
+      features: [
+        "Area orientation tours",
+        "School district guidance",
+        "Temporary housing assistance",
+        "Community integration support"
+      ]
     },
     {
       icon: Shield,
-      title: "Relocation Services",
-      description: "Complete support for international moves and visa holders",
-      features: ["Visa assistance", "School districts", "Community integration", "Legal guidance"]
-    },
-    {
-      icon: Globe,
-      title: "Property Management",
-      description: "Full-service management for international property owners",
-      features: ["Tenant screening", "Maintenance coordination", "Financial reporting", "24/7 support"]
+      title: "International Buyer Programs",
+      description: "Specialized services for foreign nationals and non-resident buyers",
+      features: [
+        "Foreign national financing",
+        "ITIN application assistance",
+        "Currency exchange coordination",
+        "Legal and tax guidance"
+      ]
     }
   ];
 
-  const locations = [
+  const propertyTypes = [
     {
-      city: "Miami, FL",
-      properties: "1,200+",
-      avgPrice: "$850K",
-      growth: "+12%"
+      type: "Luxury Single-Family Homes",
+      description: "Premium homes in prestigious neighborhoods",
+      price_range: "$800K - $10M+",
+      features: ["Gated communities", "Private pools", "Home theaters", "Wine cellars", "Smart home technology"],
+      locations: ["Highland Park", "University Park", "Plano", "Frisco", "Southlake"]
     },
     {
-      city: "Los Angeles, CA", 
-      properties: "800+",
-      avgPrice: "$1.2M",
-      growth: "+8%"
+      type: "Executive Condominiums", 
+      description: "High-rise luxury living in urban centers",
+      price_range: "$400K - $5M",
+      features: ["Concierge services", "Rooftop amenities", "Valet parking", "Fitness centers", "City skyline views"],
+      locations: ["Downtown Dallas", "Uptown", "Deep Ellum", "Bishop Arts", "Knox Henderson"]
     },
     {
-      city: "Toronto, ON",
-      properties: "600+", 
-      avgPrice: "$920K",
-      growth: "+15%"
+      type: "Waterfront Properties",
+      description: "Exclusive homes on lakes and waterways", 
+      price_range: "$1M - $15M",
+      features: ["Private docks", "Boat houses", "Infinity pools", "Outdoor kitchens", "Panoramic water views"],
+      locations: ["White Rock Lake", "Lake Ray Hubbard", "Grapevine Lake", "Lake Lewisville", "Cedar Creek Lake"]
     },
     {
-      city: "Mexico City, MX",
-      properties: "400+",
-      avgPrice: "$380K", 
-      growth: "+18%"
+      type: "Investment Properties",
+      description: "High-yield rental and investment opportunities",
+      price_range: "$200K - $2M",
+      features: ["Turnkey rentals", "Property management", "High occupancy rates", "Cash flow positive", "Appreciation potential"],
+      locations: ["Richardson", "Carrollton", "Irving", "Garland", "McKinney"]
+    }
+  ];
+
+  const neighborhoods = [
+    {
+      name: "Highland Park",
+      description: "Most prestigious residential area in Dallas",
+      avg_price: "$2.8M",
+      highlights: ["Top-rated schools", "Historic charm", "Celebrity residents", "Park Cities lifestyle"]
+    },
+    {
+      name: "Plano",
+      description: "Family-friendly suburb with excellent amenities",
+      avg_price: "$650K", 
+      highlights: ["Award-winning schools", "Corporate headquarters", "Shopping centers", "Recreation facilities"]
+    },
+    {
+      name: "Frisco",
+      description: "Fast-growing city with modern amenities",
+      avg_price: "$720K",
+      highlights: ["Sports complexes", "New developments", "Entertainment districts", "Master-planned communities"]
+    },
+    {
+      name: "Southlake",
+      description: "Upscale community with luxury lifestyle",
+      avg_price: "$1.2M",
+      highlights: ["Town Square", "Top schools", "Luxury shopping", "Country club living"]
+    }
+  ];
+
+  const amenities = [
+    {
+      category: "Home Features",
+      items: ["Gourmet kitchens", "Master suites", "Home offices", "Media rooms", "Wine storage", "Guest quarters"]
+    },
+    {
+      category: "Outdoor Living",
+      items: ["Swimming pools", "Outdoor kitchens", "Fire pits", "Landscaped gardens", "Tennis courts", "Guest houses"]
+    },
+    {
+      category: "Smart Technology",
+      items: ["Home automation", "Security systems", "Climate control", "Audio/visual systems", "Smart lighting", "EV charging"]
+    },
+    {
+      category: "Community Amenities", 
+      items: ["Golf courses", "Country clubs", "Fitness centers", "Parks & trails", "Tennis facilities", "Social clubs"]
+    }
+  ];
+
+  const process = [
+    {
+      step: "01",
+      title: "Lifestyle Assessment",
+      description: "Understand your preferences, budget, and lifestyle requirements"
+    },
+    {
+      step: "02", 
+      title: "Market Analysis & Property Selection",
+      description: "Research neighborhoods and identify properties matching your criteria"
+    },
+    {
+      step: "03",
+      title: "Property Tours & Evaluation",
+      description: "Arrange viewings and provide detailed property assessments"
+    },
+    {
+      step: "04",
+      title: "Negotiation & Contract Management", 
+      description: "Professional negotiation and purchase contract coordination"
+    },
+    {
+      step: "05",
+      title: "Closing & Move-in Support",
+      description: "Manage closing process and provide relocation assistance"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-primary text-white">
+      <section className="pt-28 pb-20 bg-gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-6">
-            <h1 className="text-5xl md:text-6xl font-bold font-playfair">
-              Residential Properties
+            <Badge className="bg-accent text-accent-foreground px-6 py-2 text-sm font-medium">
+              RESIDENTIAL PROPERTIES
+            </Badge>
+            <h1 className="text-5xl md:text-6xl font-bold text-white font-playfair">
+              Luxury Homes & Investment Properties
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Luxury homes and residential properties across our international markets. 
-              Specialized services for entrepreneurs and professionals relocating with their business.
+            <p className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+              Premium residential properties in key markets across Texas and beyond. 
+              Whether you're relocating for business or seeking investment opportunities, we specialize in properties that serve both lifestyle and financial goals.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                Browse Homes
-                <ArrowRight className="ml-2 h-5 w-5" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+              <Button size="lg" className="shadow-button" asChild>
+                <Link to="/properties">
+                  Browse Luxury Homes
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary">
-                Relocation Consultation
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" asChild>
+                <Link to="/contact">
+                  Schedule Tour
+                </Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20">
+      {/* Services Overview */}
+      <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-6 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
               Residential Services
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              From luxury home purchases to complete relocation support, we provide comprehensive residential real estate services.
+              Comprehensive residential real estate services for discerning clients
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {serviceTypes.map((service, index) => (
-              <Card key={index} className="shadow-card hover:shadow-elegant transition-all duration-300 group">
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <service.icon className="h-6 w-6 text-accent" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {services.map((service, index) => (
+              <Card key={index} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card">
+                <CardHeader className="text-center pb-4">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <service.icon className="h-8 w-8 text-primary group-hover:text-white" />
                   </div>
-                  <CardTitle className="text-2xl group-hover:text-accent transition-colors duration-300">
-                    {service.title}
-                  </CardTitle>
+                  <CardTitle className="text-xl">{service.title}</CardTitle>
+                  <CardDescription className="text-base">{service.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-6">{service.description}</p>
                   <ul className="space-y-2">
                     {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center space-x-3">
-                        <CheckCircle className="h-4 w-4 text-accent" />
-                        <span className="text-card-foreground">{feature}</span>
+                      <li key={idx} className="flex items-center space-x-2 text-sm">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -127,36 +247,50 @@ const ResidentialProperties = () => {
         </div>
       </section>
 
-      {/* Market Locations */}
-      <section className="py-20 bg-muted/30">
+      {/* Property Types */}
+      <section className="py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
+          <div className="text-center space-y-6 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-              Our Market Locations
+              Property Categories
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              We serve key markets across North America and Latin America with deep local expertise.
+              Diverse residential opportunities across luxury and investment segments
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {locations.map((location, index) => (
-              <Card key={index} className="text-center shadow-card hover:shadow-elegant transition-all duration-300 group">
-                <CardContent className="p-6">
-                  <MapPin className="h-8 w-8 text-accent mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
-                  <h3 className="text-xl font-bold text-foreground mb-2">{location.city}</h3>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Properties:</span>
-                      <span className="font-semibold">{location.properties}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {propertyTypes.map((property, index) => (
+              <Card key={index} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card">
+                <CardHeader>
+                  <CardTitle className="text-2xl text-primary">{property.type}</CardTitle>
+                  <CardDescription className="text-base">{property.description}</CardDescription>
+                  <div className="mt-4">
+                    <div className="text-sm text-muted-foreground">Price Range</div>
+                    <div className="text-xl font-bold text-green-600">{property.price_range}</div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-sm text-muted-foreground mb-2">Key Features</div>
+                      <div className="flex flex-wrap gap-1">
+                        {property.features.map((feature, idx) => (
+                          <Badge key={idx} variant="secondary" className="text-xs">
+                            {feature}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Avg Price:</span>
-                      <span className="font-semibold">{location.avgPrice}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Growth:</span>
-                      <span className="font-semibold text-accent">{location.growth}</span>
+                    <div>
+                      <div className="text-sm text-muted-foreground mb-2">Popular Locations</div>
+                      <div className="flex flex-wrap gap-1">
+                        {property.locations.map((location, idx) => (
+                          <Badge key={idx} variant="outline" className="text-xs">
+                            {location}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -166,93 +300,156 @@ const ResidentialProperties = () => {
         </div>
       </section>
 
-      {/* Relocation Specialist Section */}
-      <section className="py-20">
+      {/* Featured Neighborhoods */}
+      <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-                Relocation Specialists
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                Moving to a new country for business? We specialize in helping entrepreneurs and professionals 
-                find the perfect home while navigating visa requirements and business setup.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <Star className="h-5 w-5 text-accent" />
-                    <span className="font-semibold">Visa Holder Expertise</span>
+          <div className="text-center space-y-6 mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
+              Featured Neighborhoods
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Exclusive communities with exceptional lifestyle amenities
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {neighborhoods.map((neighborhood, index) => (
+              <Card key={index} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card text-center">
+                <CardHeader>
+                  <div className="w-16 h-16 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-4">
+                    <MapPin className="h-8 w-8 text-white" />
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Star className="h-5 w-5 text-accent" />
-                    <span className="font-semibold">School District Guidance</span>
+                  <CardTitle className="text-xl">{neighborhood.name}</CardTitle>
+                  <CardDescription>{neighborhood.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="text-center">
+                      <div className="text-sm text-muted-foreground">Average Price</div>
+                      <div className="text-2xl font-bold text-primary">{neighborhood.avg_price}</div>
+                    </div>
+                    <ul className="space-y-1 text-sm">
+                      {neighborhood.highlights.map((highlight, idx) => (
+                        <li key={idx} className="flex items-center justify-center space-x-1">
+                          <CheckCircle className="h-3 w-3 text-green-600 flex-shrink-0" />
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Star className="h-5 w-5 text-accent" />
-                    <span className="font-semibold">Community Integration</span>
-                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Luxury Amenities */}
+      <section className="py-24 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-6 mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
+              Luxury Amenities
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Premium features and amenities that define luxury living
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {amenities.map((category, index) => (
+              <Card key={index} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card">
+                <CardHeader className="text-center">
+                  <CardTitle className="text-xl text-primary">{category.category}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {category.items.map((item, idx) => (
+                      <li key={idx} className="flex items-center space-x-2 text-sm">
+                        <Heart className="h-4 w-4 text-accent flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Timeline */}
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-6 mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
+              Our Process
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Personalized approach to finding your perfect home
+            </p>
+          </div>
+
+          <div className="relative">
+            {process.map((item, index) => (
+              <div key={index} className="flex items-start mb-12 last:mb-0">
+                <div className="flex-shrink-0 w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-xl shadow-elegant">
+                  {item.step}
                 </div>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <Star className="h-5 w-5 text-accent" />
-                    <span className="font-semibold">Legal Documentation</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Star className="h-5 w-5 text-accent" />
-                    <span className="font-semibold">Banking Connections</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Star className="h-5 w-5 text-accent" />
-                    <span className="font-semibold">Lifestyle Setup</span>
-                  </div>
+                <div className="ml-8 flex-1">
+                  <h3 className="text-2xl font-bold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-lg text-muted-foreground">{item.description}</p>
                 </div>
+                {index < process.length - 1 && (
+                  <div className="absolute left-10 w-0.5 h-12 bg-gradient-primary mt-20 -z-10" />
+                )}
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Statistics */}
+      <section className="py-24 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-primary">500+</div>
+              <div className="text-muted-foreground">Homes Sold</div>
             </div>
-            <div className="bg-gradient-primary rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-4">Success Stories</h3>
-              <div className="space-y-6">
-                <div className="bg-white/10 rounded-lg p-4">
-                  <p className="text-white/90 mb-2">
-                    "They helped us find the perfect home near excellent schools while handling all our E-2 visa documentation."
-                  </p>
-                  <div className="text-sm text-white/70">- Maria & Carlos, Mexico → Miami</div>
-                </div>
-                <div className="bg-white/10 rounded-lg p-4">
-                  <p className="text-white/90 mb-2">
-                    "From business setup to home purchase, they guided us through every step of our Canadian expansion."
-                  </p>
-                  <div className="text-sm text-white/70">- James & Sarah, UK → Toronto</div>
-                </div>
-              </div>
-              <Button className="w-full mt-6 bg-white text-primary hover:bg-white/90">
-                Share Your Story
-              </Button>
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-primary">$2.8M</div>
+              <div className="text-muted-foreground">Average Sale Price</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-primary">21</div>
+              <div className="text-muted-foreground">Days on Market</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-primary">98%</div>
+              <div className="text-muted-foreground">Client Satisfaction</div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Related Services */}
+      <RelatedServices 
+        currentService="Residential Properties"
+        maxItems={3} 
+        showTitle={true}
+        variant="default"
+      />
+
       {/* CTA Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair mb-6">
-            Find Your Dream Home
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Whether you're relocating for business or investing in residential real estate, we're here to help you find the perfect property.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300">
-              Search Properties
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground">
-              Schedule Home Tour
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CrossPageCTA
+        title="Find Your Dream Home Today"
+        description="Discover luxury residential properties that perfectly match your lifestyle and investment goals. Our expert team is ready to help you find the perfect home."
+        primaryAction={{ text: "Browse Luxury Homes", href: "/properties" }}
+        secondaryAction={{ text: "Schedule Private Tour", href: "/contact" }}
+        variant="gradient"
+        showContactOptions={true}
+      />
 
       <Footer />
     </div>
