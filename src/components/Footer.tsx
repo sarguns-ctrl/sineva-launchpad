@@ -1,8 +1,10 @@
-import { Building2, Mail, Phone, MapPin, Globe } from "lucide-react";
+import { Building2, Mail, Phone, MapPin, Globe, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const Footer = () => {
+  const { user, signOut } = useAuth();
   const footerLinks = {
     Services: [
       { name: "Business Brokerage", href: "/business-brokerage" },
@@ -93,7 +95,7 @@ const Footer = () => {
 
         {/* Newsletter Signup */}
         <div className="border-t border-primary-foreground/20 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+          <div className="grid md:grid-cols-3 gap-6 items-center">
             <div className="text-center md:text-left">
               <h3 className="text-xl font-bold mb-2">Stay Updated</h3>
               <p className="text-primary-foreground/80">
@@ -110,6 +112,53 @@ const Footer = () => {
                 Subscribe
               </Button>
             </div>
+          </div>
+          
+          {/* Auth Buttons */}
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 items-center">
+            {user ? (
+              <>
+                <Button 
+                  variant="outline" 
+                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground hover:text-primary min-w-[120px]"
+                  asChild
+                >
+                  <Link to="/dashboard">
+                    <User className="w-4 h-4 mr-2" />
+                    Dashboard
+                  </Link>
+                </Button>
+                
+                <Button 
+                  variant="ghost" 
+                  onClick={() => signOut()}
+                  className="text-primary-foreground hover:bg-destructive hover:text-destructive-foreground min-w-[120px]"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button 
+                  variant="outline" 
+                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground hover:text-primary min-w-[120px]"
+                  asChild
+                >
+                  <Link to="/auth">
+                    <Mail className="w-4 h-4 mr-2" />
+                    Sign In
+                  </Link>
+                </Button>
+                
+                <Button 
+                  className="bg-accent text-accent-foreground hover:bg-accent/90 min-w-[120px]"
+                  asChild
+                >
+                  <Link to="/auth">Get Started</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
 

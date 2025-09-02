@@ -62,7 +62,7 @@ const Navigation = () => {
               <span className="font-mono">+1 (555) 123-4567</span>
             </div>
             
-            {user ? (
+            {user && (
               <>
                 <MagneticButton 
                   variant="outline" 
@@ -84,29 +84,6 @@ const Navigation = () => {
                 >
                   <LogOut className="w-4 h-4" />
                   Sign Out
-                </MagneticButton>
-              </>
-            ) : (
-              <>
-                <MagneticButton 
-                  variant="outline" 
-                  size="sm"
-                  className="border-primary/30 hover:bg-primary hover:border-primary"
-                  asChild
-                >
-                  <Link to="/auth">
-                    <Mail className="w-4 h-4" />
-                    Sign In
-                  </Link>
-                </MagneticButton>
-                
-                <MagneticButton 
-                  variant="accent" 
-                  size="sm"
-                  className="shadow-accent"
-                  asChild
-                >
-                  <Link to="/auth">Get Started</Link>
                 </MagneticButton>
               </>
             )}
@@ -150,7 +127,7 @@ const Navigation = () => {
               </div>
               
               <div className="flex space-x-3">
-                {user ? (
+                {user && (
                   <>
                     <Button variant="outline" className="flex-1" asChild>
                       <Link to="/dashboard">
@@ -161,18 +138,6 @@ const Navigation = () => {
                     <Button variant="destructive" className="flex-1" onClick={() => signOut()}>
                       <LogOut className="w-4 h-4 mr-2" />
                       Sign Out
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Button variant="outline" className="flex-1" asChild>
-                      <Link to="/auth">
-                        <Mail className="w-4 h-4 mr-2" />
-                        Sign In
-                      </Link>
-                    </Button>
-                    <Button variant="accent" className="flex-1" asChild>
-                      <Link to="/auth">Get Started</Link>
                     </Button>
                   </>
                 )}

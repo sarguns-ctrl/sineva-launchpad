@@ -28,6 +28,15 @@ import Leadership from "./pages/Leadership";
 import HelpCenter from "./pages/HelpCenter";
 import NotFound from "./pages/NotFound";
 import AISearch from "./pages/AISearch";
+import JoinTeam from "./pages/JoinTeam";
+import CommissionStructure from "./pages/CommissionStructure";
+import AgentPackages from "./pages/AgentPackages";
+import TrainingPrograms from "./pages/TrainingPrograms";
+import AgentResources from "./pages/AgentResources";
+import GlobalPresence from "./pages/GlobalPresence";
+import Careers from "./pages/Careers";
+import PressMedia from "./pages/PressMedia";
+import LegalDocuments from "./pages/LegalDocuments";
 import { PropertySearch } from "@/components/PropertySearch";
 import { UserDashboard } from "@/components/UserDashboard";
 import { MortgageCalculator } from "@/components/MortgageCalculator";
@@ -77,10 +86,15 @@ const App = () => (
         <Route path="/commercial-real-estate" element={<CommercialRealEstate />} />
         <Route path="/residential-properties" element={<ResidentialProperties />} />
         <Route path="/international-services" element={<InternationalServices />} />
-        <Route path="/concierge-services" element={<ConciergeServices />} />
-        <Route path="/investment-advisory" element={<InvestmentAdvisory />} />
-        <Route path="/business-brokerage" element={<BusinessBrokerage />} />
-        <Route path="/leadership" element={<Leadership />} />
+        <Route path="/join-team" element={<JoinTeam />} />
+        <Route path="/commission-structure" element={<CommissionStructure />} />
+        <Route path="/agent-packages" element={<AgentPackages />} />
+        <Route path="/training-programs" element={<TrainingPrograms />} />
+        <Route path="/agent-resources" element={<AgentResources />} />
+        <Route path="/global-presence" element={<GlobalPresence />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/press-media" element={<PressMedia />} />
+        <Route path="/legal-documents" element={<LegalDocuments />} />
         <Route path="/help" element={<HelpCenter />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
