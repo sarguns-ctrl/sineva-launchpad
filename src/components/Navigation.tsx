@@ -158,7 +158,7 @@ const Navigation = () => {
               <span className="font-mono">+1 (555) 123-4567</span>
             </div>
             
-            {user ? (
+            {user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="hover:bg-muted">
@@ -180,10 +180,6 @@ const Navigation = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : (
-              <Button variant="outline" size="sm" asChild>
-                <Link to="/auth">Sign In</Link>
-              </Button>
             )}
           </div>
 
@@ -269,7 +265,7 @@ const Navigation = () => {
               </div>
               
               <div className="flex space-x-3">
-                {user ? (
+                {user && (
                   <>
                     <Button variant="outline" className="flex-1" asChild>
                       <Link to="/dashboard">
@@ -282,10 +278,6 @@ const Navigation = () => {
                       Sign Out
                     </Button>
                   </>
-                ) : (
-                  <Button variant="outline" className="w-full" asChild>
-                    <Link to="/auth">Sign In</Link>
-                  </Button>
                 )}
               </div>
             </div>
