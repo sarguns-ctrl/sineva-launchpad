@@ -47,6 +47,11 @@ import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { LeadManagement } from "@/components/LeadManagement";
 import { EmailCampaignManager } from "@/components/EmailCampaignManager";
 import { AIPropertyRecommendations } from "@/components/AIPropertyRecommendations";
+import { AdvancedAgentDashboard } from "@/components/AdvancedAgentDashboard";
+import { AIPoweredCRM } from "@/components/AI-PoweredCRM";
+import { VideoCallIntegration } from "@/components/VideoCallIntegration";
+import { EnhancedPropertySearch } from "@/components/EnhancedPropertySearch";
+import { AdvancedAnalyticsDashboard } from "@/components/AdvancedAnalyticsDashboard";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +83,11 @@ const App = () => (
           <Route path="/leads" element={<LeadManagement />} />
           <Route path="/campaigns" element={<EmailCampaignManager />} />
           <Route path="/recommendations" element={<AIPropertyRecommendations />} />
+          <Route path="/agent-dashboard" element={<AdvancedAgentDashboard />} />
+          <Route path="/ai-crm" element={<AIPoweredCRM />} />
+          <Route path="/video-calls" element={<VideoCallIntegration />} />
+          <Route path="/advanced-search" element={<EnhancedPropertySearch />} />
+          <Route path="/advanced-analytics" element={<AdvancedAnalyticsDashboard />} />
           <Route path="/agent/:id" element={<AgentProfile />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/news" element={<News />} />
