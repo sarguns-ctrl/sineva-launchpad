@@ -44,6 +44,10 @@ import FranchiseWithUs from "./pages/FranchiseWithUs";
 import PropertySearchPage from "./pages/PropertySearchPage";
 import UserDashboardPage from "./pages/UserDashboardPage";
 import MortgageCalculatorPage from "./pages/MortgageCalculatorPage";
+import AdminUsers from "./pages/AdminUsers";
+import AdminProperties from "./pages/AdminProperties";
+import AdminLeads from "./pages/AdminLeads";
+import AdminSettings from "./pages/AdminSettings";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import { MessagingCenter } from "@/components/MessagingCenter";
 import { AppointmentScheduler } from "@/components/AppointmentScheduler";
@@ -89,6 +93,10 @@ const App = () => (
           <Route path="/messages" element={<MessagingCenter />} />
           <Route path="/appointments" element={<AppointmentScheduler />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/properties" element={<AdminProperties />} />
+          <Route path="/admin/leads" element={<AdminLeads />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/analytics" element={<AnalyticsDashboard />} />
           <Route path="/leads" element={<LeadManagement />} />
           <Route path="/campaigns" element={<EmailCampaignManager />} />

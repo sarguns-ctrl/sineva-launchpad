@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, Filter, MapPin, Bed, Bath, Home, DollarSign } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -44,6 +45,7 @@ export const PropertySearch: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const [filters, setFilters] = useState<SearchFilters>({
     location: '',
@@ -324,7 +326,7 @@ export const PropertySearch: React.FC = () => {
                   <Badge variant="outline">{property.listing_type}</Badge>
                 </div>
 
-                <Button className="w-full mt-4" onClick={() => window.location.href = `/property/${property.id}`}>
+                <Button className="w-full mt-4" onClick={() => navigate(`/property/${property.id}`)}>
                   View Details
                 </Button>
               </div>

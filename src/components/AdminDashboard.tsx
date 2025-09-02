@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Shield, Users, Home, TrendingUp, MessageSquare, Settings, DollarSign, AlertTriangle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -30,6 +31,7 @@ interface RecentActivity {
 export const AdminDashboard: React.FC = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const [stats, setStats] = useState<AdminStats>({
     totalUsers: 0,
@@ -301,19 +303,19 @@ export const AdminDashboard: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Button className="h-20 flex-col gap-2" onClick={() => window.location.href = '/admin/users'}>
+                <Button className="h-20 flex-col gap-2" onClick={() => navigate('/admin/users')}>
                   <Users className="h-6 w-6" />
                   Manage Users
                 </Button>
-                <Button className="h-20 flex-col gap-2" variant="outline" onClick={() => window.location.href = '/admin/properties'}>
+                <Button className="h-20 flex-col gap-2" variant="outline" onClick={() => navigate('/admin/properties')}>
                   <Home className="h-6 w-6" />
                   Manage Properties
                 </Button>
-                <Button className="h-20 flex-col gap-2" variant="outline" onClick={() => window.location.href = '/admin/leads'}>
+                <Button className="h-20 flex-col gap-2" variant="outline" onClick={() => navigate('/admin/leads')}>
                   <MessageSquare className="h-6 w-6" />
                   View Leads
                 </Button>
-                <Button className="h-20 flex-col gap-2" variant="outline" onClick={() => window.location.href = '/admin/settings'}>
+                <Button className="h-20 flex-col gap-2" variant="outline" onClick={() => navigate('/admin/settings')}>
                   <Settings className="h-6 w-6" />
                   System Settings
                 </Button>

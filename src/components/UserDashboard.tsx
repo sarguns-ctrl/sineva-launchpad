@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { User, Heart, Search, Calendar, Calculator, MessageSquare, Settings } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -54,6 +55,7 @@ interface Appointment {
 export const UserDashboard: React.FC = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
@@ -272,7 +274,7 @@ export const UserDashboard: React.FC = () => {
             <Button 
               className="h-20 flex-col gap-2" 
               variant="outline"
-              onClick={() => window.location.href = '/search'}
+              onClick={() => navigate('/search')}
             >
               <Search className="h-6 w-6" />
               Property Search
@@ -280,7 +282,7 @@ export const UserDashboard: React.FC = () => {
             <Button 
               className="h-20 flex-col gap-2" 
               variant="outline"
-              onClick={() => window.location.href = '/calculator'}
+              onClick={() => navigate('/calculator')}
             >
               <Calculator className="h-6 w-6" />
               Mortgage Calculator
@@ -288,7 +290,7 @@ export const UserDashboard: React.FC = () => {
             <Button 
               className="h-20 flex-col gap-2" 
               variant="outline"
-              onClick={() => window.location.href = '/appointments'}
+              onClick={() => navigate('/appointments')}
             >
               <Calendar className="h-6 w-6" />
               Schedule Viewing
@@ -296,7 +298,7 @@ export const UserDashboard: React.FC = () => {
             <Button 
               className="h-20 flex-col gap-2" 
               variant="outline"
-              onClick={() => window.location.href = '/messages'}
+              onClick={() => navigate('/messages')}
             >
               <MessageSquare className="h-6 w-6" />
               Messages
@@ -348,7 +350,7 @@ export const UserDashboard: React.FC = () => {
                           {favorite.property.city}, {favorite.property.state}
                         </p>
                         <div className="flex gap-2 pt-2">
-                          <Button size="sm" onClick={() => window.location.href = `/property/${favorite.property.id}`}>
+                          <Button size="sm" onClick={() => navigate(`/property/${favorite.property.id}`)}>
                             View
                           </Button>
                           <Button 
@@ -465,7 +467,7 @@ export const UserDashboard: React.FC = () => {
                 <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-semibold mb-2">Messaging Center</h3>
                 <p className="text-muted-foreground">Connect with agents and other users</p>
-                <Button className="mt-4" onClick={() => window.location.href = '/messages'}>
+                <Button className="mt-4" onClick={() => navigate('/messages')}>
                   Start a Conversation
                 </Button>
               </div>

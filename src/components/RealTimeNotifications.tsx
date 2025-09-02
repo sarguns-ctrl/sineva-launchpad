@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, X, Check, AlertTriangle, Info, CheckCircle, Eye, Settings, Filter } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,6 +37,7 @@ interface NotificationSettings {
 export const RealTimeNotifications: React.FC = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -421,7 +423,7 @@ export const RealTimeNotifications: React.FC = () => {
                                                 variant="ghost"
                                                 size="sm"
                                                 className="h-6 w-6 p-0"
-                                                onClick={() => window.location.href = notification.action_url!}
+                                                onClick={() => navigate(notification.action_url!)}
                                               >
                                                 <Eye className="h-3 w-3" />
                                               </Button>

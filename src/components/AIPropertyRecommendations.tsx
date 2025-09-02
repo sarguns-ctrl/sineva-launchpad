@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Brain, Star, MapPin, Bed, Bath, Home, TrendingUp, Heart, Eye } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -43,6 +44,7 @@ interface UserPreferences {
 export const AIPropertyRecommendations: React.FC = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const [recommendations, setRecommendations] = useState<PropertyRecommendation[]>([]);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({});
@@ -350,7 +352,7 @@ export const AIPropertyRecommendations: React.FC = () => {
                         </div>
                         
                         <div className="flex flex-col gap-2">
-                          <Button size="sm" onClick={() => window.location.href = `/property/${recommendation.property.id}`}>
+                          <Button size="sm" onClick={() => navigate(`/property/${recommendation.property.id}`)}>
                             <Eye className="h-4 w-4 mr-2" />
                             View Details
                           </Button>
@@ -391,7 +393,7 @@ export const AIPropertyRecommendations: React.FC = () => {
                 <p className="text-muted-foreground mb-6">
                   Browse some properties and save your favorites to help our AI learn your preferences
                 </p>
-                <Button onClick={() => window.location.href = '/search'}>
+                <Button onClick={() => navigate('/search')}>
                   Start Browsing Properties
                 </Button>
               </CardContent>

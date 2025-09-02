@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   MapPin, 
@@ -69,6 +70,7 @@ export const Enhanced3DPropertyCard: React.FC<Enhanced3DPropertyCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
+  const navigate = useNavigate();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -358,7 +360,7 @@ export const Enhanced3DPropertyCard: React.FC<Enhanced3DPropertyCardProps> = ({
           <div className="p-6 pt-4 flex gap-3">
             <Button 
               className="flex-1 shadow-button"
-              onClick={() => window.location.href = `/property/${property.id}`}
+              onClick={() => navigate(`/property/${property.id}`)}
             >
               View Details
               <ArrowRight className="w-4 h-4 ml-2" />

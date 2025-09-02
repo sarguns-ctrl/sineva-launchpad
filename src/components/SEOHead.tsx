@@ -13,7 +13,7 @@ const SEOHead = ({
   title = "Premium Real Estate - International Investment Opportunities",
   description = "Connect with North America's most trusted real estate professionals. 20+ years of expertise backing every transaction. Licensed professionals serving 15+ countries.",
   keywords = ["real estate", "international investment", "property investment", "E-2 visa", "EB-5 visa", "commercial real estate"],
-  canonicalUrl = window.location.href,
+  canonicalUrl = typeof window !== 'undefined' ? window.location.href : '',
   ogImage = "/og-image.jpg",
   structuredData
 }: SEOHeadProps) => {

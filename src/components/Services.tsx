@@ -1,3 +1,5 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building, Home, Briefcase, Globe, HeartHandshake, TrendingUp } from "lucide-react";
@@ -5,6 +7,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import InteractiveCard from "@/components/InteractiveCard";
 
 const Services = () => {
+  const navigate = useNavigate();
   const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
   const { elementRef: ctaRef, isVisible: ctaVisible } = useScrollAnimation({ threshold: 0.3 });
   
@@ -110,15 +113,15 @@ const Services = () => {
                   variant="outline" 
                   className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105 transition-all duration-300 border-primary/20 hover:border-primary"
                   onClick={() => {
-                    const serviceRoutes = {
-                      "Business Brokerage": "/businesses",
-                      "Commercial Real Estate": "/commercial-real-estate", 
-                      "Residential Properties": "/residential-properties",
-                      "International Services": "/international-services",
-                      "Concierge Services": "/concierge-services",
-                      "Investment Advisory": "/investment-advisory"
+                    const serviceRoutes: { [key: string]: string } = {
+                      'Commercial Real Estate': '/commercial-real-estate',
+                      'Residential Properties': '/residential-properties',
+                      'International Services': '/international-services',
+                      'Business Brokerage': '/businesses',
+                      'Investment Advisory': '/investment-advisory',
+                      'Concierge Services': '/concierge-services',
                     };
-                    window.location.href = serviceRoutes[service.title] || '/services';
+                    navigate(serviceRoutes[service.title] || '/services');
                   }}
                 >
                   Learn More

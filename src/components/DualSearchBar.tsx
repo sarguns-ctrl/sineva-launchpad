@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, MapPin, Users } from 'lucide-react';
@@ -6,6 +7,7 @@ import { Search, MapPin, Users } from 'lucide-react';
 const DualSearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchType, setSearchType] = useState<'properties' | 'agents'>('properties');
+  const navigate = useNavigate();
 
   const suggestedSearches = {
     properties: [
@@ -26,9 +28,9 @@ const DualSearchBar = () => {
 
   const handleSearch = () => {
     if (searchType === 'properties') {
-      window.location.href = '/properties';
+      navigate('/properties');
     } else {
-      window.location.href = '/agents';
+      navigate('/agents');
     }
   };
 

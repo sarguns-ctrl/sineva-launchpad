@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, MapPin, Bed, Bath, Square, DollarSign, Zap, Heart, Eye, Share2, Calendar, Star, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -35,6 +36,7 @@ interface PropertySuggestion {
 
 export const EnhancedPropertySearch: React.FC = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [savedSearches, setSavedSearches] = useState<any[]>([]);
@@ -516,10 +518,11 @@ export const EnhancedPropertySearch: React.FC = () => {
 
                       {/* Action buttons */}
                       <div className="flex gap-2 pt-2">
-                        <Button 
-                          className="flex-1" 
-                          onClick={() => window.location.href = `/property/${property.id}`}
-                        >
+                          <Button 
+                            size="sm" 
+                            className="flex-1" 
+                            onClick={() => navigate(`/property/${property.id}`)}
+                          >
                           View Details
                         </Button>
                         <Button variant="outline" size="sm" className="px-3">
@@ -625,7 +628,7 @@ export const EnhancedPropertySearch: React.FC = () => {
                             </div>
 
                             <Button 
-                              onClick={() => window.location.href = `/property/${property.id}`}
+                              onClick={() => navigate(`/property/${property.id}`)}
                             >
                               View Details
                             </Button>
