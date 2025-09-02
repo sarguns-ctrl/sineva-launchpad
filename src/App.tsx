@@ -26,6 +26,7 @@ import InternationalServices from "@/pages/InternationalServices";
 import ConciergeServices from "@/pages/ConciergeServices";
 import InvestmentAdvisory from "@/pages/InvestmentAdvisory";
 import BusinessBrokerage from './pages/BusinessBrokerage';
+import BusinessMarketplace from './pages/BusinessMarketplace';
 import BusinessDetail from './pages/BusinessDetail';
 import ListBusiness from './pages/ListBusiness';
 import Leadership from "./pages/Leadership";
@@ -110,13 +111,8 @@ const App = () => (
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         <Route path="/business-brokerage" element={<BusinessBrokerage />} />
-        <Route path="/commercial-real-estate" element={<CommercialRealEstate />} />
-        <Route path="/residential-properties" element={<ResidentialProperties />} />
-        <Route path="/international-services" element={<InternationalServices />} />
-        <Route path="/concierge-services" element={<ConciergeServices />} />
-        <Route path="/investment-advisory" element={<InvestmentAdvisory />} />
-          <Route path="/businesses" element={<BusinessBrokerage />} />
-          <Route path="/business/:id" element={<BusinessDetail />} />
+        <Route path="/businesses" element={<BusinessMarketplace />} />
+        <Route path="/business/:id" element={<BusinessDetail />} />
           <Route path="/list-business" element={<ListBusiness />} />
         <Route path="/join-team" element={<JoinTeam />} />
         <Route path="/commission-structure" element={<CommissionStructure />} />
