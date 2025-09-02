@@ -1,130 +1,190 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import { BusinessCard } from '@/components/BusinessCard';
+import { BusinessFilters } from '@/components/BusinessFilters';
+import { useBusinesses, BusinessFilters as BusinessFiltersType, useBusinessCategories } from '@/hooks/useBusinesses';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
 import { 
-  Briefcase, 
+  Building2, 
+  MapPin, 
+  DollarSign, 
   Users, 
-  Target, 
   TrendingUp, 
   Shield, 
+  Clock, 
+  Award, 
+  Search, 
+  Plus,
+  Briefcase,
   Globe,
-  CheckCircle, 
   ArrowRight,
-  DollarSign,
-  FileText,
-  Handshake,
-  BarChart3
-} from "lucide-react";
-import RelatedServices from "@/components/RelatedServices";
-import CrossPageCTA from "@/components/CrossPageCTA";
-import { Link } from "react-router-dom";
+  CheckCircle,
+  Zap,
+  Target,
+  MessageSquare
+} from 'lucide-react';
+import { useState } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import InteractiveCard from '@/components/InteractiveCard';
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const BusinessBrokerage = () => {
-  const services = [
-    {
-      icon: Target,
-      title: "Business Matching",
-      description: "AI-powered algorithm matches international entrepreneurs with profitable US businesses",
-      features: [
-        "Advanced matching algorithms",
-        "Industry expertise analysis",
-        "Investment capacity assessment",
-        "Immigration goal alignment"
-      ]
-    },
-    {
-      icon: BarChart3,
-      title: "Business Valuation",
-      description: "Comprehensive financial analysis and market-based valuation services",
-      features: [
-        "Financial statement analysis",
-        "Market comparable research",
-        "Cash flow projections",
-        "Risk assessment reports"
-      ]
-    },
-    {
-      icon: FileText,
-      title: "Due Diligence",
-      description: "Thorough verification and analysis of business operations and financials",
-      features: [
-        "Financial record verification",
-        "Legal compliance review",
-        "Operational assessment",
-        "Market position analysis"
-      ]
-    },
-    {
-      icon: Shield,
-      title: "Immigration Compliance",
-      description: "Ensure business acquisitions meet E-2 and EB-5 visa requirements",
-      features: [
-        "E-2 visa qualification review",
-        "EB-5 compliance assessment",
-        "Investment structure guidance",
-        "Documentation preparation"
-      ]
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
+  const { elementRef: howItWorksRef, isVisible: howItWorksVisible } = useScrollAnimation();
+  const { elementRef: categoriesRef, isVisible: categoriesVisible } = useScrollAnimation();
+  const { elementRef: featuresRef, isVisible: featuresVisible } = useScrollAnimation();
+  const { elementRef: metricsRef, isVisible: metricsVisible } = useScrollAnimation();
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filters, setFilters] = useState<BusinessFiltersType>({});
+  const [showFilters, setShowFilters] = useState(false);
+  
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  
+  const { 
+    businesses, 
+    loading, 
+    error, 
+    totalCount, 
+    addToFavorites, 
+    removeFromFavorites 
+  } = useBusinesses(filters);
+
+  const { categories } = useBusinessCategories();
+
+  const handleSearch = () => {
+    setFilters(prev => ({
+      ...prev,
+      // Add search functionality by filtering business names or descriptions
+    }));
+  };
+
+  const handleListBusiness = () => {
+    if (!user) {
+      navigate('/auth');
+      return;
     }
-  ];
+    navigate('/list-business');
+  };
+
+  const filteredBusinesses = businesses.filter(business =>
+    business.business_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    business.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const businessTypes = [
     {
-      category: "Technology",
-      industries: ["Software Development", "IT Services", "E-commerce", "Digital Marketing"],
-      investment: "$100K - $2M",
-      roi: "15-25% annually",
-      visaMatch: "E-2, EB-5"
+      icon: Building2,
+      title: 'Restaurants & Food Service',
+      description: 'Established restaurants, cafes, bars, and food service businesses with proven customer bases and growth potential.',
+      investmentRange: '$200K - $2M',
+      avgROI: '15-25%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Restaurants & Food Service').length
     },
     {
-      category: "Healthcare",
-      industries: ["Medical Practices", "Dental Clinics", "Senior Care", "Medical Equipment"],
-      investment: "$200K - $5M",
-      roi: "12-20% annually", 
-      visaMatch: "EB-5"
+      icon: Users,
+      title: 'Retail & E-commerce',
+      description: 'Physical stores, online businesses, and franchises with strong brand presence and loyal customer followings.',
+      investmentRange: '$150K - $3M',
+      avgROI: '12-28%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Retail & E-commerce').length
     },
     {
-      category: "Food & Beverage",
-      industries: ["Restaurants", "Food Manufacturing", "Catering", "Specialty Foods"],
-      investment: "$150K - $1.5M",
-      roi: "10-18% annually",
-      visaMatch: "E-2"
+      icon: TrendingUp,
+      title: 'Technology & Software',
+      description: 'SaaS companies, software development firms, and tech startups with recurring revenue and scalability.',
+      investmentRange: '$500K - $5M',
+      avgROI: '20-35%',
+      visaEligible: false,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Technology & Software').length
     },
     {
-      category: "Manufacturing",
-      industries: ["Light Manufacturing", "Assembly", "Distribution", "Import/Export"],
-      investment: "$300K - $10M",
-      roi: "12-22% annually",
-      visaMatch: "E-2, EB-5"
+      icon: Shield,
+      title: 'Healthcare & Medical',
+      description: 'Medical practices, clinics, and healthcare service providers with stable income and growth opportunities.',
+      investmentRange: '$300K - $2M',
+      avgROI: '18-30%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Healthcare & Medical').length
+    },
+    {
+      icon: Briefcase,
+      title: 'Professional Services',
+      description: 'Consulting firms, marketing agencies, and service-based businesses with established client relationships.',
+      investmentRange: '$200K - $1.5M',
+      avgROI: '25-35%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Professional Services').length
+    },
+    {
+      icon: Globe,
+      title: 'Manufacturing & Production',
+      description: 'Manufacturing facilities, production companies, and industrial businesses with equipment and contracts.',
+      investmentRange: '$800K - $5M',
+      avgROI: '15-25%',
+      visaEligible: true,
+      count: filteredBusinesses.filter(b => b.business_categories?.name === 'Manufacturing & Production').length
     }
   ];
 
-  const process = [
+  const howItWorksSteps = [
     {
-      step: "01",
-      title: "Initial Consultation",
-      description: "Assess your goals, experience, and investment capacity"
+      step: '01',
+      title: 'Browse & Search',
+      description: 'Explore our curated marketplace of verified businesses. Use advanced filters to find opportunities that match your investment budget, industry preference, and visa requirements.'
     },
     {
-      step: "02", 
-      title: "Business Matching",
-      description: "AI-powered platform identifies suitable business opportunities"
+      step: '02',
+      title: 'Connect & Inquire',
+      description: 'Submit inquiries directly to business owners through our secure platform. Share your investment profile and schedule calls or meetings to discuss opportunities.'
     },
     {
-      step: "03",
-      title: "Due Diligence",
-      description: "Comprehensive analysis of financials, operations, and compliance"
+      step: '03',
+      title: 'Due Diligence',
+      description: 'Access financial documents, review business operations, and conduct thorough analysis. Our platform facilitates secure document sharing and expert consultation.'
     },
     {
-      step: "04",
-      title: "Negotiation & Closing",
-      description: "Professional support through purchase negotiations and closing"
+      step: '04',
+      title: 'Close & Transition',
+      description: 'Complete the acquisition with legal support and seamless handover. Get guidance on visa applications, business operations, and smooth ownership transition.'
+    }
+  ];
+
+  const successMetrics = [
+    { number: '500+', label: 'Businesses Listed', icon: Building2 },
+    { number: '95%', label: 'Verified Listings', icon: Shield },
+    { number: '$2.3B', label: 'Total Deal Value', icon: DollarSign },
+    { number: '89%', label: 'Buyer Satisfaction', icon: Award }
+  ];
+
+  const keyFeatures = [
+    {
+      icon: Shield,
+      title: 'Verified Business Listings',
+      description: 'Every business undergoes thorough verification including financial review, legal compliance, and operational assessment before listing.'
     },
     {
-      step: "05",
-      title: "Post-Acquisition Support",
-      description: "Ongoing mentorship and operational guidance"
+      icon: Search,
+      title: 'Smart Matching System',
+      description: 'AI-powered search and filtering system helps you discover businesses that match your investment criteria and visa requirements.'
+    },
+    {
+      icon: MessageSquare,
+      title: 'Direct Communication',
+      description: 'Connect directly with business owners through our secure messaging system to discuss opportunities and schedule meetings.'
+    },
+    {
+      icon: Globe,
+      title: 'Visa Compliance Focus',
+      description: 'All listings clearly indicate visa eligibility for E-2, EB-5, and other investor programs with immigration guidance available.'
     }
   ];
 
@@ -133,195 +193,333 @@ const BusinessBrokerage = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-28 pb-20 bg-gradient-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6">
-            <Badge className="bg-accent text-accent-foreground px-6 py-2 text-sm font-medium">
-              BUSINESS BROKERAGE
-            </Badge>
-            <h1 className="text-5xl md:text-6xl font-bold text-white font-playfair">
-              Smart Business Matching Platform
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
+              Buy Your American Dream
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed">
-              Our revolutionary "Tinder for Businesses" connects international entrepreneurs with profitable US businesses. 
-              Advanced algorithms match you with opportunities that align with your expertise and immigration goals.
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
+              Discover established U.S. businesses perfect for international entrepreneurs seeking E-2 and EB-5 visa opportunities
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Button size="lg" className="shadow-button" asChild>
-                <Link to="/businesses">
-                  Browse Businesses
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto mb-8">
+              <Button 
+                size="lg" 
+                className="flex-1"
+                onClick={() => document.getElementById('business-listings')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Browse Businesses
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" asChild>
-                <Link to="/contact">
-                  Schedule Consultation
-                </Link>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="flex-1"
+                onClick={() => document.getElementById('business-search')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Start Business Search
               </Button>
+            </div>
+            
+            {user && (
+              <Button 
+                onClick={handleListBusiness}
+                variant="secondary"
+                size="lg"
+                className="mb-8"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                List Your Business
+              </Button>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Business Search & Listings Section */}
+      <section id="business-search" className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Available Businesses</h2>
+              <p className="text-xl text-muted-foreground">
+                {totalCount} businesses available for acquisition
+              </p>
+            </div>
+
+            {/* Search and Filter Controls */}
+            <div className="flex flex-col lg:flex-row gap-6 mb-8">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                  <Input
+                    placeholder="Search businesses by name or description..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                Filters
+              </Button>
+              <Button onClick={handleListBusiness}>
+                <Plus className="w-4 h-4 mr-2" />
+                List Your Business
+              </Button>
+            </div>
+
+            {/* Filter Panel */}
+            {showFilters && (
+              <div className="mb-8">
+                <BusinessFilters
+                  filters={filters}
+                  onFiltersChange={setFilters}
+                  onClearFilters={() => setFilters({})}
+                />
+              </div>
+            )}
+
+            {/* Results Summary */}
+            <div className="flex items-center justify-between mb-6">
+              <p className="text-muted-foreground">
+                Showing {filteredBusinesses.length} of {totalCount} businesses
+              </p>
+              {Object.keys(filters).length > 0 && (
+                <Badge variant="secondary">
+                  {Object.keys(filters).length} filter(s) applied
+                </Badge>
+              )}
+            </div>
+
+            {/* Business Listings */}
+            <div id="business-listings">
+              {loading ? (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[...Array(6)].map((_, i) => (
+                    <div key={i} className="space-y-4">
+                      <Skeleton className="h-48 w-full" />
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-4 w-1/2" />
+                    </div>
+                  ))}
+                </div>
+              ) : error ? (
+                <div className="text-center py-12">
+                  <p className="text-destructive">Error loading businesses: {error}</p>
+                  <Button onClick={() => window.location.reload()} className="mt-4">
+                    Try Again
+                  </Button>
+                </div>
+              ) : filteredBusinesses.length === 0 ? (
+                <div className="text-center py-12">
+                  <Building2 className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">No businesses found</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Try adjusting your search criteria or filters
+                  </p>
+                  <Button onClick={() => {
+                    setSearchTerm('');
+                    setFilters({});
+                  }}>
+                    Clear Search
+                  </Button>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredBusinesses.map((business) => (
+                    <BusinessCard
+                      key={business.id}
+                      business={business}
+                      onFavorite={async (businessId, isFavorite) => {
+                        if (isFavorite) {
+                          await removeFromFavorites(businessId);
+                        } else {
+                          await addToFavorites(businessId);
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-              Comprehensive Business Services
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              End-to-end support from initial matching to successful business ownership
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <Card key={index} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card">
-                <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                    <service.icon className="h-8 w-8 text-primary group-hover:text-white" />
+      {/* How It Works */}
+      <section ref={howItWorksRef} className="py-20 bg-secondary/10">
+        <div className="container mx-auto px-4">
+          <div className={`max-w-6xl mx-auto transition-all duration-1000 ${howItWorksVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">How It Works</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Our streamlined process makes business acquisition simple and secure for international investors
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {howItWorksSteps.map((step, index) => (
+                <div 
+                  key={step.step}
+                  className="text-center relative group"
+                >
+                  <div className="space-y-6">
+                    <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground text-2xl font-bold flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                      {step.step}
+                    </div>
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-bold">{step.title}</h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                    </div>
                   </div>
-                  <CardTitle className="text-xl">{service.title}</CardTitle>
-                  <CardDescription className="text-base">{service.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center space-x-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
+                  {index < howItWorksSteps.length - 1 && (
+                    <div className="hidden lg:block absolute top-8 -right-4 w-8 h-0.5 bg-gradient-to-r from-primary to-primary/50"></div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Business Categories */}
-      <section className="py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-              Business Categories
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Diverse opportunities across high-growth industries
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {businessTypes.map((type, index) => (
-              <Card key={index} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card">
-                <CardHeader>
-                  <CardTitle className="text-2xl text-primary">{type.category}</CardTitle>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {type.industries.map((industry, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-xs">
-                        {industry}
-                      </Badge>
-                    ))}
+      <section ref={categoriesRef} className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className={`max-w-6xl mx-auto transition-all duration-1000 ${categoriesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">Business Categories</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Explore diverse business opportunities across multiple industries, each with unique investment potential
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {businessTypes.map((type, index) => (
+                <div
+                  key={type.title}
+                  className="group bg-card rounded-xl p-6 border border-border hover:border-primary/20 transition-all duration-300 hover:shadow-lg cursor-pointer"
+                  onClick={() => {
+                    const category = categories.find(c => c.name === type.title);
+                    if (category) {
+                      setFilters({ category: category.id });
+                      document.getElementById('business-listings')?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <type.icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                          {type.title}
+                        </h3>
+                        <Badge variant="secondary" className="mt-1">
+                          {type.count} available
+                        </Badge>
+                      </div>
+                    </div>
                   </div>
-                </CardHeader>
-                <CardContent>
+                  
                   <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <div className="text-sm text-muted-foreground">Investment Range</div>
-                        <div className="font-semibold text-foreground">{type.investment}</div>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{type.description}</p>
+                    
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div className="flex items-center space-x-2">
+                        <DollarSign className="w-4 h-4 text-green-600" />
+                        <span className="text-muted-foreground">ROI: {type.avgROI}</span>
                       </div>
-                      <div>
-                        <div className="text-sm text-muted-foreground">Expected ROI</div>
-                        <div className="font-semibold text-green-600">{type.roi}</div>
+                      <div className="flex items-center space-x-2">
+                        <TrendingUp className="w-4 h-4 text-blue-600" />
+                        <span className="text-muted-foreground">{type.investmentRange}</span>
                       </div>
-                    </div>
-                    <div>
-                      <div className="text-sm text-muted-foreground">Visa Match</div>
-                      <div className="font-semibold text-accent">{type.visaMatch}</div>
+                      <div className="flex items-center space-x-2 col-span-2">
+                        {type.visaEligible ? (
+                          <>
+                            <CheckCircle className="w-4 h-4 text-green-600" />
+                            <span className="text-muted-foreground">Visa Eligible</span>
+                          </>
+                        ) : (
+                          <>
+                            <Shield className="w-4 h-4 text-orange-600" />
+                            <span className="text-muted-foreground">Investment Only</span>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-border mt-4">
+                    <span className="text-sm text-muted-foreground">
+                      View {type.count} listings
+                    </span>
+                    <Button variant="outline" size="sm" className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      Browse →
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Process Timeline */}
+      {/* Key Features */}
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-6 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-              Our Process
+              Why Choose Our Platform
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Structured approach to successful business acquisition
+              Advanced technology meets expert guidance for seamless business acquisitions
             </p>
           </div>
 
-          <div className="relative">
-            {process.map((item, index) => (
-              <div key={index} className="flex items-start mb-12 last:mb-0">
-                <div className="flex-shrink-0 w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center text-white font-bold text-xl shadow-elegant">
-                  {item.step}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {keyFeatures.map((feature, index) => (
+              <div key={index} className="text-center space-y-4 group">
+                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  <feature.icon className="h-8 w-8 text-primary group-hover:text-white" />
                 </div>
-                <div className="ml-8 flex-1">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-lg text-muted-foreground">{item.description}</p>
-                </div>
-                {index < process.length - 1 && (
-                  <div className="absolute left-10 w-0.5 h-12 bg-gradient-primary mt-20 -z-10" />
-                )}
+                <h3 className="text-xl font-bold text-foreground">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Statistics */}
+      {/* CTA Section */}
       <section className="py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-primary">500+</div>
-              <div className="text-muted-foreground">Businesses Matched</div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="bg-gradient-primary rounded-2xl p-8 md:p-12 text-white space-y-6">
+            <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mx-auto">
+              <Briefcase className="h-10 w-10 text-white" />
             </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-primary">95%</div>
-              <div className="text-muted-foreground">Success Rate</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-primary">$2.5B</div>
-              <div className="text-muted-foreground">Transaction Volume</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-primary">30+</div>
-              <div className="text-muted-foreground">Industries Served</div>
+            <h2 className="text-3xl md:text-4xl font-bold font-playfair">
+              Ready to Find Your Perfect Business?
+            </h2>
+            <p className="text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+              Join hundreds of successful international entrepreneurs who found their 
+              ideal US business through our platform. Start your matching process today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button">
+                Start Business Search
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                Schedule Consultation
+              </Button>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Related Services */}
-      <RelatedServices 
-        currentService="Business Brokerage"
-        maxItems={3} 
-        showTitle={true}
-        variant="default"
-      />
-
-      {/* CTA Section */}
-      <CrossPageCTA
-        title="Ready to Find Your Perfect Business Match?"
-        description="Let our AI-powered platform connect you with profitable US businesses that align with your investment goals and immigration requirements."
-        primaryAction={{ text: "Start Business Search", href: "/businesses" }}
-        secondaryAction={{ text: "Schedule Consultation", href: "/contact" }}
-        variant="gradient"
-        showContactOptions={true}
-      />
 
       <Footer />
     </div>

@@ -237,17 +237,16 @@ export const AppointmentScheduler: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <h1 className="text-3xl font-bold flex items-center gap-2">
-              <Calendar className="h-8 w-8" />
-              Appointments
-            </h1>
-            <p className="text-muted-foreground">Schedule and manage your property appointments</p>
-          </div>
-          
-          <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+      <div className="mb-8 flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold flex items-center gap-2">
+            <Calendar className="h-8 w-8" />
+            Appointments
+          </h1>
+          <p className="text-muted-foreground">Schedule and manage your property appointments</p>
+        </div>
+        
+        <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="h-4 w-4 mr-2" />
@@ -359,7 +358,6 @@ export const AppointmentScheduler: React.FC = () => {
             </div>
           </DialogContent>
         </Dialog>
-        </div>
       </div>
 
       <div className="space-y-6">
