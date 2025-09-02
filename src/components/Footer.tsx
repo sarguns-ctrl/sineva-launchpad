@@ -20,6 +20,13 @@ const Footer = () => {
       { name: "Training Programs", href: "/training-programs" },
       { name: "Agent Resources", href: "/agent-resources" }
     ],
+    "Market Insights": [
+      { name: "Market Reports", href: "/insights" },
+      { name: "Investment Trends", href: "/insights/trends" },
+      { name: "Economic Indicators", href: "/insights/economic" },
+      { name: "City Comparisons", href: "/insights/cities" },
+      { name: "Forecast Analysis", href: "/insights/forecast" }
+    ],
     Company: [
       { name: "About Grupo Sineva", href: "/about" },
       { name: "Leadership Team", href: "/leadership" },
@@ -115,12 +122,12 @@ const Footer = () => {
           </div>
           
           {/* Auth Buttons */}
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 items-center">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 items-center justify-center">
             {user ? (
               <>
                 <Button 
                   variant="outline" 
-                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground hover:text-primary min-w-[120px]"
+                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground hover:text-primary min-w-[140px]"
                   asChild
                 >
                   <Link to="/dashboard">
@@ -132,7 +139,7 @@ const Footer = () => {
                 <Button 
                   variant="ghost" 
                   onClick={() => signOut()}
-                  className="text-primary-foreground hover:bg-destructive hover:text-destructive-foreground min-w-[120px]"
+                  className="text-primary-foreground hover:bg-destructive hover:text-destructive-foreground min-w-[140px]"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
@@ -141,21 +148,21 @@ const Footer = () => {
             ) : (
               <>
                 <Button 
+                  className="bg-accent text-accent-foreground hover:bg-accent/90 min-w-[140px] font-medium"
+                  asChild
+                >
+                  <Link to="/auth">Get Started</Link>
+                </Button>
+                
+                <Button 
                   variant="outline" 
-                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground hover:text-primary min-w-[120px]"
+                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground hover:text-primary min-w-[140px]"
                   asChild
                 >
                   <Link to="/auth">
                     <Mail className="w-4 h-4 mr-2" />
                     Sign In
                   </Link>
-                </Button>
-                
-                <Button 
-                  className="bg-accent text-accent-foreground hover:bg-accent/90 min-w-[120px]"
-                  asChild
-                >
-                  <Link to="/auth">Get Started</Link>
                 </Button>
               </>
             )}

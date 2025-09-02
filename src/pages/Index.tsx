@@ -2,6 +2,7 @@ import { lazy, Suspense, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import SocialProofBanner from "@/components/SocialProofBanner";
+import MarketLocationCards from "@/components/MarketLocationCards";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
 import ExitIntentPopup, { useExitIntent } from "@/components/ExitIntentPopup";
 import Footer from "@/components/Footer";
@@ -72,6 +73,10 @@ const Index = () => {
       
       <ErrorBoundary>
         <SocialProofBanner />
+      </ErrorBoundary>
+
+      <ErrorBoundary>
+        <MarketLocationCards />
       </ErrorBoundary>
 
       <ErrorBoundary>
