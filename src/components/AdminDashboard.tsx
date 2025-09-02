@@ -336,7 +336,7 @@ export const AdminDashboard: React.FC = () => {
                 <p className="text-muted-foreground mb-4">
                   Comprehensive user management features coming soon
                 </p>
-                <Button>Access User Management</Button>
+                <Button onClick={() => navigate('/leads')}>Access User Management</Button>
               </div>
             </CardContent>
           </Card>
@@ -354,7 +354,7 @@ export const AdminDashboard: React.FC = () => {
                 <p className="text-muted-foreground mb-4">
                   Advanced property management tools and analytics
                 </p>
-                <Button>Access Property Management</Button>
+                <Button onClick={() => navigate('/analytics')}>Access Property Management</Button>
               </div>
             </CardContent>
           </Card>
@@ -388,7 +388,7 @@ export const AdminDashboard: React.FC = () => {
                   </Card>
                 </div>
                 <div className="text-center py-4">
-                  <Button>View Agent Performance Dashboard</Button>
+                  <Button onClick={() => navigate('/agent-dashboard')}>View Agent Performance Dashboard</Button>
                 </div>
               </div>
             </CardContent>
@@ -409,7 +409,7 @@ export const AdminDashboard: React.FC = () => {
                 </p>
                 <div className="text-2xl font-bold mb-2">{stats.activeLeads}</div>
                 <p className="text-sm text-muted-foreground mb-4">Active leads requiring attention</p>
-                <Button>Access Lead Management</Button>
+                <Button onClick={() => navigate('/leads')}>Access Lead Management</Button>
               </div>
             </CardContent>
           </Card>
@@ -427,7 +427,7 @@ export const AdminDashboard: React.FC = () => {
                 <p className="text-muted-foreground mb-4">
                   Platform settings and configuration management
                 </p>
-                <Button>Access System Settings</Button>
+                <Button onClick={() => navigate('/advanced-analytics')}>Access System Settings</Button>
               </div>
             </CardContent>
           </Card>

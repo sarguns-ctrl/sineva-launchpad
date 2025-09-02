@@ -49,18 +49,18 @@ import AdminProperties from "./pages/AdminProperties";
 import AdminLeads from "./pages/AdminLeads";
 import AdminSettings from "./pages/AdminSettings";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
-import { MessagingCenter } from "@/components/MessagingCenter";
-import { AppointmentScheduler } from "@/components/AppointmentScheduler";
+import MessagingPage from "./pages/MessagingPage";
+import AppointmentsPage from "./pages/AppointmentsPage";
 
-import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
-import { LeadManagement } from "@/components/LeadManagement";
-import { EmailCampaignManager } from "@/components/EmailCampaignManager";
-import { AIPropertyRecommendations } from "@/components/AIPropertyRecommendations";
-import { AdvancedAgentDashboard } from "@/components/AdvancedAgentDashboard";
-import { AIPoweredCRM } from "@/components/AI-PoweredCRM";
-import { VideoCallIntegration } from "@/components/VideoCallIntegration";
-import { EnhancedPropertySearch } from "@/components/EnhancedPropertySearch";
-import { AdvancedAnalyticsDashboard } from "@/components/AdvancedAnalyticsDashboard";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import LeadsPage from "./pages/LeadsPage";
+import CampaignsPage from "./pages/CampaignsPage";
+import RecommendationsPage from "./pages/RecommendationsPage";
+import AgentDashboardPageNew from "./pages/AgentDashboardPage";
+import AICRMPage from "./pages/AICRMPage";
+import VideoCallsPage from "./pages/VideoCallsPage";
+import AdvancedSearchPage from "./pages/AdvancedSearchPage";
+import AdvancedAnalyticsPage from "./pages/AdvancedAnalyticsPage";
 
 const queryClient = new QueryClient();
 
@@ -90,22 +90,22 @@ const App = () => (
           <Route path="/ai-search" element={<AISearch />} />
           <Route path="/dashboard" element={<UserDashboardPage />} />
           <Route path="/calculator" element={<MortgageCalculatorPage />} />
-          <Route path="/messages" element={<MessagingCenter />} />
-          <Route path="/appointments" element={<AppointmentScheduler />} />
+          <Route path="/messages" element={<MessagingPage />} />
+          <Route path="/appointments" element={<AppointmentsPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/properties" element={<AdminProperties />} />
           <Route path="/admin/leads" element={<AdminLeads />} />
           <Route path="/admin/settings" element={<AdminSettings />} />
-          <Route path="/analytics" element={<AnalyticsDashboard />} />
-          <Route path="/leads" element={<LeadManagement />} />
-          <Route path="/campaigns" element={<EmailCampaignManager />} />
-          <Route path="/recommendations" element={<AIPropertyRecommendations />} />
-          <Route path="/agent-dashboard" element={<AdvancedAgentDashboard />} />
-          <Route path="/ai-crm" element={<AIPoweredCRM />} />
-          <Route path="/video-calls" element={<VideoCallIntegration />} />
-          <Route path="/advanced-search" element={<EnhancedPropertySearch />} />
-          <Route path="/advanced-analytics" element={<AdvancedAnalyticsDashboard />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/leads" element={<LeadsPage />} />
+          <Route path="/campaigns" element={<CampaignsPage />} />
+          <Route path="/recommendations" element={<RecommendationsPage />} />
+          <Route path="/agent-dashboard" element={<AgentDashboardPageNew />} />
+          <Route path="/ai-crm" element={<AICRMPage />} />
+          <Route path="/video-calls" element={<VideoCallsPage />} />
+          <Route path="/advanced-search" element={<AdvancedSearchPage />} />
+          <Route path="/advanced-analytics" element={<AdvancedAnalyticsPage />} />
           <Route path="/agent/:id" element={<AgentProfile />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/news" element={<News />} />
