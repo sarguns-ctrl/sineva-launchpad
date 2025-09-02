@@ -173,7 +173,7 @@ const Services = () => {
                 className="border-2 border-white text-white hover:bg-white hover:text-primary hover:scale-105 transition-all duration-300"
                 asChild
               >
-                <Link to="/business-brokerage">
+                <Link to="/businesses">
                   View Businesses
                 </Link>
               </Button>
