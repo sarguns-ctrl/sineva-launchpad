@@ -16,6 +16,11 @@ import Blog from "./pages/Blog";
 import News from "./pages/News";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import CommercialRealEstate from "@/pages/CommercialRealEstate";
+import ResidentialProperties from "@/pages/ResidentialProperties";
+import InternationalServices from "@/pages/InternationalServices";
+import ConciergeServices from "@/pages/ConciergeServices";
+import InvestmentAdvisory from "@/pages/InvestmentAdvisory";
 import BusinessBrokerage from "./pages/BusinessBrokerage";
 import Leadership from "./pages/Leadership";
 import HelpCenter from "./pages/HelpCenter";
@@ -43,9 +48,14 @@ const App = () => (
           <Route path="/news" element={<News />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/business-brokerage" element={<BusinessBrokerage />} />
-          <Route path="/leadership" element={<Leadership />} />
-          <Route path="/help" element={<HelpCenter />} />
+        <Route path="/commercial-real-estate" element={<CommercialRealEstate />} />
+        <Route path="/residential-properties" element={<ResidentialProperties />} />
+        <Route path="/international-services" element={<InternationalServices />} />
+        <Route path="/concierge-services" element={<ConciergeServices />} />
+        <Route path="/investment-advisory" element={<InvestmentAdvisory />} />
+        <Route path="/business-brokerage" element={<BusinessBrokerage />} />
+        <Route path="/leadership" element={<Leadership />} />
+        <Route path="/help" element={<HelpCenter />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
