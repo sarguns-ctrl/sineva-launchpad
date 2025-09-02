@@ -17,17 +17,15 @@ const Hero = () => {
       ref={elementRef} 
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Royal background with majestic gradient mesh */}
-      <div className="absolute inset-0 bg-gradient-royal opacity-95" />
-      <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+      {/* Enhanced background with subtle gradient mesh */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/10" />
+      <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
       
-      {/* Majestic geometric accents */}
+      {/* Dynamic geometric accents */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-80 h-80 bg-secondary/15 rounded-full blur-3xl animate-pulse shadow-gold" />
-        <div className="absolute bottom-20 left-20 w-64 h-64 bg-accent/12 rounded-full blur-2xl animate-pulse shadow-accent" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[32rem] h-[32rem] bg-primary/8 rounded-full blur-3xl shadow-royal" />
-        <div className="absolute top-10 left-1/4 w-32 h-32 bg-secondary/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-10 right-1/4 w-40 h-40 bg-accent/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '3s' }} />
+        <div className="absolute top-20 right-20 w-64 h-64 bg-accent/8 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 left-20 w-48 h-48 bg-primary/8 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/3 rounded-full blur-3xl" />
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,47 +34,47 @@ const Hero = () => {
             isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-20'
           }`}
         >
-          {/* Royal badge with premium indicator */}
+          {/* Enhanced badge with real-time indicator */}
           <div className="inline-block mb-8">
-            <Badge className="bg-secondary/20 text-secondary-foreground px-8 py-4 text-sm font-space font-semibold border border-secondary/40 backdrop-blur-md hover:bg-secondary/25 hover:shadow-gold transition-all duration-500 group cursor-default shadow-gold">
+            <Badge className="bg-accent/15 text-accent px-6 py-3 text-sm font-space font-medium border border-accent/30 backdrop-blur-sm hover:bg-accent/20 transition-all duration-300 group cursor-default">
               <div className="flex items-center space-x-3">
-                <span className="w-2.5 h-2.5 bg-secondary rounded-full animate-glow shadow-sm"></span>
-                <span>👑 Royal Estate Collection • Exclusive Properties</span>
-                <TrendingUp className="w-4 h-4 group-hover:scale-125 transition-transform text-secondary" />
+                <span className="w-2 h-2 bg-accent rounded-full animate-glow"></span>
+                <span>Premium Real Estate • International Investors</span>
+                <TrendingUp className="w-3 h-3 group-hover:scale-110 transition-transform" />
               </div>
             </Badge>
           </div>
           
-          {/* Majestic headline with royal typography */}
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-clash font-bold text-primary-foreground mb-8 leading-[0.85] drop-shadow-2xl">
-            Royal Estate
+          {/* Powerful headline with enhanced typography */}
+          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-clash font-bold text-primary mb-8 leading-[0.85]">
+            Premium Real Estate
             <br />
-            <span className="bg-gradient-secondary bg-clip-text text-transparent drop-shadow-lg">
-              Collection
+            <span className="text-accent bg-gradient-accent bg-clip-text text-transparent">
+              Made Simple
             </span>
           </h1>
           
-          {/* Royal value proposition with prestige proof */}
+          {/* Enhanced value proposition with social proof */}
           <div className="space-y-4 mb-12">
-            <p className="text-xl sm:text-2xl text-primary-foreground/90 max-w-4xl mx-auto font-satoshi leading-relaxed drop-shadow-lg">
-              Experience unparalleled luxury with North America's most prestigious real estate advisors.
+            <p className="text-xl sm:text-2xl text-muted-foreground max-w-4xl mx-auto font-satoshi leading-relaxed">
+              Connect with North America's most trusted real estate professionals.
               <br className="hidden sm:block" />
-              <span className="text-secondary font-semibold drop-shadow-sm">25+ years of royal excellence</span> in every exclusive transaction.
+              <span className="text-primary font-medium">20+ years of expertise</span> backing every transaction.
             </p>
             
-            {/* Royal prestige proof */}
-            <div className="flex items-center justify-center space-x-8 text-sm text-primary-foreground/80">
-              <div className="flex items-center space-x-2 backdrop-blur-sm bg-white/10 px-3 py-2 rounded-full">
-                <Award className="w-4 h-4 text-secondary" />
-                <span>Royal Certified Advisors</span>
+            {/* Live social proof */}
+            <div className="flex items-center justify-center space-x-6 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-2">
+                <Award className="w-4 h-4 text-accent" />
+                <span>Licensed Professionals</span>
               </div>
-              <div className="flex items-center space-x-2 backdrop-blur-sm bg-white/10 px-3 py-2 rounded-full">
-                <Users className="w-4 h-4 text-secondary" />
-                <span>1000+ Elite Clients</span>
+              <div className="flex items-center space-x-2">
+                <Users className="w-4 h-4 text-accent" />
+                <span>500+ Successful Investors</span>
               </div>
-              <div className="flex items-center space-x-2 backdrop-blur-sm bg-white/10 px-3 py-2 rounded-full">
-                <Globe className="w-4 h-4 text-secondary" />
-                <span>25+ Exclusive Markets</span>
+              <div className="flex items-center space-x-2">
+                <Globe className="w-4 h-4 text-accent" />
+                <span>15+ Countries Served</span>
               </div>
             </div>
           </div>
@@ -89,26 +87,26 @@ const Hero = () => {
             style={{ animationDelay: '300ms' }}
           >
             <MagneticButton 
-              variant="default" 
+              variant="accent" 
               size="lg"
-              className="bg-gradient-secondary text-primary shadow-gold hover:shadow-2xl group relative overflow-hidden border border-secondary/30"
+              className="shadow-accent group relative overflow-hidden"
               asChild
             >
               <Link to="/properties">
                 <Building className="w-5 h-5" />
-                Explore Royal Collection
+                Browse Properties
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               </Link>
             </MagneticButton>
             
             <MagneticButton 
               variant="outline" 
               size="lg"
-              className="border-primary-foreground/40 hover:bg-primary-foreground/10 backdrop-blur-md text-primary-foreground hover:text-secondary group shadow-royal"
+              className="border-primary/30 hover:bg-primary/10 backdrop-blur-sm group"
             >
               <Play className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              Royal Experience
+              Watch Our Story
             </MagneticButton>
           </div>
 
