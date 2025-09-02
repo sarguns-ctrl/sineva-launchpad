@@ -67,8 +67,8 @@ const Navigation = () => {
                   <NavigationMenuTrigger className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 bg-transparent hover:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
                     Agents
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="p-2 w-48">
+                  <NavigationMenuContent className="z-50">
+                    <div className="p-2 w-48 bg-card border border-border shadow-lg">
                       {agentItems.map((item) => (
                         <NavigationMenuLink key={item.name} asChild>
                           <Link
