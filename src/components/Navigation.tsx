@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import LanguageSwitcher from './LanguageSwitcher';
 import MagneticButton from './MagneticButton';
+import NavigationSearch from './NavigationSearch';
 import { useAuth } from '@/hooks/useAuth';
 import { Menu, X, Phone, User, LogOut, ChevronDown } from 'lucide-react';
 
@@ -147,6 +148,7 @@ const Navigation = () => {
 
           {/* Desktop CTAs with new design */}
           <div className="hidden lg:flex items-center space-x-4">
+            <NavigationSearch />
             <LanguageSwitcher />
             
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -182,7 +184,8 @@ const Navigation = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center space-x-4">
+          <div className="lg:hidden flex items-center space-x-2">
+            <NavigationSearch />
             <LanguageSwitcher />
             <Button
               variant="ghost"
@@ -256,7 +259,12 @@ const Navigation = () => {
             </div>
             
             <div className="pt-4 space-y-3">
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+              {/* Mobile Search */}
+              <div className="px-3">
+                <NavigationSearch />
+              </div>
+              
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground px-3">
                 <Phone className="w-4 h-4" />
                 <span className="font-mono">+1 (555) 123-4567</span>
               </div>
