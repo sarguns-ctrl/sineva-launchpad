@@ -88,14 +88,6 @@ const Index = () => {
       <ErrorBoundary>
         <LazySection>
           <Suspense fallback={<div className="h-96 animate-pulse bg-muted/20" />}>
-            <DynamicStatsSection />
-          </Suspense>
-        </LazySection>
-      </ErrorBoundary>
-      
-      <ErrorBoundary>
-        <LazySection>
-          <Suspense fallback={<div className="h-96 animate-pulse bg-muted/20" />}>
             <TestimonialCarousel />
           </Suspense>
         </LazySection>
