@@ -7,7 +7,7 @@ const Footer = () => {
   const { user, signOut } = useAuth();
   const footerLinks = {
     Services: [
-      { name: "Business Brokerage", href: "/business-brokerage" },
+      { name: "Business Brokerage", href: "/businesses" },
       { name: "Commercial Real Estate", href: "/commercial-real-estate" },
       { name: "Residential Properties", href: "/residential-properties" },
       { name: "International Services", href: "/international-services" },

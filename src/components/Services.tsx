@@ -111,7 +111,7 @@ const Services = () => {
                   className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105 transition-all duration-300 border-primary/20 hover:border-primary"
                   onClick={() => {
                     const serviceRoutes = {
-                      "Business Brokerage": "/business-brokerage",
+                      "Business Brokerage": "/businesses",
                       "Commercial Real Estate": "/commercial-real-estate", 
                       "Residential Properties": "/residential-properties",
                       "International Services": "/international-services",
