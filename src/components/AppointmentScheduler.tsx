@@ -12,6 +12,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 
+declare global {
+  interface Window {
+    gapi: any;
+  }
+}
+
 interface Appointment {
   id: string;
   appointment_type: string;
@@ -55,6 +61,8 @@ export const AppointmentScheduler: React.FC = () => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [isGoogleCalendarConnected, setIsGoogleCalendarConnected] = useState(false);
+  const [isConnectingCalendar, setIsConnectingCalendar] = useState(false);
 
   // Form state
   const [selectedAgent, setSelectedAgent] = useState('');
@@ -68,8 +76,71 @@ export const AppointmentScheduler: React.FC = () => {
   useEffect(() => {
     if (user) {
       loadData();
+      initializeGoogleCalendar();
     }
   }, [user]);
+
+  const initializeGoogleCalendar = async () => {
+    try {
+      // Load Google APIs
+      const script = document.createElement('script');
+      script.src = 'https://apis.google.com/js/api.js';
+      script.onload = () => {
+        window.gapi.load('auth2', () => {
+          window.gapi.auth2.init({
+            client_id: '1067977618073-6v6r7rfr6jg4scjc2q7ol9kn3l0p2l0d.apps.googleusercontent.com'
+          }).then(() => {
+            const authInstance = window.gapi.auth2.getAuthInstance();
+            setIsGoogleCalendarConnected(authInstance.isSignedIn.get());
+          });
+        });
+      };
+      document.head.appendChild(script);
+    } catch (error) {
+      console.error('Failed to initialize Google Calendar:', error);
+    }
+  };
+
+  const connectGoogleCalendar = async () => {
+    setIsConnectingCalendar(true);
+    try {
+      const authInstance = window.gapi.auth2.getAuthInstance();
+      await authInstance.signIn({
+        scope: 'https://www.googleapis.com/auth/calendar'
+      });
+      setIsGoogleCalendarConnected(true);
+      toast({
+        title: "Success",
+        description: "Google Calendar connected successfully"
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to connect Google Calendar",
+        variant: "destructive"
+      });
+    } finally {
+      setIsConnectingCalendar(false);
+    }
+  };
+
+  const disconnectGoogleCalendar = async () => {
+    try {
+      const authInstance = window.gapi.auth2.getAuthInstance();
+      await authInstance.signOut();
+      setIsGoogleCalendarConnected(false);
+      toast({
+        title: "Success",
+        description: "Google Calendar disconnected"
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to disconnect Google Calendar",
+        variant: "destructive"
+      });
+    }
+  };
 
   const loadData = async () => {
     try {
@@ -129,7 +200,7 @@ export const AppointmentScheduler: React.FC = () => {
     try {
       const scheduledAt = new Date(`${scheduledDate}T${scheduledTime}`).toISOString();
 
-      const { error } = await supabase
+      const { data: appointmentData, error } = await supabase
         .from('appointments')
         .insert({
           client_id: user?.id,
@@ -139,9 +210,16 @@ export const AppointmentScheduler: React.FC = () => {
           scheduled_at: scheduledAt,
           duration: parseInt(duration),
           notes: notes || null
-        });
+        })
+        .select()
+        .single();
 
       if (error) throw error;
+
+      // Add to Google Calendar if connected
+      if (isGoogleCalendarConnected && appointmentData) {
+        await addToGoogleCalendar(appointmentData);
+      }
 
       toast({
         title: "Success",
@@ -164,6 +242,47 @@ export const AppointmentScheduler: React.FC = () => {
       toast({
         title: "Error",
         description: error.message,
+        variant: "destructive"
+      });
+    }
+  };
+
+  const addToGoogleCalendar = async (appointment: any) => {
+    try {
+      await window.gapi.load('client', async () => {
+        await window.gapi.client.init({
+          apiKey: 'AIzaSyBGvnIXd_PXKnfNk2Xj5_VPqoJ8Z2Y_2k0',
+          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
+        });
+
+        const event = {
+          summary: `${appointment.appointment_type} - Grupo Sineva`,
+          description: appointment.notes || `${appointment.appointment_type} appointment`,
+          start: {
+            dateTime: appointment.scheduled_at,
+            timeZone: 'America/New_York'
+          },
+          end: {
+            dateTime: new Date(new Date(appointment.scheduled_at).getTime() + appointment.duration * 60000).toISOString(),
+            timeZone: 'America/New_York'
+          }
+        };
+
+        await window.gapi.client.calendar.events.insert({
+          calendarId: 'primary',
+          resource: event
+        });
+
+        toast({
+          title: "Success",
+          description: "Appointment added to Google Calendar"
+        });
+      });
+    } catch (error) {
+      console.error('Failed to add to Google Calendar:', error);
+      toast({
+        title: "Warning",
+        description: "Appointment saved but failed to add to Google Calendar",
         variant: "destructive"
       });
     }
@@ -237,16 +356,17 @@ export const AppointmentScheduler: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8 flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            <Calendar className="h-8 w-8" />
-            Appointments
-          </h1>
-          <p className="text-muted-foreground">Schedule and manage your property appointments</p>
-        </div>
-        
-        <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+      <div className="mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <h1 className="text-3xl font-bold flex items-center gap-2">
+              <Calendar className="h-8 w-8" />
+              Appointments
+            </h1>
+            <p className="text-muted-foreground">Schedule and manage your property appointments</p>
+          </div>
+          
+          <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="h-4 w-4 mr-2" />
@@ -358,6 +478,46 @@ export const AppointmentScheduler: React.FC = () => {
             </div>
           </DialogContent>
         </Dialog>
+        </div>
+
+        {/* Google Calendar Integration */}
+        <Card className="mb-6">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <Calendar className="h-5 w-5 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">Google Calendar Integration</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {isGoogleCalendarConnected 
+                      ? "Your appointments will be automatically added to Google Calendar"
+                      : "Connect your Google Calendar to sync appointments"
+                    }
+                  </p>
+                </div>
+              </div>
+              {isGoogleCalendarConnected ? (
+                <Button 
+                  variant="outline" 
+                  onClick={disconnectGoogleCalendar}
+                  size="sm"
+                >
+                  Disconnect
+                </Button>
+              ) : (
+                <Button 
+                  onClick={connectGoogleCalendar}
+                  disabled={isConnectingCalendar}
+                  size="sm"
+                >
+                  {isConnectingCalendar ? "Connecting..." : "Connect Calendar"}
+                </Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="space-y-6">
