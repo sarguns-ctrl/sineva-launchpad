@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Building, Users, TrendingUp, MapPin } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -199,12 +200,19 @@ const MarketLocationCards = () => {
             Ready to explore investment opportunities in these markets?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors font-medium">
+            <Button 
+              className="px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors font-medium"
+              onClick={() => window.location.href = '/markets'}
+            >
               View All Markets
-            </button>
-            <button className="px-6 py-3 border border-border text-foreground rounded-lg hover:bg-muted transition-colors font-medium">
+            </Button>
+            <Button 
+              variant="outline"
+              className="px-6 py-3 border border-border text-foreground rounded-lg hover:bg-muted transition-colors font-medium"
+              onClick={() => window.location.href = '/contact'}
+            >
               Schedule Consultation
-            </button>
+            </Button>
           </div>
         </div>
       </div>

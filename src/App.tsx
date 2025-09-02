@@ -10,6 +10,7 @@ import Auth from "./pages/Auth";
 import Services from "./pages/Services";
 import Agents from "./pages/Agents";
 import Properties from "./pages/Properties";
+import Markets from "./pages/Markets";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PropertyDetail from "./pages/PropertyDetail";
@@ -77,6 +78,7 @@ const App = () => (
         <Route path="/services" element={<Services />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/properties" element={<Properties />} />
+          <Route path="/markets" element={<Markets />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
