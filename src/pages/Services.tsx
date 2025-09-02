@@ -19,6 +19,7 @@ import {
   Award,
   Zap
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import RelatedServices from "@/components/RelatedServices";
 import CrossPageCTA from "@/components/CrossPageCTA";
 
@@ -45,6 +46,7 @@ const Services = () => {
         "Closing and transition support"
       ],
       ctaText: "Explore Business Opportunities",
+      ctaLink: "/business-brokerage",
       color: "text-blue-600",
       bgColor: "bg-blue-50"
     },
@@ -69,6 +71,7 @@ const Services = () => {
         "Closing and asset management setup"
       ],
       ctaText: "View Commercial Properties",
+      ctaLink: "/commercial-real-estate",
       color: "text-green-600",
       bgColor: "bg-green-50"
     },
@@ -93,29 +96,105 @@ const Services = () => {
         "Move-in coordination and local integration"
       ],
       ctaText: "Browse Luxury Homes",
+      ctaLink: "/residential-properties",
       color: "text-purple-600",
       bgColor: "bg-purple-50"
-    }
-  ];
-
-  const specializedServices = [
+    },
     {
       icon: Globe,
       title: "International Services",
-      description: "Cross-border expertise spanning US, Canada, and Latin America",
-      highlights: ["Multi-jurisdiction expertise", "Currency exchange guidance", "Cross-border tax planning"]
+      subtitle: "Cross-Border Expertise",
+      description: "Comprehensive international services spanning US, Canada, and Latin America. We provide expert guidance for cross-border transactions, immigration compliance, and international business expansion with deep understanding of multi-jurisdiction requirements.",
+      features: [
+        "Multi-jurisdiction expertise (US, Canada, Latin America)",
+        "Cross-border transaction management",
+        "Immigration compliance coordination",
+        "Currency exchange and banking guidance",
+        "International tax planning support",
+        "Cultural and business integration services"
+      ],
+      processSteps: [
+        "International requirements assessment",
+        "Multi-jurisdiction compliance analysis",
+        "Cross-border transaction structuring",
+        "Immigration and legal coordination",
+        "Ongoing international support services"
+      ],
+      ctaText: "Explore International Services",
+      ctaLink: "/international-services",
+      color: "text-cyan-600",
+      bgColor: "bg-cyan-50"
     },
     {
       icon: HeartHandshake,
-      title: "Concierge Services", 
-      description: "Complete immigration and settlement support from Grupo Sineva",
-      highlights: ["Visa application assistance", "Banking and credit setup", "School and healthcare coordination"]
+      title: "Concierge Services",
+      subtitle: "Complete Settlement Support",
+      description: "Full-spectrum concierge services from Grupo Sineva providing complete immigration and settlement support. From visa applications to daily life integration, we ensure a smooth transition to your new life in the United States.",
+      features: [
+        "Visa application assistance and coordination",
+        "Banking and credit establishment services",
+        "School enrollment and healthcare setup",
+        "Housing and neighborhood orientation",
+        "Cultural integration and language support",
+        "Legal documentation and compliance"
+      ],
+      processSteps: [
+        "Comprehensive needs assessment",
+        "Immigration documentation coordination",
+        "Pre-arrival preparation and planning",
+        "Arrival and immediate settlement support",
+        "Ongoing integration and lifestyle services"
+      ],
+      ctaText: "Learn About Concierge Services",
+      ctaLink: "/concierge-services",
+      color: "text-rose-600",
+      bgColor: "bg-rose-50"
     },
     {
       icon: TrendingUp,
       title: "Investment Advisory",
-      description: "Strategic guidance for optimal ROI and immigration compliance",
-      highlights: ["Market analysis and forecasting", "Portfolio diversification", "Risk assessment and mitigation"]
+      subtitle: "Strategic Investment Guidance",
+      description: "Expert investment advisory services providing strategic guidance for optimal ROI and immigration compliance. Our experienced advisors help structure investments to maximize returns while meeting all visa requirements and regulatory compliance.",
+      features: [
+        "Comprehensive market analysis and forecasting",
+        "Investment portfolio diversification strategies",
+        "Risk assessment and mitigation planning",
+        "Immigration compliance optimization",
+        "Tax-efficient investment structuring",
+        "Performance monitoring and reporting"
+      ],
+      processSteps: [
+        "Investment goals and risk assessment",
+        "Market analysis and opportunity identification",
+        "Investment strategy development",
+        "Implementation and monitoring setup",
+        "Ongoing performance review and optimization"
+      ],
+      ctaText: "Get Investment Guidance",
+      ctaLink: "/investment-advisory",
+      color: "text-orange-600",
+      bgColor: "bg-orange-50"
+    }
+  ];
+
+  const additionalServices = [
+    {
+      icon: Users,
+      title: "Agent Network",
+      description: "Connect with our network of expert real estate professionals",
+      highlights: ["Vetted agent network", "Local market expertise", "Personalized matching"]
+    },
+    {
+      icon: Shield,
+      title: "Legal & Compliance",
+      description: "Comprehensive legal support for all real estate transactions",
+      highlights: ["Transaction legal support", "Compliance verification", "Documentation review"]
+    },
+    {
+      icon: MapPin,
+      title: "Market Research",
+      description: "In-depth market analysis and investment opportunity identification",
+      highlights: ["Market trend analysis", "Investment forecasting", "Comparative market analysis"]
     }
   ];
 
@@ -217,9 +296,11 @@ const Services = () => {
                     </div>
                   </div>
 
-                  <Button size="lg" className="shadow-button">
-                    {service.ctaText}
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                  <Button size="lg" className="shadow-button" asChild>
+                    <Link to={service.ctaLink}>
+                      {service.ctaText}
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
                   </Button>
                 </div>
 
@@ -237,20 +318,20 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Specialized Services */}
+      {/* Additional Services */}
       <section className="py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-6 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-              Specialized Services
+              Additional Services
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Additional expertise that sets us apart in serving international clients
+              Supporting services that complete your real estate experience
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {specializedServices.map((service, index) => (
+            {additionalServices.map((service, index) => (
               <Card key={index} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
