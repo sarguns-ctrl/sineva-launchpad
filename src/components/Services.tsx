@@ -94,20 +94,21 @@ const Services = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-primary rounded-2xl p-8 md:p-12 text-white">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Get Started?
+        <div className="text-center mt-20">
+          <div className="bg-gradient-primary rounded-2xl p-8 md:p-12 text-white max-w-4xl mx-auto">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
+              Ready to Start Your Journey?
             </h3>
-            <p className="text-xl mb-8 text-white/90">
-              Whether you're buying, selling, or investing, our experts are here to guide you.
+            <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
+              Whether you're looking to invest in real estate or need our specialized 
+              immigration-focused services, we're here to guide you every step of the way.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                Schedule Consultation
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button">
+                View Properties
               </Button>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                View Properties
+                Schedule Consultation
               </Button>
             </div>
           </div>
