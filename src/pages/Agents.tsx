@@ -1,312 +1,373 @@
-import { useState, useMemo } from "react";
+import React, { useState } from 'react';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import LoadingState from "@/components/LoadingState";
-import ErrorState from "@/components/ErrorState";
-import { useAgents } from "@/hooks/useAgents";
+import { MapPin, Star, Phone, Mail, MessageCircle, Award, Users } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Star, 
-  Users, 
-  Award,
-  TrendingUp,
-  Search,
-  Filter
-} from "lucide-react";
 
-// US states for filtering
-const US_STATES = [
-  "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", 
-  "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", 
-  "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", 
-  "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", 
-  "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", 
-  "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", 
-  "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+// Static agent data demonstrating the search functionality
+const staticAgents = [
+  {
+    id: 1,
+    name: "Sarah Johnson",
+    title: "Senior Real Estate Agent",
+    location: "Miami, FL",
+    specialization: "Luxury Properties",
+    rating: 4.9,
+    reviews: 127,
+    experience: 8,
+    phone: "(305) 555-0123",
+    email: "sarah.j@gruposineva.com",
+    image: "https://images.unsplash.com/photo-1494790108755-2616b612b2bc?w=150&h=150&fit=crop&crop=face",
+    description: "Specialist in luxury residential properties in Miami-Dade and Broward counties with extensive knowledge of waterfront properties.",
+    languages: ["English", "Spanish"],
+    certifications: ["CRS", "GRI", "CLHMS"],
+    closedDeals: 45,
+    totalVolume: "$18.5M"
+  },
+  {
+    id: 2,
+    name: "Michael Rodriguez",
+    title: "Commercial Real Estate Expert",
+    location: "Tampa, FL", 
+    specialization: "Commercial Properties",
+    rating: 4.8,
+    reviews: 95,
+    experience: 12,
+    phone: "(813) 555-0124",
+    email: "michael.r@gruposineva.com",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+    description: "Expert in office buildings, retail spaces, and commercial investments throughout Central Florida.",
+    languages: ["English", "Spanish"],
+    certifications: ["CCIM", "SIOR"],
+    closedDeals: 38,
+    totalVolume: "$25.2M"
+  },
+  {
+    id: 3,
+    name: "Emily Chen",
+    title: "First-Time Buyer Specialist",
+    location: "Orlando, FL",
+    specialization: "Residential Properties", 
+    rating: 4.7,
+    reviews: 73,
+    experience: 5,
+    phone: "(407) 555-0125",
+    email: "emily.c@gruposineva.com", 
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+    description: "Dedicated to helping first-time buyers navigate the Orlando real estate market with confidence.",
+    languages: ["English", "Mandarin"],
+    certifications: ["ABR", "GRI"],
+    closedDeals: 32,
+    totalVolume: "$8.9M"
+  },
+  {
+    id: 4,
+    name: "David Thompson", 
+    title: "Luxury Waterfront Specialist",
+    location: "Naples, FL",
+    specialization: "Luxury Properties",
+    rating: 4.9,
+    reviews: 156,
+    experience: 15,
+    phone: "(239) 555-0126",
+    email: "david.t@gruposineva.com",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face", 
+    description: "Premier specialist in luxury waterfront properties throughout Southwest Florida's most exclusive communities.",
+    languages: ["English"],
+    certifications: ["CLHMS", "CRS"],
+    closedDeals: 28,
+    totalVolume: "$42.8M"
+  },
+  {
+    id: 5,
+    name: "Lisa Martinez",
+    title: "Investment Property Advisor", 
+    location: "Jacksonville, FL",
+    specialization: "Investment Properties",
+    rating: 4.6,
+    reviews: 89,
+    experience: 7,
+    phone: "(904) 555-0127", 
+    email: "lisa.m@gruposineva.com",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+    description: "Helping investors build wealth through strategic real estate investments and portfolio development.",
+    languages: ["English", "Spanish"],
+    certifications: ["CCIM", "GRI"],
+    closedDeals: 52,
+    totalVolume: "$12.4M"
+  },
+  {
+    id: 6,
+    name: "Robert Wilson",
+    title: "Industrial Real Estate Expert",
+    location: "Tampa, FL",
+    specialization: "Industrial Properties", 
+    rating: 4.8,
+    reviews: 112,
+    experience: 18,
+    phone: "(813) 555-0128",
+    email: "robert.w@gruposineva.com",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
+    description: "Statewide expertise in warehouse, industrial, and distribution properties for growing businesses.",
+    languages: ["English"],
+    certifications: ["SIOR", "CCIM"],
+    closedDeals: 41,
+    totalVolume: "$35.7M"
+  }
 ];
+
+const US_STATES = [
+  "FL", "AL", "AZ", "AR", "CA", "CO", "CT", "DE", "GA", "ID", "IL", "IN", "IA", "KS", "KY", 
+  "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", 
+  "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", 
+  "WV", "WI", "WY"
+];
+
+const SPECIALIZATIONS = [
+  "All Specializations",
+  "Luxury Properties", 
+  "Commercial Properties",
+  "Residential Properties",
+  "Investment Properties", 
+  "Industrial Properties"
+];
+
+const AgentCard = ({ agent }: { agent: typeof staticAgents[0] }) => (
+  <Card className="h-full transition-all duration-200 hover:shadow-lg hover:border-primary/20">
+    <CardHeader className="pb-4">
+      <div className="flex items-center gap-4">
+        <Avatar className="w-16 h-16">
+          <AvatarImage src={agent.image} alt={agent.name} />
+          <AvatarFallback>{agent.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+        </Avatar>
+        <div className="flex-1">
+          <CardTitle className="text-lg">{agent.name}</CardTitle>
+          <CardDescription className="text-sm">{agent.title}</CardDescription>
+          <div className="flex items-center gap-2 mt-2">
+            <div className="flex items-center gap-1">
+              <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              <span className="text-sm font-medium">{agent.rating}</span>
+              <span className="text-sm text-muted-foreground">({agent.reviews})</span>
+            </div>
+            <Badge variant="secondary">{agent.experience} years</Badge>
+          </div>
+        </div>
+      </div>
+    </CardHeader>
+    <CardContent className="space-y-4">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <MapPin className="w-4 h-4" />
+        {agent.location}
+      </div>
+      
+      <p className="text-sm leading-relaxed">{agent.description}</p>
+      
+      <div className="grid grid-cols-2 gap-4 py-2">
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-1 text-primary">
+            <Users className="w-4 h-4" />
+            <span className="text-sm font-semibold">{agent.closedDeals}</span>
+          </div>
+          <p className="text-xs text-muted-foreground">Deals Closed</p>
+        </div>
+        <div className="text-center">
+          <div className="flex items-center justify-center gap-1 text-primary">
+            <Award className="w-4 h-4" />
+            <span className="text-sm font-semibold">{agent.totalVolume}</span>
+          </div>
+          <p className="text-xs text-muted-foreground">Sales Volume</p>
+        </div>
+      </div>
+      
+      <div className="space-y-2">
+        <div className="text-sm">
+          <strong>Specialization:</strong> {agent.specialization}
+        </div>
+        <div className="text-sm">
+          <strong>Languages:</strong> {agent.languages.join(', ')}
+        </div>
+        <div className="text-sm">
+          <strong>Certifications:</strong> {agent.certifications.join(', ')}
+        </div>
+      </div>
+      
+      <div className="flex gap-2 pt-4">
+        <Button size="sm" className="flex-1">
+          <Phone className="w-4 h-4 mr-2" />
+          Call
+        </Button>
+        <Button variant="outline" size="sm" className="flex-1">
+          <Mail className="w-4 h-4 mr-2" />
+          Email  
+        </Button>
+        <Button variant="outline" size="sm">
+          <MessageCircle className="w-4 h-4" />
+        </Button>
+      </div>
+    </CardContent>
+  </Card>
+);
 
 const Agents = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedSpecialization, setSelectedSpecialization] = useState("");
-
-  // Filter agents based on search criteria
-  const searchFilters = useMemo(() => ({
-    search: searchTerm,
-    specialization: selectedSpecialization,
-    active: true
-  }), [searchTerm, selectedSpecialization]);
-
-  const { agents, loading, error } = useAgents(searchFilters);
-
-  // Filter agents by state (since we don't have state in employee_profiles, we'll mock this)
-  const filteredAgents = useMemo(() => {
-    let filtered = agents;
+  const [selectedState, setSelectedState] = useState("All States");
+  const [selectedSpecialization, setSelectedSpecialization] = useState("All Specializations");
+  
+  const filteredAgents = staticAgents.filter(agent => {
+    const matchesSearch = agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         agent.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         agent.specialization.toLowerCase().includes(searchTerm.toLowerCase());
     
-    if (selectedState) {
-      // For now, we'll use the agent's location from mock data
-      // In production, you'd add a location/state field to employee_profiles
-      filtered = filtered.filter(agent => 
-        // Mock filtering - in real implementation, check agent.state or similar field
-        true // Return all agents for now
-      );
-    }
+    const matchesState = selectedState === "All States" || 
+                        agent.location.includes(selectedState);
+                        
+    const matchesSpecialization = selectedSpecialization === "All Specializations" ||
+                                 agent.specialization === selectedSpecialization;
     
-    return filtered;
-  }, [agents, selectedState]);
-
-  const specializations = [
-    "Residential Sales",
-    "Commercial Properties", 
-    "International Clients",
-    "Investment Properties",
-    "Luxury Homes",
-    "First-Time Buyers",
-    "Business Brokerage"
-  ];
-
-  if (loading) return <LoadingState />;
-  if (error) return <ErrorState message={error} />;
+    return matchesSearch && matchesState && matchesSpecialization;
+  });
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Find a Real Estate Agent | Expert Agents Across the US"
-        description="Find experienced real estate agents in your area. Search by location, specialization, and expertise to find the perfect agent for your needs."
+        title="Find Real Estate Agents | Expert Agents in Florida | Grupo Sineva"
+        description="Find experienced real estate agents in Florida. Search by location, specialization, and expertise. Connect with top-rated agents for buying, selling, and investing."
       />
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="pt-28 pb-16 bg-gradient-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-8">
-            <Badge className="bg-accent text-accent-foreground px-6 py-2 text-sm font-medium">
-              FIND AN AGENT
-            </Badge>
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl font-bold text-white font-playfair leading-tight">
+      <main className="pt-20">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-r from-primary to-primary/80 py-16">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center text-white">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 Find Your Perfect Real Estate Agent
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed max-w-3xl mx-auto">
-                Connect with experienced agents across the United States. Search by location, 
-                specialization, and expertise to find the right agent for your real estate needs.
+              <p className="text-xl mb-8 opacity-90">
+                Connect with experienced agents across Florida who specialize in your specific needs
               </p>
+              <div className="flex flex-wrap justify-center gap-4 text-sm">
+                <span className="bg-white/20 px-3 py-1 rounded-full">✓ Licensed Professionals</span>
+                <span className="bg-white/20 px-3 py-1 rounded-full">✓ Local Market Experts</span>
+                <span className="bg-white/20 px-3 py-1 rounded-full">✓ Proven Track Record</span>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Search Filters */}
-      <section className="py-12 bg-background border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-card rounded-2xl p-8 shadow-card">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {/* Search by Name */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Search by Name</label>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        {/* Search and Filters */}
+        <section className="py-8 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-card p-6 rounded-lg shadow-sm border">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <Input
-                    placeholder="Agent name..."
+                    placeholder="Search by name, city, or specialization..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="col-span-1 md:col-span-2"
                   />
+                  
+                  <Select value={selectedState} onValueChange={setSelectedState}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select State" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="All States">All States</SelectItem>
+                      {US_STATES.map(state => (
+                        <SelectItem key={state} value={state}>{state}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  
+                  <Select value={selectedSpecialization} onValueChange={setSelectedSpecialization}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Specialization" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SPECIALIZATIONS.map(spec => (
+                        <SelectItem key={spec} value={spec}>{spec}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="mt-4 flex justify-between items-center">
+                  <div className="text-sm text-muted-foreground">
+                    Found {filteredAgents.length} agent{filteredAgents.length !== 1 ? 's' : ''}
+                  </div>
+                  {(searchTerm || selectedState !== "All States" || selectedSpecialization !== "All Specializations") && (
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => {
+                        setSearchTerm("");
+                        setSelectedState("All States");
+                        setSelectedSpecialization("All Specializations");
+                      }}
+                    >
+                      Clear Filters
+                    </Button>
+                  )}
                 </div>
               </div>
-
-              {/* State Filter */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">State</label>
-                <Select value={selectedState} onValueChange={setSelectedState}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select state" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="">All States</SelectItem>
-                    {US_STATES.map((state) => (
-                      <SelectItem key={state} value={state}>
-                        {state}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Specialization Filter */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Specialization</label>
-                <Select value={selectedSpecialization} onValueChange={setSelectedSpecialization}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select specialization" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="">All Specializations</SelectItem>
-                    {specializations.map((spec) => (
-                      <SelectItem key={spec} value={spec}>
-                        {spec}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Clear Filters */}
-              <div className="flex items-end">
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    setSearchTerm("");
-                    setSelectedState("");
-                    setSelectedSpecialization("");
-                  }}
-                  className="w-full"
-                >
-                  <Filter className="h-4 w-4 mr-2" />
-                  Clear Filters
-                </Button>
-              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Results Summary */}
-      <section className="py-8 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <p className="text-muted-foreground">
-              Found <span className="font-semibold text-foreground">{filteredAgents.length}</span> agents
-              {selectedState && <span> in {selectedState}</span>}
-              {selectedSpecialization && <span> specializing in {selectedSpecialization}</span>}
-            </p>
+        {/* Agents Grid */}
+        <section className="py-12">
+          <div className="container mx-auto px-4">
+            {filteredAgents.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                {filteredAgents.map(agent => (
+                  <AgentCard key={agent.id} agent={agent} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16">
+                <div className="max-w-md mx-auto">
+                  <h3 className="text-lg font-semibold mb-2">No agents found</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Try adjusting your search criteria or browse all available agents.
+                  </p>
+                  <Button 
+                    onClick={() => {
+                      setSearchTerm("");
+                      setSelectedState("All States");
+                      setSelectedSpecialization("All Specializations");
+                    }}
+                  >
+                    Show All Agents
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Agent Grid */}
-      <section className="pb-24 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredAgents.length === 0 ? (
-            <div className="text-center py-16">
-              <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">No agents found</h3>
-              <p className="text-muted-foreground">
-                Try adjusting your search criteria or contact us to find agents in your area.
+        {/* CTA Section */}
+        <section className="py-16 bg-muted/50">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-3xl font-bold mb-4">Ready to Work with Our Team?</h2>
+              <p className="text-muted-foreground mb-8">
+                Our agents are ready to help you achieve your real estate goals. Get in touch today to start your journey.
               </p>
-              <Button className="mt-4">Contact Us</Button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredAgents.map((agent) => (
-                <Card key={agent.id} className="hover:shadow-elegant transition-all duration-300 border-0 shadow-card">
-                  <CardHeader className="text-center pb-4">
-                    <div className="w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center mx-auto mb-4">
-                      <Users className="h-10 w-10 text-white" />
-                    </div>
-                    <CardTitle className="text-xl mb-1">{agent.full_name}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{agent.position || "Real Estate Agent"}</p>
-                    
-                    {/* Rating */}
-                    <div className="flex items-center justify-center space-x-1 mt-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={`h-4 w-4 ${i < Math.floor(agent.rating) ? 'fill-accent text-accent' : 'text-muted-foreground'}`} 
-                        />
-                      ))}
-                      <span className="text-sm text-muted-foreground ml-1">({agent.rating.toFixed(1)})</span>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-4">
-                    {/* Specializations */}
-                    {agent.specializations && agent.specializations.length > 0 && (
-                      <div>
-                        <h4 className="text-sm font-medium text-foreground mb-2">Specializations</h4>
-                        <div className="flex flex-wrap gap-1">
-                          {agent.specializations.slice(0, 2).map((spec, idx) => (
-                            <Badge key={idx} variant="secondary" className="text-xs">
-                              {spec}
-                            </Badge>
-                          ))}
-                          {agent.specializations.length > 2 && (
-                            <Badge variant="secondary" className="text-xs">
-                              +{agent.specializations.length - 2} more
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 gap-4 pt-2 border-t border-muted">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-primary">{agent.active_listings}</div>
-                        <div className="text-xs text-muted-foreground">Active Listings</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-primary">{agent.years_experience || 0}</div>
-                        <div className="text-xs text-muted-foreground">Years Experience</div>
-                      </div>
-                    </div>
-
-                    {/* Contact Actions */}
-                    <div className="flex space-x-2 pt-4">
-                      <Button className="flex-1" size="sm">
-                        <Phone className="h-4 w-4 mr-2" />
-                        Call
-                      </Button>
-                      <Button variant="outline" className="flex-1" size="sm">
-                        <Mail className="h-4 w-4 mr-2" />
-                        Email
-                      </Button>
-                    </div>
-
-                    {/* View Profile */}
-                    <Button variant="ghost" className="w-full" size="sm">
-                      View Full Profile
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground font-playfair">
-                Need Help Finding the Right Agent?
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Our team can help match you with the perfect agent based on your specific needs, 
-                location, and property requirements.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-primary text-primary-foreground shadow-button">
-                Get Agent Recommendation
-              </Button>
-              <Button size="lg" variant="outline">
-                Schedule Consultation
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg">Schedule Consultation</Button>
+                <Button variant="outline" size="lg">Learn About Our Services</Button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
     </div>
