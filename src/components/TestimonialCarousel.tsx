@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from './ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
@@ -254,8 +255,10 @@ const TestimonialCarousel = () => {
         {/* Call-to-Action */}
         <div className="text-center mt-12">
           <p className="text-muted-foreground mb-4">Ready to join our success stories?</p>
-          <Button className="bg-gradient-primary hover:shadow-accent shadow-button">
-            Schedule Your Consultation
+          <Button className="bg-gradient-primary hover:shadow-accent shadow-button" asChild>
+            <Link to="/contact">
+              Schedule Your Consultation
+            </Link>
           </Button>
         </div>
       </div>
