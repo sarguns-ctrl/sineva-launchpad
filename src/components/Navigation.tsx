@@ -1,102 +1,132 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Building2, Globe } from "lucide-react";
-import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from './ui/button';
+import LanguageSwitcher from './LanguageSwitcher';
+import MagneticButton from './MagneticButton';
+import { Menu, X, Phone, Mail } from 'lucide-react';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigationItems = [
-    { label: "Services", href: "/services" },
-    { label: "Properties", href: "/properties" },
-    { label: "For Agents", href: "/agents" },
-    { label: "Market Insights", href: "/insights" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { name: 'Properties', href: '/properties' },
+    { name: 'Services', href: '/services' },
+    { name: 'Agents', href: '/agents' },
+    { name: 'Market Insights', href: '/market-insights' },
+    { name: 'About', href: '/about' },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border/50 shadow-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Building2 className="h-7 w-7 text-white" />
+        <div className="flex justify-between items-center h-20">
+          {/* Logo with enhanced typography */}
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-button group-hover:shadow-accent transition-all duration-300 group-hover:scale-110">
+              <span className="text-primary-foreground font-clash font-bold text-lg">S</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-primary font-playfair">SINEVA</span>
-              <span className="text-xs text-muted-foreground -mt-1 tracking-wider font-medium">BROKERAGE</span>
+              <span className="font-clash font-bold text-lg text-primary leading-tight">
+                Sineva
+              </span>
+              <span className="font-satoshi text-xs text-muted-foreground leading-tight">
+                Brokerage
+              </span>
             </div>
-          </div>
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Navigation with asymmetric spacing */}
+          <div className="hidden lg:flex items-center space-x-8">
             {navigationItems.map((item, index) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-foreground hover:text-primary transition-all duration-300 font-medium relative group hover:scale-105"
+              <Link
+                key={item.name}
+                to={item.href}
+                className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary transition-all duration-300 group-hover:w-full rounded-full"></span>
-              </a>
+                {item.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+              </Link>
             ))}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Desktop CTAs with new design */}
+          <div className="hidden lg:flex items-center space-x-4">
             <LanguageSwitcher />
-            <Button 
+            
+            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <Phone className="w-4 h-4" />
+              <span className="font-mono">+1 (555) 123-4567</span>
+            </div>
+            
+            <MagneticButton 
               variant="outline" 
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300"
+              size="sm"
+              className="border-primary/30 hover:bg-primary hover:border-primary"
             >
-              Client Portal
-            </Button>
-            <Button className="shadow-button hover:scale-105 hover:shadow-elegant transition-all duration-300 animate-glow">
-              Schedule Consultation
-            </Button>
+              <Mail className="w-4 h-4" />
+              Contact
+            </MagneticButton>
+            
+            <MagneticButton 
+              variant="accent" 
+              size="sm"
+              className="shadow-accent"
+            >
+              Get Started
+            </MagneticButton>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          {/* Mobile menu button */}
+          <div className="lg:hidden flex items-center space-x-4">
+            <LanguageSwitcher />
             <Button
               variant="ghost"
-              size="sm"
+              size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="hover:bg-accent/10"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </Button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-background border-t border-border">
-              {navigationItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="block px-3 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors duration-300"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-              <div className="flex flex-col space-y-3 px-3 pt-4">
-                <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  Client Portal
+      {/* Mobile Navigation with improved design */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-card/95 backdrop-blur-xl border-t border-border/50 shadow-elegant">
+          <div className="px-4 py-6 space-y-4">
+            {navigationItems.map((item, index) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="block font-space text-base font-medium text-foreground hover:text-accent transition-all duration-300 py-2 border-b border-border/30 last:border-b-0"
+                onClick={() => setIsMenuOpen(false)}
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                {item.name}
+              </Link>
+            ))}
+            
+            <div className="pt-4 space-y-3">
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <Phone className="w-4 h-4" />
+                <span className="font-mono">+1 (555) 123-4567</span>
+              </div>
+              
+              <div className="flex space-x-3">
+                <Button variant="outline" className="flex-1">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Contact
                 </Button>
-                <Button className="w-full shadow-button">
-                  Schedule Consultation
+                <Button variant="accent" className="flex-1">
+                  Get Started
                 </Button>
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 };

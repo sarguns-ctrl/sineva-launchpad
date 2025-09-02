@@ -66,16 +66,22 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-secondary': 'var(--gradient-secondary)',
-				'gradient-hero': 'var(--gradient-hero)'
+				'gradient-accent': 'var(--gradient-accent)',
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-mesh': 'var(--gradient-mesh)'
 			},
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
 				'card': 'var(--shadow-card)',
-				'button': 'var(--shadow-button)'
+				'button': 'var(--shadow-button)',
+				'accent': 'var(--shadow-accent)',
+				'glow': 'var(--shadow-glow)'
 			},
 			fontFamily: {
-				'inter': ['Inter', 'system-ui', 'sans-serif'],
-				'playfair': ['Playfair Display', 'Georgia', 'serif'],
+				'space': ['Space Grotesk', 'system-ui', 'sans-serif'],
+				'clash': ['Clash Display', 'system-ui', 'sans-serif'],
+				'satoshi': ['Satoshi', 'system-ui', 'sans-serif'],
+				'mono': ['JetBrains Mono', 'Monaco', 'monospace'],
 			},
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)'

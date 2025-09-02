@@ -8,51 +8,61 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Professional Sineva Brand Colors - Dark Teal/Green Theme */
-    --background: 0 0% 100%;
-    --foreground: 200 15% 8%;
+    /* Bold Revolutionary Color Palette */
+    --background: 45 30% 97%;
+    --foreground: 160 60% 8%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 200 15% 8%;
+    --card: 45 30% 97%;
+    --card-foreground: 160 60% 8%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 200 15% 8%;
+    --popover: 45 30% 97%;
+    --popover-foreground: 160 60% 8%;
 
-    /* Primary: Professional dark teal matching Grupo Sineva */
-    --primary: 200 100% 8%;
-    --primary-foreground: 0 0% 98%;
+    /* Primary: Deep Forest Green - sophisticated, wealth-associated */
+    --primary: 160 60% 8%;
+    --primary-foreground: 45 30% 97%;
+    --primary-glow: 160 45% 25%;
 
-    /* Secondary: Sophisticated light gray */
-    --secondary: 200 20% 95%;
-    --secondary-foreground: 200 15% 8%;
+    /* Secondary: Warm Sage - calming, trustworthy */
+    --secondary: 100 25% 65%;
+    --secondary-foreground: 160 60% 8%;
 
-    /* Muted backgrounds */
-    --muted: 200 20% 96%;
-    --muted-foreground: 200 10% 45%;
+    /* Muted backgrounds with warm cream base */
+    --muted: 45 20% 94%;
+    --muted-foreground: 160 30% 35%;
 
-    /* Accent: Premium gold for highlights */
-    --accent: 45 95% 58%;
-    --accent-foreground: 200 15% 8%;
+    /* Accent: Electric Coral - energetic, memorable */
+    --accent: 12 100% 64%;
+    --accent-foreground: 45 30% 97%;
+    --accent-soft: 12 65% 85%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 45 30% 97%;
 
-    --border: 200 20% 90%;
-    --input: 200 20% 90%;
-    --ring: 200 100% 8%;
+    --border: 45 20% 88%;
+    --input: 45 20% 90%;
+    --ring: 160 60% 8%;
 
-    /* Professional gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(200 100% 8%), hsl(200 100% 12%));
-    --gradient-secondary: linear-gradient(135deg, hsl(45 95% 58%), hsl(45 95% 65%));
-    --gradient-hero: linear-gradient(135deg, hsl(200 100% 6%) 0%, hsl(200 100% 10%) 50%, hsl(200 80% 15%) 100%);
+    /* Revolutionary gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(160 60% 8%), hsl(160 45% 25%));
+    --gradient-secondary: linear-gradient(135deg, hsl(100 25% 65%), hsl(100 30% 75%));
+    --gradient-accent: linear-gradient(135deg, hsl(12 100% 64%), hsl(12 85% 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(160 60% 6%) 0%, hsl(160 45% 15%) 50%, hsl(100 25% 25%) 100%);
+    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(160 60% 8% / 0.3) 0%, transparent 50%), 
+                     radial-gradient(circle at 80% 20%, hsl(12 100% 64% / 0.2) 0%, transparent 50%),
+                     radial-gradient(circle at 40% 80%, hsl(100 25% 65% / 0.15) 0%, transparent 50%);
     
-    /* Elegant shadows */
-    --shadow-elegant: 0 20px 40px -10px hsl(200 100% 8% / 0.15);
-    --shadow-card: 0 8px 25px -5px hsl(200 100% 8% / 0.1);
-    --shadow-button: 0 4px 15px -2px hsl(200 100% 8% / 0.2);
+    /* Sophisticated shadows with color tints */
+    --shadow-elegant: 0 25px 50px -15px hsl(160 60% 8% / 0.25);
+    --shadow-card: 0 10px 30px -8px hsl(160 60% 8% / 0.15);
+    --shadow-button: 0 6px 20px -4px hsl(160 60% 8% / 0.3);
+    --shadow-accent: 0 8px 25px -6px hsl(12 100% 64% / 0.4);
+    --shadow-glow: 0 0 40px hsl(160 45% 25% / 0.3);
     
-    /* Smooth transitions */
+    /* Advanced transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-magnetic: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 
     --radius: 8px;
 
@@ -67,33 +77,35 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 200 100% 4%;
-    --foreground: 0 0% 98%;
+    --background: 160 60% 3%;
+    --foreground: 45 30% 97%;
 
-    --card: 200 100% 4%;
-    --card-foreground: 0 0% 98%;
+    --card: 160 60% 4%;
+    --card-foreground: 45 30% 97%;
 
-    --popover: 200 100% 4%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 160 60% 4%;
+    --popover-foreground: 45 30% 97%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 200 100% 8%;
+    --primary: 45 30% 97%;
+    --primary-foreground: 160 60% 8%;
+    --primary-glow: 160 45% 75%;
 
-    --secondary: 200 50% 10%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 160 40% 15%;
+    --secondary-foreground: 45 30% 97%;
 
-    --muted: 200 50% 10%;
-    --muted-foreground: 200 20% 65%;
+    --muted: 160 40% 12%;
+    --muted-foreground: 160 20% 70%;
 
-    --accent: 45 95% 58%;
-    --accent-foreground: 200 15% 8%;
+    --accent: 12 100% 64%;
+    --accent-foreground: 160 60% 3%;
+    --accent-soft: 12 65% 25%;
 
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 45 30% 97%;
 
-    --border: 200 50% 10%;
-    --input: 200 50% 10%;
-    --ring: 200 20% 83%;
+    --border: 160 40% 15%;
+    --input: 160 40% 15%;
+    --ring: 45 30% 85%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -112,8 +124,10 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground font-space;
     scroll-behavior: smooth;
+    background-image: var(--gradient-mesh);
+    background-attachment: fixed;
   }
   
   /* Global smooth scrolling */
