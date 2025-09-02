@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -10,6 +10,7 @@ import { Menu, X, Phone, User, LogOut, ChevronDown } from 'lucide-react';
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const location = useLocation();
 
   const navigationItems = [
     { name: 'Properties', href: '/properties' },
@@ -51,17 +52,26 @@ const Navigation = () => {
 
           {/* Desktop Navigation with dropdown */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigationItems.slice(0, 3).map((item, index) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
+            {navigationItems.slice(0, 3).map((item, index) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`font-space text-sm font-medium transition-all duration-300 hover:scale-105 relative group ${
+                    isActive 
+                      ? 'text-accent font-semibold' 
+                      : 'text-foreground hover:text-accent'
+                  }`}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {item.name}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} />
+                </Link>
+              );
+            })}
             
             {/* Agents Dropdown */}
             <DropdownMenu>
@@ -113,17 +123,26 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {navigationItems.slice(3).map((item, index) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 hover:scale-105 relative group"
-                style={{ animationDelay: `${(index + 4) * 100}ms` }}
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
+            {navigationItems.slice(3).map((item, index) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`font-space text-sm font-medium transition-all duration-300 hover:scale-105 relative group ${
+                    isActive 
+                      ? 'text-accent font-semibold' 
+                      : 'text-foreground hover:text-accent'
+                  }`}
+                  style={{ animationDelay: `${(index + 4) * 100}ms` }}
+                >
+                  {item.name}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} />
+                </Link>
+              );
+            })}
           </div>
 
           {/* Desktop CTAs with new design */}
@@ -181,17 +200,24 @@ const Navigation = () => {
       {isMenuOpen && (
         <div className="lg:hidden bg-card/95 backdrop-blur-xl border-t border-border/50 shadow-elegant">
           <div className="px-4 py-6 space-y-4">
-            {navigationItems.map((item, index) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="block font-space text-base font-medium text-foreground hover:text-accent transition-all duration-300 py-2 border-b border-border/30 last:border-b-0"
-                onClick={() => setIsMenuOpen(false)}
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigationItems.map((item, index) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`block font-space text-base font-medium transition-all duration-300 py-2 border-b border-border/30 last:border-b-0 ${
+                    isActive 
+                      ? 'text-accent font-semibold bg-accent/10' 
+                      : 'text-foreground hover:text-accent hover:bg-accent/5'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
             
             {/* Mobile Agents Section */}
             <div className="space-y-2">
