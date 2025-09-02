@@ -509,6 +509,7 @@ export type Database = {
           opened_at: string | null
           sent_at: string | null
           unsubscribed_at: string | null
+          updated_at: string | null
           user_id: string | null
         }
         Insert: {
@@ -522,6 +523,7 @@ export type Database = {
           opened_at?: string | null
           sent_at?: string | null
           unsubscribed_at?: string | null
+          updated_at?: string | null
           user_id?: string | null
         }
         Update: {
@@ -535,11 +537,19 @@ export type Database = {
           opened_at?: string | null
           sent_at?: string | null
           unsubscribed_at?: string | null
+          updated_at?: string | null
           user_id?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "email_recipients_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "email_campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_email_recipients_campaign_id"
             columns: ["campaign_id"]
             isOneToOne: false
             referencedRelation: "email_campaigns"
