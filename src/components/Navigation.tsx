@@ -21,8 +21,8 @@ const Navigation = () => {
           <div className="flex items-center space-x-2">
             <Building2 className="h-8 w-8 text-primary" />
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-primary">Sineva</span>
-              <span className="text-xs text-muted-foreground -mt-1">BROKERAGE</span>
+              <span className="text-xl font-bold text-primary">SINEVA</span>
+              <span className="text-xs text-muted-foreground -mt-1 tracking-wider">BROKERAGE</span>
             </div>
           </div>
 

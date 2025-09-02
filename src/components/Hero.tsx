@@ -19,14 +19,14 @@ const Hero = () => {
           {/* Main Headline */}
           <div className="space-y-4">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-              World-Class
-              <span className="block bg-gradient-secondary bg-clip-text text-transparent">
-                Real Estate Brokerage
+              Real Estate Division of
+              <span className="block text-accent mt-2">
+                GRUPO SINEVA
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-              Your one-stop solution for businesses, commercial, and residential properties. 
-              <span className="block mt-2">By Grupo Sineva - Serving US, Canada & Latin America</span>
+              Your trusted real estate partner for immigration-focused property investments. 
+              <span className="block mt-2">Building lives without borders through strategic real estate.</span>
             </p>
           </div>
 
@@ -34,18 +34,18 @@ const Hero = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
               <Globe className="h-8 w-8 text-accent mx-auto mb-3" />
-              <h3 className="text-lg font-semibold text-white mb-2">Global Reach</h3>
-              <p className="text-white/80 text-sm">International presence across North America and Latin America</p>
+              <h3 className="text-lg font-semibold text-white mb-2">Immigration Focus</h3>
+              <p className="text-white/80 text-sm">Specialized in real estate for entrepreneurs immigrating with business</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
               <Users className="h-8 w-8 text-accent mx-auto mb-3" />
-              <h3 className="text-lg font-semibold text-white mb-2">Expert Agents</h3>
-              <p className="text-white/80 text-sm">Personalized websites, marketing support, and guaranteed income</p>
+              <h3 className="text-lg font-semibold text-white mb-2">20+ Years Experience</h3>
+              <p className="text-white/80 text-sm">Backed by Grupo Sineva's two decades of immigration expertise</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
               <TrendingUp className="h-8 w-8 text-accent mx-auto mb-3" />
-              <h3 className="text-lg font-semibold text-white mb-2">Business Marketplace</h3>
-              <p className="text-white/80 text-sm">Tinder for businesses - smart matching for buyers and sellers</p>
+              <h3 className="text-lg font-semibold text-white mb-2">Complete Solution</h3>
+              <p className="text-white/80 text-small">From business acquisition to settlement - your allies in building a life without borders</p>
             </div>
           </div>
 

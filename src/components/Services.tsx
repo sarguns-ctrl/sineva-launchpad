@@ -53,11 +53,11 @@ const Services = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Comprehensive Real Estate Solutions
+            Where Business, Immigration & Real Estate Come Together
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            From business acquisitions to luxury homes, we provide end-to-end services 
-            across international markets with unmatched expertise.
+            Specialized real estate services for entrepreneurs and professionals immigrating 
+            with their business to the U.S. and Canada. More than agents - we are your allies.
           </p>
         </div>
 
