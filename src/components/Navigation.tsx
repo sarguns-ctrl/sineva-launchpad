@@ -45,7 +45,7 @@ const Navigation = () => {
 
           {/* Desktop Navigation with dropdown */}
           <div className="hidden lg:flex items-center space-x-8">
-            <NavigationMenu>
+            <NavigationMenu className="relative z-50">
               <NavigationMenuList className="flex items-center space-x-8">
                 {navigationItems.slice(0, 3).map((item, index) => (
                   <NavigationMenuItem key={item.name}>
@@ -63,17 +63,17 @@ const Navigation = () => {
                 ))}
                 
                 {/* Agents Dropdown */}
-                <NavigationMenuItem>
+                <NavigationMenuItem className="relative">
                   <NavigationMenuTrigger className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 bg-transparent hover:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
                     Agents
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="z-50">
-                    <div className="p-2 w-48 bg-card border border-border shadow-lg">
+                  <NavigationMenuContent className="absolute top-full left-0 mt-1 z-[9999] min-w-[200px]">
+                    <div className="p-2 bg-card border border-border shadow-xl rounded-md">
                       {agentItems.map((item) => (
                         <NavigationMenuLink key={item.name} asChild>
                           <Link
                             to={item.href}
-                            className="block px-3 py-2 text-sm text-foreground hover:text-accent hover:bg-accent/10 rounded-md transition-colors"
+                            className="block px-3 py-2 text-sm text-foreground hover:text-accent hover:bg-accent/10 rounded-md transition-colors whitespace-nowrap"
                           >
                             {item.name}
                           </Link>
