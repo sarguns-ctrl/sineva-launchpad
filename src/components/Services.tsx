@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building, Home, Briefcase, Globe, HeartHandshake, TrendingUp } from "lucide-react";
@@ -150,16 +150,32 @@ const Services = () => {
               <Button 
                 size="lg" 
                 className="bg-white text-primary hover:bg-white/90 hover:scale-105 shadow-button transition-all duration-300 group/btn"
+                asChild
               >
-                View Properties
-                <span className="ml-2 group-hover/btn:translate-x-1 transition-transform duration-300">→</span>
+                <Link to="/properties">
+                  View Properties
+                  <span className="ml-2 group-hover/btn:translate-x-1 transition-transform duration-300">→</span>
+                </Link>
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
                 className="border-2 border-white text-white hover:bg-white hover:text-primary hover:scale-105 transition-all duration-300"
+                asChild
               >
-                Schedule Consultation
+                <Link to="/contact">
+                  Schedule Consultation
+                </Link>
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-white text-white hover:bg-white hover:text-primary hover:scale-105 transition-all duration-300"
+                asChild
+              >
+                <Link to="/business-brokerage">
+                  View Businesses
+                </Link>
               </Button>
             </div>
           </div>
