@@ -178,6 +178,87 @@ export type Database = {
           },
         ]
       }
+      blog_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      blog_posts: {
+        Row: {
+          author_id: string
+          category: string | null
+          content: string
+          created_at: string
+          excerpt: string | null
+          featured_image_url: string | null
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          published_at: string | null
+          seo_description: string | null
+          seo_title: string | null
+          slug: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          category?: string | null
+          content: string
+          created_at?: string
+          excerpt?: string | null
+          featured_image_url?: string | null
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          published_at?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          category?: string | null
+          content?: string
+          created_at?: string
+          excerpt?: string | null
+          featured_image_url?: string | null
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          published_at?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       brand_profiles: {
         Row: {
           accent_color: string | null
@@ -1667,6 +1748,48 @@ export type Database = {
           id?: string
           property_ids?: string[]
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      property_media: {
+        Row: {
+          alt_text: string | null
+          created_at: string
+          display_order: number | null
+          file_name: string
+          file_size: number | null
+          file_url: string
+          id: string
+          is_primary: boolean | null
+          media_type: string
+          property_id: string
+          uploaded_by: string
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string
+          display_order?: number | null
+          file_name: string
+          file_size?: number | null
+          file_url: string
+          id?: string
+          is_primary?: boolean | null
+          media_type: string
+          property_id: string
+          uploaded_by: string
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string
+          display_order?: number | null
+          file_name?: string
+          file_size?: number | null
+          file_url?: string
+          id?: string
+          is_primary?: boolean | null
+          media_type?: string
+          property_id?: string
+          uploaded_by?: string
         }
         Relationships: []
       }

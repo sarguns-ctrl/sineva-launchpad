@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, BarChart3, Users, MessageSquare, Mail, Brain } from 'lucide-react';
+import { Shield, BarChart3, Users, MessageSquare, Mail, Brain, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/useAuth';
@@ -25,10 +25,16 @@ export const AdminNavigation: React.FC = () => {
       description: 'Platform performance insights'
     },
     {
-      href: '/leads',
-      icon: Users,
-      title: 'Lead Management',
-      description: 'Track and manage leads'
+      href: '/admin/properties',
+      icon: Home,
+      title: 'Property Management',
+      description: 'Manage property listings'
+    },
+    {
+      href: '/admin/blog',
+      icon: MessageSquare,
+      title: 'Blog Management', 
+      description: 'Create and manage blog posts'
     },
     {
       href: '/campaigns',

@@ -47,6 +47,7 @@ import UserDashboardPage from "./pages/UserDashboardPage";
 import MortgageCalculatorPage from "./pages/MortgageCalculatorPage";
 import AdminUsers from "./pages/AdminUsers";
 import AdminProperties from "./pages/AdminProperties";
+import AdminBlog from "./pages/AdminBlog";
 import AdminLeads from "./pages/AdminLeads";
 import AdminSettings from "./pages/AdminSettings";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
@@ -92,10 +93,11 @@ const App = () => (
           <Route path="/messages" element={<MessagingPage />} />
           <Route path="/appointments" element={<AppointmentsPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/properties" element={<AdminProperties />} />
-          <Route path="/admin/leads" element={<AdminLeads />} />
-          <Route path="/admin/settings" element={<AdminSettings />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/properties" element={<AdminProperties />} />
+            <Route path="/admin/blog" element={<AdminBlog />} />
+            <Route path="/admin/leads" element={<AdminLeads />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/leads" element={<LeadsPage />} />
           <Route path="/campaigns" element={<CampaignsPage />} />
