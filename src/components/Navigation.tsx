@@ -177,6 +177,12 @@ const Navigation = () => {
                       Dashboard
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/crm" className="cursor-pointer">
+                      <User className="w-4 h-4 mr-2" />
+                      CRM
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer text-destructive">
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
@@ -271,9 +277,9 @@ const Navigation = () => {
                 {user && (
                   <>
                     <Button variant="outline" className="flex-1" asChild>
-                      <Link to="/dashboard">
+                      <Link to="/crm">
                         <User className="w-4 h-4 mr-2" />
-                        Dashboard
+                        CRM
                       </Link>
                     </Button>
                     <Button variant="destructive" className="flex-1" onClick={() => signOut()}>

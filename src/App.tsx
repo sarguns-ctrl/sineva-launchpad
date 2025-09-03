@@ -60,6 +60,11 @@ import AppointmentsPage from "./pages/AppointmentsPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import LeadsPage from "./pages/LeadsPage";
 import CampaignsPage from "./pages/CampaignsPage";
+import CRMPage from "./pages/CRMPage";
+import CRMLeadsPage from "./pages/CRMLeadsPage";
+import CRMMessagesPage from "./pages/CRMMessagesPage";
+import CRMAppointmentsPage from "./pages/CRMAppointmentsPage";
+import CRMClientsPage from "./pages/CRMClientsPage";
 import RecommendationsPage from "./pages/RecommendationsPage";
 import AgentDashboardPageNew from "./pages/AgentDashboardPage";
 import AICRMPage from "./pages/AICRMPage";
@@ -106,7 +111,15 @@ const App = () => (
             <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/leads" element={<LeadsPage />} />
-          <Route path="/campaigns" element={<CampaignsPage />} />
+        <Route path="/campaigns" element={<CampaignsPage />} />
+        
+        {/* CRM Routes */}
+        <Route path="/crm" element={<CRMPage />} />
+        <Route path="/crm/leads" element={<CRMLeadsPage />} />
+        <Route path="/crm/messages" element={<CRMMessagesPage />} />
+        <Route path="/crm/appointments" element={<CRMAppointmentsPage />} />
+        <Route path="/crm/campaigns" element={<CampaignsPage />} />
+        <Route path="/crm/clients" element={<CRMClientsPage />} />
           <Route path="/recommendations" element={<RecommendationsPage />} />
           <Route path="/agent-dashboard" element={<AgentDashboardPageNew />} />
           <Route path="/ai-crm" element={<AICRMPage />} />
