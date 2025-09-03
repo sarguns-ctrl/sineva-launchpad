@@ -31,6 +31,7 @@ const Navigation = () => {
     { name: 'Concierge Services', href: '/concierge-services' },
     { name: 'Investment Advisory', href: '/investment-advisory' },
     { name: 'International Services', href: '/international-services' },
+    { name: 'Market Insights', href: '/market-insights' },
   ];
 
   return (

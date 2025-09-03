@@ -62,6 +62,7 @@ import AICRMPage from "./pages/AICRMPage";
 import VideoCallsPage from "./pages/VideoCallsPage";
 import AdvancedSearchPage from "./pages/AdvancedSearchPage";
 import AdvancedAnalyticsPage from "./pages/AdvancedAnalyticsPage";
+import MarketInsights from "./pages/MarketInsights";
 
 const queryClient = new QueryClient();
 
@@ -104,6 +105,7 @@ const App = () => (
           <Route path="/video-calls" element={<VideoCallsPage />} />
           <Route path="/advanced-search" element={<AdvancedSearchPage />} />
           <Route path="/advanced-analytics" element={<AdvancedAnalyticsPage />} />
+          <Route path="/market-insights" element={<MarketInsights />} />
           <Route path="/agent/:id" element={<AgentProfile />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/news" element={<News />} />

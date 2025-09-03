@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 import { 
   TrendingUp,
   TrendingDown,
@@ -364,9 +365,11 @@ const MarketInsights = () => {
                       </div>
                     </div>
                     
-                    <Button className="w-full">
-                      View {city.city} Properties
-                    </Button>
+                     <Button className="w-full" asChild>
+                       <Link to={`/markets/${city.city.toLowerCase()}`}>
+                         View {city.city} Properties
+                       </Link>
+                     </Button>
                   </CardContent>
                 </Card>
               ))}
@@ -516,11 +519,15 @@ const MarketInsights = () => {
               tailored to your specific immigration goals and investment criteria.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button">
-                Request Custom Analysis
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button" asChild>
+                <Link to="/contact">
+                  Request Custom Analysis
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                Subscribe to Updates
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
+                <a href="mailto:insights@sineva.com?subject=Market Updates Subscription">
+                  Subscribe to Updates
+                </a>
               </Button>
             </div>
           </div>
