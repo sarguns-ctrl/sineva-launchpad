@@ -1,29 +1,19 @@
 import React from 'react';
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import { AdminLayout } from '@/components/AdminLayout';
+import { PropertyManagement } from "@/components/PropertyManagement";
 import SEOHead from "@/components/SEOHead";
 import RoleProtectedRoute from "@/components/RoleProtectedRoute";
-import { PropertyManagement } from "@/components/PropertyManagement";
-import { Home } from 'lucide-react';
 
 const AdminProperties = () => {
   return (
     <RoleProtectedRoute allowedRoles={['admin', 'manager']}>
-      <div className="min-h-screen bg-background">
-        <SEOHead 
-          title="Admin - Property Management | Grupo Sineva"
-          description="Manage property listings, approvals, and content moderation."
-        />
-        <Navigation />
-        
-        <main className="pt-20">
-          <div className="container mx-auto px-4 py-8">
-            <PropertyManagement />
-          </div>
-        </main>
-
-        <Footer />
-      </div>
+      <SEOHead 
+        title="Admin - Property Management | Grupo Sineva"
+        description="Manage property listings, approvals, and content moderation."
+      />
+      <AdminLayout title="Property Management">
+        <PropertyManagement />
+      </AdminLayout>
     </RoleProtectedRoute>
   );
 };

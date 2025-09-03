@@ -48,6 +48,9 @@ import MortgageCalculatorPage from "./pages/MortgageCalculatorPage";
 import AdminUsers from "./pages/AdminUsers";
 import AdminProperties from "./pages/AdminProperties";
 import AdminBlog from "./pages/AdminBlog";
+import AdminBusinesses from "./pages/AdminBusinesses";
+import AdminPerformance from "./pages/AdminPerformance";
+import AdminIntegrations from "./pages/AdminIntegrations";
 import AdminLeads from "./pages/AdminLeads";
 import AdminSettings from "./pages/AdminSettings";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
@@ -96,6 +99,9 @@ const App = () => (
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/properties" element={<AdminProperties />} />
             <Route path="/admin/blog" element={<AdminBlog />} />
+            <Route path="/admin/businesses" element={<AdminBusinesses />} />
+            <Route path="/admin/performance" element={<AdminPerformance />} />
+            <Route path="/admin/integrations" element={<AdminIntegrations />} />
             <Route path="/admin/leads" element={<AdminLeads />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
