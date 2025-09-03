@@ -120,7 +120,8 @@ const App = () => (
         <Route path="/crm/appointments" element={<CRMAppointmentsPage />} />
         <Route path="/crm/campaigns" element={<CampaignsPage />} />
         <Route path="/crm/clients" element={<CRMClientsPage />} />
-          <Route path="/recommendations" element={<RecommendationsPage />} />
+            <Route path="/recommendations" element={<RecommendationsPage />} />
+            <Route path="/ai-search" element={<AISearch />} />
           <Route path="/agent-dashboard" element={<AgentDashboardPageNew />} />
           <Route path="/ai-crm" element={<AICRMPage />} />
           <Route path="/video-calls" element={<VideoCallsPage />} />

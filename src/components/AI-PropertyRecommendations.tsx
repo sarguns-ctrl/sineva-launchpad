@@ -13,12 +13,22 @@ interface Property {
   id: string;
   title: string;
   price: number;
-  location: string;
+  address: string;
+  city: string;
+  state: string;
   bedrooms?: number;
   bathrooms?: number;
   square_feet?: number;
   property_type: string;
+  listing_type: string;
   images: string[];
+  property_features?: string[];
+  visa_eligible?: string[];
+  featured?: boolean;
+  rating?: number;
+  year_built?: number;
+  annual_revenue?: number;
+  employee_count?: string;
   created_at: string;
 }
 
@@ -54,11 +64,9 @@ export const AIPropertyRecommendations: React.FC = () => {
         .eq('user_id', user.id)
         .single();
 
-      // Get user's saved properties for preference analysis
-      const { data: savedProperties } = await supabase
-        .from('property_favorites')
-        .select('property_id')
-        .eq('user_id', user.id);
+      // For now, we'll use an empty array for saved properties
+      // This will be replaced when property_favorites table is available
+      const savedProperties: any[] = [];
 
       // Get all properties
       const { data: properties, error } = await supabase
@@ -99,12 +107,22 @@ export const AIPropertyRecommendations: React.FC = () => {
           id: property.id,
           title: property.title,
           price: property.price,
-          location: `${property.city}, ${property.state}`,
+          address: property.address || '',
+          city: property.city,
+          state: property.state,
           bedrooms: property.bedrooms,
           bathrooms: property.bathrooms,
           square_feet: property.square_feet,
           property_type: property.property_type,
+          listing_type: property.listing_type || 'For Sale',
           images: property.images || ['/placeholder.svg'],
+          property_features: property.property_features,
+          visa_eligible: property.visa_eligible,
+          featured: property.featured,
+          rating: property.rating,
+          year_built: property.year_built,
+          annual_revenue: property.annual_revenue,
+          employee_count: property.employee_count,
           created_at: property.created_at
         },
         score,
@@ -266,7 +284,15 @@ export const AIPropertyRecommendations: React.FC = () => {
             {recommendations.slice(0, 9).map((rec) => (
               <Card key={rec.property.id} className="group hover:shadow-lg transition-shadow">
                 <div className="relative">
-                  <PropertyCard property={rec.property} />
+                  <PropertyCard 
+                    property={rec.property}
+                    onClick={() => window.location.href = `/property/${rec.property.id}`}
+                    onFavoriteToggle={() => {}}
+                    onCompareToggle={() => {}}
+                    isFavorited={false}
+                    isInCompareList={false}
+                    canAddToCompare={true}
+                  />
                   <div className="absolute top-2 left-2">
                     <Badge className={`${getCategoryColor(rec.category)} flex items-center gap-1`}>
                       {getCategoryIcon(rec.category)}
@@ -303,8 +329,16 @@ export const AIPropertyRecommendations: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filterByCategory(category).slice(0, 9).map((rec) => (
                 <Card key={rec.property.id} className="group hover:shadow-lg transition-shadow">
-                  <div className="relative">
-                    <PropertyCard property={rec.property} />
+                <div className="relative">
+                    <PropertyCard 
+                      property={rec.property}
+                      onClick={() => window.location.href = `/property/${rec.property.id}`}
+                      onFavoriteToggle={() => {}}
+                      onCompareToggle={() => {}}
+                      isFavorited={false}
+                      isInCompareList={false}
+                      canAddToCompare={true}
+                    />
                     <div className="absolute top-2 right-2">
                       <Badge variant="secondary" className="flex items-center gap-1">
                         <Star className="h-3 w-3" />
