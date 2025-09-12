@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import AIPropertySearch from "@/components/AIPropertySearch";
-import AIPropertyAssistant from "@/components/AIPropertyAssistant";
+
 
 const AISearch = () => {
-  const [isAssistantMinimized, setIsAssistantMinimized] = useState(true);
 
   return (
     <div className="min-h-screen bg-background">
@@ -29,11 +28,6 @@ const AISearch = () => {
       </main>
 
       <Footer />
-      
-      <AIPropertyAssistant 
-        isMinimized={isAssistantMinimized}
-        onToggleMinimize={() => setIsAssistantMinimized(!isAssistantMinimized)}
-      />
     </div>
   );
 };

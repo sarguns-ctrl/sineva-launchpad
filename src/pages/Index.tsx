@@ -7,7 +7,7 @@ import LeadCaptureForm from "@/components/LeadCaptureForm";
 import ExitIntentPopup, { useExitIntent } from "@/components/ExitIntentPopup";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import AIPropertyAssistant from "@/components/AIPropertyAssistant";
+
 import ErrorBoundary from "@/components/ErrorBoundary";
 import LazySection from "@/components/LazySection";
 import SEOHead from "@/components/SEOHead";
@@ -22,7 +22,6 @@ const TestimonialCarousel = lazy(() => import("@/components/TestimonialCarousel"
 
 const Index = () => {
   const { showExitIntent, closeExitIntent } = useExitIntent();
-  const [isAssistantMinimized, setIsAssistantMinimized] = useState(true);
   const { trackPageView } = useAnalytics();
 
   // Track page view on mount
@@ -108,10 +107,6 @@ const Index = () => {
         onClose={closeExitIntent} 
       />
       
-      <AIPropertyAssistant 
-        isMinimized={isAssistantMinimized}
-        onToggleMinimize={() => setIsAssistantMinimized(!isAssistantMinimized)}
-      />
     </div>
   );
 };
