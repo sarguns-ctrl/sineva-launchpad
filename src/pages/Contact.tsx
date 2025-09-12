@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Phone,
   Mail,
@@ -21,6 +22,7 @@ import {
 import { useState } from "react";
 
 const Contact = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,6 +33,8 @@ const Contact = () => {
     visaType: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const officeLocations = [
     {
@@ -144,10 +148,66 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch(`https://cbvvydecbbnuprmhpfvm.supabase.co/functions/v1/contact-form`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          country: formData.country,
+          inquiryType: formData.inquiryType,
+          investmentRange: formData.investmentRange,
+          visaType: formData.visaType,
+          message: formData.message
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit contact form');
+      }
+
+      const result = await response.json();
+      console.log('Contact form submitted successfully:', result);
+      
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+      });
+      
+      setSubmitStatus('success');
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        country: "",
+        inquiryType: "",
+        investmentRange: "",
+        visaType: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      
+      toast({
+        title: "Error",
+        description: "Sorry, there was an error sending your message. Please try again.",
+        variant: "destructive",
+      });
+      
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -209,6 +269,34 @@ const Contact = () => {
               
               <Card className="shadow-elegant border-0">
                 <CardContent className="p-8">
+                  {submitStatus === 'success' && (
+                    <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle className="h-5 w-5 text-green-600" />
+                        <p className="text-green-800 font-medium">
+                          Thank you! Your message has been sent successfully.
+                        </p>
+                      </div>
+                      <p className="text-green-700 text-sm mt-1">
+                        We'll get back to you within 24 hours.
+                      </p>
+                    </div>
+                  )}
+                  
+                  {submitStatus === 'error' && (
+                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <AlertCircle className="h-5 w-5 text-red-600" />
+                        <p className="text-red-800 font-medium">
+                          Sorry, there was an error sending your message.
+                        </p>
+                      </div>
+                      <p className="text-red-700 text-sm mt-1">
+                        Please try again or contact us directly at contact@sinevagrupo.com
+                      </p>
+                    </div>
+                  )}
+
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
@@ -339,9 +427,9 @@ const Contact = () => {
                       />
                     </div>
 
-                    <Button type="submit" className="w-full shadow-button">
+                    <Button type="submit" disabled={isSubmitting} className="w-full shadow-button">
                       <Send className="h-4 w-4 mr-2" />
-                      Send Message
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
                   </form>
                 </CardContent>

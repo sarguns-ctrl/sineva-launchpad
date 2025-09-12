@@ -594,6 +594,51 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_submissions: {
+        Row: {
+          country: string | null
+          created_at: string
+          email: string
+          id: string
+          inquiry_type: string
+          investment_range: string | null
+          message: string
+          name: string
+          phone: string | null
+          status: string | null
+          updated_at: string
+          visa_type: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          inquiry_type: string
+          investment_range?: string | null
+          message: string
+          name: string
+          phone?: string | null
+          status?: string | null
+          updated_at?: string
+          visa_type?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          inquiry_type?: string
+          investment_range?: string | null
+          message?: string
+          name?: string
+          phone?: string | null
+          status?: string | null
+          updated_at?: string
+          visa_type?: string | null
+        }
+        Relationships: []
+      }
       content_assets: {
         Row: {
           asset_format: string | null
@@ -1161,6 +1206,127 @@ export type Database = {
             columns: ["property_id"]
             isOneToOne: false
             referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_applications: {
+        Row: {
+          application_status: string | null
+          applied_at: string
+          candidate_email: string
+          candidate_name: string
+          candidate_phone: string | null
+          cover_letter: string | null
+          created_at: string
+          id: string
+          job_posting_id: string
+          notes: string | null
+          portal_source: string
+          resume_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          application_status?: string | null
+          applied_at?: string
+          candidate_email: string
+          candidate_name: string
+          candidate_phone?: string | null
+          cover_letter?: string | null
+          created_at?: string
+          id?: string
+          job_posting_id: string
+          notes?: string | null
+          portal_source: string
+          resume_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          application_status?: string | null
+          applied_at?: string
+          candidate_email?: string
+          candidate_name?: string
+          candidate_phone?: string | null
+          cover_letter?: string | null
+          created_at?: string
+          id?: string
+          job_posting_id?: string
+          notes?: string | null
+          portal_source?: string
+          resume_url?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_applications_job_posting_id_fkey"
+            columns: ["job_posting_id"]
+            isOneToOne: false
+            referencedRelation: "job_postings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      job_postings: {
+        Row: {
+          created_at: string
+          created_by: string
+          department_id: string | null
+          description: string
+          expires_date: string | null
+          id: string
+          job_type: string | null
+          location: string | null
+          portal: string
+          position: string
+          posted_date: string | null
+          salary_max: number | null
+          salary_min: number | null
+          status: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          department_id?: string | null
+          description: string
+          expires_date?: string | null
+          id?: string
+          job_type?: string | null
+          location?: string | null
+          portal: string
+          position: string
+          posted_date?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          status?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          department_id?: string | null
+          description?: string
+          expires_date?: string | null
+          id?: string
+          job_type?: string | null
+          location?: string | null
+          portal?: string
+          position?: string
+          posted_date?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_postings_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
             referencedColumns: ["id"]
           },
         ]
