@@ -453,7 +453,12 @@ const Properties = () => {
                   <div className="flex space-x-2 pt-2">
                     <Button 
                       className="flex-1 shadow-button"
-                      onClick={() => navigate(`/property/${property.id}`)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Navigating to:', `/property/${property.id}`);
+                        navigate(`/property/${property.id}`);
+                      }}
                     >
                       View Details
                     </Button>

@@ -61,92 +61,97 @@ const PropertyShowcase = () => {
 
         {/* Properties Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {featuredProperties.map((property) => (
-            <Card key={property.id} className="group hover:shadow-elegant transition-all duration-500 border-0 shadow-card overflow-hidden">
-              {/* Property Image */}
-              <div className="relative h-64 bg-muted overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-primary opacity-20"></div>
-                <Badge 
-                  className="absolute top-4 left-4 z-10 bg-accent text-accent-foreground font-medium"
-                >
-                  {property.badge}
-                </Badge>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
-                    <MapPin className="h-8 w-8 text-primary" />
-                  </div>
-                </div>
+      {featuredProperties.map((property) => (
+        <Card key={property.id} className="group hover:shadow-elegant transition-all duration-500 border-0 shadow-card overflow-hidden">
+          {/* Property Image */}
+          <div className="relative h-64 bg-muted overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-primary opacity-20"></div>
+            <Badge 
+              className="absolute top-4 left-4 z-10 bg-accent text-accent-foreground font-medium"
+            >
+              {property.badge}
+            </Badge>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
+                <MapPin className="h-8 w-8 text-primary" />
               </div>
+            </div>
+          </div>
 
-              <CardContent className="p-6 space-y-4">
-                {/* Property Info */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <Badge variant="secondary" className="text-xs font-medium">
-                      {property.type}
-                    </Badge>
-                    <span className="text-2xl font-bold text-primary font-playfair">
-                      {property.price}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {property.title}
-                  </h3>
-                  <div className="flex items-center space-x-1 text-muted-foreground">
-                    <MapPin className="h-4 w-4" />
-                    <span className="text-sm">{property.location}</span>
-                  </div>
+          <CardContent className="p-6 space-y-4">
+            {/* Property Info */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Badge variant="secondary" className="text-xs font-medium">
+                  {property.type}
+                </Badge>
+                <span className="text-2xl font-bold text-primary font-playfair">
+                  {property.price}
+                </span>
+              </div>
+              <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                {property.title}
+              </h3>
+              <div className="flex items-center space-x-1 text-muted-foreground">
+                <MapPin className="h-4 w-4" />
+                <span className="text-sm">{property.location}</span>
+              </div>
+            </div>
+
+            {/* Property Details */}
+            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+              {property.beds && (
+                <div className="flex items-center space-x-1">
+                  <Bed className="h-4 w-4" />
+                  <span>{property.beds} bed</span>
                 </div>
-
-                {/* Property Details */}
-                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                  {property.beds && (
-                    <div className="flex items-center space-x-1">
-                      <Bed className="h-4 w-4" />
-                      <span>{property.beds} bed</span>
-                    </div>
-                  )}
-                  {property.baths && (
-                    <div className="flex items-center space-x-1">
-                      <Bath className="h-4 w-4" />
-                      <span>{property.baths} bath</span>
-                    </div>
-                  )}
-                  {property.size && (
-                    <div className="flex items-center space-x-1">
-                      <Square className="h-4 w-4" />
-                      <span>{property.size}</span>
-                    </div>
-                  )}
-                  {property.employees && (
-                    <div className="flex items-center space-x-1">
-                      <DollarSign className="h-4 w-4" />
-                      <span>{property.revenue}</span>
-                    </div>
-                  )}
+              )}
+              {property.baths && (
+                <div className="flex items-center space-x-1">
+                  <Bath className="h-4 w-4" />
+                  <span>{property.baths} bath</span>
                 </div>
-
-                {/* Features */}
-                <div className="space-y-2">
-                  <ul className="space-y-1">
-                    {property.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center space-x-2 text-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
-                        <span className="text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+              )}
+              {property.size && (
+                <div className="flex items-center space-x-1">
+                  <Square className="h-4 w-4" />
+                  <span>{property.size}</span>
                 </div>
+              )}
+              {property.employees && (
+                <div className="flex items-center space-x-1">
+                  <DollarSign className="h-4 w-4" />
+                  <span>{property.revenue}</span>
+                </div>
+              )}
+            </div>
 
-                <Button 
-                  className="w-full shadow-button hover:shadow-elegant transition-all duration-300"
-                  onClick={() => navigate(`/property/${property.id}`)}
-                >
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+            {/* Features */}
+            <div className="space-y-2">
+              <ul className="space-y-1">
+                {property.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-center space-x-2 text-sm">
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent"></div>
+                    <span className="text-muted-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <Button 
+              className="w-full shadow-button hover:shadow-elegant transition-all duration-300"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Navigating to:', `/property/${property.id}`);
+                navigate(`/property/${property.id}`);
+              }}
+            >
+              View Details
+            </Button>
+          </CardContent>
+        </Card>
+      ))}
         </div>
 
         {/* View All Properties CTA */}
