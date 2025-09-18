@@ -1,6 +1,7 @@
 import React from 'react';
 import { AdminLayout } from '@/components/AdminLayout';
 import { BusinessApprovalSystem } from '@/components/BusinessApprovalSystem';
+import { BusinessManagement } from '@/components/BusinessManagement';
 import SEOHead from '@/components/SEOHead';
 import RoleProtectedRoute from '@/components/RoleProtectedRoute';
 
@@ -12,7 +13,10 @@ const AdminBusinesses = () => {
         description="Manage business listings, approvals, and verification processes."
       />
       <AdminLayout title="Business Management">
-        <BusinessApprovalSystem />
+        <div className="space-y-8">
+          <BusinessManagement />
+          <BusinessApprovalSystem />
+        </div>
       </AdminLayout>
     </RoleProtectedRoute>
   );

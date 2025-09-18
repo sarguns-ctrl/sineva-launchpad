@@ -14,7 +14,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { useBusinessCategories } from '@/hooks/useBusinesses';
 import { supabase } from '@/integrations/supabase/client';
-import { ArrowLeft, Building2, DollarSign, Users, Upload } from 'lucide-react';
+import { ArrowLeft, Building2, DollarSign, Users, Upload, X, Image } from 'lucide-react';
+import { useRef } from 'react';
 
 interface BusinessFormData {
   businessName: string;
@@ -36,6 +37,7 @@ interface BusinessFormData {
   trainingProvided: boolean;
   financingAvailable: boolean;
   reasonForSelling: string;
+  images: string[];
 }
 
 const ListBusiness = () => {
@@ -45,6 +47,8 @@ const ListBusiness = () => {
   const { categories, loading: categoriesLoading } = useBusinessCategories();
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<BusinessFormData>({
     defaultValues: {
@@ -67,6 +71,7 @@ const ListBusiness = () => {
       trainingProvided: false,
       financingAvailable: false,
       reasonForSelling: '',
+      images: [],
     },
   });
 
@@ -75,6 +80,50 @@ const ListBusiness = () => {
     navigate('/auth');
     return null;
   }
+
+  const handleImageUpload = async (files: FileList) => {
+    setUploading(true);
+    const uploadedImages = [];
+
+    for (const file of Array.from(files)) {
+      if (!file.type.startsWith('image/')) {
+        toast({
+          title: "Error",
+          description: "Please select only image files",
+          variant: "destructive",
+        });
+        continue;
+      }
+
+      try {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        const filePath = `business-images/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('property-images')
+          .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('property-images')
+          .getPublicUrl(filePath);
+
+        uploadedImages.push(publicUrl);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        toast({
+          title: "Error",
+          description: `Failed to upload ${file.name}`,
+          variant: "destructive",
+        });
+      }
+    }
+
+    form.setValue('images', [...form.getValues('images'), ...uploadedImages]);
+    setUploading(false);
+  };
 
   const onSubmit = async (data: BusinessFormData) => {
     try {
@@ -101,6 +150,7 @@ const ListBusiness = () => {
         training_provided: data.trainingProvided,
         financing_available: data.financingAvailable,
         reason_for_selling: data.reasonForSelling || null,
+        images: data.images || [],
         status: 'pending', // Admin approval required
       };
 
@@ -529,6 +579,79 @@ const ListBusiness = () => {
                       )}
                     />
                   )}
+                </CardContent>
+              </Card>
+
+              {/* Submit */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Image className="w-5 h-5" />
+                    Business Images
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="images"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Upload Business Images</FormLabel>
+                        <FormControl>
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-4">
+                              <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={uploading}
+                              >
+                                {uploading ? 'Uploading...' : 'Upload Images'}
+                              </Button>
+                              <input
+                                ref={fileInputRef}
+                                type="file"
+                                multiple
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => e.target.files && handleImageUpload(e.target.files)}
+                              />
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              Select multiple images (JPG, PNG, GIF)
+                            </p>
+                            
+                            {field.value && field.value.length > 0 && (
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {field.value.map((image: string, index: number) => (
+                                  <div key={index} className="relative group">
+                                    <img
+                                      src={image}
+                                      alt={`Business ${index + 1}`}
+                                      className="w-full h-24 object-cover rounded-lg border"
+                                    />
+                                    <Button
+                                      type="button"
+                                      variant="destructive"
+                                      size="sm"
+                                      className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                      onClick={() => {
+                                        const newImages = field.value.filter((_: string, i: number) => i !== index);
+                                        field.onChange(newImages);
+                                      }}
+                                    >
+                                      <X className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </CardContent>
               </Card>
 

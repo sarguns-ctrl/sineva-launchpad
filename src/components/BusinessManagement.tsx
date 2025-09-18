@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Eye, Upload, Check, X } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, Upload, Check, X, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,61 +8,62 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { PropertyForm } from './PropertyForm';
+import { BusinessForm } from './BusinessForm';
 
-interface Property {
+interface Business {
   id: string;
-  title: string;
-  price: number;
-  address: string;
-  city?: string;
-  property_type: string;
-  listing_type: string;
-  zip_code: string;
+  business_name: string;
+  asking_price: number;
+  location_city: string;
+  location_state: string;
+  industry: string;
+  description: string;
+  visa_eligible: boolean;
+  inventory_included: boolean;
+  training_provided: boolean;
+  financing_available: boolean;
   status: string;
   featured: boolean;
-  bedrooms?: number;
-  bathrooms?: number;
   images?: string[];
   created_at: string;
 }
 
-export const PropertyManagement: React.FC = () => {
-  const [properties, setProperties] = useState<Property[]>([]);
+export const BusinessManagement: React.FC = () => {
+  const [businesses, setBusinesses] = useState<Business[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    fetchProperties();
+    fetchBusinesses();
   }, []);
 
-  const fetchProperties = async () => {
+  const fetchBusinesses = async () => {
     try {
       const { data, error } = await supabase
-        .from('properties')
+        .from('businesses')
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       
       // Transform the data to ensure images is properly typed
-      const transformedProperties: Property[] = (data || []).map(property => ({
-        ...property,
-        images: Array.isArray(property.images) ? 
-          property.images.filter(img => typeof img === 'string') as string[] : 
+      const transformedBusinesses: Business[] = (data || []).map(business => ({
+        ...business,
+        images: Array.isArray(business.images) ? 
+          business.images.filter(img => typeof img === 'string') as string[] : 
           []
       }));
       
-      setProperties(transformedProperties);
+      setBusinesses(transformedBusinesses);
     } catch (error) {
-      console.error('Error fetching properties:', error);
+      console.error('Error fetching businesses:', error);
       toast({
         title: "Error",
-        description: "Failed to fetch properties",
+        description: "Failed to fetch businesses",
         variant: "destructive",
       });
     } finally {
@@ -70,52 +71,52 @@ export const PropertyManagement: React.FC = () => {
     }
   };
 
-  const handleStatusUpdate = async (propertyId: string, newStatus: string) => {
+  const handleStatusUpdate = async (businessId: string, newStatus: string) => {
     try {
       const { error } = await supabase
-        .from('properties')
+        .from('businesses')
         .update({ status: newStatus })
-        .eq('id', propertyId);
+        .eq('id', businessId);
 
       if (error) throw error;
 
-      setProperties(prev => prev.map(p => 
-        p.id === propertyId ? { ...p, status: newStatus } : p
+      setBusinesses(prev => prev.map(b => 
+        b.id === businessId ? { ...b, status: newStatus } : b
       ));
 
       toast({
         title: "Success",
-        description: "Property status updated successfully",
+        description: "Business status updated successfully",
       });
     } catch (error) {
-      console.error('Error updating property status:', error);
+      console.error('Error updating business status:', error);
       toast({
         title: "Error",
-        description: "Failed to update property status",
+        description: "Failed to update business status",
         variant: "destructive",
       });
     }
   };
 
-  const handleFeaturedToggle = async (propertyId: string, featured: boolean) => {
+  const handleFeaturedToggle = async (businessId: string, featured: boolean) => {
     try {
       const { error } = await supabase
-        .from('properties')
+        .from('businesses')
         .update({ featured: !featured })
-        .eq('id', propertyId);
+        .eq('id', businessId);
 
       if (error) throw error;
 
-      setProperties(prev => prev.map(p => 
-        p.id === propertyId ? { ...p, featured: !featured } : p
+      setBusinesses(prev => prev.map(b => 
+        b.id === businessId ? { ...b, featured: !featured } : b
       ));
 
       toast({
         title: "Success",
-        description: `Property ${!featured ? 'featured' : 'unfeatured'} successfully`,
+        description: `Business ${!featured ? 'featured' : 'unfeatured'} successfully`,
       });
     } catch (error) {
-      console.error('Error updating property featured status:', error);
+      console.error('Error updating business featured status:', error);
       toast({
         title: "Error",
         description: "Failed to update featured status",
@@ -124,44 +125,44 @@ export const PropertyManagement: React.FC = () => {
     }
   };
 
-  const handleDelete = async (propertyId: string) => {
-    if (!confirm('Are you sure you want to delete this property?')) return;
+  const handleDelete = async (businessId: string) => {
+    if (!confirm('Are you sure you want to delete this business?')) return;
 
     try {
       const { error } = await supabase
-        .from('properties')
+        .from('businesses')
         .delete()
-        .eq('id', propertyId);
+        .eq('id', businessId);
 
       if (error) throw error;
 
-      setProperties(prev => prev.filter(p => p.id !== propertyId));
+      setBusinesses(prev => prev.filter(b => b.id !== businessId));
       toast({
         title: "Success",
-        description: "Property deleted successfully",
+        description: "Business deleted successfully",
       });
     } catch (error) {
-      console.error('Error deleting property:', error);
+      console.error('Error deleting business:', error);
       toast({
         title: "Error",
-        description: "Failed to delete property",
+        description: "Failed to delete business",
         variant: "destructive",
       });
     }
   };
 
-  const filteredProperties = properties.filter(property => {
-    const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         property.address.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || property.status === statusFilter;
+  const filteredBusinesses = businesses.filter(business => {
+    const matchesSearch = business.business_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         business.location_city.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === 'all' || business.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
   const getStatusBadge = (status: string) => {
     const variants = {
-      active: 'default',
+      approved: 'default',
       pending: 'secondary',
-      sold: 'destructive',
+      rejected: 'destructive',
       draft: 'outline'
     } as const;
 
@@ -173,36 +174,36 @@ export const PropertyManagement: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="flex justify-center p-8">Loading properties...</div>;
+    return <div className="flex justify-center p-8">Loading businesses...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Property Management</h2>
+        <h2 className="text-2xl font-bold">Business Management</h2>
         <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => setSelectedProperty(null)}>
+            <Button onClick={() => setSelectedBusiness(null)}>
               <Plus className="h-4 w-4 mr-2" />
-              Add Property
+              Add Business
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
-                {selectedProperty ? 'Edit Property' : 'Add New Property'}
+                {selectedBusiness ? 'Edit Business' : 'Add New Business'}
               </DialogTitle>
             </DialogHeader>
-            <PropertyForm
-              property={selectedProperty}
+            <BusinessForm
+              business={selectedBusiness}
               onSuccess={() => {
                 setIsFormOpen(false);
-                setSelectedProperty(null);
-                fetchProperties();
+                setSelectedBusiness(null);
+                fetchBusinesses();
               }}
               onCancel={() => {
                 setIsFormOpen(false);
-                setSelectedProperty(null);
+                setSelectedBusiness(null);
               }}
             />
           </DialogContent>
@@ -211,7 +212,7 @@ export const PropertyManagement: React.FC = () => {
 
       <div className="flex gap-4 mb-6">
         <Input
-          placeholder="Search properties..."
+          placeholder="Search businesses..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="max-w-sm"
@@ -222,25 +223,25 @@ export const PropertyManagement: React.FC = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Status</SelectItem>
-            <SelectItem value="active">Active</SelectItem>
+            <SelectItem value="approved">Approved</SelectItem>
             <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="sold">Sold</SelectItem>
+            <SelectItem value="rejected">Rejected</SelectItem>
             <SelectItem value="draft">Draft</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       <div className="grid gap-4">
-        {filteredProperties.map((property) => (
-          <Card key={property.id} className="hover:shadow-md transition-shadow">
+        {filteredBusinesses.map((business) => (
+          <Card key={business.id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex justify-between items-start gap-6">
-                {/* Property Image */}
+                {/* Business Image */}
                 <div className="w-32 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-muted">
-                  {property.images && Array.isArray(property.images) && property.images.length > 0 ? (
+                  {business.images && Array.isArray(business.images) && business.images.length > 0 ? (
                     <img
-                      src={property.images[0]}
-                      alt={property.title}
+                      src={business.images[0]}
+                      alt={business.business_name}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -250,42 +251,30 @@ export const PropertyManagement: React.FC = () => {
                   )}
                 </div>
 
-                {/* Property Details */}
+                {/* Business Details */}
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-xl font-semibold">{property.title}</h3>
-                    {property.featured && (
+                    <h3 className="text-xl font-semibold">{business.business_name}</h3>
+                    {business.featured && (
                       <Badge variant="outline" className="text-primary border-primary">
                         Featured
                       </Badge>
                     )}
-                    {getStatusBadge(property.status)}
+                    {getStatusBadge(business.status)}
                   </div>
-                  <p className="text-muted-foreground mb-2">{property.address}</p>
+                  <p className="text-muted-foreground mb-2">
+                    {business.location_city}, {business.location_state}
+                  </p>
                   <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <span>{property.property_type}</span>
-                    <span>•</span>
-                    <span>{property.listing_type}</span>
-                    {property.bedrooms && (
-                      <>
-                        <span>•</span>
-                        <span>{property.bedrooms} bed</span>
-                      </>
-                    )}
-                    {property.bathrooms && (
-                      <>
-                        <span>•</span>
-                        <span>{property.bathrooms} bath</span>
-                      </>
-                    )}
+                    <span>{business.industry}</span>
                   </div>
                   <p className="text-2xl font-bold text-primary mt-2">
-                    ${property.price.toLocaleString()}
+                    ${business.asking_price.toLocaleString()}
                   </p>
                   
-                  {property.images && Array.isArray(property.images) && (
+                  {business.images && Array.isArray(business.images) && (
                     <p className="text-sm text-muted-foreground mt-1">
-                      {property.images.length} image{property.images.length !== 1 ? 's' : ''}
+                      {business.images.length} image{business.images.length !== 1 ? 's' : ''}
                     </p>
                   )}
                 </div>
@@ -295,9 +284,9 @@ export const PropertyManagement: React.FC = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => handleFeaturedToggle(property.id, property.featured)}
+                    onClick={() => handleFeaturedToggle(business.id, business.featured)}
                   >
-                    {property.featured ? (
+                    {business.featured ? (
                       <X className="h-4 w-4" />
                     ) : (
                       <Check className="h-4 w-4" />
@@ -305,16 +294,16 @@ export const PropertyManagement: React.FC = () => {
                   </Button>
                   
                   <Select
-                    value={property.status}
-                    onValueChange={(value) => handleStatusUpdate(property.id, value)}
+                    value={business.status}
+                    onValueChange={(value) => handleStatusUpdate(business.id, value)}
                   >
                     <SelectTrigger className="w-32">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="approved">Approved</SelectItem>
                       <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="sold">Sold</SelectItem>
+                      <SelectItem value="rejected">Rejected</SelectItem>
                       <SelectItem value="draft">Draft</SelectItem>
                     </SelectContent>
                   </Select>
@@ -323,7 +312,7 @@ export const PropertyManagement: React.FC = () => {
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      setSelectedProperty(property);
+                      setSelectedBusiness(business);
                       setIsFormOpen(true);
                     }}
                   >
@@ -333,7 +322,7 @@ export const PropertyManagement: React.FC = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => handleDelete(property.id)}
+                    onClick={() => handleDelete(business.id)}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -343,10 +332,10 @@ export const PropertyManagement: React.FC = () => {
           </Card>
         ))}
 
-        {filteredProperties.length === 0 && (
+        {filteredBusinesses.length === 0 && (
           <Card>
             <CardContent className="text-center py-12">
-              <p className="text-muted-foreground">No properties found</p>
+              <p className="text-muted-foreground">No businesses found</p>
             </CardContent>
           </Card>
         )}
