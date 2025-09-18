@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { MapPin, Bed, Bath, Square, Heart, GitCompare, Star, Calendar, DollarSign, Users, Eye } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -55,6 +55,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       maximumFractionDigits: 0,
     }).format(price);
   };
+
+  // Static view count to prevent continuous changes
+  const viewCount = useMemo(() => {
+    return 150 + (property.id.charCodeAt(0) % 350); // Deterministic based on property ID
+  }, [property.id]);
 
   const getTypeIcon = () => {
     switch (property.property_type.toLowerCase()) {
@@ -143,7 +148,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded px-2 py-1">
             <Eye className="h-3 w-3 text-white" />
             <span className="text-white text-xs">
-              {Math.floor(Math.random() * 500) + 50} views
+              {viewCount} views
             </span>
           </div>
         </div>

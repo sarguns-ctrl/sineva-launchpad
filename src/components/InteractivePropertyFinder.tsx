@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Slider } from './ui/slider';
 import { useProperties, type Property } from '@/hooks/useProperties';
 import { Search, MapPin, DollarSign, Building2, Home, Briefcase, Filter, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { LazyImage } from './LazyImage';
 
 interface PropertyFilters {
   search: string;
@@ -17,6 +19,7 @@ interface PropertyFilters {
 }
 
 const InteractivePropertyFinder = () => {
+  const navigate = useNavigate();
   const [filters, setFilters] = useState<PropertyFilters>({
     search: '',
     type: 'all',
@@ -228,58 +231,77 @@ const InteractivePropertyFinder = () => {
                   const IconComponent = getPropertyIcon(property.property_type);
                   return (
                     <Card key={property.id} className="group hover:shadow-lg transition-all duration-300 cursor-pointer">
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="flex items-center space-x-2">
-                            <div className="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center">
-                              <IconComponent className="w-4 h-4 text-accent" />
-                            </div>
+                      <CardContent className="p-0">
+                        {/* Property Image */}
+                        <div className="relative h-32 overflow-hidden rounded-t-lg">
+                          <LazyImage
+                            src={property.images?.[0] || '/api/placeholder/400/200'}
+                            alt={property.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            fallback={
+                              <div className="w-full h-full bg-muted flex items-center justify-center">
+                                <IconComponent className="h-8 w-8 text-muted-foreground" />
+                              </div>
+                            }
+                          />
+                          <div className="absolute top-2 left-2">
+                            <Badge variant="secondary" className="text-xs bg-white/90 text-gray-900">
+                              {property.property_type}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        <div className="p-4">
+                          <div className="flex items-start justify-between mb-3">
                             <div>
-                              <h4 className="font-semibold text-foreground group-hover:text-accent transition-colors">
+                              <h4 className="font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-2">
                                 {property.title}
                               </h4>
-                              <div className="flex items-center space-x-1 text-xs text-muted-foreground">
+                              <div className="flex items-center space-x-1 text-xs text-muted-foreground mt-1">
                                 <MapPin className="w-3 h-3" />
                                 <span>{property.city}, {property.state}</span>
                               </div>
                             </div>
                           </div>
-                          {property.category && (
-                            <Badge variant="secondary" className="text-xs">
-                              {property.category}
-                            </Badge>
-                          )}
-                        </div>
 
-                        <div className="flex items-center justify-between">
-                          <div className="text-xl font-bold text-primary">
-                            {formatPrice(property.price)}
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="text-lg font-bold text-primary">
+                              {formatPrice(property.price)}
+                            </div>
+                            <div className="flex flex-wrap gap-1">
+                              {property.visa_eligible.slice(0, 2).map((visa, idx) => (
+                                <Badge key={idx} variant="outline" className="text-xs">
+                                  {visa}
+                                </Badge>
+                              ))}
+                            </div>
                           </div>
-                          <div className="flex flex-wrap gap-1">
-                            {property.visa_eligible.slice(0, 2).map((visa, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs">
-                                {visa}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
 
-                        <div className="mt-3 flex items-center justify-between text-sm text-muted-foreground">
-                          <div className="flex items-center space-x-4">
-                            {property.size_sqft && (
-                              <span>{property.size_sqft.toLocaleString()} sq ft</span>
-                            )}
-                            {property.bedrooms && (
-                              <span>{property.bedrooms} bed</span>
-                            )}
-                            {property.employee_count && (
-                              <span>{property.employee_count} employees</span>
-                            )}
+                          <div className="flex items-center justify-between text-sm text-muted-foreground">
+                            <div className="flex items-center space-x-3 text-xs">
+                              {property.size_sqft && (
+                                <span>{property.size_sqft.toLocaleString()} sq ft</span>
+                              )}
+                              {property.bedrooms && (
+                                <span>{property.bedrooms} bed</span>
+                              )}
+                              {property.employee_count && (
+                                <span>{property.employee_count} employees</span>
+                              )}
+                            </div>
+                            <Button 
+                              size="sm" 
+                              variant="ghost" 
+                              className="text-xs h-7 px-2 hover:bg-accent hover:text-accent-foreground"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(`/property/${property.id}`);
+                              }}
+                            >
+                              View Details
+                              <ArrowRight className="w-3 h-3 ml-1" />
+                            </Button>
                           </div>
-                          <Button size="sm" variant="ghost" className="text-xs h-7 px-2">
-                            View Details
-                            <ArrowRight className="w-3 h-3 ml-1" />
-                          </Button>
                         </div>
                       </CardContent>
                     </Card>
@@ -290,7 +312,11 @@ const InteractivePropertyFinder = () => {
 
             {filteredProperties.length > 6 && (
               <div className="text-center mt-6">
-                <Button variant="outline" size="lg">
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  onClick={() => navigate('/properties')}
+                >
                   View All {filteredProperties.length} Properties
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>

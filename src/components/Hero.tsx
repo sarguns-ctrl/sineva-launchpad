@@ -7,10 +7,20 @@ import InteractivePropertyFinder from "./InteractivePropertyFinder";
 import { Badge } from "./ui/badge";
 import { Building, Users, MapPin, ArrowRight, Play, TrendingUp, Award, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
 
 const Hero = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const { data: marketData = [], isLoading: loading, error } = useOptimizedMarketData();
+
+  // Static values to prevent continuous changes
+  const staticStats = useMemo(() => ({
+    successfulInvestors: 542,
+    countriesServed: 23,
+    propertiesSold: 2456,
+    totalRevenue: 21,
+    activeAgents: 127
+  }), []);
 
   return (
     <section 
@@ -70,11 +80,11 @@ const Hero = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Users className="w-4 h-4 text-accent" />
-                <span>{500 + Math.floor(Math.random() * 100)}+ Successful Investors</span>
+                <span>{staticStats.successfulInvestors}+ Successful Investors</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Globe className="w-4 h-4 text-accent" />
-                <span>{15 + Math.floor(Math.random() * 10)}+ Countries Served</span>
+                <span>{staticStats.countriesServed}+ Countries Served</span>
               </div>
             </div>
           </div>
@@ -159,21 +169,21 @@ const Hero = () => {
               <>
                 <div className="text-center group px-6 py-8">
                   <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
-                    <AnimatedCounter end={2400 + Math.floor(Math.random() * 200)} duration={2000} />+
+                    <AnimatedCounter end={staticStats.propertiesSold} duration={2000} />+
                   </div>
                   <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Properties Sold</p>
                 </div>
                 
                 <div className="text-center group px-6 py-8">
                   <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
-                    <AnimatedCounter end={18 + Math.floor(Math.random() * 4)} duration={2000} />M+
+                    <AnimatedCounter end={staticStats.totalRevenue} duration={2000} />M+
                   </div>
                   <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Total Revenue</p>
                 </div>
                 
                 <div className="text-center group px-6 py-8">
                   <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
-                    <AnimatedCounter end={115 + Math.floor(Math.random() * 25)} duration={2000} />+
+                    <AnimatedCounter end={staticStats.activeAgents} duration={2000} />+
                   </div>
                   <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Active Agents</p>
                 </div>
