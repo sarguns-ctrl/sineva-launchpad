@@ -56,6 +56,7 @@ import AdminIntegrations from "./pages/AdminIntegrations";
 import AdminLeads from "./pages/AdminLeads";
 import AdminSettings from "./pages/AdminSettings";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AdminRoles from "./pages/AdminRoles";
 import MessagingPage from "./pages/MessagingPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
 
@@ -106,6 +107,7 @@ const App = () => {
           <Route path="/messages" element={<MessagingPage />} />
           <Route path="/appointments" element={<AppointmentsPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
+            <Route path="/admin/roles" element={<AdminRoles />} />
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/properties" element={<AdminProperties />} />
             <Route path="/admin/blog" element={<AdminBlog />} />

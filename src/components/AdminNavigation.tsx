@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, BarChart3, Users, MessageSquare, Mail, Brain, Home } from 'lucide-react';
+import { Shield, BarChart3, Users, MessageSquare, Mail, Brain, Home, UserCog } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/useAuth';
@@ -17,6 +17,12 @@ export const AdminNavigation: React.FC = () => {
       icon: Shield,
       title: 'Admin Dashboard',
       description: 'System overview and management'
+    },
+    {
+      href: '/admin/roles',
+      icon: UserCog,
+      title: 'Role Management',
+      description: 'Manage user roles and permissions'
     },
     {
       href: '/analytics',
