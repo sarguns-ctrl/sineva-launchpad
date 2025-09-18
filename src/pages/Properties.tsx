@@ -31,8 +31,10 @@ import RelatedServices from "@/components/RelatedServices";
 import CrossPageCTA from "@/components/CrossPageCTA";
 import { useState } from "react";
 import { Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Properties = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   
@@ -449,7 +451,10 @@ const Properties = () => {
 
                   {/* Action Buttons */}
                   <div className="flex space-x-2 pt-2">
-                    <Button className="flex-1 shadow-button">
+                    <Button 
+                      className="flex-1 shadow-button"
+                      onClick={() => navigate(`/property/${property.id}`)}
+                    >
                       View Details
                     </Button>
                     <Button variant="outline" size="sm">

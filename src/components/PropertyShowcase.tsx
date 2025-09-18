@@ -2,8 +2,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Bed, Bath, Square, DollarSign } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const PropertyShowcase = () => {
+  const navigate = useNavigate();
   const featuredProperties = [
     {
       id: 1,
@@ -138,6 +140,7 @@ const PropertyShowcase = () => {
 
                 <Button 
                   className="w-full shadow-button hover:shadow-elegant transition-all duration-300"
+                  onClick={() => navigate(`/property/${property.id}`)}
                 >
                   View Details
                 </Button>
@@ -156,6 +159,7 @@ const PropertyShowcase = () => {
               size="lg" 
               variant="outline" 
               className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground shadow-button"
+              onClick={() => navigate('/properties')}
             >
               Browse All Properties
             </Button>
