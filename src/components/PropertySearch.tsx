@@ -51,10 +51,10 @@ export const PropertySearch: React.FC = () => {
     location: '',
     minPrice: '',
     maxPrice: '',
-    propertyType: '',
-    listingType: '',
-    bedrooms: '',
-    bathrooms: '',
+    propertyType: 'any',
+    listingType: 'any',
+    bedrooms: 'any',
+    bathrooms: 'any',
     minSquareFeet: '',
     maxSquareFeet: ''
   });
@@ -77,16 +77,16 @@ export const PropertySearch: React.FC = () => {
       if (filters.maxPrice) {
         query = query.lte('price', parseFloat(filters.maxPrice));
       }
-      if (filters.propertyType) {
+      if (filters.propertyType && filters.propertyType !== 'any') {
         query = query.eq('property_type', filters.propertyType);
       }
-      if (filters.listingType) {
+      if (filters.listingType && filters.listingType !== 'any') {
         query = query.eq('listing_type', filters.listingType);
       }
-      if (filters.bedrooms) {
+      if (filters.bedrooms && filters.bedrooms !== 'any') {
         query = query.gte('bedrooms', parseInt(filters.bedrooms));
       }
-      if (filters.bathrooms) {
+      if (filters.bathrooms && filters.bathrooms !== 'any') {
         query = query.gte('bathrooms', parseFloat(filters.bathrooms));
       }
       if (filters.minSquareFeet) {
@@ -165,7 +165,7 @@ export const PropertySearch: React.FC = () => {
                       <SelectValue placeholder="Any" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any</SelectItem>
+                      <SelectItem value="any">Any</SelectItem>
                       <SelectItem value="residential">Residential</SelectItem>
                       <SelectItem value="commercial">Commercial</SelectItem>
                       <SelectItem value="land">Land</SelectItem>
@@ -180,7 +180,7 @@ export const PropertySearch: React.FC = () => {
                       <SelectValue placeholder="Any" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any</SelectItem>
+                      <SelectItem value="any">Any</SelectItem>
                       <SelectItem value="sale">For Sale</SelectItem>
                       <SelectItem value="rent">For Rent</SelectItem>
                       <SelectItem value="lease">For Lease</SelectItem>
@@ -195,7 +195,7 @@ export const PropertySearch: React.FC = () => {
                       <SelectValue placeholder="Any" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any</SelectItem>
+                      <SelectItem value="any">Any</SelectItem>
                       <SelectItem value="1">1+</SelectItem>
                       <SelectItem value="2">2+</SelectItem>
                       <SelectItem value="3">3+</SelectItem>
@@ -212,7 +212,7 @@ export const PropertySearch: React.FC = () => {
                       <SelectValue placeholder="Any" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Any</SelectItem>
+                      <SelectItem value="any">Any</SelectItem>
                       <SelectItem value="1">1+</SelectItem>
                       <SelectItem value="1.5">1.5+</SelectItem>
                       <SelectItem value="2">2+</SelectItem>

@@ -58,11 +58,11 @@ export const AdvancedPropertySearch: React.FC<AdvancedPropertySearchProps> = ({
 }) => {
   const [filters, setFilters] = useState<AdvancedFilters>({
     location: '',
-    propertyType: '',
-    listingType: '',
+    propertyType: 'any',
+    listingType: 'any',
     priceRange: [0, 10000000],
-    bedrooms: '',
-    bathrooms: '',
+    bedrooms: 'any',
+    bathrooms: 'any',
     squareFeetRange: [0, 10000],
     yearBuiltRange: [1900, 2024],
     amenities: [],
@@ -79,11 +79,11 @@ export const AdvancedPropertySearch: React.FC<AdvancedPropertySearchProps> = ({
   useEffect(() => {
     let count = 0;
     if (filters.location) count++;
-    if (filters.propertyType) count++;
-    if (filters.listingType) count++;
+    if (filters.propertyType && filters.propertyType !== 'any') count++;
+    if (filters.listingType && filters.listingType !== 'any') count++;
     if (filters.priceRange[0] > 0 || filters.priceRange[1] < 10000000) count++;
-    if (filters.bedrooms) count++;
-    if (filters.bathrooms) count++;
+    if (filters.bedrooms && filters.bedrooms !== 'any') count++;
+    if (filters.bathrooms && filters.bathrooms !== 'any') count++;
     if (filters.squareFeetRange[0] > 0 || filters.squareFeetRange[1] < 10000) count++;
     if (filters.yearBuiltRange[0] > 1900 || filters.yearBuiltRange[1] < 2024) count++;
     if (filters.amenities.length > 0) count++;
@@ -148,7 +148,7 @@ export const AdvancedPropertySearch: React.FC<AdvancedPropertySearchProps> = ({
                 <SelectValue placeholder="Any Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any Type</SelectItem>
+                <SelectItem value="any">Any Type</SelectItem>
                 <SelectItem value="residential">Residential</SelectItem>
                 <SelectItem value="commercial">Commercial</SelectItem>
                 <SelectItem value="business">Business</SelectItem>
@@ -164,7 +164,7 @@ export const AdvancedPropertySearch: React.FC<AdvancedPropertySearchProps> = ({
                 <SelectValue placeholder="Any Listing" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any Listing</SelectItem>
+                <SelectItem value="any">Any Listing</SelectItem>
                 <SelectItem value="sale">For Sale</SelectItem>
                 <SelectItem value="rent">For Rent</SelectItem>
                 <SelectItem value="lease">For Lease</SelectItem>
@@ -181,7 +181,7 @@ export const AdvancedPropertySearch: React.FC<AdvancedPropertySearchProps> = ({
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
                 <SelectItem value="1">1+ Bedroom</SelectItem>
                 <SelectItem value="2">2+ Bedrooms</SelectItem>
                 <SelectItem value="3">3+ Bedrooms</SelectItem>
@@ -198,7 +198,7 @@ export const AdvancedPropertySearch: React.FC<AdvancedPropertySearchProps> = ({
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value="any">Any</SelectItem>
                 <SelectItem value="1">1+ Bathroom</SelectItem>
                 <SelectItem value="1.5">1.5+ Bathrooms</SelectItem>
                 <SelectItem value="2">2+ Bathrooms</SelectItem>

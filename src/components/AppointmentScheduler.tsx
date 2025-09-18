@@ -281,7 +281,7 @@ export const AppointmentScheduler: React.FC = () => {
                     <SelectValue placeholder="Select a property" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">No specific property</SelectItem>
+                    <SelectItem value="none">No specific property</SelectItem>
                     {properties.map((property) => (
                       <SelectItem key={property.id} value={property.id}>
                         {property.title} - {property.city}, {property.state}

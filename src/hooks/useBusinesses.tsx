@@ -71,7 +71,7 @@ export const useBusinesses = (filters?: BusinessFilters) => {
         .order('created_at', { ascending: false });
 
       // Apply filters
-      if (filters?.category) {
+      if (filters?.category && filters.category !== 'all') {
         query = query.eq('category_id', filters.category);
       }
       

@@ -99,10 +99,10 @@ export const EnhancedPropertySearch: React.FC = () => {
         property.address.toLowerCase().includes(filters.search.toLowerCase());
       
       const matchesPrice = property.price >= filters.priceRange[0] && property.price <= filters.priceRange[1];
-      const matchesType = !filters.propertyType || property.property_type === filters.propertyType;
-      const matchesListing = !filters.listingType || property.status === filters.listingType;
-      const matchesBedrooms = !filters.bedrooms || (property.bedrooms && property.bedrooms >= parseInt(filters.bedrooms));
-      const matchesBathrooms = !filters.bathrooms || (property.bathrooms && property.bathrooms >= parseFloat(filters.bathrooms));
+      const matchesType = !filters.propertyType || filters.propertyType === 'all' || property.property_type === filters.propertyType;
+      const matchesListing = !filters.listingType || filters.listingType === 'any' || property.status === filters.listingType;
+      const matchesBedrooms = !filters.bedrooms || filters.bedrooms === 'any' || (property.bedrooms && property.bedrooms >= parseInt(filters.bedrooms));
+      const matchesBathrooms = !filters.bathrooms || filters.bathrooms === 'any' || (property.bathrooms && property.bathrooms >= parseFloat(filters.bathrooms));
       const matchesSize = !property.size_sqft || 
         (property.size_sqft >= filters.sizeRange[0] && property.size_sqft <= filters.sizeRange[1]);
 
@@ -327,7 +327,7 @@ export const EnhancedPropertySearch: React.FC = () => {
                         <SelectValue placeholder="All Types" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All Types</SelectItem>
+                        <SelectItem value="all">All Types</SelectItem>
                         <SelectItem value="residential">Residential</SelectItem>
                         <SelectItem value="commercial">Commercial</SelectItem>
                         <SelectItem value="land">Land</SelectItem>
@@ -344,7 +344,7 @@ export const EnhancedPropertySearch: React.FC = () => {
                         <SelectValue placeholder="Any" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Any</SelectItem>
+                        <SelectItem value="any">Any</SelectItem>
                         <SelectItem value="1">1+ Beds</SelectItem>
                         <SelectItem value="2">2+ Beds</SelectItem>
                         <SelectItem value="3">3+ Beds</SelectItem>
