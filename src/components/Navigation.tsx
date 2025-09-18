@@ -156,12 +156,12 @@ const Navigation = () => {
             <NavigationSearch />
             <LanguageSwitcher />
             
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+            <div className="hidden xl:flex items-center space-x-2 text-sm text-muted-foreground">
               <Phone className="w-4 h-4" />
               <span className="font-mono">+1 (555) 123-4567</span>
             </div>
             
-            {user && (
+            {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="hover:bg-muted">
@@ -189,13 +189,27 @@ const Navigation = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+            ) : (
+              <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                <Link to="/auth">
+                  <User className="w-4 h-4 mr-2" />
+                  Sign In
+                </Link>
+              </Button>
             )}
           </div>
 
           {/* Mobile menu button */}
           <div className="lg:hidden flex items-center space-x-2">
-            <NavigationSearch />
+            <div className="hidden sm:block">
+              <NavigationSearch />
+            </div>
             <LanguageSwitcher />
+            {!user && (
+              <Button size="sm" asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                <Link to="/auth">Sign In</Link>
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="icon"
@@ -268,25 +282,45 @@ const Navigation = () => {
             </div>
             
             <div className="pt-4 space-y-3">
+              <div className="sm:hidden">
+                <NavigationSearch />
+              </div>
+              
               <div className="flex items-center space-x-2 text-sm text-muted-foreground px-3">
                 <Phone className="w-4 h-4" />
                 <span className="font-mono">+1 (555) 123-4567</span>
               </div>
               
               <div className="flex space-x-3">
-                {user && (
+                {user ? (
                   <>
                     <Button variant="outline" className="flex-1" asChild>
-                      <Link to="/crm">
+                      <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                        <User className="w-4 h-4 mr-2" />
+                        Dashboard
+                      </Link>
+                    </Button>
+                    <Button variant="outline" className="flex-1" asChild>
+                      <Link to="/crm" onClick={() => setIsMenuOpen(false)}>
                         <User className="w-4 h-4 mr-2" />
                         CRM
                       </Link>
                     </Button>
-                    <Button variant="destructive" className="flex-1" onClick={() => signOut()}>
+                    <Button variant="destructive" className="flex-1" onClick={() => {
+                      signOut();
+                      setIsMenuOpen(false);
+                    }}>
                       <LogOut className="w-4 h-4 mr-2" />
                       Sign Out
                     </Button>
                   </>
+                ) : (
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" asChild>
+                    <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+                      <User className="w-4 h-4 mr-2" />
+                      Sign In
+                    </Link>
+                  </Button>
                 )}
               </div>
             </div>
