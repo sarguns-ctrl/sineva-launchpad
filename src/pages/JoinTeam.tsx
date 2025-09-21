@@ -62,20 +62,24 @@ const JoinTeam = () => {
     try {
       setIsApplying(true);
       
+      // Use better default values for the application
+      const applicationPayload = {
+        user_id: user.id,
+        full_name: applicationData.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Agent Applicant',
+        email: applicationData.email || user.email || '',
+        phone: applicationData.phone || 'Phone TBD',
+        experience_years: applicationData.experience_years || 0,
+        specializations: applicationData.specializations.length > 0 ? applicationData.specializations : ['General Real Estate'],
+        previous_company: applicationData.previous_company || 'Previous experience to be discussed',
+        license_number: applicationData.license_number || 'License pending',
+        motivation: applicationData.motivation || `I am interested in joining as a real estate agent with the ${packageType} package.`,
+        package_type: packageType,
+        status: 'pending'
+      };
+      
       const { error } = await supabase
         .from('agent_applications')
-        .insert({
-          user_id: user.id,
-          full_name: applicationData.full_name || user.user_metadata?.full_name || '',
-          email: applicationData.email,
-          phone: applicationData.phone,
-          experience_years: applicationData.experience_years,
-          specializations: applicationData.specializations,
-          previous_company: applicationData.previous_company,
-          license_number: applicationData.license_number,
-          motivation: applicationData.motivation,
-          package_type: packageType
-        });
+        .insert(applicationPayload);
 
       if (error) {
         if (error.code === '23505') { // Unique constraint violation
@@ -85,7 +89,12 @@ const JoinTeam = () => {
             variant: "destructive"
           });
         } else {
-          throw error;
+          console.error('Application error:', error);
+          toast({
+            title: "Error",
+            description: error.message || "Failed to submit application. Please try again.",
+            variant: "destructive"
+          });
         }
       } else {
         toast({
