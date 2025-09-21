@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,8 +8,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { MapPin, Star, Phone, Mail, MessageCircle, Award, Users } from "lucide-react";
+import { MapPin, Star, Phone, Mail, MessageCircle, Award, Users, Eye } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
+import { useAgents } from "@/hooks/useAgents";
+import LoadingState from "@/components/LoadingState";
+import ErrorState from "@/components/ErrorState";
 
 // Static agent data demonstrating the search functionality
 const staticAgents = [
@@ -138,24 +142,30 @@ const SPECIALIZATIONS = [
   "Industrial Properties"
 ];
 
-const AgentCard = ({ agent }: { agent: typeof staticAgents[0] }) => (
+const AgentCard = ({ agent, onViewDetails, onCall, onEmail, onMessage }: { 
+  agent: any;
+  onViewDetails: (agentId: string) => void;
+  onCall: (phone: string) => void;
+  onEmail: (email: string) => void;
+  onMessage: (agentId: string) => void;
+}) => (
   <Card className="h-full transition-all duration-200 hover:shadow-lg hover:border-primary/20">
     <CardHeader className="pb-4">
       <div className="flex items-center gap-4">
         <Avatar className="w-16 h-16">
-          <AvatarImage src={agent.image} alt={agent.name} />
-          <AvatarFallback>{agent.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+          <AvatarImage src={agent.profile_image_url} alt={agent.full_name} />
+          <AvatarFallback>{agent.full_name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <CardTitle className="text-lg">{agent.name}</CardTitle>
-          <CardDescription className="text-sm">{agent.title}</CardDescription>
+          <CardTitle className="text-lg">{agent.full_name}</CardTitle>
+          <CardDescription className="text-sm">{agent.position || 'Real Estate Agent'}</CardDescription>
           <div className="flex items-center gap-2 mt-2">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              <span className="text-sm font-medium">{agent.rating}</span>
-              <span className="text-sm text-muted-foreground">({agent.reviews})</span>
+              <span className="text-sm font-medium">{agent.rating.toFixed(1)}</span>
+              <span className="text-sm text-muted-foreground">({agent.total_sales})</span>
             </div>
-            <Badge variant="secondary">{agent.experience} years</Badge>
+            <Badge variant="secondary">{agent.years_experience} years</Badge>
           </div>
         </div>
       </div>
@@ -163,75 +173,109 @@ const AgentCard = ({ agent }: { agent: typeof staticAgents[0] }) => (
     <CardContent className="space-y-4">
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <MapPin className="w-4 h-4" />
-        {agent.location}
+        {agent.phone ? agent.phone.split(' ')[0] : 'Location TBD'}
       </div>
       
-      <p className="text-sm leading-relaxed">{agent.description}</p>
+      <p className="text-sm leading-relaxed">{agent.bio || 'Experienced real estate professional ready to help you with your property needs.'}</p>
       
       <div className="grid grid-cols-2 gap-4 py-2">
         <div className="text-center">
           <div className="flex items-center justify-center gap-1 text-primary">
             <Users className="w-4 h-4" />
-            <span className="text-sm font-semibold">{agent.closedDeals}</span>
+            <span className="text-sm font-semibold">{agent.total_sales}</span>
           </div>
-          <p className="text-xs text-muted-foreground">Deals Closed</p>
+          <p className="text-xs text-muted-foreground">Sales Volume</p>
         </div>
         <div className="text-center">
           <div className="flex items-center justify-center gap-1 text-primary">
             <Award className="w-4 h-4" />
-            <span className="text-sm font-semibold">{agent.totalVolume}</span>
+            <span className="text-sm font-semibold">{agent.active_listings}</span>
           </div>
-          <p className="text-xs text-muted-foreground">Sales Volume</p>
+          <p className="text-xs text-muted-foreground">Active Listings</p>
         </div>
       </div>
       
       <div className="space-y-2">
         <div className="text-sm">
-          <strong>Specialization:</strong> {agent.specialization}
+          <strong>Specializations:</strong> {agent.specializations?.join(', ') || 'General Real Estate'}
         </div>
         <div className="text-sm">
-          <strong>Languages:</strong> {agent.languages.join(', ')}
+          <strong>Languages:</strong> {agent.languages?.join(', ') || 'English'}
         </div>
         <div className="text-sm">
-          <strong>Certifications:</strong> {agent.certifications.join(', ')}
+          <strong>Certifications:</strong> {agent.certifications?.join(', ') || 'Licensed Agent'}
         </div>
       </div>
       
-      <div className="flex gap-2 pt-4">
-        <Button size="sm" className="flex-1">
-          <Phone className="w-4 h-4 mr-2" />
-          Call
+      <div className="space-y-2 pt-4">
+        <Button size="sm" className="w-full" onClick={() => onViewDetails(agent.id)}>
+          <Eye className="w-4 h-4 mr-2" />
+          View Profile
         </Button>
-        <Button variant="outline" size="sm" className="flex-1">
-          <Mail className="w-4 h-4 mr-2" />
-          Email  
-        </Button>
-        <Button variant="outline" size="sm">
-          <MessageCircle className="w-4 h-4" />
-        </Button>
+        <div className="flex gap-2">
+          <Button size="sm" className="flex-1" onClick={() => onCall(agent.phone || '')}>
+            <Phone className="w-4 h-4 mr-2" />
+            Call
+          </Button>
+          <Button variant="outline" size="sm" className="flex-1" onClick={() => onEmail(agent.email)}>
+            <Mail className="w-4 h-4 mr-2" />
+            Email  
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => onMessage(agent.id)}>
+            <MessageCircle className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
     </CardContent>
   </Card>
 );
 
 const Agents = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedState, setSelectedState] = useState("All States");
   const [selectedSpecialization, setSelectedSpecialization] = useState("All Specializations");
   
-  const filteredAgents = staticAgents.filter(agent => {
-    const matchesSearch = agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         agent.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         agent.specialization.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesState = selectedState === "All States" || 
-                        agent.location.includes(selectedState);
-                        
-    const matchesSpecialization = selectedSpecialization === "All Specializations" ||
-                                 agent.specialization === selectedSpecialization;
-    
-    return matchesSearch && matchesState && matchesSpecialization;
+  const { agents, loading, error } = useAgents({
+    active: true,
+    search: searchTerm
   });
+
+  // Filter agents based on search criteria
+  const filteredAgents = agents.filter(agent => {
+    const matchesSearch = agent.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (agent.position || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (agent.specializations?.join(' ') || '').toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesSpecialization = selectedSpecialization === "All Specializations" ||
+                                 agent.specializations?.includes(selectedSpecialization);
+    
+    return matchesSearch && matchesSpecialization;
+  });
+
+  const handleViewDetails = (agentId: string) => {
+    navigate(`/agent/${agentId}`);
+  };
+
+  const handleCall = (phone: string) => {
+    if (phone) {
+      window.open(`tel:${phone}`, '_self');
+    }
+  };
+
+  const handleEmail = (email: string) => {
+    if (email) {
+      window.open(`mailto:${email}`, '_self');
+    }
+  };
+
+  const handleMessage = (agentId: string) => {
+    navigate(`/messages?agent=${agentId}`);
+  };
+
+  if (loading) return <LoadingState />;
+  if (error) return <ErrorState message="Failed to load agents" />;
+  if (!agents.length) return <ErrorState message="No agents found" />;
 
   return (
     <div className="min-h-screen bg-background">
@@ -327,7 +371,14 @@ const Agents = () => {
             {filteredAgents.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
                 {filteredAgents.map(agent => (
-                  <AgentCard key={agent.id} agent={agent} />
+                  <AgentCard 
+                    key={agent.id} 
+                    agent={agent}
+                    onViewDetails={handleViewDetails}
+                    onCall={handleCall}
+                    onEmail={handleEmail}
+                    onMessage={handleMessage}
+                  />
                 ))}
               </div>
             ) : (
@@ -360,10 +411,10 @@ const Agents = () => {
               <p className="text-muted-foreground mb-8">
                 Our agents are ready to help you achieve your real estate goals. Get in touch today to start your journey.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg">Schedule Consultation</Button>
-                <Button variant="outline" size="lg">Learn About Our Services</Button>
-              </div>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" onClick={() => navigate('/contact')}>Schedule Consultation</Button>
+                  <Button variant="outline" size="lg" onClick={() => navigate('/services')}>Learn About Our Services</Button>
+                </div>
             </div>
           </div>
         </section>
