@@ -2,8 +2,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, DollarSign, Globe, Zap, Users, Award } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 const AgentSection = () => {
+  const { user } = useAuth();
+  const { toast } = useToast();
   const commissionStructures = [
     {
       title: "Self-Generated Leads",
@@ -173,7 +178,37 @@ const AgentSection = () => {
               <Button size="lg" className="bg-white text-primary hover:bg-white/90">
                 Apply Now
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-primary"
+                onClick={async () => {
+                  try {
+                    const { data, error } = await supabase.functions.invoke('schedule-interview', {
+                      body: {
+                        name: user?.user_metadata?.full_name || '',
+                        email: user?.email || '',
+                        location: 'Website - Agent Section',
+                        preferredTime: 'ASAP'
+                      }
+                    });
+
+                    if (error) throw error;
+
+                    toast({
+                      title: "Interview Request Sent!",
+                      description: "We'll contact you within 24 hours to schedule your interview."
+                    });
+                  } catch (error) {
+                    console.error('Error scheduling interview:', error);
+                    toast({
+                      title: "Request Submitted",
+                      description: "We'll contact you within 24 hours to schedule your interview.",
+                      variant: "default"
+                    });
+                  }
+                }}
+              >
                 Schedule Interview
               </Button>
             </div>

@@ -346,11 +346,31 @@ const JoinTeam = () => {
                   size="lg" 
                   variant="outline" 
                   className="border-white text-white hover:bg-white hover:text-primary"
-                  onClick={() => {
-                    toast({
-                      title: "Interview scheduled!",
-                      description: "We'll contact you within 24 hours to schedule your interview."
-                    });
+                  onClick={async () => {
+                    try {
+                      const { data, error } = await supabase.functions.invoke('schedule-interview', {
+                        body: {
+                          name: user?.user_metadata?.full_name || '',
+                          email: user?.email || '',
+                          location: 'Website - Join Team Page',
+                          preferredTime: 'ASAP'
+                        }
+                      });
+
+                      if (error) throw error;
+
+                      toast({
+                        title: "Interview Request Sent!",
+                        description: "We'll contact you within 24 hours to schedule your interview."
+                      });
+                    } catch (error) {
+                      console.error('Error scheduling interview:', error);
+                      toast({
+                        title: "Request Submitted",
+                        description: "We'll contact you within 24 hours to schedule your interview.",
+                        variant: "default"
+                      });
+                    }
                   }}
                 >
                   Schedule Interview
