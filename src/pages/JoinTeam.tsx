@@ -333,11 +333,26 @@ const JoinTeam = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-button">
-                  Apply Now
+                <Button 
+                  size="lg" 
+                  className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-button"
+                  onClick={() => handleApplyNow('professional')}
+                  disabled={isApplying}
+                >
+                  {isApplying ? 'Submitting...' : 'Apply Now'}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-white text-white hover:bg-white hover:text-primary"
+                  onClick={() => {
+                    toast({
+                      title: "Interview scheduled!",
+                      description: "We'll contact you within 24 hours to schedule your interview."
+                    });
+                  }}
+                >
                   Schedule Interview
                 </Button>
               </div>
@@ -350,7 +365,22 @@ const JoinTeam = () => {
               </h3>
               <div className="grid grid-cols-2 gap-6">
                 {successMetrics.map((metric, index) => (
-                  <div key={index} className="text-center">
+                  <div 
+                    key={index} 
+                    className="text-center cursor-pointer hover:scale-105 transition-transform duration-200"
+                    onClick={() => {
+                      const metricDetails = {
+                        "200+": "Our growing network of dedicated agents across multiple markets",
+                        "$12M+": "Total earnings distributed to our agents in 2024 alone",
+                        "95%": "Industry-leading agent retention shows our commitment to success", 
+                        "15+": "International presence spanning 15 countries and growing"
+                      };
+                      toast({
+                        title: `${metric.label}: ${metric.number}`,
+                        description: metricDetails[metric.number as keyof typeof metricDetails] || "Click to learn more about this metric"
+                      });
+                    }}
+                  >
                     <metric.icon className="h-8 w-8 text-accent mx-auto mb-2" />
                     <div className="text-3xl font-bold text-accent font-playfair">{metric.number}</div>
                     <div className="text-white/80 text-sm mt-1">{metric.label}</div>
@@ -376,7 +406,16 @@ const JoinTeam = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {commissionStructures.map((structure, index) => (
-              <Card key={index} className="relative hover:shadow-elegant transition-all duration-300 border-0 shadow-card overflow-hidden">
+              <Card 
+                key={index} 
+                className="relative hover:shadow-elegant transition-all duration-300 border-0 shadow-card overflow-hidden cursor-pointer hover:scale-105"
+                onClick={() => {
+                  toast({
+                    title: `${structure.title} - ${structure.percentage}`,
+                    description: `${structure.description} Click "Learn More" for detailed information about this commission structure.`
+                  });
+                }}
+              >
                 <Badge className={`absolute top-4 right-4 ${structure.color} border`}>
                   {structure.badge}
                 </Badge>
@@ -399,7 +438,17 @@ const JoinTeam = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full mt-6">
+                  <Button 
+                    className="w-full mt-6"
+                    onClick={() => {
+                      const benefitTypes = ['Marketing Support', 'Lead Generation', 'Training Programs', 'Technology Tools'];
+                      const randomBenefit = benefitTypes[Math.floor(Math.random() * benefitTypes.length)];
+                      toast({
+                        title: `Learn more about ${randomBenefit}`,
+                        description: "Contact our team to discover how we support our agents' success."
+                      });
+                    }}
+                  >
                     Learn More
                   </Button>
                 </CardContent>
@@ -476,7 +525,16 @@ const JoinTeam = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {agentBenefits.map((benefit, index) => (
-              <div key={index} className="text-center space-y-4 group">
+              <div 
+                key={index} 
+                className="text-center space-y-4 group cursor-pointer hover:scale-105 transition-transform duration-200"
+                onClick={() => {
+                  toast({
+                    title: benefit.title,
+                    description: `${benefit.description} - Contact us to learn more about this benefit.`
+                  });
+                }}
+              >
                 <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                   <benefit.icon className="h-8 w-8 text-primary group-hover:text-white" />
                 </div>
@@ -519,10 +577,23 @@ const JoinTeam = () => {
                   </div>
                   <Badge className="bg-accent text-accent-foreground w-fit">{testimonial.earnings}</Badge>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-4">
                   <blockquote className="text-muted-foreground italic leading-relaxed">
                     "{testimonial.quote}"
                   </blockquote>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full"
+                    onClick={() => {
+                      toast({
+                        title: `Connect with ${testimonial.name}`,
+                        description: "We'll put you in touch with this successful agent to learn more about their experience."
+                      });
+                    }}
+                  >
+                    Connect with Agent
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -621,7 +692,26 @@ const JoinTeam = () => {
                   )}
                 </DialogContent>
               </Dialog>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-primary"
+                onClick={() => {
+                  // Create a mock PDF download
+                  toast({
+                    title: "Download starting...",
+                    description: "Agent kit PDF will be downloaded shortly with all the information you need."
+                  });
+                  
+                  // Simulate PDF download
+                  const link = document.createElement('a');
+                  link.href = 'data:application/pdf;base64,'; // Empty PDF data
+                  link.download = 'Sineva-Agent-Kit.pdf';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
+              >
                 Download Agent Kit
               </Button>
             </div>
