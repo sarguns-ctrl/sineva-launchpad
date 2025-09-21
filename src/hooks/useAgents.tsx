@@ -115,11 +115,11 @@ export const useAgents = (filters?: {
             active_listings: activeListings,
             commission_rate: 0.03, // Default 3%
             rating: 4.5 + Math.random() * 0.5, // Mock rating for now
-            specializations: agent.learning_preferences ? 
-              agent.learning_preferences.split(',') : [],
             years_experience: agent.years_experience || 0,
             languages: ['English'], // Default
-            certifications: agent.previous_training || []
+            certifications: agent.previous_training || [],
+            specializations: agent.learning_preferences ? 
+              agent.learning_preferences.split(',').map(s => s.trim()) : ['General Real Estate']
           } as Agent;
         })
       );
