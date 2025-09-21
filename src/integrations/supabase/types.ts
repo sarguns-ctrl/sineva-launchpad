@@ -594,6 +594,205 @@ export type Database = {
         }
         Relationships: []
       }
+      client_documents: {
+        Row: {
+          client_id: string
+          created_at: string
+          document_type: string
+          file_path: string
+          file_size: number | null
+          file_type: string
+          id: string
+          is_required: boolean | null
+          is_verified: boolean | null
+          notes: string | null
+          title: string
+          uploaded_by: string
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          document_type: string
+          file_path: string
+          file_size?: number | null
+          file_type: string
+          id?: string
+          is_required?: boolean | null
+          is_verified?: boolean | null
+          notes?: string | null
+          title: string
+          uploaded_by: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          document_type?: string
+          file_path?: string
+          file_size?: number | null
+          file_type?: string
+          id?: string
+          is_required?: boolean | null
+          is_verified?: boolean | null
+          notes?: string | null
+          title?: string
+          uploaded_by?: string
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_documents_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clients: {
+        Row: {
+          agent_id: string | null
+          assigned_at: string | null
+          business_experience: string | null
+          country_of_origin: string
+          created_at: string
+          current_location: string | null
+          email: string
+          english_proficiency: string | null
+          family_members: number | null
+          full_name: string
+          id: string
+          investment_amount: number | null
+          investment_type: string | null
+          last_contact_at: string | null
+          lead_source: string | null
+          next_follow_up_at: string | null
+          notes: string | null
+          phone: string | null
+          previous_visa_history: string | null
+          priority: string
+          stage: string
+          status: string
+          timeline: string | null
+          updated_at: string
+          user_id: string | null
+          visa_type: string
+        }
+        Insert: {
+          agent_id?: string | null
+          assigned_at?: string | null
+          business_experience?: string | null
+          country_of_origin: string
+          created_at?: string
+          current_location?: string | null
+          email: string
+          english_proficiency?: string | null
+          family_members?: number | null
+          full_name: string
+          id?: string
+          investment_amount?: number | null
+          investment_type?: string | null
+          last_contact_at?: string | null
+          lead_source?: string | null
+          next_follow_up_at?: string | null
+          notes?: string | null
+          phone?: string | null
+          previous_visa_history?: string | null
+          priority?: string
+          stage?: string
+          status?: string
+          timeline?: string | null
+          updated_at?: string
+          user_id?: string | null
+          visa_type: string
+        }
+        Update: {
+          agent_id?: string | null
+          assigned_at?: string | null
+          business_experience?: string | null
+          country_of_origin?: string
+          created_at?: string
+          current_location?: string | null
+          email?: string
+          english_proficiency?: string | null
+          family_members?: number | null
+          full_name?: string
+          id?: string
+          investment_amount?: number | null
+          investment_type?: string | null
+          last_contact_at?: string | null
+          lead_source?: string | null
+          next_follow_up_at?: string | null
+          notes?: string | null
+          phone?: string | null
+          previous_visa_history?: string | null
+          priority?: string
+          stage?: string
+          status?: string
+          timeline?: string | null
+          updated_at?: string
+          user_id?: string | null
+          visa_type?: string
+        }
+        Relationships: []
+      }
+      consultation_sessions: {
+        Row: {
+          action_items: Json | null
+          agent_id: string
+          client_id: string
+          created_at: string
+          duration: number | null
+          id: string
+          meeting_notes: string | null
+          next_steps: string | null
+          scheduled_at: string
+          session_type: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          action_items?: Json | null
+          agent_id: string
+          client_id: string
+          created_at?: string
+          duration?: number | null
+          id?: string
+          meeting_notes?: string | null
+          next_steps?: string | null
+          scheduled_at: string
+          session_type: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          action_items?: Json | null
+          agent_id?: string
+          client_id?: string
+          created_at?: string
+          duration?: number | null
+          id?: string
+          meeting_notes?: string | null
+          next_steps?: string | null
+          scheduled_at?: string
+          session_type?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consultation_sessions_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contact_submissions: {
         Row: {
           country: string | null
@@ -1209,6 +1408,54 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      immigration_services: {
+        Row: {
+          base_fee: number | null
+          country_focus: string[] | null
+          created_at: string
+          description: string
+          id: string
+          investment_max: number | null
+          investment_min: number | null
+          is_active: boolean | null
+          processing_time: string | null
+          requirements: Json
+          service_name: string
+          service_type: string
+          updated_at: string
+        }
+        Insert: {
+          base_fee?: number | null
+          country_focus?: string[] | null
+          created_at?: string
+          description: string
+          id?: string
+          investment_max?: number | null
+          investment_min?: number | null
+          is_active?: boolean | null
+          processing_time?: string | null
+          requirements?: Json
+          service_name: string
+          service_type: string
+          updated_at?: string
+        }
+        Update: {
+          base_fee?: number | null
+          country_focus?: string[] | null
+          created_at?: string
+          description?: string
+          id?: string
+          investment_max?: number | null
+          investment_min?: number | null
+          is_active?: boolean | null
+          processing_time?: string | null
+          requirements?: Json
+          service_name?: string
+          service_type?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       job_applications: {
         Row: {
@@ -2230,6 +2477,27 @@ export type Database = {
           subscription_tier?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          email: string
+          id: string
+          status: string | null
+          subscribed_at: string | null
+        }
+        Insert: {
+          email: string
+          id?: string
+          status?: string | null
+          subscribed_at?: string | null
+        }
+        Update: {
+          email?: string
+          id?: string
+          status?: string | null
+          subscribed_at?: string | null
         }
         Relationships: []
       }
