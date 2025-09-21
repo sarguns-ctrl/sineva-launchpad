@@ -55,6 +55,8 @@ const JoinTeam = () => {
 
   const handleApplyNow = async (packageType: string) => {
     if (!user) {
+      console.log('[JoinTeam] Apply clicked without auth, redirecting to /auth');
+      toast({ title: 'Please sign in', description: 'Create an account or sign in to apply as an agent.' });
       navigate('/auth');
       return;
     }
