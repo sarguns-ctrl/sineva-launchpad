@@ -152,20 +152,20 @@ const AgentCard = ({ agent, onViewDetails, onCall, onEmail, onMessage }: {
   <Card className="h-full transition-all duration-200 hover:shadow-lg hover:border-primary/20">
     <CardHeader className="pb-4">
       <div className="flex items-center gap-4">
-        <Avatar className="w-16 h-16">
-          <AvatarImage src={agent.profile_image_url} alt={agent.full_name} />
-          <AvatarFallback>{agent.full_name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
+                      <Avatar className="w-16 h-16">
+          <AvatarImage src={agent.profile_image_url} alt={agent.full_name || 'Agent'} />
+          <AvatarFallback>{agent.full_name ? agent.full_name.split(' ').map((n: string) => n[0]).join('') : 'A'}</AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <CardTitle className="text-lg">{agent.full_name}</CardTitle>
+          <CardTitle className="text-lg">{agent.full_name || 'Agent Name'}</CardTitle>
           <CardDescription className="text-sm">{agent.position || 'Real Estate Agent'}</CardDescription>
           <div className="flex items-center gap-2 mt-2">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              <span className="text-sm font-medium">{agent.rating.toFixed(1)}</span>
-              <span className="text-sm text-muted-foreground">({agent.total_sales})</span>
+              <span className="text-sm font-medium">{(agent.rating || 0).toFixed(1)}</span>
+              <span className="text-sm text-muted-foreground">({agent.total_sales || 0})</span>
             </div>
-            <Badge variant="secondary">{agent.years_experience} years</Badge>
+            <Badge variant="secondary">{agent.years_experience || 0} years</Badge>
           </div>
         </div>
       </div>

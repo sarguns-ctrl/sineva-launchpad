@@ -55,10 +55,8 @@ export const useAgents = (filters?: {
         .from('employee_profiles')
         .select(`
           *,
-          departments(id, name),
-          user_roles!inner(role)
+          departments(id, name)
         `)
-        .eq('user_roles.role', 'employee') // Use 'employee' instead of 'agent'
         .eq('is_active', filters?.active !== false);
 
       if (filters?.department) {
