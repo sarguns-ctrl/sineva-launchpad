@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_applications: {
+        Row: {
+          created_at: string | null
+          email: string
+          experience_years: number | null
+          full_name: string
+          id: string
+          license_number: string | null
+          motivation: string | null
+          package_type: string | null
+          phone: string | null
+          previous_company: string | null
+          specializations: string[] | null
+          status: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          experience_years?: number | null
+          full_name: string
+          id?: string
+          license_number?: string | null
+          motivation?: string | null
+          package_type?: string | null
+          phone?: string | null
+          previous_company?: string | null
+          specializations?: string[] | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          experience_years?: number | null
+          full_name?: string
+          id?: string
+          license_number?: string | null
+          motivation?: string | null
+          package_type?: string | null
+          phone?: string | null
+          previous_company?: string | null
+          specializations?: string[] | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       agent_commissions: {
         Row: {
           agent_id: string | null

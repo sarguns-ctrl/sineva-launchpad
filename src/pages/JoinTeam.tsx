@@ -1,8 +1,18 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Users, 
   DollarSign, 
@@ -27,6 +37,97 @@ import {
 } from "lucide-react";
 
 const JoinTeam = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [isApplying, setIsApplying] = useState(false);
+  const [applicationData, setApplicationData] = useState({
+    full_name: '',
+    email: user?.email || '',
+    phone: '',
+    experience_years: 0,
+    specializations: [] as string[],
+    previous_company: '',
+    license_number: '',
+    motivation: '',
+    package_type: 'starter'
+  });
+
+  const handleApplyNow = async (packageType: string) => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+
+    try {
+      setIsApplying(true);
+      
+      const { error } = await supabase
+        .from('agent_applications')
+        .insert({
+          user_id: user.id,
+          full_name: applicationData.full_name || user.user_metadata?.full_name || '',
+          email: applicationData.email,
+          phone: applicationData.phone,
+          experience_years: applicationData.experience_years,
+          specializations: applicationData.specializations,
+          previous_company: applicationData.previous_company,
+          license_number: applicationData.license_number,
+          motivation: applicationData.motivation,
+          package_type: packageType
+        });
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation
+          toast({
+            title: "Application exists",
+            description: "You have already submitted an agent application.",
+            variant: "destructive"
+          });
+        } else {
+          throw error;
+        }
+      } else {
+        toast({
+          title: "Application submitted!",
+          description: "We'll review your application and get back to you soon.",
+        });
+        
+        // Reset form
+        setApplicationData({
+          full_name: '',
+          email: user?.email || '',
+          phone: '',
+          experience_years: 0,
+          specializations: [],
+          previous_company: '',
+          license_number: '',
+          motivation: '',
+          package_type: 'starter'
+        });
+      }
+    } catch (error: any) {
+      console.error('Application error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to submit application. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsApplying(false);
+    }
+  };
+
+  const specializations = [
+    'Luxury Properties',
+    'Commercial Properties', 
+    'Residential Properties',
+    'International Clients',
+    'Investment Properties',
+    'First-time Buyers',
+    'E-2 Visa Properties',
+    'EB-5 Visa Properties'
+  ];
   const commissionStructures = [
     {
       title: "Self-Generated Leads",
@@ -88,7 +189,8 @@ const JoinTeam = () => {
         "Standard commission structure"
       ],
       popular: false,
-      ctaText: "Start Your Journey"
+              ctaText: "Apply Now",
+              onClick: () => handleApplyNow('starter')
     },
     {
       name: "Professional Package", 
@@ -106,7 +208,8 @@ const JoinTeam = () => {
         "Dedicated support manager"
       ],
       popular: true,
-      ctaText: "Upgrade to Pro"
+      ctaText: "Apply Now",
+      onClick: () => handleApplyNow('professional')
     },
     {
       name: "Elite Package",
@@ -125,7 +228,8 @@ const JoinTeam = () => {
         "First-class support"
       ],
       popular: false,
-      ctaText: "Join Elite"
+      ctaText: "Apply Now",
+      onClick: () => handleApplyNow('elite')
     }
   ];
 
@@ -333,8 +437,12 @@ const JoinTeam = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button className={`w-full ${pkg.popular ? 'bg-primary shadow-button' : ''}`}>
-                    {pkg.ctaText}
+                  <Button 
+                    className={`w-full ${pkg.popular ? 'bg-primary shadow-button' : ''}`}
+                    onClick={pkg.onClick}
+                    disabled={isApplying}
+                  >
+                    {isApplying ? 'Submitting...' : pkg.ctaText}
                   </Button>
                 </CardContent>
               </Card>
@@ -427,9 +535,67 @@ const JoinTeam = () => {
               achieve their American dream.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button">
-                Apply to Join Our Team
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button">
+                    Apply to Join Our Team
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Join Our Agent Team</DialogTitle>
+                    <DialogDescription>
+                      Fill out your application details to get started.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="full_name">Full Name</Label>
+                      <Input
+                        id="full_name"
+                        value={applicationData.full_name}
+                        onChange={(e) => setApplicationData({...applicationData, full_name: e.target.value})}
+                        placeholder="Your full name"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input
+                        id="phone"
+                        value={applicationData.phone}
+                        onChange={(e) => setApplicationData({...applicationData, phone: e.target.value})}
+                        placeholder="Your phone number"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="experience">Years of Experience</Label>
+                      <Input
+                        id="experience"
+                        type="number"
+                        value={applicationData.experience_years}
+                        onChange={(e) => setApplicationData({...applicationData, experience_years: parseInt(e.target.value) || 0})}
+                        placeholder="0"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="motivation">Why do you want to join?</Label>
+                      <Textarea
+                        id="motivation"
+                        value={applicationData.motivation}
+                        onChange={(e) => setApplicationData({...applicationData, motivation: e.target.value})}
+                        placeholder="Tell us about your motivation..."
+                      />
+                    </div>
+                    <Button 
+                      onClick={() => handleApplyNow('starter')} 
+                      className="w-full"
+                      disabled={isApplying}
+                    >
+                      {isApplying ? 'Submitting...' : 'Submit Application'}
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
                 Download Agent Kit
               </Button>
