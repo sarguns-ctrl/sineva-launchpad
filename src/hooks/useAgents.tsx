@@ -52,22 +52,14 @@ export const useAgents = (filters?: {
       setError(null);
 
       let query = supabase
-        .from('employee_profiles')
-        .select(`
-          *,
-          departments(id, name)
-        `)
-        .eq('is_active', filters?.active !== false);
-
-      if (filters?.department) {
-        query = query.eq('department_id', filters.department);
-      }
+        .from('agent_applications')
+        .select('*')
+        .eq('status', 'approved');
 
       if (filters?.search) {
         query = query.or(`
           full_name.ilike.%${filters.search}%,
-          email.ilike.%${filters.search}%,
-          position.ilike.%${filters.search}%
+          email.ilike.%${filters.search}%
         `);
       }
 
@@ -76,7 +68,7 @@ export const useAgents = (filters?: {
 
       if (queryError) throw queryError;
 
-      // Get agent statistics
+      // Get agent statistics  
       const agentStats = await Promise.all(
         (data || []).map(async (agent) => {
           const [commissions, properties, leads] = await Promise.all([
@@ -110,17 +102,26 @@ export const useAgents = (filters?: {
           const activeLeads = leads.data?.length || 0;
 
           return {
-            ...agent,
+            id: agent.id,
+            user_id: agent.user_id,
+            full_name: agent.full_name,
+            email: agent.email,
+            position: `${agent.experience_years || 0} Year${(agent.experience_years || 0) !== 1 ? 's' : ''} Experience`,
+            phone: agent.phone,
+            bio: agent.motivation || 'Experienced real estate professional ready to help you with your property needs.',
+            specializations: agent.specializations || ['General Real Estate'],
+            years_experience: agent.experience_years || 0,
+            languages: ['English'],
+            rating: 4.5 + Math.random() * 0.5,
             total_sales: totalCommissions,
             active_listings: activeListings,
-            commission_rate: 0.03, // Default 3%
-            rating: 4.5 + Math.random() * 0.5, // Mock rating for now
-            years_experience: agent.years_experience || 0,
-            languages: ['English'], // Default
-            certifications: agent.previous_training || [],
-            specializations: agent.learning_preferences ? 
-              agent.learning_preferences.split(',').map(s => s.trim()) : ['General Real Estate']
-          } as Agent;
+            commission_rate: 0.03,
+            is_active: true,
+            profile_image_url: null,
+            certifications: [],
+            created_at: agent.created_at,
+            updated_at: agent.updated_at
+          };
         })
       );
 
@@ -228,7 +229,7 @@ export const useAgents = (filters?: {
   const updateAgentProfile = async (agentId: string, updates: Partial<Agent>) => {
     try {
       const { error } = await supabase
-        .from('employee_profiles')
+        .from('agent_applications')
         .update(updates)
         .eq('id', agentId);
 
