@@ -556,55 +556,69 @@ const JoinTeam = () => {
                   <DialogHeader>
                     <DialogTitle>Join Our Agent Team</DialogTitle>
                     <DialogDescription>
-                      Fill out your application details to get started.
+                      {!user ? 'Please sign in to submit your application.' : 'Fill out your application details to get started.'}
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="full_name">Full Name</Label>
-                      <Input
-                        id="full_name"
-                        value={applicationData.full_name}
-                        onChange={(e) => setApplicationData({...applicationData, full_name: e.target.value})}
-                        placeholder="Your full name"
-                      />
+                  {!user ? (
+                    <div className="space-y-4">
+                      <p className="text-muted-foreground text-sm">
+                        You need to create an account or sign in to apply as an agent.
+                      </p>
+                      <Button 
+                        onClick={() => navigate('/auth')} 
+                        className="w-full"
+                      >
+                        Sign In / Create Account
+                      </Button>
                     </div>
-                    <div>
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input
-                        id="phone"
-                        value={applicationData.phone}
-                        onChange={(e) => setApplicationData({...applicationData, phone: e.target.value})}
-                        placeholder="Your phone number"
-                      />
+                  ) : (
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="full_name">Full Name</Label>
+                        <Input
+                          id="full_name"
+                          value={applicationData.full_name}
+                          onChange={(e) => setApplicationData({...applicationData, full_name: e.target.value})}
+                          placeholder="Your full name"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input
+                          id="phone"
+                          value={applicationData.phone}
+                          onChange={(e) => setApplicationData({...applicationData, phone: e.target.value})}
+                          placeholder="Your phone number"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="experience">Years of Experience</Label>
+                        <Input
+                          id="experience"
+                          type="number"
+                          value={applicationData.experience_years}
+                          onChange={(e) => setApplicationData({...applicationData, experience_years: parseInt(e.target.value) || 0})}
+                          placeholder="0"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="motivation">Why do you want to join?</Label>
+                        <Textarea
+                          id="motivation"
+                          value={applicationData.motivation}
+                          onChange={(e) => setApplicationData({...applicationData, motivation: e.target.value})}
+                          placeholder="Tell us about your motivation..."
+                        />
+                      </div>
+                      <Button 
+                        onClick={() => handleApplyNow('starter')} 
+                        className="w-full"
+                        disabled={isApplying}
+                      >
+                        {isApplying ? 'Submitting...' : 'Submit Application'}
+                      </Button>
                     </div>
-                    <div>
-                      <Label htmlFor="experience">Years of Experience</Label>
-                      <Input
-                        id="experience"
-                        type="number"
-                        value={applicationData.experience_years}
-                        onChange={(e) => setApplicationData({...applicationData, experience_years: parseInt(e.target.value) || 0})}
-                        placeholder="0"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="motivation">Why do you want to join?</Label>
-                      <Textarea
-                        id="motivation"
-                        value={applicationData.motivation}
-                        onChange={(e) => setApplicationData({...applicationData, motivation: e.target.value})}
-                        placeholder="Tell us about your motivation..."
-                      />
-                    </div>
-                    <Button 
-                      onClick={() => handleApplyNow('starter')} 
-                      className="w-full"
-                      disabled={isApplying}
-                    >
-                      {isApplying ? 'Submitting...' : 'Submit Application'}
-                    </Button>
-                  </div>
+                  )}
                 </DialogContent>
               </Dialog>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
