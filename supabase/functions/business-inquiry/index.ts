@@ -28,16 +28,18 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
-    );
-
     // Get the authorization header
     const authHeader = req.headers.get('authorization');
-    if (authHeader) {
-      supabase.auth.setAuth(authHeader.replace('Bearer ', ''));
-    }
+    
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      {
+        global: {
+          headers: authHeader ? { authorization: authHeader } : {}
+        }
+      }
+    );
 
     const inquiryData: BusinessInquiryRequest = await req.json();
     console.log("Business inquiry received:", inquiryData);
