@@ -3,8 +3,43 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, BarChart3, Shield, Target, CheckCircle, ArrowRight, PieChart, Calculator, Users } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const InvestmentAdvisory = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleChoosePlan = () => {
+    toast({
+      title: "Advisory Plan Selection",
+      description: "Redirecting to plan selection and consultation scheduling...",
+    });
+    navigate("/contact");
+  };
+
+  const handlePortfolioReview = () => {
+    toast({
+      title: "Portfolio Review Request",
+      description: "Your portfolio review request has been submitted. We'll contact you within 24 hours.",
+    });
+  };
+
+  const handleInvestmentAnalysis = () => {
+    toast({
+      title: "Investment Analysis",
+      description: "Redirecting to our investment analysis tools...",
+    });
+    navigate("/ai-search");
+  };
+
+  const handleScheduleSession = () => {
+    toast({
+      title: "Advisory Session",
+      description: "Redirecting to schedule your advisory session...",
+    });
+    navigate("/contact");
+  };
   const services = [
     {
       icon: BarChart3,
@@ -88,11 +123,11 @@ const InvestmentAdvisory = () => {
               Data-driven strategies to maximize returns and minimize risks in your investment portfolio.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={handleInvestmentAnalysis}>
                 Investment Analysis
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" onClick={handleScheduleSession}>
                 Schedule Advisory Session
               </Button>
             </div>
@@ -275,7 +310,7 @@ const InvestmentAdvisory = () => {
                   <p className="text-white/80 text-sm">Dedicated advisor, private deals, and tax planning</p>
                 </div>
               </div>
-              <Button className="w-full mt-6 bg-white text-primary hover:bg-white/90">
+              <Button className="w-full mt-6 bg-white text-primary hover:bg-white/90" onClick={handleChoosePlan}>
                 Choose Advisory Plan
               </Button>
             </div>
@@ -294,11 +329,11 @@ const InvestmentAdvisory = () => {
             while managing risk across your real estate portfolio.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300">
+            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300" onClick={handlePortfolioReview}>
               Request Portfolio Review
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground">
+            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground" onClick={handleScheduleSession}>
               Schedule Strategy Session
             </Button>
           </div>
