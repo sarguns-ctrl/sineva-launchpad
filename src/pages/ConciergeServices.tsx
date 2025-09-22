@@ -3,8 +3,35 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { HeartHandshake, FileText, CreditCard, Users, Home, CheckCircle, ArrowRight, Star, Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 const ConciergeServices = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
+
+  const handleViewPackages = () => {
+    // Scroll to packages section
+    document.getElementById('packages-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleScheduleConsultation = () => {
+    navigate('/contact');
+  };
+
+  const handleChoosePackage = (packageName: string, price: string) => {
+    setSelectedPackage(packageName);
+    toast({
+      title: "Package Selected",
+      description: `You've selected the ${packageName} package (${price}). Our team will contact you within 24 hours to get started.`,
+    });
+  };
+
+  const handleStartJourney = () => {
+    navigate('/contact');
+  };
   const services = [
     {
       icon: FileText,
@@ -105,11 +132,11 @@ const ConciergeServices = () => {
               White-glove service for entrepreneurs and professionals making the transition to new markets.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={handleViewPackages}>
                 View Packages
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" onClick={handleScheduleConsultation}>
                 Schedule Consultation
               </Button>
             </div>
@@ -158,7 +185,7 @@ const ConciergeServices = () => {
       </section>
 
       {/* Service Packages */}
-      <section className="py-20 bg-muted/30">
+      <section id="packages-section" className="py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
@@ -193,7 +220,7 @@ const ConciergeServices = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button className={`w-full mt-6 ${index === 1 ? 'bg-primary hover:bg-primary/90' : ''}`} variant={index === 1 ? 'default' : 'outline'}>
+                  <Button className={`w-full mt-6 ${index === 1 ? 'bg-primary hover:bg-primary/90' : ''}`} variant={index === 1 ? 'default' : 'outline'} onClick={() => handleChoosePackage(pkg.name, pkg.price)}>
                     Choose {pkg.name}
                   </Button>
                 </CardContent>
@@ -286,11 +313,11 @@ const ConciergeServices = () => {
             Focus on your business while we take care of everything else.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300">
+            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300" onClick={handleStartJourney}>
               Start Your Journey
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground">
+            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground" onClick={handleScheduleConsultation}>
               Schedule Free Consultation
             </Button>
           </div>

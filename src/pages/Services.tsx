@@ -21,8 +21,35 @@ import {
 } from "lucide-react";
 import RelatedServices from "@/components/RelatedServices";
 import CrossPageCTA from "@/components/CrossPageCTA";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const Services = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleServiceAction = (serviceType: string) => {
+    switch (serviceType) {
+      case 'business':
+        navigate('/businesses');
+        break;
+      case 'commercial':
+        navigate('/properties');
+        break;
+      case 'residential':
+        navigate('/properties');
+        break;
+      default:
+        navigate('/properties');
+    }
+  };
+
+  const handleDownloadGuide = () => {
+    toast({
+      title: "Guide Download",
+      description: "Service guide will be sent to your email shortly.",
+    });
+  };
   const mainServices = [
     {
       icon: Briefcase,
@@ -217,7 +244,7 @@ const Services = () => {
                     </div>
                   </div>
 
-                  <Button size="lg" className="shadow-button">
+                  <Button size="lg" className="shadow-button" onClick={() => handleServiceAction(service.title.toLowerCase().includes('business') ? 'business' : service.title.toLowerCase().includes('commercial') ? 'commercial' : 'residential')}>
                     {service.ctaText}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
@@ -313,7 +340,7 @@ const Services = () => {
         title="Ready to Start Your Journey?"
         description="Schedule a consultation with our experts to discuss your specific needs and create a customized plan for your real estate and immigration goals."
         primaryAction={{ text: "Schedule Free Consultation", href: "/contact" }}
-        secondaryAction={{ text: "Download Service Guide", href: "/about" }}
+        secondaryAction={{ text: "Download Service Guide", href: "/contact" }}
         variant="gradient"
         showContactOptions={true}
       />

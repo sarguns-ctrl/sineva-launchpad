@@ -3,8 +3,35 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Home, Key, Shield, Globe, CheckCircle, ArrowRight, Star, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const ResidentialProperties = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleBrowseHomes = () => {
+    navigate('/properties');
+  };
+
+  const handleRelocationConsultation = () => {
+    navigate('/contact');
+  };
+
+  const handleSearchProperties = () => {
+    navigate('/properties');
+  };
+
+  const handleScheduleHomeTour = () => {
+    navigate('/contact');
+  };
+
+  const handleShareStory = () => {
+    toast({
+      title: "Thank You!",
+      description: "We'd love to hear your story. Our team will reach out to schedule an interview.",
+    });
+  };
   const serviceTypes = [
     {
       icon: Home,
@@ -75,11 +102,11 @@ const ResidentialProperties = () => {
               Specialized services for entrepreneurs and professionals relocating with their business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={handleBrowseHomes}>
                 Browse Homes
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" onClick={handleRelocationConsultation}>
                 Relocation Consultation
               </Button>
             </div>
@@ -225,7 +252,7 @@ const ResidentialProperties = () => {
                   <div className="text-sm text-white/70">- James & Sarah, UK → Toronto</div>
                 </div>
               </div>
-              <Button className="w-full mt-6 bg-white text-primary hover:bg-white/90">
+              <Button className="w-full mt-6 bg-white text-primary hover:bg-white/90" onClick={handleShareStory}>
                 Share Your Story
               </Button>
             </div>
@@ -243,11 +270,11 @@ const ResidentialProperties = () => {
             Whether you're relocating for business or investing in residential real estate, we're here to help you find the perfect property.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300">
+            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300" onClick={handleSearchProperties}>
               Search Properties
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground">
+            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground" onClick={handleScheduleHomeTour}>
               Schedule Home Tour
             </Button>
           </div>

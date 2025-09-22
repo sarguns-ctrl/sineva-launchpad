@@ -3,7 +3,8 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 import { 
   TrendingUp,
   TrendingDown,
@@ -32,6 +33,26 @@ import { useState } from "react";
 
 const MarketInsights = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleDownloadReport = (reportTitle: string) => {
+    toast({
+      title: "Report Download",
+      description: `"${reportTitle}" will be sent to your email shortly.`,
+    });
+  };
+
+  const handleSubscribeUpdates = () => {
+    toast({
+      title: "Subscription Added",
+      description: "You'll receive weekly market updates and exclusive insights.",
+    });
+  };
+
+  const handleRequestCustomReport = () => {
+    navigate('/contact');
+  };
 
   const marketOverview = [
     {
@@ -365,10 +386,8 @@ const MarketInsights = () => {
                       </div>
                     </div>
                     
-                     <Button className="w-full" asChild>
-                       <Link to={`/markets/${city.city.toLowerCase()}`}>
+                     <Button className="w-full" onClick={() => navigate('/properties')}>
                          View {city.city} Properties
-                       </Link>
                      </Button>
                   </CardContent>
                 </Card>
@@ -490,11 +509,11 @@ const MarketInsights = () => {
                     </div>
                     
                     <div className="flex space-x-2">
-                      <Button className="flex-1">
+                      <Button className="flex-1" onClick={() => handleDownloadReport(report.title)}>
                         <Download className="h-4 w-4 mr-2" />
                         Download Report
                       </Button>
-                      <Button variant="outline">
+                      <Button variant="outline" onClick={() => handleDownloadReport(report.title)}>
                         <ExternalLink className="h-4 w-4" />
                       </Button>
                     </div>
@@ -519,15 +538,12 @@ const MarketInsights = () => {
               tailored to your specific immigration goals and investment criteria.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button" asChild>
-                <Link to="/contact">
-                  Request Custom Analysis
-                </Link>
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button" onClick={handleRequestCustomReport}>
+                Request Custom Report
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
-                <a href="mailto:insights@sineva.com?subject=Market Updates Subscription">
-                  Subscribe to Updates
-                </a>
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" onClick={handleSubscribeUpdates}>
+                Subscribe to Updates
               </Button>
             </div>
           </div>

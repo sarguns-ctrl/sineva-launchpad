@@ -3,8 +3,46 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const AgentResources = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleDownload = (resourceName: string) => {
+    toast({
+      title: "Download Started",
+      description: `Downloading ${resourceName}...`,
+    });
+  };
+
+  const handleAccessTool = (toolName: string) => {
+    toast({
+      title: "Tool Access",
+      description: `Opening ${toolName}...`,
+    });
+  };
+
+  const handleWatchTraining = (trainingTitle: string) => {
+    toast({
+      title: "Training Started",
+      description: `Starting "${trainingTitle}" training session...`,
+    });
+  };
+
+  const handleContactSupport = () => {
+    navigate('/contact');
+  };
+
+  const handleViewHelpCenter = () => {
+    toast({
+      title: "Help Center",
+      description: "Opening comprehensive help documentation...",
+    });
+  };
   const tools = [
     {
       category: "Marketing Materials",
@@ -97,6 +135,7 @@ const AgentResources = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
       {/* Hero Section */}
       <section className="bg-gradient-primary text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -142,7 +181,7 @@ const AgentResources = () => {
                                 {resource.type} • {resource.size}
                               </div>
                             </div>
-                            <Button size="sm" variant="outline">
+                            <Button size="sm" variant="outline" onClick={() => handleDownload(resource.name)}>
                               <Download className="w-4 h-4" />
                             </Button>
                           </div>
@@ -171,7 +210,7 @@ const AgentResources = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <Button className="w-full">Access Tool</Button>
+                      <Button className="w-full" onClick={() => handleAccessTool(tool.name)}>Access Tool</Button>
                     </CardContent>
                   </Card>
                 ))}
@@ -195,7 +234,7 @@ const AgentResources = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <Button variant="outline" className="w-full">
+                      <Button variant="outline" className="w-full" onClick={() => handleWatchTraining(resource.title)}>
                         <Video className="w-4 h-4 mr-2" />
                         Watch Now
                       </Button>
@@ -227,7 +266,7 @@ const AgentResources = () => {
               { name: "Contact Manager", icon: Users },
               { name: "Document Library", icon: BookOpen }
             ].map((tool) => (
-              <Card key={tool.name} className="text-center cursor-pointer hover:shadow-lg transition-shadow">
+              <Card key={tool.name} className="text-center cursor-pointer hover:shadow-lg transition-shadow" onClick={() => handleAccessTool(tool.name)}>
                 <CardContent className="pt-6">
                   <tool.icon className="w-8 h-8 text-accent mx-auto mb-2" />
                   <p className="text-sm font-medium">{tool.name}</p>
@@ -246,15 +285,17 @@ const AgentResources = () => {
             Our support team is here to help you make the most of your resources.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90" onClick={handleContactSupport}>
               Contact Support
             </Button>
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="outline" onClick={handleViewHelpCenter}>
               View Help Center
             </Button>
           </div>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 };

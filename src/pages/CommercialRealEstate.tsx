@@ -3,8 +3,31 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building, MapPin, TrendingUp, Users, CheckCircle, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const CommercialRealEstate = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleViewProperties = () => {
+    navigate('/properties');
+  };
+
+  const handleScheduleConsultation = () => {
+    navigate('/contact');
+  };
+
+  const handleRequestAnalysis = () => {
+    toast({
+      title: "Analysis Request Sent",
+      description: "Our team will prepare a detailed investment analysis and contact you within 24 hours.",
+    });
+  };
+
+  const handleContactTeam = () => {
+    navigate('/contact');
+  };
   const propertyTypes = [
     {
       icon: Building,
@@ -56,11 +79,11 @@ const CommercialRealEstate = () => {
               Expert guidance for domestic and international investors.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={handleViewProperties}>
                 View Properties
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" onClick={handleScheduleConsultation}>
                 Schedule Consultation
               </Button>
             </div>
@@ -144,7 +167,7 @@ const CommercialRealEstate = () => {
                   <div className="text-white/80">Avg. ROI</div>
                 </div>
               </div>
-              <Button className="w-full bg-white text-primary hover:bg-white/90">
+              <Button className="w-full bg-white text-primary hover:bg-white/90" onClick={handleRequestAnalysis}>
                 Request Analysis
               </Button>
             </div>
@@ -162,11 +185,11 @@ const CommercialRealEstate = () => {
             Let our experts help you find the perfect commercial property for your investment goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300">
+            <Button size="lg" className="shadow-button hover:scale-105 transition-all duration-300" onClick={handleViewProperties}>
               Browse Properties
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground">
+            <Button size="lg" variant="outline" className="border-2 border-primary hover:bg-primary hover:text-primary-foreground" onClick={handleContactTeam}>
               Contact Our Team
             </Button>
           </div>

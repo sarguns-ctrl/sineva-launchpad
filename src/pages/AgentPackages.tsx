@@ -2,8 +2,29 @@ import { Star, CheckCircle, Camera, Globe, Users, Smartphone } from "lucide-reac
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const AgentPackages = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handlePackageAction = (packageName: string, price: string) => {
+    if (price === 'Included') {
+      navigate('/join-team');
+    } else {
+      toast({
+        title: "Package Upgrade",
+        description: `You've selected the ${packageName} package (${price}). Our team will contact you to complete the upgrade.`,
+      });
+    }
+  };
+
+  const handleContactSales = () => {
+    navigate('/contact');
+  };
   const packages = [
     {
       name: "Starter",
@@ -80,6 +101,7 @@ const AgentPackages = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
       {/* Hero Section */}
       <section className="bg-gradient-primary text-primary-foreground py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -136,6 +158,7 @@ const AgentPackages = () => {
                   <Button 
                     className={`w-full ${pkg.popular ? 'bg-accent text-accent-foreground hover:bg-accent/90' : ''}`}
                     variant={pkg.popular ? 'default' : 'outline'}
+                    onClick={() => handlePackageAction(pkg.name, pkg.price)}
                   >
                     {pkg.price === 'Included' ? 'Get Started' : 'Upgrade Now'}
                   </Button>
@@ -206,13 +229,15 @@ const AgentPackages = () => {
               <p className="text-muted-foreground mb-6">
                 We offer tailored packages for teams and high-volume producers.
               </p>
-              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90" onClick={handleContactSales}>
                 Contact Sales
               </Button>
             </div>
           </div>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 };
