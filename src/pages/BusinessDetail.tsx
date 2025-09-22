@@ -164,28 +164,29 @@ const BusinessDetail = () => {
     try {
       setIsSubmittingInquiry(true);
       
-      const { error } = await supabase
-        .from('business_inquiries')
-        .insert({
-          business_id: business.id,
-          inquirer_id: user.id,
-          inquirer_name: data.name,
-          inquirer_email: data.email,
-          inquirer_phone: data.phone,
+      const { data: response, error } = await supabase.functions.invoke('business-inquiry', {
+        body: {
+          businessId: business.id,
+          inquirerName: data.name,
+          inquirerEmail: data.email,
+          inquirerPhone: data.phone,
           message: data.message,
-          investment_budget: data.investmentBudget ? Number(data.investmentBudget) : null,
-          visa_requirement: data.visaRequirement || null,
-        });
+          investmentBudget: data.investmentBudget ? Number(data.investmentBudget) : null,
+          visaRequirement: data.visaRequirement || null,
+          businessName: business.business_name,
+        },
+      });
 
       if (error) throw error;
 
       toast({
         title: 'Inquiry Submitted',
-        description: 'Your inquiry has been sent to the business owner',
+        description: 'Your inquiry has been sent and you will receive a confirmation email shortly',
       });
       
       form.reset();
     } catch (error) {
+      console.error('Error submitting inquiry:', error);
       toast({
         title: 'Error',
         description: 'Failed to submit inquiry',
