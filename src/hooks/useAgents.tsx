@@ -57,10 +57,7 @@ export const useAgents = (filters?: {
         .eq('status', 'approved');
 
       if (filters?.search) {
-        query = query.or(`
-          full_name.ilike.%${filters.search}%,
-          email.ilike.%${filters.search}%
-        `);
+        query = query.or(`full_name.ilike.%${filters.search}%,email.ilike.%${filters.search}%`);
       }
 
       const { data, error: queryError } = await query
