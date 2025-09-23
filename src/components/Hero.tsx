@@ -27,15 +27,26 @@ const Hero = () => {
       ref={elementRef} 
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Enhanced background with subtle gradient mesh */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/10" />
-      <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="https://gruposineva.com/wp-content/uploads/2025/09/iStock-1215766635.mp4" type="video/mp4" />
+        </video>
+        {/* Video overlay for better text readability */}
+        <div className="absolute inset-0 bg-background/70 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background/40 via-transparent to-primary/20" />
+      </div>
       
-      {/* Dynamic geometric accents */}
+      {/* Enhanced geometric accents - adjusted for video background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-accent/8 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 left-20 w-48 h-48 bg-primary/8 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/3 rounded-full blur-3xl" />
+        <div className="absolute top-20 right-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 left-20 w-48 h-48 bg-primary/5 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,36 +55,36 @@ const Hero = () => {
             isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-20'
           }`}
         >
-          {/* Enhanced badge with real-time indicator */}
+          {/* Enhanced badge with real-time indicator - enhanced for video background */}
           <div className="inline-block mb-8">
-            <Badge className="bg-accent/15 text-accent px-6 py-3 text-sm font-space font-medium border border-accent/30 backdrop-blur-sm hover:bg-accent/20 transition-all duration-300 group cursor-default">
+            <Badge className="bg-background/80 text-accent px-6 py-3 text-sm font-space font-medium border border-accent/40 backdrop-blur-md hover:bg-background/90 transition-all duration-300 group cursor-default shadow-lg">
               <div className="flex items-center space-x-3">
                 <span className="w-2 h-2 bg-accent rounded-full animate-glow"></span>
-                <span>Premium Real Estate • International Investors</span>
+                <span>Premium Business • International Investors</span>
                 <TrendingUp className="w-3 h-3 group-hover:scale-110 transition-transform" />
               </div>
             </Badge>
           </div>
           
-          {/* Powerful headline with enhanced typography */}
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-clash font-bold text-primary mb-8 leading-[0.85]">
+          {/* Powerful headline with enhanced typography - enhanced for video background */}
+          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-clash font-bold text-foreground mb-8 leading-[0.85] drop-shadow-lg">
             Premium Business
             <br />
-            <span className="text-accent bg-gradient-accent bg-clip-text text-transparent">
+            <span className="text-accent bg-gradient-accent bg-clip-text text-transparent drop-shadow-sm">
               Investments
             </span>
           </h1>
           
-          {/* Enhanced value proposition with social proof */}
+          {/* Enhanced value proposition with social proof - enhanced for video background */}
           <div className="space-y-4 mb-12">
-            <p className="text-xl sm:text-2xl text-muted-foreground max-w-4xl mx-auto font-satoshi leading-relaxed">
+            <p className="text-xl sm:text-2xl text-foreground/90 max-w-4xl mx-auto font-satoshi leading-relaxed drop-shadow-sm">
               Connect with North America's most trusted business investment professionals.
               <br className="hidden sm:block" />
-              <span className="text-primary font-medium">20+ years of expertise</span> in business acquisitions & visa programs.
+              <span className="text-foreground font-medium">20+ years of expertise</span> in business acquisitions & visa programs.
             </p>
             
-            {/* Live social proof */}
-            <div className="flex items-center justify-center space-x-6 text-sm text-muted-foreground">
+            {/* Live social proof - enhanced for video background */}
+            <div className="flex items-center justify-center space-x-6 text-sm text-foreground/80 bg-background/30 backdrop-blur-sm rounded-full px-6 py-3 border border-foreground/10">
               <div className="flex items-center space-x-2">
                 <Award className="w-4 h-4 text-accent" />
                 <span>Licensed Professionals</span>
@@ -113,7 +124,7 @@ const Hero = () => {
             <MagneticButton 
               variant="outline" 
               size="lg"
-              className="border-primary/30 hover:bg-primary/10 backdrop-blur-sm group"
+              className="border-foreground/30 hover:bg-background/20 backdrop-blur-md group shadow-lg text-foreground"
             >
               <Play className="w-4 h-4 group-hover:scale-110 transition-transform" />
               Watch Our Story
@@ -150,8 +161,8 @@ const Hero = () => {
             ) : marketData.length > 0 ? (
               // Dynamic market data
               marketData.slice(0, 3).map((metric, index) => (
-                <div key={metric.id} className="text-center group px-6 py-8">
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
+                <div key={metric.id} className="text-center group px-6 py-8 bg-background/20 backdrop-blur-sm rounded-lg border border-foreground/10">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-foreground mb-4 group-hover:text-accent transition-colors drop-shadow-md">
                     <AnimatedCounter 
                       end={metric.metric_value} 
                       suffix={metric.metric_suffix}
@@ -159,7 +170,7 @@ const Hero = () => {
                       duration={2000}
                     />
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg capitalize">
+                  <p className="text-foreground/80 font-satoshi text-base sm:text-lg capitalize">
                     {metric.metric_name.replace(/_/g, ' ')}
                   </p>
                 </div>
@@ -167,25 +178,25 @@ const Hero = () => {
             ) : (
               // Fallback static data that changes each visit
               <>
-                <div className="text-center group px-6 py-8">
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
+                <div className="text-center group px-6 py-8 bg-background/20 backdrop-blur-sm rounded-lg border border-foreground/10">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-foreground mb-4 group-hover:text-accent transition-colors drop-shadow-md">
                     <AnimatedCounter end={staticStats.propertiesSold} duration={2000} />+
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Businesses Sold</p>
+                  <p className="text-foreground/80 font-satoshi text-base sm:text-lg">Businesses Sold</p>
                 </div>
                 
-                <div className="text-center group px-6 py-8">
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
+                <div className="text-center group px-6 py-8 bg-background/20 backdrop-blur-sm rounded-lg border border-foreground/10">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-foreground mb-4 group-hover:text-accent transition-colors drop-shadow-md">
                     <AnimatedCounter end={staticStats.totalRevenue} duration={2000} />M+
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Total Revenue</p>
+                  <p className="text-foreground/80 font-satoshi text-base sm:text-lg">Total Revenue</p>
                 </div>
                 
-                <div className="text-center group px-6 py-8">
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
+                <div className="text-center group px-6 py-8 bg-background/20 backdrop-blur-sm rounded-lg border border-foreground/10">
+                  <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-foreground mb-4 group-hover:text-accent transition-colors drop-shadow-md">
                     <AnimatedCounter end={staticStats.activeAgents} duration={2000} />+
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Active Agents</p>
+                  <p className="text-foreground/80 font-satoshi text-base sm:text-lg">Active Agents</p>
                 </div>
               </>
             )}
