@@ -208,8 +208,8 @@ const BusinessBrokerage = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-black/20 to-secondary/30"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl">
-              Buy Your <span className="text-primary">American Dream</span>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl bg-gradient-to-r from-white via-white to-white/90 bg-clip-text">
+              Buy Your American Dream
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed drop-shadow-lg">
               Discover established U.S. businesses perfect for international entrepreneurs seeking E-2 and EB-5 visa opportunities
@@ -217,7 +217,7 @@ const BusinessBrokerage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto mb-8">
               <Button 
                 size="lg" 
-                className="flex-1"
+                className="flex-1 bg-primary hover:bg-primary/90 text-white shadow-2xl border-0"
                 onClick={() => document.getElementById('business-listings')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Browse Businesses
@@ -225,7 +225,7 @@ const BusinessBrokerage = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="flex-1"
+                className="flex-1 bg-white/10 hover:bg-white/20 text-white border-white/30 hover:border-white/50 backdrop-blur-sm shadow-xl"
                 onClick={() => document.getElementById('business-search')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Start Business Search
