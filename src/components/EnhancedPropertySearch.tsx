@@ -212,7 +212,7 @@ export const EnhancedPropertySearch: React.FC = () => {
                 className="h-14 px-6"
               >
                 <Filter className="w-4 h-4 mr-2" />
-                Advanced
+                Advanced {showFilters ? "✓" : ""}
               </Button>
             </div>
 
@@ -273,89 +273,82 @@ export const EnhancedPropertySearch: React.FC = () => {
           </div>
 
           {/* Advanced Filters Panel */}
-          <AnimatePresence>
-            {showFilters && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="border-t border-border/50 pt-6 space-y-6"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {/* Price Range */}
-                  <div className="space-y-3">
-                    <label className="text-sm font-medium">Price Range</label>
-                    <div className="px-4 py-3 bg-muted/30 rounded-lg">
-                      <Slider
-                        value={filters.priceRange}
-                        onValueChange={(value) => setFilters(prev => ({ ...prev, priceRange: value }))}
-                        max={10000000}
-                        min={50000}
-                        step={50000}
-                        className="w-full"
-                      />
-                      <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                        <span>{formatPrice(filters.priceRange[0])}</span>
-                        <span>{formatPrice(filters.priceRange[1])}</span>
-                      </div>
+          {showFilters && (
+            <div className="border-t border-border/50 pt-6 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Price Range */}
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Price Range</label>
+                  <div className="px-4 py-3 bg-muted/30 rounded-lg">
+                    <Slider
+                      value={filters.priceRange}
+                      onValueChange={(value) => setFilters(prev => ({ ...prev, priceRange: value }))}
+                      max={10000000}
+                      min={50000}
+                      step={50000}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                      <span>{formatPrice(filters.priceRange[0])}</span>
+                      <span>{formatPrice(filters.priceRange[1])}</span>
                     </div>
                   </div>
-
-                  {/* Property Type */}
-                  <div className="space-y-3">
-                    <label className="text-sm font-medium">Property Type</label>
-                    <Select value={filters.propertyType} onValueChange={(value) => setFilters(prev => ({ ...prev, propertyType: value }))}>
-                      <SelectTrigger className="bg-muted/30 border-0">
-                        <SelectValue placeholder="All Types" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Types</SelectItem>
-                        <SelectItem value="residential">Residential</SelectItem>
-                        <SelectItem value="commercial">Commercial</SelectItem>
-                        <SelectItem value="land">Land</SelectItem>
-                        <SelectItem value="business">Business</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Bedrooms */}
-                  <div className="space-y-3">
-                    <label className="text-sm font-medium">Bedrooms</label>
-                    <Select value={filters.bedrooms} onValueChange={(value) => setFilters(prev => ({ ...prev, bedrooms: value }))}>
-                      <SelectTrigger className="bg-muted/30 border-0">
-                        <SelectValue placeholder="Any" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="any">Any</SelectItem>
-                        <SelectItem value="1">1+ Beds</SelectItem>
-                        <SelectItem value="2">2+ Beds</SelectItem>
-                        <SelectItem value="3">3+ Beds</SelectItem>
-                        <SelectItem value="4">4+ Beds</SelectItem>
-                        <SelectItem value="5">5+ Beds</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Sort By */}
-                  <div className="space-y-3">
-                    <label className="text-sm font-medium">Sort By</label>
-                    <Select value={filters.sortBy} onValueChange={(value) => setFilters(prev => ({ ...prev, sortBy: value }))}>
-                      <SelectTrigger className="bg-muted/30 border-0">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="relevance">Most Relevant</SelectItem>
-                        <SelectItem value="price-low">Price: Low to High</SelectItem>
-                        <SelectItem value="price-high">Price: High to Low</SelectItem>
-                        <SelectItem value="newest">Newest First</SelectItem>
-                        <SelectItem value="featured">Featured First</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+
+                {/* Property Type */}
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Property Type</label>
+                  <Select value={filters.propertyType} onValueChange={(value) => setFilters(prev => ({ ...prev, propertyType: value }))}>
+                    <SelectTrigger className="bg-muted/30 border-0">
+                      <SelectValue placeholder="All Types" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">All Types</SelectItem>
+                      <SelectItem value="residential">Residential</SelectItem>
+                      <SelectItem value="commercial">Commercial</SelectItem>
+                      <SelectItem value="land">Land</SelectItem>
+                      <SelectItem value="business">Business</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Bedrooms */}
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Bedrooms</label>
+                  <Select value={filters.bedrooms} onValueChange={(value) => setFilters(prev => ({ ...prev, bedrooms: value }))}>
+                    <SelectTrigger className="bg-muted/30 border-0">
+                      <SelectValue placeholder="Any" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">Any</SelectItem>
+                      <SelectItem value="1">1+ Beds</SelectItem>
+                      <SelectItem value="2">2+ Beds</SelectItem>
+                      <SelectItem value="3">3+ Beds</SelectItem>
+                      <SelectItem value="4">4+ Beds</SelectItem>
+                      <SelectItem value="5">5+ Beds</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Sort By */}
+                <div className="space-y-3">
+                  <label className="text-sm font-medium">Sort By</label>
+                  <Select value={filters.sortBy} onValueChange={(value) => setFilters(prev => ({ ...prev, sortBy: value }))}>
+                    <SelectTrigger className="bg-muted/30 border-0">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="relevance">Most Relevant</SelectItem>
+                      <SelectItem value="price-low">Price: Low to High</SelectItem>
+                      <SelectItem value="price-high">Price: High to Low</SelectItem>
+                      <SelectItem value="newest">Newest First</SelectItem>
+                      <SelectItem value="featured">Featured First</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -388,285 +381,184 @@ export const EnhancedPropertySearch: React.FC = () => {
       <Tabs value={filters.viewType} className="w-full">
         <TabsContent value="grid">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence>
-              {sortedProperties.map((property, index) => (
-                <motion.div
-                  key={property.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="group hover:shadow-elegant transition-all duration-500 border-0 shadow-card overflow-hidden cursor-pointer">
-                    {/* Property Image */}
-                    <div className="relative h-48 bg-muted overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
-                      
-                      {/* Property badges */}
-                      <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
-                        {property.is_featured && (
-                          <Badge className="bg-accent text-accent-foreground font-medium">
-                            <Star className="w-3 h-3 mr-1" />
-                            Featured
-                          </Badge>
-                        )}
-                        <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm">
-                          {property.status}
+            {loading ? (
+              <div className="col-span-full flex items-center justify-center py-12">
+                <div className="text-muted-foreground">Loading properties...</div>
+              </div>
+            ) : sortedProperties.length === 0 ? (
+              <div className="col-span-full text-center py-12">
+                <div className="text-muted-foreground">No properties found matching your criteria.</div>
+              </div>
+            ) : (
+              sortedProperties.map((property, index) => (
+                <Card key={property.id} className="group hover:shadow-elegant transition-all duration-500 border-0 shadow-card overflow-hidden cursor-pointer">
+                  {/* Property Image */}
+                  <div className="relative h-48 bg-muted overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
+                    
+                    {/* Property badges */}
+                    <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
+                      {property.is_featured && (
+                        <Badge className="bg-accent text-accent-foreground font-medium">
+                          <Star className="w-3 h-3 mr-1" />
+                          Featured
                         </Badge>
-                      </div>
+                      )}
+                      <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm">
+                        {property.status}
+                      </Badge>
+                    </div>
 
-                      {/* Action buttons */}
-                      <div className="absolute top-3 right-3 z-20 flex flex-col gap-2">
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          className="w-8 h-8 p-0 bg-background/90 backdrop-blur-sm hover:bg-accent hover:text-accent-foreground"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleFavorite(property.id);
-                          }}
-                        >
-                          <Heart className={`w-4 h-4 ${favorites.includes(property.id) ? 'fill-red-500 text-red-500' : ''}`} />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          className="w-8 h-8 p-0 bg-background/90 backdrop-blur-sm"
-                        >
-                          <Share2 className="w-4 h-4" />
-                        </Button>
-                      </div>
+                    {/* Action buttons */}
+                    <div className="absolute top-3 right-3 z-20 flex flex-col gap-2">
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => toggleFavorite(property.id)}
+                        className="w-8 h-8 p-0 bg-background/90 backdrop-blur-sm"
+                      >
+                        <Heart className={`w-4 h-4 ${favorites.includes(property.id) ? 'fill-red-500 text-red-500' : ''}`} />
+                      </Button>
+                    </div>
 
-                      {/* Placeholder image */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
-                          <Square className="h-8 w-8 text-primary" />
-                        </div>
-                      </div>
+                    {/* Price */}
+                    <div className="absolute bottom-3 left-3 z-20">
+                      <Badge className="bg-background/90 backdrop-blur-sm text-foreground text-lg font-bold px-3 py-1">
+                        {formatPrice(property.price)}
+                      </Badge>
+                    </div>
+                  </div>
 
-                      {/* Price overlay */}
-                      <div className="absolute bottom-3 left-3 z-20">
-                        <div className="text-2xl font-bold text-white">
-                          {formatPrice(property.price)}
-                        </div>
+                  <CardContent className="p-4 space-y-3">
+                    <div className="space-y-2">
+                      <h3 className="font-semibold text-lg line-clamp-1">{property.title}</h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{property.description}</p>
+                      
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <MapPin className="w-4 h-4" />
+                        <span>{property.city}, {property.state}</span>
                       </div>
                     </div>
 
-                    <CardContent className="p-4 space-y-3">
-                      {/* Title and location */}
-                      <div>
-                        <h3 className="font-semibold text-lg group-hover:text-accent transition-colors line-clamp-1">
-                          {property.title}
-                        </h3>
-                        <div className="flex items-center text-muted-foreground">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          <span className="text-sm">{property.address}</span>
+                    {/* Property details */}
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      {property.bedrooms && (
+                        <div className="flex items-center gap-1">
+                          <Bed className="w-4 h-4" />
+                          <span>{property.bedrooms}</span>
                         </div>
-                      </div>
+                      )}
+                      {property.bathrooms && (
+                        <div className="flex items-center gap-1">
+                          <Bath className="w-4 h-4" />
+                          <span>{property.bathrooms}</span>
+                        </div>
+                      )}
+                      {property.size_sqft && (
+                        <div className="flex items-center gap-1">
+                          <Square className="w-4 h-4" />
+                          <span>{property.size_sqft?.toLocaleString()} sqft</span>
+                        </div>
+                      )}
+                    </div>
 
-                      {/* Property details */}
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        {property.bedrooms && (
-                          <div className="flex items-center gap-1">
-                            <Bed className="h-4 w-4" />
-                            <span>{property.bedrooms}</span>
-                          </div>
-                        )}
-                        {property.bathrooms && (
-                          <div className="flex items-center gap-1">
-                            <Bath className="h-4 w-4" />
-                            <span>{property.bathrooms}</span>
-                          </div>
-                        )}
-                            {property.size_sqft && (
-                              <div className="flex items-center gap-1">
-                                <Square className="h-4 w-4" />
-                                <span>{property.size_sqft.toLocaleString()} sqft</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Property features/tags */}
-                      <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs">
-                          {property.property_type}
-                        </Badge>
-                        {property.visa_eligible && (
-                          <Badge variant="outline" className="text-xs text-accent border-accent/30">
-                            Visa Eligible
-                          </Badge>
-                        )}
-                      </div>
-
-                      {/* Action buttons */}
-                      <div className="flex gap-2 pt-2">
-                          <Button 
-                            size="sm" 
-                            className="flex-1" 
-                            onClick={() => navigate(`/property/${property.id}`)}
-                          >
-                          View Details
-                        </Button>
-                        <Button variant="outline" size="sm" className="px-3">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                    {/* Action buttons */}
+                    <div className="flex gap-2 pt-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1"
+                        onClick={() => navigate(`/properties/${property.id}`)}
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        View Details
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          toast({
+                            title: "Tour Scheduled",
+                            description: "We'll contact you to confirm the appointment"
+                          });
+                        }}
+                      >
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Tour
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </TabsContent>
-
+        
         <TabsContent value="list">
           <div className="space-y-4">
-            <AnimatePresence>
-              {sortedProperties.map((property, index) => (
-                <motion.div
-                  key={property.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <Card className="group hover:shadow-card transition-all duration-300 cursor-pointer">
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-6">
-                        {/* Property thumbnail */}
-                        <div className="w-32 h-24 bg-muted rounded-lg flex-shrink-0 flex items-center justify-center">
-                          <Square className="h-8 w-8 text-muted-foreground" />
+            {loading ? (
+              <div className="text-center py-12">
+                <div className="text-muted-foreground">Loading properties...</div>
+              </div>
+            ) : sortedProperties.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="text-muted-foreground">No properties found matching your criteria.</div>
+              </div>
+            ) : (
+              sortedProperties.map((property) => (
+                <Card key={property.id} className="hover:shadow-elegant transition-all cursor-pointer">
+                  <CardContent className="p-6">
+                    <div className="flex gap-6">
+                      <div className="w-32 h-32 bg-muted rounded-lg flex-shrink-0"></div>
+                      <div className="flex-1 space-y-2">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h3 className="font-semibold text-xl">{property.title}</h3>
+                            <p className="text-muted-foreground">{property.city}, {property.state}</p>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold">{formatPrice(property.price)}</div>
+                            <div className="text-sm text-muted-foreground">{property.property_type}</div>
+                          </div>
                         </div>
-
-                        {/* Property info */}
-                        <div className="flex-1 space-y-2">
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <h3 className="font-semibold text-lg group-hover:text-accent transition-colors">
-                                {property.title}
-                              </h3>
-                              <div className="flex items-center text-muted-foreground">
-                                <MapPin className="h-4 w-4 mr-1" />
-                                <span className="text-sm">{property.address}</span>
-                              </div>
+                        <p className="text-sm text-muted-foreground line-clamp-2">{property.description}</p>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          {property.bedrooms && (
+                            <div className="flex items-center gap-1">
+                              <Bed className="w-4 h-4" />
+                              <span>{property.bedrooms} beds</span>
                             </div>
-                            <div className="text-right">
-                              <div className="text-2xl font-bold text-primary">
-                                {formatPrice(property.price)}
-                              </div>
-                              <div className="flex gap-1 mt-1">
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  className="w-8 h-8 p-0"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleFavorite(property.id);
-                                  }}
-                                >
-                                  <Heart className={`w-4 h-4 ${favorites.includes(property.id) ? 'fill-red-500 text-red-500' : ''}`} />
-                                </Button>
-                                <Button size="sm" variant="ghost" className="w-8 h-8 p-0">
-                                  <Share2 className="w-4 h-4" />
-                                </Button>
-                              </div>
+                          )}
+                          {property.bathrooms && (
+                            <div className="flex items-center gap-1">
+                              <Bath className="w-4 h-4" />
+                              <span>{property.bathrooms} baths</span>
                             </div>
-                          </div>
-
-                          <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                            {property.bedrooms && (
-                              <div className="flex items-center gap-1">
-                                <Bed className="h-4 w-4" />
-                                <span>{property.bedrooms} bed</span>
-                              </div>
-                            )}
-                            {property.bathrooms && (
-                              <div className="flex items-center gap-1">
-                                <Bath className="h-4 w-4" />
-                                <span>{property.bathrooms} bath</span>
-                              </div>
-                            )}
-                            {property.size_sqft && (
-                              <div className="flex items-center gap-1">
-                                <Square className="h-4 w-4" />
-                                <span>{property.size_sqft.toLocaleString()} sqft</span>
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="flex items-center justify-between">
-                            <div className="flex gap-2">
-                              <Badge variant="outline" className="text-xs">
-                                {property.property_type}
-                              </Badge>
-                              <Badge variant="outline" className="text-xs">
-                                {property.status}
-                              </Badge>
-                              {property.is_featured && (
-                                <Badge className="bg-accent text-accent-foreground text-xs">
-                                  Featured
-                                </Badge>
-                              )}
+                          )}
+                          {property.size_sqft && (
+                            <div className="flex items-center gap-1">
+                              <Square className="w-4 h-4" />
+                              <span>{property.size_sqft?.toLocaleString()} sqft</span>
                             </div>
-
-                            <Button 
-                              onClick={() => navigate(`/property/${property.id}`)}
-                            >
-                              View Details
-                            </Button>
-                          </div>
+                          )}
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </TabsContent>
-
+        
         <TabsContent value="map">
-          <Card className="h-96 border-0 shadow-elegant">
-            <CardContent className="p-6 h-full flex items-center justify-center">
-              <div className="text-center space-y-4">
-                <MapPin className="h-16 w-16 text-muted-foreground mx-auto" />
-                <div>
-                  <h3 className="text-lg font-semibold">Interactive Map View</h3>
-                  <p className="text-muted-foreground">
-                    Map integration coming soon. Explore properties on an interactive map.
-                  </p>
-                </div>
-                <Button variant="outline">
-                  Request Map Feature
-                </Button>
-              </div>
+          <Card>
+            <CardContent className="p-6 text-center">
+              <div className="text-muted-foreground">Map view coming soon...</div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
-
-      {/* No results */}
-      {sortedProperties.length === 0 && !loading && (
-        <Card className="border-0 shadow-card">
-          <CardContent className="text-center py-12">
-            <Search className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No Properties Found</h3>
-            <p className="text-muted-foreground mb-6">
-              Try adjusting your search criteria or let our AI help you find the perfect property.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="outline">
-                <Zap className="h-4 w-4 mr-2" />
-                AI Property Recommendations
-              </Button>
-              <Button>
-                <Calendar className="h-4 w-4 mr-2" />
-                Schedule Consultation
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 };
