@@ -33,14 +33,24 @@ const InteractiveBusinessFinder = () => {
   const [showResults, setShowResults] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
-  const { businesses: allBusinesses, loading } = useBusinesses({ 
+  // Memoize filters to prevent infinite loops
+  const memoizedFilters = useMemo(() => ({
     category: filters.category || undefined,
     minPrice: filters.priceRange[0],
     maxPrice: filters.priceRange[1],
     location: filters.location || undefined,
     visaEligible: filters.visaEligible === 'true' ? true : undefined,
     minROI: filters.roiRange[0]
-  });
+  }), [
+    filters.category,
+    filters.priceRange[0],
+    filters.priceRange[1],
+    filters.location,
+    filters.visaEligible,
+    filters.roiRange[0]
+  ]);
+
+  const { businesses: allBusinesses, loading } = useBusinesses(memoizedFilters);
 
   const businesses = useMemo(() => {
     console.log('All businesses:', allBusinesses);

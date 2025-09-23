@@ -183,7 +183,17 @@ export const useBusinesses = (filters?: BusinessFilters) => {
 
   useEffect(() => {
     fetchBusinesses();
-  }, [filters]);
+  }, [
+    filters?.category,
+    filters?.minPrice,
+    filters?.maxPrice,
+    filters?.location,
+    filters?.industry,
+    filters?.visaEligible,
+    filters?.minROI,
+    filters?.trainingProvided,
+    filters?.financingAvailable
+  ]);
 
   return {
     businesses,
