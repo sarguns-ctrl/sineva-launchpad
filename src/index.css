@@ -8,33 +8,33 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Platinum & Mint - Ultra Premium Palette */
+    /* Forest Green - Ultra Premium Dark Theme */
     --background: 0 0% 100%;
-    --foreground: 0 0% 15%;
+    --foreground: 156 39% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 156 39% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 156 39% 11%;
 
-    /* Primary: Deep Charcoal - sophisticated, modern, premium */
-    --primary: 0 0% 15%;
+    /* Primary: Deep Forest Green - sophisticated, natural, premium */
+    --primary: 156 39% 11%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 0 0% 35%;
+    --primary-glow: 156 35% 25%;
 
-    /* Secondary: Platinum Silver - luxurious, clean */
-    --secondary: 0 0% 94%;
-    --secondary-foreground: 0 0% 15%;
+    /* Secondary: Light Forest - subtle, clean */
+    --secondary: 156 20% 96%;
+    --secondary-foreground: 156 39% 11%;
 
-    /* Muted backgrounds with pure white base */
-    --muted: 210 20% 98%;
-    --muted-foreground: 0 0% 35%;
+    /* Muted backgrounds with forest undertones */
+    --muted: 156 15% 98%;
+    --muted-foreground: 156 20% 35%;
 
-    /* Accent: Soft Mint - fresh, premium, calming */
-    --accent: 165 50% 65%;
+    /* Accent: Bright Forest Green - fresh, premium, natural */
+    --accent: 156 50% 35%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 165 30% 88%;
+    --accent-soft: 156 25% 88%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -43,21 +43,21 @@ All colors MUST be HSL.
     --input: 210 20% 95%;
     --ring: 0 0% 15%;
 
-    /* Platinum & Mint ultra premium gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(0 0% 15%), hsl(0 0% 35%));
-    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 94%), hsl(210 20% 98%));
-    --gradient-accent: linear-gradient(135deg, hsl(165 50% 65%), hsl(165 40% 75%));
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 25%) 50%, hsl(165 40% 55%) 100%);
-    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(0 0% 15% / 0.03) 0%, transparent 50%), 
-                     radial-gradient(circle at 80% 20%, hsl(165 50% 65% / 0.02) 0%, transparent 50%),
+    /* Forest Green ultra premium gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(156 39% 11%), hsl(156 35% 25%));
+    --gradient-secondary: linear-gradient(135deg, hsl(156 20% 96%), hsl(156 15% 98%));
+    --gradient-accent: linear-gradient(135deg, hsl(156 50% 35%), hsl(156 45% 45%));
+    --gradient-hero: linear-gradient(135deg, hsl(156 39% 8%) 0%, hsl(156 35% 18%) 50%, hsl(156 40% 35%) 100%);
+    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(156 39% 11% / 0.03) 0%, transparent 50%), 
+                     radial-gradient(circle at 80% 20%, hsl(156 50% 35% / 0.02) 0%, transparent 50%),
                      radial-gradient(circle at 40% 80%, hsl(0 0% 100% / 0.01) 0%, transparent 50%);
     
-    /* Ultra premium charcoal shadows */
-    --shadow-elegant: 0 25px 50px -15px hsl(0 0% 15% / 0.25);
-    --shadow-card: 0 10px 30px -8px hsl(0 0% 15% / 0.15);
-    --shadow-button: 0 6px 20px -4px hsl(0 0% 15% / 0.3);
-    --shadow-accent: 0 8px 25px -6px hsl(165 50% 65% / 0.4);
-    --shadow-glow: 0 0 40px hsl(0 0% 35% / 0.3);
+    /* Ultra premium forest green shadows */
+    --shadow-elegant: 0 25px 50px -15px hsl(156 39% 11% / 0.25);
+    --shadow-card: 0 10px 30px -8px hsl(156 39% 11% / 0.15);
+    --shadow-button: 0 6px 20px -4px hsl(156 39% 11% / 0.3);
+    --shadow-accent: 0 8px 25px -6px hsl(156 50% 35% / 0.4);
+    --shadow-glow: 0 0 40px hsl(156 35% 25% / 0.3);
     
     /* Advanced transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,28 +77,28 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 0 0% 5%;
+    --background: 156 39% 8%;
     --foreground: 0 0% 100%;
 
-    --card: 0 0% 8%;
+    --card: 156 35% 12%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 8%;
+    --popover: 156 35% 12%;
     --popover-foreground: 0 0% 100%;
 
     --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 15%;
-    --primary-glow: 165 40% 70%;
+    --primary-foreground: 156 39% 11%;
+    --primary-glow: 156 45% 55%;
 
-    --secondary: 0 0% 18%;
+    --secondary: 156 25% 20%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 75%;
+    --muted: 156 30% 15%;
+    --muted-foreground: 0 0% 85%;
 
-    --accent: 165 50% 65%;
-    --accent-foreground: 0 0% 5%;
-    --accent-soft: 165 30% 25%;
+    --accent: 156 55% 55%;
+    --accent-foreground: 156 39% 8%;
+    --accent-soft: 156 35% 25%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
