@@ -25,8 +25,8 @@ const InteractiveBusinessFinder = () => {
     search: '',
     industry: '',
     priceRange: [100000, 2000000],
-    location: '',
-    visaEligible: '',
+    location: 'all',
+    visaEligible: 'all',
     roiRange: [10, 50]
   });
 
@@ -38,7 +38,7 @@ const InteractiveBusinessFinder = () => {
     industry: filters.industry || undefined,
     minPrice: filters.priceRange[0],
     maxPrice: filters.priceRange[1],
-    location: filters.location || undefined,
+    location: filters.location === 'all' ? undefined : filters.location,
     visaEligible: filters.visaEligible === 'true' ? true : filters.visaEligible === 'false' ? false : undefined,
     minROI: filters.roiRange[0]
   }), [
@@ -191,7 +191,7 @@ const InteractiveBusinessFinder = () => {
                     <SelectValue placeholder="All locations" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Locations</SelectItem>
+                    <SelectItem value="all">All Locations</SelectItem>
                     <SelectItem value="FL">Florida</SelectItem>
                     <SelectItem value="CA">California</SelectItem>
                     <SelectItem value="TX">Texas</SelectItem>
@@ -208,7 +208,7 @@ const InteractiveBusinessFinder = () => {
                     <SelectValue placeholder="All businesses" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Businesses</SelectItem>
+                    <SelectItem value="all">All Businesses</SelectItem>
                     <SelectItem value="true">Visa Eligible Only</SelectItem>
                     <SelectItem value="false">No Visa Required</SelectItem>
                   </SelectContent>
