@@ -236,6 +236,45 @@ const BusinessBrokerage = () => {
         </div>
       </section>
 
+      {/* Sineva Brokerage Brief Section */}
+      <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/5 border-y border-border/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <Badge className="bg-primary/10 text-primary px-6 py-2 text-sm font-medium border border-primary/20 mb-6">
+              🏪 Sineva Brokerage
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+              Helping You Buy Your First 
+              <span className="text-primary"> U.S. Business</span>
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              Buying a business is stressful — especially when it's your first time and you're moving your family. 
+              At Sineva Brokerage, we make the process simple, safe, and practical.
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="flex items-center justify-center space-x-2 text-sm font-medium">
+                <CheckCircle className="w-5 h-5 text-primary" />
+                <span>Business Selection & Location Guidance</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2 text-sm font-medium">
+                <CheckCircle className="w-5 h-5 text-primary" />
+                <span>Due Diligence & Legal Support</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2 text-sm font-medium">
+                <CheckCircle className="w-5 h-5 text-primary" />
+                <span>Financing & Post-Purchase Support</span>
+              </div>
+            </div>
+            
+            <div className="flex items-center justify-center space-x-2 text-primary font-medium">
+              <Globe className="w-5 h-5" />
+              <span>In-person support available nationwide</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Business Search & Listings Section */}
       <section id="business-search" className="py-20 bg-background">
         <div className="container mx-auto px-4">
