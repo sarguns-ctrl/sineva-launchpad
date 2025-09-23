@@ -3,7 +3,7 @@ import { useOptimizedMarketData } from "@/hooks/useOptimizedMarketData";
 import AnimatedCounter from "./AnimatedCounter";
 import MagneticButton from "./MagneticButton";
 import DualSearchBar from "./DualSearchBar";
-import InteractivePropertyFinder from "./InteractivePropertyFinder";
+import InteractiveBusinessFinder from "./InteractiveBusinessFinder";
 import { Badge } from "./ui/badge";
 import { Building, Users, MapPin, ArrowRight, Play, TrendingUp, Award, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -57,19 +57,19 @@ const Hero = () => {
           
           {/* Powerful headline with enhanced typography */}
           <h1 className="text-5xl sm:text-6xl lg:text-8xl font-clash font-bold text-primary mb-8 leading-[0.85]">
-            Premium Real Estate
+            Premium Business
             <br />
             <span className="text-accent bg-gradient-accent bg-clip-text text-transparent">
-              Made Simple
+              Investments
             </span>
           </h1>
           
           {/* Enhanced value proposition with social proof */}
           <div className="space-y-4 mb-12">
             <p className="text-xl sm:text-2xl text-muted-foreground max-w-4xl mx-auto font-satoshi leading-relaxed">
-              Connect with North America's most trusted real estate professionals.
+              Connect with North America's most trusted business investment professionals.
               <br className="hidden sm:block" />
-              <span className="text-primary font-medium">20+ years of expertise</span> backing every transaction.
+              <span className="text-primary font-medium">20+ years of expertise</span> in business acquisitions & visa programs.
             </p>
             
             {/* Live social proof */}
@@ -102,9 +102,9 @@ const Hero = () => {
               className="shadow-accent group relative overflow-hidden"
               asChild
             >
-              <Link to="/properties">
+              <Link to="/businesses">
                 <Building className="w-5 h-5" />
-                Browse Properties
+                Browse Businesses
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               </Link>
@@ -120,14 +120,14 @@ const Hero = () => {
             </MagneticButton>
           </div>
 
-          {/* Interactive Property Finder */}
+          {/* Interactive Business Finder */}
           <div 
             className={`mb-16 transition-all duration-1000 ${
               isVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
             style={{ animationDelay: '600ms' }}
           >
-            <InteractivePropertyFinder />
+            <InteractiveBusinessFinder />
           </div>
 
           {/* Dynamic Statistics with real data */}
@@ -171,7 +171,7 @@ const Hero = () => {
                   <div className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-primary mb-4 group-hover:text-accent transition-colors">
                     <AnimatedCounter end={staticStats.propertiesSold} duration={2000} />+
                   </div>
-                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Properties Sold</p>
+                  <p className="text-muted-foreground font-satoshi text-base sm:text-lg">Businesses Sold</p>
                 </div>
                 
                 <div className="text-center group px-6 py-8">
