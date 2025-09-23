@@ -40,16 +40,12 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo with enhanced typography */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center shadow-button group-hover:shadow-accent transition-all duration-300 group-hover:scale-110">
-              <span className="text-accent-foreground font-clash font-bold text-lg">S</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-clash font-bold text-lg text-primary-foreground leading-tight">
-                Sineva
-              </span>
-              <span className="font-satoshi text-xs text-primary-foreground/70 leading-tight">
-                Brokerage
-              </span>
+            <div className="h-10 flex items-center">
+              <img 
+                src="/logo-sineva-grupo.jpg" 
+                alt="Sineva Grupo Logo" 
+                className="h-10 w-auto object-contain group-hover:scale-110 transition-all duration-300"
+              />
             </div>
           </Link>
 

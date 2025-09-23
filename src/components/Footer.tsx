@@ -44,12 +44,12 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
             {/* Company Info */}
             <div className="lg:col-span-2 space-y-6">
-              <div className="flex items-center space-x-2">
-                <Building2 className="h-8 w-8 text-accent" />
-                <div className="flex flex-col">
-                  <span className="text-2xl font-bold">Sineva</span>
-                  <span className="text-sm text-primary-foreground/80 -mt-1">BROKERAGE</span>
-                </div>
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="/logo-sineva-grupo.jpg" 
+                  alt="Sineva Grupo Logo" 
+                  className="h-12 w-auto object-contain"
+                />
               </div>
               <p className="text-primary-foreground/80 leading-relaxed">
                 World-class real estate brokerage by Grupo Sineva. 
