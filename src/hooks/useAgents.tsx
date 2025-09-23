@@ -253,7 +253,7 @@ export const useAgents = (filters?: {
 
   useEffect(() => {
     fetchAgents();
-  }, [filters?.active, filters?.department, filters?.search]);
+  }, [filters?.active, filters?.department]);
 
   return {
     agents,

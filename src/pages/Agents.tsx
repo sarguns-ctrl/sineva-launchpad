@@ -237,8 +237,7 @@ const Agents = () => {
   const [selectedSpecialization, setSelectedSpecialization] = useState("All Specializations");
   
   const { agents, loading, error } = useAgents({
-    active: true,
-    search: searchTerm
+    active: true
   });
 
   // Fallback to static agents if database query fails or returns empty
