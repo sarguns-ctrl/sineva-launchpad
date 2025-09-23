@@ -56,6 +56,7 @@ export const useBusinesses = (filters?: BusinessFilters) => {
     try {
       setLoading(true);
       setError(null);
+      console.log('useBusinesses -> applying filters:', filters);
 
       let query = supabase
         .from('businesses')
@@ -65,7 +66,7 @@ export const useBusinesses = (filters?: BusinessFilters) => {
             name,
             description
           )
-        `)
+        `, { count: 'exact' })
         .eq('status', 'approved')
         .order('featured', { ascending: false })
         .order('created_at', { ascending: false });
