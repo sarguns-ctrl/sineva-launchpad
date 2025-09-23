@@ -35,19 +35,19 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border/50 shadow-card">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-xl border-b border-primary-glow/30 shadow-elegant">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo with enhanced typography */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-button group-hover:shadow-accent transition-all duration-300 group-hover:scale-110">
-              <span className="text-primary-foreground font-clash font-bold text-lg">S</span>
+            <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center shadow-button group-hover:shadow-accent transition-all duration-300 group-hover:scale-110">
+              <span className="text-accent-foreground font-clash font-bold text-lg">S</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-clash font-bold text-lg text-primary leading-tight">
+              <span className="font-clash font-bold text-lg text-primary-foreground leading-tight">
                 Sineva
               </span>
-              <span className="font-satoshi text-xs text-muted-foreground leading-tight">
+              <span className="font-satoshi text-xs text-primary-foreground/70 leading-tight">
                 Brokerage
               </span>
             </div>
@@ -64,7 +64,7 @@ const Navigation = () => {
                   className={`font-space text-sm font-medium transition-all duration-300 hover:scale-105 relative group ${
                     isActive 
                       ? 'text-accent font-semibold' 
-                      : 'text-foreground hover:text-accent'
+                      : 'text-primary-foreground hover:text-accent'
                   }`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -81,7 +81,7 @@ const Navigation = () => {
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 p-0 h-auto bg-transparent hover:bg-transparent group relative"
+                  className="font-space text-sm font-medium text-primary-foreground hover:text-accent transition-all duration-300 p-0 h-auto bg-transparent hover:bg-transparent group relative"
                 >
                   Services
                   <ChevronDown className="ml-1 h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
@@ -107,7 +107,7 @@ const Navigation = () => {
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  className="font-space text-sm font-medium text-foreground hover:text-accent transition-all duration-300 p-0 h-auto bg-transparent hover:bg-transparent group relative"
+                  className="font-space text-sm font-medium text-primary-foreground hover:text-accent transition-all duration-300 p-0 h-auto bg-transparent hover:bg-transparent group relative"
                 >
                   Agents
                   <ChevronDown className="ml-1 h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
@@ -138,7 +138,7 @@ const Navigation = () => {
                   className={`font-space text-sm font-medium transition-all duration-300 hover:scale-105 relative group ${
                     isActive 
                       ? 'text-accent font-semibold' 
-                      : 'text-foreground hover:text-accent'
+                      : 'text-primary-foreground hover:text-accent'
                   }`}
                   style={{ animationDelay: `${(index + 4) * 100}ms` }}
                 >
@@ -156,7 +156,7 @@ const Navigation = () => {
             <NavigationSearch />
             <LanguageSwitcher />
             
-            <div className="hidden xl:flex items-center space-x-2 text-sm text-muted-foreground">
+            <div className="hidden xl:flex items-center space-x-2 text-sm text-primary-foreground/70">
               <Phone className="w-4 h-4" />
               <span className="font-mono">+1 (555) 123-4567</span>
             </div>
@@ -224,7 +224,7 @@ const Navigation = () => {
 
       {/* Mobile Navigation with full functionality */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-card/95 backdrop-blur-xl border-t border-border/50 shadow-elegant">
+        <div className="lg:hidden bg-primary/98 backdrop-blur-xl border-t border-primary-glow/30 shadow-elegant">
           <div className="px-4 py-6 space-y-4">
             {navigationItems.map((item, index) => {
               const isActive = location.pathname === item.href;
@@ -232,10 +232,10 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block font-space text-base font-medium transition-all duration-300 py-2 border-b border-border/30 last:border-b-0 ${
+                  className={`block font-space text-base font-medium transition-all duration-300 py-2 border-b border-primary-glow/30 last:border-b-0 ${
                     isActive 
                       ? 'text-accent font-semibold bg-accent/10' 
-                      : 'text-foreground hover:text-accent hover:bg-accent/5'
+                      : 'text-primary-foreground hover:text-accent hover:bg-accent/5'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                   style={{ animationDelay: `${index * 50}ms` }}
@@ -247,14 +247,14 @@ const Navigation = () => {
             
             {/* Mobile Services Section */}
             <div className="space-y-2">
-              <div className="font-space text-base font-medium text-foreground py-2 border-b border-border/30">
+              <div className="font-space text-base font-medium text-primary-foreground py-2 border-b border-primary-glow/30">
                 Services
               </div>
               {servicesItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block font-space text-sm text-muted-foreground hover:text-accent transition-all duration-300 py-2 pl-4"
+                  className="block font-space text-sm text-primary-foreground/70 hover:text-accent transition-all duration-300 py-2 pl-4"
                   onClick={() => setIsMenuOpen(false)}
                   style={{ animationDelay: `${(navigationItems.length + index) * 50}ms` }}
                 >
@@ -265,14 +265,14 @@ const Navigation = () => {
 
             {/* Mobile Agents Section */}
             <div className="space-y-2">
-              <div className="font-space text-base font-medium text-foreground py-2 border-b border-border/30">
+              <div className="font-space text-base font-medium text-primary-foreground py-2 border-b border-primary-glow/30">
                 Agents
               </div>
               {agentItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block font-space text-sm text-muted-foreground hover:text-accent transition-all duration-300 py-2 pl-4"
+                  className="block font-space text-sm text-primary-foreground/70 hover:text-accent transition-all duration-300 py-2 pl-4"
                   onClick={() => setIsMenuOpen(false)}
                   style={{ animationDelay: `${(navigationItems.length + servicesItems.length + index) * 50}ms` }}
                 >
@@ -286,7 +286,7 @@ const Navigation = () => {
                 <NavigationSearch />
               </div>
               
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground px-3">
+              <div className="flex items-center space-x-2 text-sm text-primary-foreground/70 px-3">
                 <Phone className="w-4 h-4" />
                 <span className="font-mono">+1 (555) 123-4567</span>
               </div>
