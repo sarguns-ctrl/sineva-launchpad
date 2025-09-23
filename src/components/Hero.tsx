@@ -4,6 +4,7 @@ import AnimatedCounter from "./AnimatedCounter";
 import MagneticButton from "./MagneticButton";
 import DualSearchBar from "./DualSearchBar";
 import InteractiveBusinessFinder from "./InteractiveBusinessFinder";
+import SinevaBrokerageSection from "./SinevaBrokerageSection";
 import { Badge } from "./ui/badge";
 import { Building, Users, MapPin, ArrowRight, Play, TrendingUp, Award, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -140,13 +141,25 @@ const Hero = () => {
           >
             <InteractiveBusinessFinder />
           </div>
+        </div>
 
+        {/* Sineva Brokerage Section */}
+        <div 
+          className={`transition-all duration-1000 ${
+            isVisible ? 'animate-fade-in' : 'opacity-0'
+          }`}
+          style={{ animationDelay: '800ms' }}
+        >
+          <SinevaBrokerageSection />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Dynamic Statistics with real data */}
           <div 
             className={`grid grid-cols-3 gap-12 md:gap-16 max-w-5xl mx-auto py-12 transition-all duration-1000 ${
               isVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
-            style={{ animationDelay: '900ms' }}
+            style={{ animationDelay: '1000ms' }}
           >
             {loading ? (
               // Loading placeholders
