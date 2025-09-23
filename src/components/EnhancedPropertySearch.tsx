@@ -60,6 +60,7 @@ export const EnhancedPropertySearch: React.FC = () => {
   const [suggestions, setSuggestions] = useState<PropertySuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  // Get filtered properties
   const { properties, loading } = useProperties({
     propertyType: filters.propertyType,
     listingType: filters.listingType,
@@ -71,6 +72,14 @@ export const EnhancedPropertySearch: React.FC = () => {
     sortBy: filters.sortBy,
     featured: filters.sortBy === 'featured' ? true : undefined
   });
+
+  // Get all properties for total count
+  const { properties: allProperties } = useProperties({});
+
+  // Debug effect for showFilters state  
+  useEffect(() => {
+    console.log('showFilters state changed to:', showFilters);
+  }, [showFilters]);
 
   // AI-powered search suggestions
   const generateSuggestions = (searchTerm: string) => {
@@ -200,13 +209,19 @@ export const EnhancedPropertySearch: React.FC = () => {
                 />
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
                   <Badge variant="secondary" className="text-xs">
-                    {sortedProperties.length} found
+                    {sortedProperties.length} found {allProperties.length > 0 && `of ${allProperties.length} total`}
                   </Badge>
                 </div>
               </div>
               
               <Button
-                onClick={() => setShowFilters(!showFilters)}
+                onClick={() => {
+                  console.log('Advanced filter button clicked, current showFilters:', showFilters);
+                  setShowFilters(prev => {
+                    console.log('Setting showFilters from', prev, 'to', !prev);
+                    return !prev;
+                  });
+                }}
                 variant={showFilters ? "default" : "outline"}
                 size="lg"
                 className="h-14 px-6"
@@ -272,83 +287,87 @@ export const EnhancedPropertySearch: React.FC = () => {
             ))}
           </div>
 
-          {/* Advanced Filters Panel */}
-          {showFilters && (
-            <div className="border-t border-border/50 pt-6 space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {/* Price Range */}
-                <div className="space-y-3">
-                  <label className="text-sm font-medium">Price Range</label>
-                  <div className="px-4 py-3 bg-muted/30 rounded-lg">
-                    <Slider
-                      value={filters.priceRange}
-                      onValueChange={(value) => setFilters(prev => ({ ...prev, priceRange: value }))}
-                      max={10000000}
-                      min={50000}
-                      step={50000}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                      <span>{formatPrice(filters.priceRange[0])}</span>
-                      <span>{formatPrice(filters.priceRange[1])}</span>
+          {/* Advanced Filters Panel - Debug version */}
+          <div>
+            <div className="text-sm text-muted-foreground mb-2">Debug: showFilters = {String(showFilters)}</div>
+            {showFilters && (
+              <div className="border-2 border-red-500 bg-red-50 p-4 rounded-lg">
+                <div className="text-red-600 font-bold mb-4">🎉 Advanced filters panel is now visible!</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {/* Price Range */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Price Range</label>
+                    <div className="px-4 py-3 bg-muted/30 rounded-lg">
+                      <Slider
+                        value={filters.priceRange}
+                        onValueChange={(value) => setFilters(prev => ({ ...prev, priceRange: value }))}
+                        max={10000000}
+                        min={50000}
+                        step={50000}
+                        className="w-full"
+                      />
+                      <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                        <span>{formatPrice(filters.priceRange[0])}</span>
+                        <span>{formatPrice(filters.priceRange[1])}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Property Type */}
-                <div className="space-y-3">
-                  <label className="text-sm font-medium">Property Type</label>
-                  <Select value={filters.propertyType} onValueChange={(value) => setFilters(prev => ({ ...prev, propertyType: value }))}>
-                    <SelectTrigger className="bg-muted/30 border-0">
-                      <SelectValue placeholder="All Types" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="">All Types</SelectItem>
-                      <SelectItem value="residential">Residential</SelectItem>
-                      <SelectItem value="commercial">Commercial</SelectItem>
-                      <SelectItem value="land">Land</SelectItem>
-                      <SelectItem value="business">Business</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                  {/* Property Type */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Property Type</label>
+                    <Select value={filters.propertyType} onValueChange={(value) => setFilters(prev => ({ ...prev, propertyType: value }))}>
+                      <SelectTrigger className="bg-muted/30 border-0">
+                        <SelectValue placeholder="All Types" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">All Types</SelectItem>
+                        <SelectItem value="residential">Residential</SelectItem>
+                        <SelectItem value="commercial">Commercial</SelectItem>
+                        <SelectItem value="land">Land</SelectItem>
+                        <SelectItem value="business">Business</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-                {/* Bedrooms */}
-                <div className="space-y-3">
-                  <label className="text-sm font-medium">Bedrooms</label>
-                  <Select value={filters.bedrooms} onValueChange={(value) => setFilters(prev => ({ ...prev, bedrooms: value }))}>
-                    <SelectTrigger className="bg-muted/30 border-0">
-                      <SelectValue placeholder="Any" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="">Any</SelectItem>
-                      <SelectItem value="1">1+ Beds</SelectItem>
-                      <SelectItem value="2">2+ Beds</SelectItem>
-                      <SelectItem value="3">3+ Beds</SelectItem>
-                      <SelectItem value="4">4+ Beds</SelectItem>
-                      <SelectItem value="5">5+ Beds</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                  {/* Bedrooms */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Bedrooms</label>
+                    <Select value={filters.bedrooms} onValueChange={(value) => setFilters(prev => ({ ...prev, bedrooms: value }))}>
+                      <SelectTrigger className="bg-muted/30 border-0">
+                        <SelectValue placeholder="Any" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">Any</SelectItem>
+                        <SelectItem value="1">1+ Beds</SelectItem>
+                        <SelectItem value="2">2+ Beds</SelectItem>
+                        <SelectItem value="3">3+ Beds</SelectItem>
+                        <SelectItem value="4">4+ Beds</SelectItem>
+                        <SelectItem value="5">5+ Beds</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-                {/* Sort By */}
-                <div className="space-y-3">
-                  <label className="text-sm font-medium">Sort By</label>
-                  <Select value={filters.sortBy} onValueChange={(value) => setFilters(prev => ({ ...prev, sortBy: value }))}>
-                    <SelectTrigger className="bg-muted/30 border-0">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="relevance">Most Relevant</SelectItem>
-                      <SelectItem value="price-low">Price: Low to High</SelectItem>
-                      <SelectItem value="price-high">Price: High to Low</SelectItem>
-                      <SelectItem value="newest">Newest First</SelectItem>
-                      <SelectItem value="featured">Featured First</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  {/* Sort By */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Sort By</label>
+                    <Select value={filters.sortBy} onValueChange={(value) => setFilters(prev => ({ ...prev, sortBy: value }))}>
+                      <SelectTrigger className="bg-muted/30 border-0">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="relevance">Most Relevant</SelectItem>
+                        <SelectItem value="price-low">Price: Low to High</SelectItem>
+                        <SelectItem value="price-high">Price: High to Low</SelectItem>
+                        <SelectItem value="newest">Newest First</SelectItem>
+                        <SelectItem value="featured">Featured First</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </CardContent>
       </Card>
 
@@ -357,6 +376,9 @@ export const EnhancedPropertySearch: React.FC = () => {
         <div className="flex items-center gap-4">
           <h2 className="text-xl font-semibold">
             {sortedProperties.length} Properties Found
+            {allProperties.length > 0 && allProperties.length !== sortedProperties.length && (
+              <span className="text-muted-foreground text-base font-normal"> of {allProperties.length} total</span>
+            )}
           </h2>
           {filters.search && (
             <Badge variant="secondary">
