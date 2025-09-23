@@ -8,56 +8,56 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Emerald & Cream - Premium Luxury Palette */
-    --background: 60 15% 98%;
-    --foreground: 140 80% 25%;
+    /* Royal Navy & White - Executive Premium Palette */
+    --background: 0 0% 100%;
+    --foreground: 220 100% 20%;
 
-    --card: 60 15% 98%;
-    --card-foreground: 140 80% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 100% 20%;
 
-    --popover: 60 15% 98%;
-    --popover-foreground: 140 80% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 100% 20%;
 
-    /* Primary: Rich Emerald Green - luxury, wealth, sophistication */
-    --primary: 140 80% 25%;
-    --primary-foreground: 60 15% 98%;
-    --primary-glow: 140 60% 40%;
+    /* Primary: Deep Royal Navy - executive, trustworthy, premium */
+    --primary: 220 100% 20%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 220 80% 40%;
 
-    /* Secondary: Soft Cream - elegant, premium */
-    --secondary: 45 25% 88%;
-    --secondary-foreground: 140 80% 25%;
+    /* Secondary: Soft Silver - elegant, modern */
+    --secondary: 210 20% 90%;
+    --secondary-foreground: 220 100% 20%;
 
-    /* Muted backgrounds with warm cream base */
-    --muted: 60 10% 95%;
-    --muted-foreground: 140 40% 35%;
+    /* Muted backgrounds with pure white base */
+    --muted: 210 20% 96%;
+    --muted-foreground: 220 50% 35%;
 
-    /* Accent: Sophisticated Gold - premium, luxury */
-    --accent: 35 100% 55%;
-    --accent-foreground: 60 15% 98%;
-    --accent-soft: 35 65% 85%;
+    /* Accent: Luxury Gold - premium, success */
+    --accent: 45 100% 60%;
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 45 65% 85%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 60 15% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 60 8% 90%;
-    --input: 60 8% 92%;
-    --ring: 140 80% 25%;
+    --border: 210 20% 88%;
+    --input: 210 20% 94%;
+    --ring: 220 100% 20%;
 
-    /* Emerald & Gold luxury gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(140 80% 25%), hsl(140 60% 40%));
-    --gradient-secondary: linear-gradient(135deg, hsl(45 25% 88%), hsl(45 30% 92%));
-    --gradient-accent: linear-gradient(135deg, hsl(35 100% 55%), hsl(35 85% 65%));
-    --gradient-hero: linear-gradient(135deg, hsl(140 80% 20%) 0%, hsl(140 60% 30%) 50%, hsl(35 80% 45%) 100%);
-    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(140 80% 25% / 0.15) 0%, transparent 50%), 
-                     radial-gradient(circle at 80% 20%, hsl(35 100% 55% / 0.1) 0%, transparent 50%),
-                     radial-gradient(circle at 40% 80%, hsl(60 15% 98% / 0.05) 0%, transparent 50%);
+    /* Royal Navy & Gold executive gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(220 100% 20%), hsl(220 80% 40%));
+    --gradient-secondary: linear-gradient(135deg, hsl(210 20% 90%), hsl(210 25% 95%));
+    --gradient-accent: linear-gradient(135deg, hsl(45 100% 60%), hsl(45 85% 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 100% 15%) 0%, hsl(220 80% 30%) 50%, hsl(45 80% 50%) 100%);
+    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(220 100% 20% / 0.08) 0%, transparent 50%), 
+                     radial-gradient(circle at 80% 20%, hsl(45 100% 60% / 0.06) 0%, transparent 50%),
+                     radial-gradient(circle at 40% 80%, hsl(210 20% 96% / 0.03) 0%, transparent 50%);
     
-    /* Luxury emerald shadows */
-    --shadow-elegant: 0 25px 50px -15px hsl(140 80% 25% / 0.25);
-    --shadow-card: 0 10px 30px -8px hsl(140 80% 25% / 0.15);
-    --shadow-button: 0 6px 20px -4px hsl(140 80% 25% / 0.3);
-    --shadow-accent: 0 8px 25px -6px hsl(35 100% 55% / 0.4);
-    --shadow-glow: 0 0 40px hsl(140 60% 40% / 0.3);
+    /* Executive navy shadows */
+    --shadow-elegant: 0 25px 50px -15px hsl(220 100% 20% / 0.25);
+    --shadow-card: 0 10px 30px -8px hsl(220 100% 20% / 0.15);
+    --shadow-button: 0 6px 20px -4px hsl(220 100% 20% / 0.3);
+    --shadow-accent: 0 8px 25px -6px hsl(45 100% 60% / 0.4);
+    --shadow-glow: 0 0 40px hsl(220 80% 40% / 0.3);
     
     /* Advanced transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,35 +77,35 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 140 80% 8%;
-    --foreground: 60 15% 98%;
+    --background: 220 100% 8%;
+    --foreground: 0 0% 100%;
 
-    --card: 140 60% 10%;
-    --card-foreground: 60 15% 98%;
+    --card: 220 80% 12%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 140 60% 10%;
-    --popover-foreground: 60 15% 98%;
+    --popover: 220 80% 12%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 60 15% 98%;
-    --primary-foreground: 140 80% 25%;
-    --primary-glow: 140 50% 65%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 220 100% 20%;
+    --primary-glow: 220 60% 70%;
 
-    --secondary: 140 30% 20%;
-    --secondary-foreground: 60 15% 98%;
+    --secondary: 220 50% 25%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 140 40% 15%;
-    --muted-foreground: 140 20% 70%;
+    --muted: 220 40% 18%;
+    --muted-foreground: 220 20% 75%;
 
-    --accent: 35 100% 55%;
-    --accent-foreground: 140 80% 8%;
-    --accent-soft: 35 65% 25%;
+    --accent: 45 100% 60%;
+    --accent-foreground: 220 100% 8%;
+    --accent-soft: 45 65% 30%;
 
     --destructive: 0 62% 50%;
-    --destructive-foreground: 60 15% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 140 30% 20%;
-    --input: 140 30% 18%;
-    --ring: 60 15% 85%;
+    --border: 220 40% 25%;
+    --input: 220 40% 22%;
+    --ring: 0 0% 90%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
