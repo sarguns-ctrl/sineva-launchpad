@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import SinevaBrokerageSection from "@/components/SinevaBrokerageSection";
 import SocialProofBanner from "@/components/SocialProofBanner";
 import MarketLocationCards from "@/components/MarketLocationCards";
 import LeadCaptureForm from "@/components/LeadCaptureForm";
@@ -68,6 +69,10 @@ const Index = () => {
       
       <ErrorBoundary>
         <Hero />
+      </ErrorBoundary>
+      
+      <ErrorBoundary>
+        <SinevaBrokerageSection />
       </ErrorBoundary>
       
       <ErrorBoundary>
