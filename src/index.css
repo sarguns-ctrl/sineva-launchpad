@@ -8,56 +8,56 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Forest White - Minimalist Premium Palette */
+    /* Platinum & Mint - Ultra Premium Palette */
     --background: 0 0% 100%;
-    --foreground: 150 100% 15%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 150 100% 15%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 150 100% 15%;
+    --popover-foreground: 0 0% 15%;
 
-    /* Primary: Deep Forest Green - natural, premium, trustworthy */
-    --primary: 150 100% 15%;
+    /* Primary: Deep Charcoal - sophisticated, modern, premium */
+    --primary: 0 0% 15%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 150 80% 35%;
+    --primary-glow: 0 0% 35%;
 
-    /* Secondary: Soft White Gray - clean, minimal */
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 150 100% 15%;
+    /* Secondary: Platinum Silver - luxurious, clean */
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 15%;
 
     /* Muted backgrounds with pure white base */
-    --muted: 150 20% 98%;
-    --muted-foreground: 150 50% 25%;
+    --muted: 210 20% 98%;
+    --muted-foreground: 0 0% 35%;
 
-    /* Accent: Sage Green - natural, calming */
-    --accent: 150 60% 45%;
+    /* Accent: Soft Mint - fresh, premium, calming */
+    --accent: 165 50% 65%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 150 40% 85%;
+    --accent-soft: 165 30% 88%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 20% 92%;
-    --input: 150 20% 96%;
-    --ring: 150 100% 15%;
+    --border: 210 20% 90%;
+    --input: 210 20% 95%;
+    --ring: 0 0% 15%;
 
-    /* Forest White minimalist gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(150 100% 15%), hsl(150 80% 35%));
-    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 96%), hsl(150 10% 98%));
-    --gradient-accent: linear-gradient(135deg, hsl(150 60% 45%), hsl(150 50% 55%));
-    --gradient-hero: linear-gradient(135deg, hsl(150 100% 10%) 0%, hsl(150 80% 25%) 50%, hsl(150 60% 40%) 100%);
-    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(150 100% 15% / 0.05) 0%, transparent 50%), 
-                     radial-gradient(circle at 80% 20%, hsl(150 60% 45% / 0.03) 0%, transparent 50%),
-                     radial-gradient(circle at 40% 80%, hsl(0 0% 100% / 0.02) 0%, transparent 50%);
+    /* Platinum & Mint ultra premium gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 15%), hsl(0 0% 35%));
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 94%), hsl(210 20% 98%));
+    --gradient-accent: linear-gradient(135deg, hsl(165 50% 65%), hsl(165 40% 75%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 25%) 50%, hsl(165 40% 55%) 100%);
+    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(0 0% 15% / 0.03) 0%, transparent 50%), 
+                     radial-gradient(circle at 80% 20%, hsl(165 50% 65% / 0.02) 0%, transparent 50%),
+                     radial-gradient(circle at 40% 80%, hsl(0 0% 100% / 0.01) 0%, transparent 50%);
     
-    /* Forest minimalist shadows */
-    --shadow-elegant: 0 25px 50px -15px hsl(150 100% 15% / 0.25);
-    --shadow-card: 0 10px 30px -8px hsl(150 100% 15% / 0.15);
-    --shadow-button: 0 6px 20px -4px hsl(150 100% 15% / 0.3);
-    --shadow-accent: 0 8px 25px -6px hsl(150 60% 45% / 0.4);
-    --shadow-glow: 0 0 40px hsl(150 80% 35% / 0.3);
+    /* Ultra premium charcoal shadows */
+    --shadow-elegant: 0 25px 50px -15px hsl(0 0% 15% / 0.25);
+    --shadow-card: 0 10px 30px -8px hsl(0 0% 15% / 0.15);
+    --shadow-button: 0 6px 20px -4px hsl(0 0% 15% / 0.3);
+    --shadow-accent: 0 8px 25px -6px hsl(165 50% 65% / 0.4);
+    --shadow-glow: 0 0 40px hsl(0 0% 35% / 0.3);
     
     /* Advanced transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,34 +77,34 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 150 100% 5%;
+    --background: 0 0% 5%;
     --foreground: 0 0% 100%;
 
-    --card: 150 80% 8%;
+    --card: 0 0% 8%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 150 80% 8%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 100%;
 
     --primary: 0 0% 100%;
-    --primary-foreground: 150 100% 15%;
-    --primary-glow: 150 60% 65%;
+    --primary-foreground: 0 0% 15%;
+    --primary-glow: 165 40% 70%;
 
-    --secondary: 150 40% 20%;
+    --secondary: 0 0% 18%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 150 40% 12%;
-    --muted-foreground: 150 20% 75%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 75%;
 
-    --accent: 150 60% 45%;
-    --accent-foreground: 150 100% 5%;
-    --accent-soft: 150 40% 25%;
+    --accent: 165 50% 65%;
+    --accent-foreground: 0 0% 5%;
+    --accent-soft: 165 30% 25%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 40% 18%;
-    --input: 150 40% 15%;
+    --border: 0 0% 18%;
+    --input: 0 0% 15%;
     --ring: 0 0% 90%;
     
     --sidebar-background: 240 5.9% 10%;
