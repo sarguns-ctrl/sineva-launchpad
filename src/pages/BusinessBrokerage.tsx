@@ -32,6 +32,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import InteractiveCard from '@/components/InteractiveCard';
 import AnimatedCounter from "@/components/AnimatedCounter";
+import businessBgImage from '@/assets/business-conference-room.jpg';
 
 const BusinessBrokerage = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
@@ -193,8 +194,18 @@ const BusinessBrokerage = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${businessBgImage})`,
+          }}
+        ></div>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/60"></div>
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
