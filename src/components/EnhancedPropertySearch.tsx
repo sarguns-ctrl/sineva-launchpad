@@ -60,7 +60,17 @@ export const EnhancedPropertySearch: React.FC = () => {
   const [suggestions, setSuggestions] = useState<PropertySuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const { properties, loading } = useProperties();
+  const { properties, loading } = useProperties({
+    propertyType: filters.propertyType,
+    listingType: filters.listingType,
+    search: filters.search,
+    priceRange: filters.priceRange,
+    sizeRange: filters.sizeRange,
+    bedrooms: filters.bedrooms && filters.bedrooms !== 'any' ? parseInt(filters.bedrooms) : undefined,
+    bathrooms: filters.bathrooms && filters.bathrooms !== 'any' ? parseFloat(filters.bathrooms) : undefined,
+    sortBy: filters.sortBy,
+    featured: filters.sortBy === 'featured' ? true : undefined
+  });
 
   // AI-powered search suggestions
   const generateSuggestions = (searchTerm: string) => {
@@ -92,42 +102,14 @@ export const EnhancedPropertySearch: React.FC = () => {
 
   // Enhanced filtering with multiple criteria
   const filteredProperties = useMemo(() => {
-    return properties.filter(property => {
-      const matchesSearch = !filters.search || 
-        property.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-        property.city.toLowerCase().includes(filters.search.toLowerCase()) ||
-        property.address.toLowerCase().includes(filters.search.toLowerCase());
-      
-      const matchesPrice = property.price >= filters.priceRange[0] && property.price <= filters.priceRange[1];
-      const matchesType = !filters.propertyType || filters.propertyType === 'all' || property.property_type === filters.propertyType;
-      const matchesListing = !filters.listingType || filters.listingType === 'any' || property.status === filters.listingType;
-      const matchesBedrooms = !filters.bedrooms || filters.bedrooms === 'any' || (property.bedrooms && property.bedrooms >= parseInt(filters.bedrooms));
-      const matchesBathrooms = !filters.bathrooms || filters.bathrooms === 'any' || (property.bathrooms && property.bathrooms >= parseFloat(filters.bathrooms));
-      const matchesSize = !property.size_sqft || 
-        (property.size_sqft >= filters.sizeRange[0] && property.size_sqft <= filters.sizeRange[1]);
+    // Since filtering is now handled by the hook, we just return all properties
+    return properties;
+  }, [properties]);
 
-      return matchesSearch && matchesPrice && matchesType && matchesListing && 
-             matchesBedrooms && matchesBathrooms && matchesSize;
-    });
-  }, [properties, filters]);
-
-  // Sort properties
+  // Sort properties - since sorting is handled by the hook, we return filtered properties
   const sortedProperties = useMemo(() => {
-    const sorted = [...filteredProperties];
-    
-    switch (filters.sortBy) {
-      case 'price-low':
-        return sorted.sort((a, b) => a.price - b.price);
-      case 'price-high':
-        return sorted.sort((a, b) => b.price - a.price);
-      case 'newest':
-        return sorted.sort((a, b) => new Date(b.listing_date).getTime() - new Date(a.listing_date).getTime());
-      case 'featured':
-        return sorted.sort((a, b) => Number(b.is_featured) - Number(a.is_featured));
-      default:
-        return sorted;
-    }
-  }, [filteredProperties, filters.sortBy]);
+    return filteredProperties;
+  }, [filteredProperties]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {

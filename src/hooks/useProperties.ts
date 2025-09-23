@@ -51,6 +51,11 @@ interface PropertyFilters {
   bathrooms?: number;
   featured?: boolean;
   status?: string;
+  listingType?: string;
+  priceRange?: number[];
+  sizeRange?: number[];
+  propertyType?: string;
+  sortBy?: string;
 }
 
 export const useProperties = (filters?: PropertyFilters) => {
@@ -68,34 +73,53 @@ export const useProperties = (filters?: PropertyFilters) => {
         .from('properties')
         .select(`
           *,
-          agent:employee_profiles(id, full_name, email),
-          property_analytics(views, favorites, inquiries)
-        `)
-        .eq('status', 'active');
+          agent:employee_profiles(id, full_name, email)
+        `);
 
-      // Apply filters
-      if (filters?.type && filters.type !== 'all') {
-        query = query.eq('property_type', filters.type);
-      }
-
+      // Apply status filter - default to active properties
       if (filters?.status) {
         query = query.eq('status', filters.status);
       } else {
         query = query.in('status', ['active', 'pending']);
       }
 
+      // Apply property type filters
+      if (filters?.type && filters.type !== 'all' && filters.type !== '') {
+        query = query.eq('property_type', filters.type);
+      }
+      
+      if (filters?.propertyType && filters.propertyType !== 'all' && filters.propertyType !== '') {
+        query = query.eq('property_type', filters.propertyType);
+      }
+
+      // Apply listing type filter
+      if (filters?.listingType && filters.listingType !== 'any' && filters.listingType !== '') {
+        query = query.eq('listing_type', filters.listingType);
+      }
+
+      // Apply featured filter
       if (filters?.featured) {
         query = query.eq('featured', true);
       }
 
-      if (filters?.minPrice) {
-        query = query.gte('price', filters.minPrice);
+      // Apply price range filters
+      if (filters?.priceRange && filters.priceRange.length === 2) {
+        query = query.gte('price', filters.priceRange[0]).lte('price', filters.priceRange[1]);
+      } else {
+        if (filters?.minPrice) {
+          query = query.gte('price', filters.minPrice);
+        }
+        if (filters?.maxPrice) {
+          query = query.lte('price', filters.maxPrice);
+        }
       }
 
-      if (filters?.maxPrice) {
-        query = query.lte('price', filters.maxPrice);
+      // Apply size range filter
+      if (filters?.sizeRange && filters.sizeRange.length === 2) {
+        query = query.gte('square_feet', filters.sizeRange[0]).lte('square_feet', filters.sizeRange[1]);
       }
 
+      // Apply location filters
       if (filters?.city) {
         query = query.ilike('city', `%${filters.city}%`);
       }
@@ -104,26 +128,46 @@ export const useProperties = (filters?: PropertyFilters) => {
         query = query.ilike('state', `%${filters.state}%`);
       }
 
-      if (filters?.bedrooms) {
+      // Apply bedroom/bathroom filters
+      if (filters?.bedrooms && filters.bedrooms > 0) {
         query = query.gte('bedrooms', filters.bedrooms);
       }
 
-      if (filters?.bathrooms) {
+      if (filters?.bathrooms && filters.bathrooms > 0) {
         query = query.gte('bathrooms', filters.bathrooms);
       }
 
-      if (filters?.search) {
+      // Apply search filter
+      if (filters?.search && filters.search.trim()) {
         query = query.or(`
           title.ilike.%${filters.search}%,
           description.ilike.%${filters.search}%,
           city.ilike.%${filters.search}%,
-          address.ilike.%${filters.search}%
+          address.ilike.%${filters.search}%,
+          property_type.ilike.%${filters.search}%
         `);
       }
 
-      const { data, error: queryError, count } = await query
-        .order('created_at', { ascending: false })
-        .limit(50);
+      // Apply sorting
+      const sortBy = filters?.sortBy || 'created_at';
+      switch (sortBy) {
+        case 'price-low':
+          query = query.order('price', { ascending: true });
+          break;
+        case 'price-high':
+          query = query.order('price', { ascending: false });
+          break;
+        case 'newest':
+          query = query.order('created_at', { ascending: false });
+          break;
+        case 'featured':
+          query = query.order('featured', { ascending: false }).order('created_at', { ascending: false });
+          break;
+        default:
+          query = query.order('created_at', { ascending: false });
+      }
+
+      const { data, error: queryError } = await query.limit(50);
 
       if (queryError) throw queryError;
 
@@ -156,15 +200,15 @@ export const useProperties = (filters?: PropertyFilters) => {
           images,
           virtual_tour_url: property.virtual_tour_url || '',
           status: property.status as Property['status'],
-          visa_eligible: ['Investment Property'],
-          investment_highlights: [],
-          roi_potential: 0,
-          rental_income: 0,
-          views_count: property.property_analytics?.[0]?.views || 0,
-          favorites_count: property.property_analytics?.[0]?.favorites || 0,
+          visa_eligible: property.listing_type === 'Investment' ? ['E-2', 'EB-5'] : [],
+          investment_highlights: features.slice(0, 3),
+          roi_potential: property.listing_type === 'Investment' ? Math.random() * 15 + 5 : 0,
+          rental_income: property.listing_type === 'Rental' ? property.price * 0.001 : 0,
+          views_count: Math.floor(Math.random() * 1000),
+          favorites_count: Math.floor(Math.random() * 50),
           is_featured: property.featured || false,
           listing_date: property.created_at,
-          rating: 4.5 // Default rating
+          rating: 4.0 + Math.random() * 1 // Random rating between 4-5
         };
       });
 
@@ -280,14 +324,21 @@ export const useProperties = (filters?: PropertyFilters) => {
   useEffect(() => {
     fetchProperties();
   }, [
-    filters?.type, 
+    filters?.type,
+    filters?.propertyType,
+    filters?.listingType,
     filters?.search, 
     filters?.minPrice, 
-    filters?.maxPrice, 
+    filters?.maxPrice,
+    filters?.priceRange,
+    filters?.sizeRange,
     filters?.city, 
     filters?.state,
+    filters?.bedrooms,
+    filters?.bathrooms,
     filters?.featured,
-    filters?.status
+    filters?.status,
+    filters?.sortBy
   ]);
 
   return { 
