@@ -42,8 +42,8 @@ const InteractiveBusinessFinder = () => {
     minROI: filters.roiRange[0]
   });
 
-  // Filter businesses based on search term
   const businesses = useMemo(() => {
+    console.log('All businesses:', allBusinesses);
     if (!filters.search) return allBusinesses;
     
     return allBusinesses.filter(business =>
@@ -56,6 +56,9 @@ const InteractiveBusinessFinder = () => {
   }, [allBusinesses, filters.search]);
 
   const handleSearch = () => {
+    console.log('Find Businesses button clicked');
+    console.log('Current filters:', filters);
+    console.log('Businesses found:', businesses.length);
     setShowResults(true);
   };
 
@@ -262,16 +265,22 @@ const InteractiveBusinessFinder = () => {
                       <CardContent className="p-0">
                         {/* Business Image */}
                         <div className="relative h-32 overflow-hidden rounded-t-lg">
-                          <LazyImage
-                            src={business.images?.[0]?.url || '/api/placeholder/400/200'}
-                            alt={business.business_name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            fallback={
-                              <div className="w-full h-full bg-muted flex items-center justify-center">
-                                <IconComponent className="h-8 w-8 text-muted-foreground" />
-                              </div>
-                            }
-                          />
+                          {business.images && business.images.length > 0 ? (
+                            <LazyImage
+                              src={business.images[0] || '/api/placeholder/400/200'}
+                              alt={business.business_name}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              fallback={
+                                <div className="w-full h-full bg-muted flex items-center justify-center">
+                                  <IconComponent className="h-8 w-8 text-muted-foreground" />
+                                </div>
+                              }
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-muted flex items-center justify-center">
+                              <IconComponent className="h-8 w-8 text-muted-foreground" />
+                            </div>
+                          )}
                           <div className="absolute top-2 left-2">
                             <Badge variant="secondary" className="text-xs bg-white/90 text-gray-900">
                               {business.industry}
