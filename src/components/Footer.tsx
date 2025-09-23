@@ -46,7 +46,7 @@ const Footer = () => {
             <div className="lg:col-span-2 space-y-6">
               <div className="flex items-center space-x-3">
                 <img 
-                  src="/logo-sineva-grupo.jpg" 
+                  src="/logo-sineva-grupo.svg" 
                   alt="Sineva Grupo Logo" 
                   className="h-12 w-auto object-contain"
                 />

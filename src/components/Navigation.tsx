@@ -42,7 +42,7 @@ const Navigation = () => {
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="h-10 flex items-center">
               <img 
-                src="/logo-sineva-grupo.jpg" 
+                src="/logo-sineva-grupo.svg" 
                 alt="Sineva Grupo Logo" 
                 className="h-10 w-auto object-contain group-hover:scale-110 transition-all duration-300"
               />
