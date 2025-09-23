@@ -91,8 +91,8 @@ export const useBusinesses = (filters?: BusinessFilters) => {
         query = query.ilike('industry', `%${filters.industry}%`);
       }
       
-      if (filters?.visaEligible) {
-        query = query.eq('visa_eligible', true);
+      if (typeof filters?.visaEligible === 'boolean') {
+        query = query.eq('visa_eligible', filters.visaEligible);
       }
       
       if (filters?.minROI) {

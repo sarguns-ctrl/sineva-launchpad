@@ -12,7 +12,7 @@ import { LazyImage } from './LazyImage';
 
 interface BusinessFilters {
   search: string;
-  category: string;
+  industry: string;
   priceRange: number[];
   location: string;
   visaEligible: string;
@@ -23,7 +23,7 @@ const InteractiveBusinessFinder = () => {
   const navigate = useNavigate();
   const [filters, setFilters] = useState<BusinessFilters>({
     search: '',
-    category: '',
+    industry: '',
     priceRange: [100000, 2000000],
     location: '',
     visaEligible: '',
@@ -35,14 +35,14 @@ const InteractiveBusinessFinder = () => {
 
   // Memoize filters to prevent infinite loops
   const memoizedFilters = useMemo(() => ({
-    category: filters.category || undefined,
+    industry: filters.industry || undefined,
     minPrice: filters.priceRange[0],
     maxPrice: filters.priceRange[1],
     location: filters.location || undefined,
-    visaEligible: filters.visaEligible === 'true' ? true : undefined,
+    visaEligible: filters.visaEligible === 'true' ? true : filters.visaEligible === 'false' ? false : undefined,
     minROI: filters.roiRange[0]
   }), [
-    filters.category,
+    filters.industry,
     filters.priceRange[0],
     filters.priceRange[1],
     filters.location,
@@ -119,25 +119,26 @@ const InteractiveBusinessFinder = () => {
               </Button>
             </div>
 
-            {/* Quick Business Category Buttons */}
+            {/* Quick Industry Buttons */}
             <div className="flex flex-wrap gap-2">
               {[
                 { id: '', label: 'All Businesses', icon: Building2 },
-                { id: 'restaurant', label: 'Restaurant', icon: Store },
-                { id: 'retail', label: 'Retail', icon: Building2 },
-                { id: 'technology', label: 'Technology', icon: Briefcase }
-              ].map((category) => {
-                const IconComponent = category.icon;
+                { id: 'Restaurant', label: 'Restaurant', icon: Store },
+                { id: 'Technology', label: 'Technology', icon: Briefcase },
+                { id: 'Software', label: 'Software', icon: Briefcase },
+                { id: 'Entertainment', label: 'Entertainment', icon: Building2 }
+              ].map((item) => {
+                const IconComponent = item.icon;
                 return (
                   <Button
-                    key={category.id}
-                    variant={filters.category === category.id ? 'default' : 'outline'}
+                    key={item.id}
+                    variant={filters.industry === item.id ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => setFilters(prev => ({ ...prev, category: category.id }))}
+                    onClick={() => setFilters(prev => ({ ...prev, industry: item.id }))}
                     className="flex items-center space-x-2"
                   >
                     <IconComponent className="w-4 h-4" />
-                    <span>{category.label}</span>
+                    <span>{item.label}</span>
                   </Button>
                 );
               })}
@@ -191,10 +192,11 @@ const InteractiveBusinessFinder = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="">All Locations</SelectItem>
-                    <SelectItem value="Texas">Texas</SelectItem>
-                    <SelectItem value="Florida">Florida</SelectItem>
-                    <SelectItem value="California">California</SelectItem>
-                    <SelectItem value="New York">New York</SelectItem>
+                    <SelectItem value="FL">Florida</SelectItem>
+                    <SelectItem value="CA">California</SelectItem>
+                    <SelectItem value="TX">Texas</SelectItem>
+                    <SelectItem value="NY">New York</SelectItem>
+                    <SelectItem value="TN">Tennessee</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
