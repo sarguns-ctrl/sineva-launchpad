@@ -203,15 +203,15 @@ const BusinessBrokerage = () => {
           }}
         ></div>
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/70"></div>
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-secondary/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-black/20 to-secondary/30"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
-              Buy Your American Dream
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl">
+              Buy Your <span className="text-primary">American Dream</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed drop-shadow-lg">
               Discover established U.S. businesses perfect for international entrepreneurs seeking E-2 and EB-5 visa opportunities
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto mb-8">
