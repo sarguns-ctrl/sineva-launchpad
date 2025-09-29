@@ -10,6 +10,7 @@ import AIPropertyAssistant from "@/components/AIPropertyAssistant";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Services from "./pages/Services";
+import BlogDetail from "./pages/BlogDetail";
 import Agents from "./pages/Agents";
 import Properties from "./pages/Properties";
 import Markets from "./pages/Markets";
@@ -137,6 +138,7 @@ const App = () => {
           <Route path="/market-insights" element={<MarketInsights />} />
           <Route path="/agent/:id" element={<AgentProfile />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path="/news" element={<News />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
