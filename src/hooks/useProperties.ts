@@ -45,6 +45,9 @@ interface PropertyFilters {
   search?: string;
   minPrice?: number;
   maxPrice?: number;
+  priceMin?: number;
+  priceMax?: number;
+  location?: string;
   city?: string;
   state?: string;
   bedrooms?: number;
@@ -106,11 +109,11 @@ export const useProperties = (filters?: PropertyFilters) => {
       if (filters?.priceRange && filters.priceRange.length === 2) {
         query = query.gte('price', filters.priceRange[0]).lte('price', filters.priceRange[1]);
       } else {
-        if (filters?.minPrice) {
-          query = query.gte('price', filters.minPrice);
+        if (filters?.minPrice || filters?.priceMin) {
+          query = query.gte('price', filters.minPrice || filters.priceMin);
         }
-        if (filters?.maxPrice) {
-          query = query.lte('price', filters.maxPrice);
+        if (filters?.maxPrice || filters?.priceMax) {
+          query = query.lte('price', filters.maxPrice || filters.priceMax);
         }
       }
 
@@ -120,6 +123,10 @@ export const useProperties = (filters?: PropertyFilters) => {
       }
 
       // Apply location filters
+      if (filters?.location) {
+        query = query.or(`city.ilike.%${filters.location}%,state.ilike.%${filters.location}%`);
+      }
+      
       if (filters?.city) {
         query = query.ilike('city', `%${filters.city}%`);
       }

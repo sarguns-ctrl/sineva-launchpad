@@ -37,111 +37,49 @@ const Properties = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  
-  const { properties, loading, totalCount } = useProperties({ 
-    type: activeFilter, 
-    search: searchTerm 
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [advancedFilters, setAdvancedFilters] = useState({
+    priceMin: "",
+    priceMax: "",
+    location: "",
+    visaEligible: "",
+    listingType: ""
   });
 
+  // Fetch all properties to get accurate counts
+  const { properties: allProperties, loading: loadingAll } = useProperties({});
+  
+  // Fetch filtered properties
+  const { properties, loading } = useProperties({ 
+    type: activeFilter === "all" ? undefined : activeFilter, 
+    search: searchTerm,
+    priceMin: advancedFilters.priceMin ? Number(advancedFilters.priceMin) : undefined,
+    priceMax: advancedFilters.priceMax ? Number(advancedFilters.priceMax) : undefined,
+    location: advancedFilters.location || undefined,
+    listingType: advancedFilters.listingType || undefined
+  });
+
+  // Calculate counts from all properties (not filtered)
   const propertyTypes = [
-    { id: "all", label: "All Properties", count: totalCount || 0 },
-    { id: "commercial", label: "Commercial", count: properties.filter(p => p.property_type === 'commercial').length },
-    { id: "residential", label: "Residential", count: properties.filter(p => p.property_type === 'residential').length }, 
-    { id: "business", label: "Businesses", count: properties.filter(p => p.property_type === 'business').length }
+    { id: "all", label: "All Properties", count: allProperties.length },
+    { id: "commercial", label: "Commercial", count: allProperties.filter(p => p.property_type === 'commercial').length },
+    { id: "residential", label: "Residential", count: allProperties.filter(p => p.property_type === 'residential').length }, 
+    { id: "business", label: "Businesses", count: allProperties.filter(p => p.property_type === 'business').length }
   ];
 
-  const featuredProperties = [
-    {
-      id: 1,
-      title: "Downtown Office Complex",
-      type: "commercial",
-      location: "Houston, TX",
-      price: 2850000,
-      size: "12,500 sq ft",
-      image: "/api/placeholder/400/250",
-      badge: "Investment Grade",
-      features: ["Prime downtown location", "Fully leased", "Strong ROI"],
-      visaEligible: ["E-2", "EB-5"],
-      rating: 4.8,
-      views: 324
-    },
-    {
-      id: 2,
-      title: "River Oaks Estate",
-      type: "residential", 
-      location: "River Oaks, Houston, TX",
-      price: 1250000,
-      beds: 5,
-      baths: 4,
-      size: "4,200 sq ft",
-      image: "/api/placeholder/400/250",
-      badge: "Luxury",
-      features: ["Gated community", "Pool & spa", "Premium finishes"],
-      visaEligible: ["Investment Property"],
-      rating: 4.9,
-      views: 189
-    },
-    {
-      id: 3,
-      title: "Tech Consulting Firm",
-      type: "business",
-      location: "Austin, TX", 
-      price: 750000,
-      employees: "15-20",
-      revenue: "$1.2M",
-      image: "/api/placeholder/400/250",
-      badge: "E-2 Ready",
-      features: ["Established client base", "Scalable model", "Remote-friendly"],
-      visaEligible: ["E-2", "L-1"],
-      rating: 4.7,
-      views: 267
-    },
-    {
-      id: 4,
-      title: "Retail Shopping Center",
-      type: "commercial",
-      location: "Dallas, TX",
-      price: 3200000,
-      size: "18,000 sq ft", 
-      image: "/api/placeholder/400/250",
-      badge: "High Yield",
-      features: ["Multiple tenants", "Long-term leases", "Growing area"],
-      visaEligible: ["EB-5", "E-2"],
-      rating: 4.6,
-      views: 412
-    },
-    {
-      id: 5,
-      title: "Manufacturing Business",
-      type: "business",
-      location: "San Antonio, TX",
-      price: 1850000,
-      employees: "35-40",
-      revenue: "$3.8M",
-      image: "/api/placeholder/400/250", 
-      badge: "Established",
-      features: ["20+ year history", "Consistent growth", "Key contracts"],
-      visaEligible: ["E-2", "EB-5"],
-      rating: 4.8,
-      views: 156
-    },
-    {
-      id: 6,
-      title: "Luxury Penthouse",
-      type: "residential",
-      location: "Downtown Austin, TX", 
-      price: 890000,
-      beds: 3,
-      baths: 3,
-      size: "2,800 sq ft",
-      image: "/api/placeholder/400/250",
-      badge: "City Views",
-      features: ["Panoramic views", "Modern design", "Concierge service"],
-      visaEligible: ["Personal Residence"],
-      rating: 4.9,
-      views: 298
-    }
-  ];
+  const handleAdvancedFilterChange = (key: string, value: string) => {
+    setAdvancedFilters(prev => ({ ...prev, [key]: value }));
+  };
+
+  const clearAdvancedFilters = () => {
+    setAdvancedFilters({
+      priceMin: "",
+      priceMax: "",
+      location: "",
+      visaEligible: "",
+      listingType: ""
+    });
+  };
 
   const marketInsights = [
     {
@@ -163,18 +101,6 @@ const Properties = () => {
       description: "Growth in foreign real estate investment"
     }
   ];
-
-  const filterTypes = [
-    { label: "Price Range", options: ["Under $500K", "$500K - $1M", "$1M - $2M", "$2M+"] },
-    { label: "Property Type", options: ["Office", "Retail", "Industrial", "Mixed-Use"] },
-    { label: "Visa Eligible", options: ["E-2", "EB-5", "L-1", "Investment Property"] },
-    { label: "Location", options: ["Houston", "Austin", "Dallas", "San Antonio"] }
-  ];
-
-  const filteredProperties = featuredProperties.filter(property => {
-    if (activeFilter === "all") return true;
-    return property.type === activeFilter;
-  });
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -224,7 +150,11 @@ const Properties = () => {
             </div>
             
             {/* Filter Button */}
-            <Button variant="outline" className="flex items-center justify-center space-x-2 w-full lg:w-auto">
+            <Button 
+              variant="outline" 
+              className="flex items-center justify-center space-x-2 w-full lg:w-auto"
+              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+            >
               <Filter className="h-4 w-4" />
               <span className="text-sm sm:text-base">Advanced Filters</span>
             </Button>
@@ -246,6 +176,75 @@ const Properties = () => {
               </Button>
             ))}
           </div>
+
+          {/* Advanced Filters Panel */}
+          {showAdvancedFilters && (
+            <div className="mt-6 p-4 sm:p-6 bg-muted/50 rounded-lg border border-border">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-foreground">Advanced Filters</h3>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={clearAdvancedFilters}
+                  className="text-sm"
+                >
+                  Clear All
+                </Button>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Price Range */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Min Price</label>
+                  <input
+                    type="number"
+                    placeholder="Min"
+                    value={advancedFilters.priceMin}
+                    onChange={(e) => handleAdvancedFilterChange('priceMin', e.target.value)}
+                    className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Max Price</label>
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    value={advancedFilters.priceMax}
+                    onChange={(e) => handleAdvancedFilterChange('priceMax', e.target.value)}
+                    className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                {/* Location */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Location</label>
+                  <input
+                    type="text"
+                    placeholder="City or State"
+                    value={advancedFilters.location}
+                    onChange={(e) => handleAdvancedFilterChange('location', e.target.value)}
+                    className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+
+                {/* Listing Type */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-foreground">Listing Type</label>
+                  <select
+                    value={advancedFilters.listingType}
+                    onChange={(e) => handleAdvancedFilterChange('listingType', e.target.value)}
+                    className="w-full px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+                  >
+                    <option value="">All Types</option>
+                    <option value="sale">For Sale</option>
+                    <option value="rent">For Rent</option>
+                    <option value="lease">For Lease</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
