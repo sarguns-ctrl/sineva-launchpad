@@ -73,11 +73,51 @@ export const BusinessCard = ({ business, onFavorite, isFavorite }: BusinessCardP
     navigate(`/business/${business.id}`);
   };
 
+  // Get the first image from the business images array
+  const businessImage = business.images && Array.isArray(business.images) && business.images.length > 0 
+    ? business.images[0] 
+    : null;
+
   return (
     <Card 
-      className="group cursor-pointer transition-all duration-300 hover:shadow-lg border-border/50 hover:border-primary/20"
+      className="group cursor-pointer transition-all duration-300 hover:shadow-lg border-border/50 hover:border-primary/20 overflow-hidden"
       onClick={handleCardClick}
     >
+      {/* Business Image */}
+      {businessImage && (
+        <div className="relative h-48 overflow-hidden">
+          <img 
+            src={businessImage} 
+            alt={business.business_name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          
+          {/* Featured Badge */}
+          {business.featured && (
+            <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground">
+              Featured
+            </Badge>
+          )}
+          
+          {/* Favorite Button */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleFavoriteClick}
+            disabled={isAddingToFavorites}
+            className="absolute top-3 right-3 bg-white/90 hover:bg-white"
+          >
+            <Heart 
+              className={`w-4 h-4 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} 
+            />
+          </Button>
+        </div>
+      )}
+      
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
           <div className="flex-1">
@@ -85,7 +125,7 @@ export const BusinessCard = ({ business, onFavorite, isFavorite }: BusinessCardP
               <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors">
                 {business.business_name}
               </h3>
-              {business.featured && (
+              {!businessImage && business.featured && (
                 <Badge variant="secondary" className="text-xs">
                   Featured
                 </Badge>
@@ -109,17 +149,19 @@ export const BusinessCard = ({ business, onFavorite, isFavorite }: BusinessCardP
             </div>
           </div>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleFavoriteClick}
-            disabled={isAddingToFavorites}
-            className="ml-2"
-          >
-            <Heart 
-              className={`w-4 h-4 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} 
-            />
-          </Button>
+          {!businessImage && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleFavoriteClick}
+              disabled={isAddingToFavorites}
+              className="ml-2"
+            >
+              <Heart 
+                className={`w-4 h-4 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} 
+              />
+            </Button>
+          )}
         </div>
 
         <p className="text-sm text-muted-foreground mb-4 line-clamp-2">

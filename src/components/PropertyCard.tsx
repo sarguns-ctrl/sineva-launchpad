@@ -3,7 +3,6 @@ import { MapPin, Bed, Bath, Square, Heart, GitCompare, Star, Calendar, DollarSig
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { LazyImage } from './LazyImage';
 import { cn } from '@/lib/utils';
 
 interface PropertyCardProps {
@@ -74,19 +73,32 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
     }
   };
 
+  // Get the first image from the property images array  
+  const propertyImage = property.images && Array.isArray(property.images) && property.images.length > 0 
+    ? property.images[0] 
+    : null;
+
   return (
     <Card className={cn('group hover:shadow-lg transition-all duration-300 cursor-pointer', className)}>
       <div className="relative h-48 overflow-hidden rounded-t-lg">
-        <LazyImage
-          src={property.images?.[0] || '/api/placeholder/400/300'}
-          alt={property.title}
-          className="w-full h-full"
-          fallback={
-            <div className="w-full h-full bg-muted flex items-center justify-center text-4xl">
-              {getTypeIcon()}
-            </div>
-          }
-        />
+        {propertyImage ? (
+          <img
+            src={propertyImage}
+            alt={property.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+              const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+              if (fallback) fallback.style.display = 'flex';
+            }}
+          />
+        ) : null}
+        <div 
+          className="w-full h-full bg-muted items-center justify-center text-4xl"
+          style={{ display: propertyImage ? 'none' : 'flex' }}
+        >
+          {getTypeIcon()}
+        </div>
 
         {/* Overlay Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
