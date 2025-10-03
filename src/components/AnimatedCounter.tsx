@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useCountUp } from '@/hooks/useCountUp';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
@@ -21,10 +21,12 @@ const AnimatedCounter = ({
 }: AnimatedCounterProps) => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.3 });
   const { count, startAnimation } = useCountUp({ end, duration, delay });
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    if (isVisible) {
+    if (isVisible && !hasAnimated.current) {
       startAnimation();
+      hasAnimated.current = true;
     }
   }, [isVisible, startAnimation]);
 
