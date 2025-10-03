@@ -27,11 +27,27 @@ const Footer = () => {
     setIsSubmitting(true);
 
     try {
+      // Use upsert to handle duplicates gracefully
       const { error } = await supabase
         .from("subscribers")
-        .insert([{ email, user_id: user?.id }]);
+        .upsert(
+          [{ email, user_id: user?.id }],
+          { onConflict: user?.id ? 'user_id' : 'email' }
+        );
 
-      if (error) throw error;
+      if (error) {
+        // Check if it's an RLS error (user not authenticated)
+        if (error.message.includes("row-level security")) {
+          toast({
+            title: "Authentication Required",
+            description: "Please sign in to subscribe to our newsletter.",
+            variant: "destructive",
+          });
+        } else {
+          throw error;
+        }
+        return;
+      }
 
       toast({
         title: "Success!",
@@ -39,11 +55,18 @@ const Footer = () => {
       });
       setEmail("");
     } catch (error: any) {
-      toast({
-        title: "Subscription Failed",
-        description: error.message || "Please try again later.",
-        variant: "destructive",
-      });
+      if (error.message.includes("duplicate key")) {
+        toast({
+          title: "Already Subscribed",
+          description: "You're already subscribed to our newsletter!",
+        });
+      } else {
+        toast({
+          title: "Subscription Failed",
+          description: error.message || "Please try again later.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
