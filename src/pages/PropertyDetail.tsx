@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,80 +25,140 @@ import {
   DollarSign,
   Users,
   TrendingUp,
-  Shield
+  Shield,
+  Loader2
 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const PropertyDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
+  
+  const [property, setProperty] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  // Mock property data - in real app this would come from API/database
-  const property = {
-    id: id || "1",
-    title: "Downtown Office Complex",
-    type: "commercial",
-    location: "Houston, TX",
-    fullAddress: "1401 McKinney Street, Houston, TX 77010",
-    price: 2850000,
-    size: "12,500 sq ft",
-    yearBuilt: 2018,
-    badge: "Investment Grade",
-    description: "Premium downtown office complex in the heart of Houston's business district. This investment-grade property offers exceptional returns with fully leased spaces and long-term tenant agreements. Perfect for international investors seeking E-2 or EB-5 visa compliance.",
-    features: [
-      "Prime downtown location with excellent visibility",
-      "Fully leased with stable rental income",
-      "Modern Class A office building",
-      "On-site parking garage with 150 spaces",
-      "Energy-efficient HVAC and lighting systems",
-      "24/7 security and concierge services",
-      "Walking distance to metro stations",
-      "Proximity to major corporate headquarters"
-    ],
-    visaEligible: ["E-2", "EB-5"],
-    financials: {
-      capRate: "7.2%",
-      grossRent: "$425,000",
-      noi: "$385,000",
-      roi: "12.8%"
-    },
-    amenities: [
-      "High-speed fiber internet",
-      "Conference rooms and meeting spaces",
-      "Executive lounge",
-      "Fitness center",
-      "On-site restaurant and café",
-      "Rooftop garden terrace"
-    ],
-    tenants: [
-      { name: "Tech Solutions Inc.", space: "4,200 sq ft", lease: "8 years remaining" },
-      { name: "Financial Advisory Group", space: "3,800 sq ft", lease: "5 years remaining" },
-      { name: "Law Offices of Smith & Associates", space: "2,900 sq ft", lease: "6 years remaining" },
-      { name: "Consulting Partners LLC", space: "1,600 sq ft", lease: "3 years remaining" }
-    ],
-    agent: {
-      name: "Maria Rodriguez",
-      title: "Senior Commercial Specialist",
-      phone: "+1 (713) 555-0123",
-      email: "maria.rodriguez@sinevabrokerage.com",
-      languages: ["English", "Spanish", "Portuguese"]
-    },
-    images: [
-      "/api/placeholder/800/600",
-      "/api/placeholder/800/600", 
-      "/api/placeholder/800/600",
-      "/api/placeholder/800/600"
-    ],
-    virtualTour: "https://example.com/virtual-tour",
-    documents: [
-      "Property Information Package",
-      "Financial Statements (3 years)",
-      "Tenant Lease Summaries",
-      "Property Management Reports",
-      "Environmental Assessment"
-    ]
+  useEffect(() => {
+    const fetchProperty = async () => {
+      if (!id) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const { data, error: fetchError } = await supabase
+          .from('properties')
+          .select(`
+            *,
+            agent:employee_profiles(id, full_name, email, position)
+          `)
+          .eq('id', id)
+          .single();
+
+        if (fetchError) throw fetchError;
+
+        if (!data) {
+          setError(true);
+          toast({
+            title: "Property Not Found",
+            description: "The property you're looking for doesn't exist.",
+            variant: "destructive",
+          });
+          return;
+        }
+
+        setProperty(data);
+      } catch (err) {
+        console.error('Error fetching property:', err);
+        setError(true);
+        toast({
+          title: "Error",
+          description: "Failed to load property details. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperty();
+  }, [id, toast]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center space-y-4">
+            <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
+            <p className="text-muted-foreground">Loading property details...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error || !property) {
+    return (
+      <div className="min-h-screen">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center space-y-4">
+            <Building2 className="h-16 w-16 text-muted-foreground mx-auto" />
+            <h2 className="text-2xl font-bold text-foreground">Property Not Found</h2>
+            <p className="text-muted-foreground">The property you're looking for doesn't exist or has been removed.</p>
+            <Button onClick={() => navigate('/properties')}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Properties
+            </Button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const {
+    title,
+    property_type,
+    city,
+    state,
+    address,
+    price,
+    square_feet,
+    bedrooms,
+    bathrooms,
+    year_built,
+    description,
+    property_features,
+    images,
+    listing_type,
+    status,
+    featured,
+    virtual_tour_url,
+    annual_revenue,
+    employee_count,
+    agent
+  } = property;
+
+  const fullAddress = `${address}, ${city}, ${state}`;
+  const visaEligible = ["E-2", "EB-5"]; // Could come from property data
+  const features = property_features || [];
+  const propertyImages = images || [];
+  
+  const formatCurrency = (value: number) => {
+    if (value >= 1000000) {
+      return `$${(value / 1000000).toFixed(2)}M`;
+    }
+    return `$${value.toLocaleString()}`;
   };
 
   const formatPrice = (price: number) => {
@@ -110,14 +171,13 @@ const PropertyDetail = () => {
   };
 
   const getPropertyIcon = (type: string) => {
-    switch(type) {
-      case 'business': return Briefcase;
-      case 'commercial': return Building2;
-      default: return Home;
-    }
+    const lowerType = type?.toLowerCase();
+    if (lowerType === 'business') return Briefcase;
+    if (lowerType === 'commercial') return Building2;
+    return Home;
   };
 
-  const PropertyIcon = getPropertyIcon(property.type);
+  const PropertyIcon = getPropertyIcon(property_type);
 
   return (
     <div className="min-h-screen">
@@ -127,13 +187,18 @@ const PropertyDetail = () => {
       <section className="pt-24 pb-8 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-4 mb-6">
-            <Button variant="outline" size="sm" onClick={() => navigate(-1)}>
+            <Button variant="outline" size="sm" onClick={() => navigate('/properties')}>
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Properties
             </Button>
             <Badge className="bg-accent text-accent-foreground">
-              {property.badge}
+              {featured ? 'Featured' : listing_type === 'sale' ? 'For Sale' : 'For Rent'}
             </Badge>
+            {status && (
+              <Badge variant={status === 'active' ? 'default' : 'secondary'}>
+                {status}
+              </Badge>
+            )}
             <div className="flex items-center space-x-1">
               <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
               <span className="text-sm text-muted-foreground">4.8 (127 views)</span>
@@ -150,30 +215,48 @@ const PropertyDetail = () => {
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3 text-muted-foreground">
                     <PropertyIcon className="h-5 w-5" />
-                    <span className="capitalize">{property.type} Property</span>
+                    <span className="capitalize">{property_type} Property</span>
                   </div>
                   <h1 className="text-4xl md:text-5xl font-bold text-foreground font-playfair">
-                    {property.title}
+                    {title}
                   </h1>
                   <div className="flex items-center space-x-2 text-muted-foreground">
                     <MapPin className="h-5 w-5" />
-                    <span className="text-lg">{property.fullAddress}</span>
+                    <span className="text-lg">{fullAddress}</span>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center space-x-2">
-                    <Square className="h-4 w-4" />
-                    <span>{property.size}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="h-4 w-4" />
-                    <span>Built {property.yearBuilt}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <TrendingUp className="h-4 w-4" />
-                    <span>{property.financials.capRate} Cap Rate</span>
-                  </div>
+                  {square_feet && (
+                    <div className="flex items-center space-x-2">
+                      <Square className="h-4 w-4" />
+                      <span>{square_feet.toLocaleString()} sq ft</span>
+                    </div>
+                  )}
+                  {bedrooms && (
+                    <div className="flex items-center space-x-2">
+                      <Bed className="h-4 w-4" />
+                      <span>{bedrooms} beds</span>
+                    </div>
+                  )}
+                  {bathrooms && (
+                    <div className="flex items-center space-x-2">
+                      <Bath className="h-4 w-4" />
+                      <span>{bathrooms} baths</span>
+                    </div>
+                  )}
+                  {year_built && (
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="h-4 w-4" />
+                      <span>Built {year_built}</span>
+                    </div>
+                  )}
+                  {annual_revenue && (
+                    <div className="flex items-center space-x-2">
+                      <DollarSign className="h-4 w-4" />
+                      <span>{formatCurrency(annual_revenue)} revenue</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -182,7 +265,7 @@ const PropertyDetail = () => {
                 <Card className="p-6 shadow-elegant">
                   <div className="text-center space-y-4">
                     <div className="text-4xl font-bold text-primary font-playfair">
-                      <AnimatedCounter end={property.price} prefix="$" />
+                      <AnimatedCounter end={price} prefix="$" />
                     </div>
                     <div className="space-y-2">
                       <Button size="lg" className="w-full shadow-button">
@@ -209,7 +292,7 @@ const PropertyDetail = () => {
                     Visa Eligible
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {property.visaEligible.map((visa, idx) => (
+                    {visaEligible.map((visa, idx) => (
                       <Badge key={idx} variant="secondary">
                         {visa}
                       </Badge>
@@ -226,17 +309,36 @@ const PropertyDetail = () => {
       <section className="py-8 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {property.images.map((image, index) => (
-              <div key={index} className="aspect-video bg-gradient-primary rounded-lg flex items-center justify-center relative overflow-hidden group cursor-pointer">
+            {propertyImages.length > 0 ? (
+              propertyImages.map((image: string, index: number) => (
+                <div key={index} className="aspect-video rounded-lg relative overflow-hidden group cursor-pointer">
+                  <img 
+                    src={image} 
+                    alt={`${title} - Image ${index + 1}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = 'flex';
+                    }}
+                  />
+                  <div 
+                    className="absolute inset-0 bg-gradient-primary hidden items-center justify-center"
+                  >
+                    <PropertyIcon className="h-12 w-12 text-white/30" />
+                  </div>
+                  {index === 0 && virtual_tour_url && (
+                    <Badge className="absolute top-2 left-2 bg-accent text-accent-foreground">
+                      Virtual Tour Available
+                    </Badge>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="aspect-video bg-gradient-primary rounded-lg flex items-center justify-center col-span-full">
                 <PropertyIcon className="h-12 w-12 text-white/30" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
-                {index === 0 && (
-                  <Badge className="absolute top-2 left-2 bg-accent text-accent-foreground">
-                    Virtual Tour Available
-                  </Badge>
-                )}
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -250,62 +352,66 @@ const PropertyDetail = () => {
               {/* Description */}
               <div>
                 <h2 className="text-3xl font-bold mb-6 font-playfair">Property Description</h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">{property.description}</p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  {description || 'No description available for this property.'}
+                </p>
               </div>
 
               {/* Key Features */}
-              <div>
-                <h3 className="text-2xl font-bold mb-6 font-playfair">Key Features</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {property.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Financial Overview */}
-              <div>
-                <h3 className="text-2xl font-bold mb-6 font-playfair">Financial Overview</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary font-playfair">{property.financials.capRate}</div>
-                    <div className="text-sm text-muted-foreground">Cap Rate</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary font-playfair">{property.financials.grossRent}</div>
-                    <div className="text-sm text-muted-foreground">Annual Gross Rent</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary font-playfair">{property.financials.noi}</div>
-                    <div className="text-sm text-muted-foreground">Net Operating Income</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary font-playfair">{property.financials.roi}</div>
-                    <div className="text-sm text-muted-foreground">ROI Projection</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Tenant Information */}
-              <div>
-                <h3 className="text-2xl font-bold mb-6 font-playfair">Current Tenants</h3>
-                <div className="space-y-4">
-                  {property.tenants.map((tenant, idx) => (
-                    <Card key={idx} className="p-4 shadow-card">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="font-semibold">{tenant.name}</h4>
-                          <p className="text-sm text-muted-foreground">{tenant.space}</p>
-                        </div>
-                        <Badge variant="secondary">
-                          {tenant.lease}
-                        </Badge>
+              {features.length > 0 && (
+                <div>
+                  <h3 className="text-2xl font-bold mb-6 font-playfair">Key Features</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {features.map((feature: string, idx: number) => (
+                      <div key={idx} className="flex items-start space-x-3">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span className="text-muted-foreground">{feature}</span>
                       </div>
-                    </Card>
-                  ))}
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Property Details */}
+              <div>
+                <h3 className="text-2xl font-bold mb-6 font-playfair">Property Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {square_feet && (
+                    <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+                      <span className="text-muted-foreground">Square Footage</span>
+                      <span className="font-semibold">{square_feet.toLocaleString()} sq ft</span>
+                    </div>
+                  )}
+                  {bedrooms && (
+                    <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+                      <span className="text-muted-foreground">Bedrooms</span>
+                      <span className="font-semibold">{bedrooms}</span>
+                    </div>
+                  )}
+                  {bathrooms && (
+                    <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+                      <span className="text-muted-foreground">Bathrooms</span>
+                      <span className="font-semibold">{bathrooms}</span>
+                    </div>
+                  )}
+                  {year_built && (
+                    <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+                      <span className="text-muted-foreground">Year Built</span>
+                      <span className="font-semibold">{year_built}</span>
+                    </div>
+                  )}
+                  {annual_revenue && (
+                    <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+                      <span className="text-muted-foreground">Annual Revenue</span>
+                      <span className="font-semibold">{formatCurrency(annual_revenue)}</span>
+                    </div>
+                  )}
+                  {employee_count && (
+                    <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+                      <span className="text-muted-foreground">Employees</span>
+                      <span className="font-semibold">{employee_count}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -313,59 +419,78 @@ const PropertyDetail = () => {
             {/* Sidebar */}
             <div className="space-y-8">
               {/* Agent Contact */}
-              <Card className="p-6 shadow-elegant">
-                <h3 className="text-xl font-bold mb-4">Your Agent</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center">
-                      <Users className="h-6 w-6 text-white" />
+              {agent && (
+                <Card className="p-6 shadow-elegant">
+                  <h3 className="text-xl font-bold mb-4">Contact Agent</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center">
+                        <Users className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <div className="font-semibold">{agent.full_name || 'Grupo Sineva Agent'}</div>
+                        <div className="text-sm text-muted-foreground">{agent.position || 'Real Estate Specialist'}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-semibold">{property.agent.name}</div>
-                      <div className="text-sm text-muted-foreground">{property.agent.title}</div>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2 text-sm">
+                        <Phone className="h-4 w-4 text-primary" />
+                        <span>+1 (832) 289-6124</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm">
+                        <Mail className="h-4 w-4 text-primary" />
+                        <span>{agent.email || 'contact@sinevagrupo.com'}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Button className="w-full" onClick={() => window.open('tel:+18322896124')}>
+                        <Phone className="h-4 w-4 mr-2" />
+                        Call Agent
+                      </Button>
+                      <Button variant="outline" className="w-full" onClick={() => window.open(`mailto:${agent.email || 'contact@sinevagrupo.com'}`)}>
+                        <Mail className="h-4 w-4 mr-2" />
+                        Send Message
+                      </Button>
                     </div>
                   </div>
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2 text-sm">
-                      <Phone className="h-4 w-4 text-primary" />
-                      <span>{property.agent.phone}</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-sm">
-                      <Mail className="h-4 w-4 text-primary" />
-                      <span>{property.agent.email}</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-sm">
-                      <Globe className="h-4 w-4 text-primary" />
-                      <span>{property.agent.languages.join(', ')}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Button className="w-full">
-                      <Phone className="h-4 w-4 mr-2" />
-                      Call Agent
-                    </Button>
-                    <Button variant="outline" className="w-full">
-                      <Mail className="h-4 w-4 mr-2" />
-                      Send Message
-                    </Button>
-                  </div>
-                </div>
-              </Card>
+                </Card>
+              )}
 
-              {/* Documents */}
-              <Card className="p-6 shadow-card">
-                <h3 className="text-xl font-bold mb-4">Available Documents</h3>
-                <div className="space-y-2">
-                  {property.documents.map((doc, idx) => (
-                    <Button key={idx} variant="ghost" className="w-full justify-start text-sm">
-                      <Shield className="h-4 w-4 mr-2" />
-                      {doc}
-                    </Button>
-                  ))}
-                </div>
-              </Card>
+              {/* Contact Info Card */}
+              {!agent && (
+                <Card className="p-6 shadow-elegant">
+                  <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2 text-sm">
+                        <Phone className="h-4 w-4 text-primary" />
+                        <span>+1 (832) 289-6124</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm">
+                        <Mail className="h-4 w-4 text-primary" />
+                        <span>contact@sinevagrupo.com</span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-sm">
+                        <MapPin className="h-4 w-4 text-primary" />
+                        <span>5718 Westheimer Rd, Suite 1000, Houston, TX 77057</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Button className="w-full" onClick={() => window.open('tel:+18322896124')}>
+                        <Phone className="h-4 w-4 mr-2" />
+                        Call Us
+                      </Button>
+                      <Button variant="outline" className="w-full" onClick={() => window.open('mailto:contact@sinevagrupo.com')}>
+                        <Mail className="h-4 w-4 mr-2" />
+                        Send Email
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              )}
 
               {/* Quick Stats */}
               <Card className="p-6 shadow-card">
@@ -373,19 +498,19 @@ const PropertyDetail = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Property ID</span>
-                    <span className="font-medium">#{property.id}</span>
+                    <span className="font-medium text-xs">#{id}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Listed</span>
-                    <span className="font-medium">30 days ago</span>
+                    <span className="text-muted-foreground">Status</span>
+                    <span className="font-medium capitalize">{status}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Views</span>
-                    <span className="font-medium">127</span>
+                    <span className="text-muted-foreground">Listing Type</span>
+                    <span className="font-medium capitalize">{listing_type}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Inquiries</span>
-                    <span className="font-medium">23</span>
+                    <span className="text-muted-foreground">Property Type</span>
+                    <span className="font-medium capitalize">{property_type}</span>
                   </div>
                 </div>
               </Card>
