@@ -39,7 +39,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border shadow-lg">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-xl border-b border-primary-glow/30 shadow-elegant">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo with enhanced typography */}
@@ -60,11 +60,11 @@ const Navigation = () => {
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  className="font-space text-sm font-medium text-foreground hover:text-primary transition-all duration-300 px-3 py-2 h-auto group relative"
+                  className="font-space text-sm font-medium text-primary-foreground hover:text-white transition-all duration-300 px-3 py-2 h-auto group relative"
                 >
                   Properties
                   <ChevronDown className="ml-1 h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
-                  <span className="absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 w-0 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 w-0 group-hover:w-full" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48 bg-background border border-border shadow-lg z-[60]">
@@ -89,13 +89,13 @@ const Navigation = () => {
                   to={item.href}
                   className={`font-space text-sm font-medium transition-all duration-300 hover:scale-105 relative group px-3 py-2 ${
                     isActive 
-                      ? 'text-primary font-semibold' 
-                      : 'text-foreground hover:text-primary'
+                      ? 'text-white font-semibold' 
+                      : 'text-primary-foreground hover:text-white'
                   }`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {item.name}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
                     isActive ? 'w-full' : 'w-0 group-hover:w-full'
                   }`} />
                 </Link>
@@ -107,11 +107,11 @@ const Navigation = () => {
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  className="font-space text-sm font-medium text-foreground hover:text-primary transition-all duration-300 px-3 py-2 h-auto group relative"
+                  className="font-space text-sm font-medium text-primary-foreground hover:text-white transition-all duration-300 px-3 py-2 h-auto group relative"
                 >
                   Services
                   <ChevronDown className="ml-1 h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
-                  <span className="absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 w-0 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 w-0 group-hover:w-full" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-56 bg-background border border-border shadow-lg z-[60]">
@@ -133,11 +133,11 @@ const Navigation = () => {
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant="ghost" 
-                  className="font-space text-sm font-medium text-foreground hover:text-primary transition-all duration-300 px-3 py-2 h-auto group relative"
+                  className="font-space text-sm font-medium text-primary-foreground hover:text-white transition-all duration-300 px-3 py-2 h-auto group relative"
                 >
                   Agents
                   <ChevronDown className="ml-1 h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
-                  <span className="absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 w-0 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 w-0 group-hover:w-full" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48 bg-background border border-border shadow-lg z-[60]">
@@ -163,13 +163,13 @@ const Navigation = () => {
                   to={item.href}
                   className={`font-space text-sm font-medium transition-all duration-300 hover:scale-105 relative group px-3 py-2 ${
                     isActive 
-                      ? 'text-primary font-semibold' 
-                      : 'text-foreground hover:text-primary'
+                      ? 'text-white font-semibold' 
+                      : 'text-primary-foreground hover:text-white'
                   }`}
                   style={{ animationDelay: `${(index + 4) * 100}ms` }}
                 >
                   {item.name}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 ${
                     isActive ? 'w-full' : 'w-0 group-hover:w-full'
                   }`} />
                 </Link>
@@ -182,7 +182,7 @@ const Navigation = () => {
             <NavigationSearch />
             <LanguageSwitcher />
             
-            <div className="hidden xl:flex items-center space-x-2 text-sm text-muted-foreground">
+            <div className="hidden xl:flex items-center space-x-2 text-sm text-primary-foreground/80">
               <Phone className="w-4 h-4" />
               <span className="font-mono">+1 (555) 123-4567</span>
             </div>
@@ -216,7 +216,7 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300">
+              <Button asChild className="bg-white hover:bg-white/90 text-primary shadow-lg hover:shadow-xl transition-all duration-300 font-semibold">
                 <Link to="/auth">
                   <User className="w-4 h-4 mr-2" />
                   Sign In
@@ -232,7 +232,7 @@ const Navigation = () => {
             </div>
             <LanguageSwitcher />
             {!user && (
-              <Button size="sm" asChild className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-md">
+              <Button size="sm" asChild className="bg-white hover:bg-white/90 text-primary shadow-md font-semibold">
                 <Link to="/auth">Sign In</Link>
               </Button>
             )}
@@ -250,18 +250,18 @@ const Navigation = () => {
 
       {/* Mobile Navigation with full functionality */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-background/98 backdrop-blur-xl border-t border-border shadow-lg">
+        <div className="lg:hidden bg-primary/98 backdrop-blur-xl border-t border-primary-glow/30 shadow-elegant">
           <div className="px-4 py-6 space-y-4">
             {/* Mobile Properties Section */}
             <div className="space-y-2">
-              <div className="font-space text-base font-semibold text-foreground py-2 border-b border-border">
+              <div className="font-space text-base font-semibold text-primary-foreground py-2 border-b border-primary-glow/30">
                 Properties
               </div>
               {propertyItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block font-space text-sm text-muted-foreground hover:text-primary transition-all duration-300 py-2 pl-4"
+                  className="block font-space text-sm text-primary-foreground/80 hover:text-white transition-all duration-300 py-2 pl-4"
                   onClick={() => setIsMenuOpen(false)}
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
@@ -276,10 +276,10 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block font-space text-base font-medium transition-all duration-300 py-3 px-3 border-b border-border last:border-b-0 rounded ${
+                  className={`block font-space text-base font-medium transition-all duration-300 py-3 px-3 border-b border-primary-glow/30 last:border-b-0 rounded ${
                     isActive 
-                      ? 'text-primary font-semibold bg-primary/10' 
-                      : 'text-foreground hover:text-primary hover:bg-primary/5'
+                      ? 'text-white font-semibold bg-white/10' 
+                      : 'text-primary-foreground hover:text-white hover:bg-white/5'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                   style={{ animationDelay: `${(propertyItems.length + index) * 50}ms` }}
@@ -291,14 +291,14 @@ const Navigation = () => {
             
             {/* Mobile Services Section */}
             <div className="space-y-2">
-              <div className="font-space text-base font-semibold text-foreground py-2 border-b border-border">
+              <div className="font-space text-base font-semibold text-primary-foreground py-2 border-b border-primary-glow/30">
                 Services
               </div>
               {servicesItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block font-space text-sm text-muted-foreground hover:text-primary transition-all duration-300 py-2 pl-4"
+                  className="block font-space text-sm text-primary-foreground/80 hover:text-white transition-all duration-300 py-2 pl-4"
                   onClick={() => setIsMenuOpen(false)}
                   style={{ animationDelay: `${(navigationItems.length + index) * 50}ms` }}
                 >
@@ -309,14 +309,14 @@ const Navigation = () => {
 
             {/* Mobile Agents Section */}
             <div className="space-y-2">
-              <div className="font-space text-base font-semibold text-foreground py-2 border-b border-border">
+              <div className="font-space text-base font-semibold text-primary-foreground py-2 border-b border-primary-glow/30">
                 Agents
               </div>
               {agentItems.map((item, index) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block font-space text-sm text-muted-foreground hover:text-primary transition-all duration-300 py-2 pl-4"
+                  className="block font-space text-sm text-primary-foreground/80 hover:text-white transition-all duration-300 py-2 pl-4"
                   onClick={() => setIsMenuOpen(false)}
                   style={{ animationDelay: `${(navigationItems.length + servicesItems.length + index) * 50}ms` }}
                 >
@@ -330,7 +330,7 @@ const Navigation = () => {
                 <NavigationSearch />
               </div>
               
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground px-3">
+              <div className="flex items-center space-x-2 text-sm text-primary-foreground/80 px-3">
                 <Phone className="w-4 h-4" />
                 <span className="font-mono">+1 (555) 123-4567</span>
               </div>
@@ -338,13 +338,13 @@ const Navigation = () => {
               <div className="flex space-x-3">
                 {user ? (
                   <>
-                    <Button variant="outline" className="flex-1 border-primary/30 hover:bg-primary/10" asChild>
+                    <Button variant="outline" className="flex-1 border-white/30 text-primary-foreground hover:bg-white/10" asChild>
                       <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
                         <User className="w-4 h-4 mr-2" />
                         Dashboard
                       </Link>
                     </Button>
-                    <Button variant="outline" className="flex-1 border-primary/30 hover:bg-primary/10" asChild>
+                    <Button variant="outline" className="flex-1 border-white/30 text-primary-foreground hover:bg-white/10" asChild>
                       <Link to="/crm" onClick={() => setIsMenuOpen(false)}>
                         <User className="w-4 h-4 mr-2" />
                         CRM
@@ -359,7 +359,7 @@ const Navigation = () => {
                     </Button>
                   </>
                 ) : (
-                  <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg" asChild>
+                  <Button className="w-full bg-white hover:bg-white/90 text-primary shadow-lg font-semibold" asChild>
                     <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
                       <User className="w-4 h-4 mr-2" />
                       Sign In
