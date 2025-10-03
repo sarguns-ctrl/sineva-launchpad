@@ -324,6 +324,35 @@ const Properties = () => {
               <Card key={property.id} className="group hover:shadow-elegant transition-all duration-300 border-0 shadow-card overflow-hidden">
                 {/* Property Image */}
                 <div className="relative h-64 bg-muted overflow-hidden">
+                  {property.images && Array.isArray(property.images) && property.images.length > 0 ? (
+                    <img
+                      src={property.images[0]}
+                      alt={property.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  
+                  {/* Fallback placeholder */}
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center bg-muted"
+                    style={{ display: property.images && property.images.length > 0 ? 'none' : 'flex' }}
+                  >
+                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
+                      {property.property_type === 'business' ? (
+                        <Briefcase className="h-8 w-8 text-primary" />
+                      ) : property.property_type === 'commercial' ? (
+                        <Building2 className="h-8 w-8 text-primary" />
+                      ) : (
+                        <Home className="h-8 w-8 text-primary" />
+                      )}
+                    </div>
+                  </div>
+                  
                   <div className="absolute inset-0 bg-gradient-primary opacity-20"></div>
                   
                   {/* Badges */}
@@ -339,19 +368,6 @@ const Properties = () => {
                   >
                     <Heart className="h-4 w-4" />
                   </Button>
-
-                  {/* Property Image Placeholder */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
-                      {property.property_type === 'business' ? (
-                        <Briefcase className="h-8 w-8 text-primary" />
-                      ) : property.property_type === 'commercial' ? (
-                        <Building2 className="h-8 w-8 text-primary" />
-                      ) : (
-                        <Home className="h-8 w-8 text-primary" />
-                      )}
-                    </div>
-                  </div>
 
                   {/* View Count & Rating */}
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">

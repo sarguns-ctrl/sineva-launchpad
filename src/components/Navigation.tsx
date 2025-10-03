@@ -44,11 +44,11 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo with enhanced typography */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="h-14 flex items-center">
+            <div className="h-20 flex items-center">
               <img 
                 src="/logo-sineva-grupo.svg" 
                 alt="Sineva Grupo Logo" 
-                className="h-14 w-auto object-contain group-hover:scale-110 transition-all duration-300"
+                className="h-20 w-auto object-contain group-hover:scale-110 transition-all duration-300"
               />
             </div>
           </Link>
@@ -184,7 +184,7 @@ const Navigation = () => {
             
             <div className="hidden xl:flex items-center space-x-2 text-sm text-primary-foreground/80">
               <Phone className="w-4 h-4" />
-              <span className="font-mono">+1 (555) 123-4567</span>
+              <span className="font-mono whitespace-nowrap">+1 (555) 123-4567</span>
             </div>
             
             {user ? (
@@ -332,7 +332,7 @@ const Navigation = () => {
               
               <div className="flex items-center space-x-2 text-sm text-primary-foreground/80 px-3">
                 <Phone className="w-4 h-4" />
-                <span className="font-mono">+1 (555) 123-4567</span>
+                <span className="font-mono whitespace-nowrap">+1 (555) 123-4567</span>
               </div>
               
               <div className="flex space-x-3">
