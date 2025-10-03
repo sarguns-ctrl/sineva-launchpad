@@ -14,9 +14,13 @@ const Navigation = () => {
   const location = useLocation();
 
   const navigationItems = [
-    { name: 'Properties', href: '/properties' },
     { name: 'Businesses', href: '/businesses' },
     { name: 'Franchise with Us', href: '/franchise' },
+  ];
+
+  const propertyItems = [
+    { name: 'Properties', href: '/properties' },
+    { name: 'New Properties', href: '/new-properties' },
   ];
 
   const agentItems = [
@@ -51,7 +55,33 @@ const Navigation = () => {
 
           {/* Desktop Navigation with improved structure */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigationItems.slice(0, 2).map((item, index) => {
+            {/* Properties Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="font-space text-sm font-medium text-primary-foreground hover:text-accent transition-all duration-300 p-0 h-auto bg-transparent hover:bg-transparent group relative"
+                >
+                  Properties
+                  <ChevronDown className="ml-1 h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
+                  <span className="absolute -bottom-1 left-0 h-0.5 bg-accent transition-all duration-300 w-0 group-hover:w-full" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48 bg-background border shadow-lg z-50 animate-fade-in">
+                {propertyItems.map((item) => (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link
+                      to={item.href}
+                      className="w-full cursor-pointer hover:bg-accent/10 transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {navigationItems.slice(0, 1).map((item, index) => {
               const isActive = location.pathname === item.href;
               return (
                 <Link
@@ -125,7 +155,7 @@ const Navigation = () => {
             </DropdownMenu>
 
             {/* Remaining navigation items */}
-            {navigationItems.slice(2).map((item, index) => {
+            {navigationItems.slice(1).map((item, index) => {
               const isActive = location.pathname === item.href;
               return (
                 <Link
@@ -222,6 +252,24 @@ const Navigation = () => {
       {isMenuOpen && (
         <div className="lg:hidden bg-primary/98 backdrop-blur-xl border-t border-primary-glow/30 shadow-elegant">
           <div className="px-4 py-6 space-y-4">
+            {/* Mobile Properties Section */}
+            <div className="space-y-2">
+              <div className="font-space text-base font-medium text-primary-foreground py-2 border-b border-primary-glow/30">
+                Properties
+              </div>
+              {propertyItems.map((item, index) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="block font-space text-sm text-primary-foreground/70 hover:text-accent transition-all duration-300 py-2 pl-4"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+
             {navigationItems.map((item, index) => {
               const isActive = location.pathname === item.href;
               return (
@@ -234,7 +282,7 @@ const Navigation = () => {
                       : 'text-primary-foreground hover:text-accent hover:bg-accent/5'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
-                  style={{ animationDelay: `${index * 50}ms` }}
+                  style={{ animationDelay: `${(propertyItems.length + index) * 50}ms` }}
                 >
                   {item.name}
                 </Link>

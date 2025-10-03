@@ -76,6 +76,7 @@ import VideoCallsPage from "./pages/VideoCallsPage";
 import AdvancedSearchPage from "./pages/AdvancedSearchPage";
 import AdvancedAnalyticsPage from "./pages/AdvancedAnalyticsPage";
 import MarketInsights from "./pages/MarketInsights";
+import NewProperties from "./pages/NewProperties";
 
 const queryClient = new QueryClient();
 
@@ -96,6 +97,7 @@ const App = () => {
         <Route path="/services" element={<Services />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/properties" element={<Properties />} />
+          <Route path="/new-properties" element={<NewProperties />} />
         <Route path="/markets" element={<Markets />} />
         <Route path="/markets/:marketId" element={<MarketDetail />} />
           <Route path="/about" element={<About />} />
