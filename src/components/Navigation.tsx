@@ -44,11 +44,11 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo with enhanced typography */}
           <Link to="/" className="flex items-center space-x-3 group">
-            <div className="h-20 flex items-center">
+            <div className="h-16 flex items-center">
               <img 
                 src="/logo-sineva-grupo.svg" 
                 alt="Sineva Grupo Logo" 
-                className="h-20 w-auto object-contain group-hover:scale-110 transition-all duration-300"
+                className="h-16 w-auto object-contain group-hover:scale-105 transition-all duration-300"
               />
             </div>
           </Link>
@@ -190,7 +190,7 @@ const Navigation = () => {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="hover:bg-muted">
+                  <Button variant="ghost" size="sm" className="text-primary-foreground hover:text-white hover:bg-white/10">
                     <User className="w-4 h-4 mr-2" />
                     {user.user_metadata?.full_name || 'Account'}
                     <ChevronDown className="w-3 h-3 ml-1" />
@@ -216,7 +216,7 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 font-semibold">
+              <Button asChild className="bg-white/20 hover:bg-white/30 text-white border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold">
                 <Link to="/auth">
                   <User className="w-4 h-4 mr-2" />
                   Sign In
@@ -232,7 +232,7 @@ const Navigation = () => {
             </div>
             <LanguageSwitcher />
             {!user && (
-              <Button size="sm" asChild className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-md font-semibold">
+              <Button size="sm" asChild className="bg-white/20 hover:bg-white/30 text-white border border-white/30 shadow-md font-semibold">
                 <Link to="/auth">Sign In</Link>
               </Button>
             )}
@@ -359,7 +359,7 @@ const Navigation = () => {
                     </Button>
                   </>
                 ) : (
-                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg font-semibold" asChild>
+                  <Button className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 shadow-lg font-semibold" asChild>
                     <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
                       <User className="w-4 h-4 mr-2" />
                       Sign In
