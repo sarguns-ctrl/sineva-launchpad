@@ -216,7 +216,7 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button asChild className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300">
                 <Link to="/auth">
                   <User className="w-4 h-4 mr-2" />
                   Sign In
@@ -232,7 +232,7 @@ const Navigation = () => {
             </div>
             <LanguageSwitcher />
             {!user && (
-              <Button size="sm" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button size="sm" asChild className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-md">
                 <Link to="/auth">Sign In</Link>
               </Button>
             )}
@@ -338,19 +338,19 @@ const Navigation = () => {
               <div className="flex space-x-3">
                 {user ? (
                   <>
-                    <Button variant="outline" className="flex-1" asChild>
+                    <Button variant="outline" className="flex-1 border-primary/30 hover:bg-primary/10" asChild>
                       <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
                         <User className="w-4 h-4 mr-2" />
                         Dashboard
                       </Link>
                     </Button>
-                    <Button variant="outline" className="flex-1" asChild>
+                    <Button variant="outline" className="flex-1 border-primary/30 hover:bg-primary/10" asChild>
                       <Link to="/crm" onClick={() => setIsMenuOpen(false)}>
                         <User className="w-4 h-4 mr-2" />
                         CRM
                       </Link>
                     </Button>
-                    <Button variant="destructive" className="flex-1" onClick={() => {
+                    <Button variant="destructive" className="flex-1 shadow-md" onClick={() => {
                       signOut();
                       setIsMenuOpen(false);
                     }}>
@@ -359,7 +359,7 @@ const Navigation = () => {
                     </Button>
                   </>
                 ) : (
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" asChild>
+                  <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg" asChild>
                     <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
                       <User className="w-4 h-4 mr-2" />
                       Sign In
