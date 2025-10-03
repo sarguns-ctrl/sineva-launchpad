@@ -205,11 +205,7 @@ const PropertyDetail = () => {
             </div>
           </div>
           
-          <div 
-            ref={headerRef}
-            className={`transition-all duration-1000 ${headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Property Info */}
               <div className="lg:col-span-2 space-y-6">
                 <div className="space-y-4">
@@ -301,7 +297,6 @@ const PropertyDetail = () => {
                 </Card>
               </div>
             </div>
-          </div>
         </div>
       </section>
 
