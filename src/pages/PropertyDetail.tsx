@@ -184,7 +184,7 @@ const PropertyDetail = () => {
       <Navigation />
       
       {/* Header */}
-      <section className="pt-24 pb-8 bg-background">
+      <section className="pt-24 pb-4 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-4 mb-6">
             <Button variant="outline" size="sm" onClick={() => navigate('/properties')}>
@@ -306,7 +306,7 @@ const PropertyDetail = () => {
       </section>
 
       {/* Property Gallery */}
-      <section className="py-8 bg-muted/30">
+      <section className="pt-4 pb-8 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {propertyImages.length > 0 ? (
