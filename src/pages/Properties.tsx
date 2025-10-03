@@ -196,10 +196,10 @@ const Properties = () => {
             <Badge className="bg-accent text-accent-foreground px-6 py-2 text-sm font-medium">
               PROPERTY LISTINGS
             </Badge>
-            <h1 className="text-5xl md:text-6xl font-bold text-white font-playfair">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white font-playfair">
               Investment-Grade Properties
             </h1>
-            <p className="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed">
               Discover premium real estate opportunities specifically curated for international 
               investors and immigration visa requirements across Texas and beyond.
             </p>
@@ -208,36 +208,36 @@ const Properties = () => {
       </section>
 
       {/* Search and Filters */}
-      <section className="py-8 bg-background border-b border-border">
+      <section className="py-6 sm:py-8 bg-background border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-6 items-center">
+          <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-stretch lg:items-center">
             {/* Search Bar */}
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <div className="flex-1 relative w-full">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search by location, property type, or business name..."
-                className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                placeholder="Search properties..."
+                className="w-full pl-9 sm:pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             
             {/* Filter Button */}
-            <Button variant="outline" className="flex items-center space-x-2">
+            <Button variant="outline" className="flex items-center justify-center space-x-2 w-full lg:w-auto">
               <Filter className="h-4 w-4" />
-              <span>Advanced Filters</span>
+              <span className="text-sm sm:text-base">Advanced Filters</span>
             </Button>
           </div>
 
           {/* Property Type Tabs */}
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-4 sm:mt-6 flex flex-wrap gap-2">
             {propertyTypes.map((type) => (
               <Button
                 key={type.id}
                 variant={activeFilter === type.id ? "default" : "outline"}
                 onClick={() => setActiveFilter(type.id)}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-1.5 sm:space-x-2 text-xs sm:text-sm px-3 sm:px-4"
               >
                 <span>{type.label}</span>
                 <Badge variant="secondary" className="text-xs">
@@ -250,18 +250,18 @@ const Properties = () => {
       </section>
 
       {/* Market Insights Bar */}
-      <section className="py-6 bg-muted/30">
+      <section className="py-4 sm:py-6 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             {marketInsights.map((insight, index) => (
-              <div key={index} className="flex items-center space-x-3 bg-background rounded-lg p-4 shadow-sm">
-                <TrendingUp className="h-6 w-6 text-green-600" />
-                <div className="flex-1">
-                  <div className="flex items-center space-x-2">
-                    <span className="font-semibold text-foreground">{insight.title}</span>
-                    <Badge className="bg-green-100 text-green-700 text-xs">{insight.change}</Badge>
+              <div key={index} className="flex items-start sm:items-center space-x-2 sm:space-x-3 bg-background rounded-lg p-3 sm:p-4 shadow-sm">
+                <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 flex-shrink-0 mt-0.5 sm:mt-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                    <span className="font-semibold text-sm sm:text-base text-foreground truncate">{insight.title}</span>
+                    <Badge className="bg-green-100 text-green-700 text-xs w-fit">{insight.change}</Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground">{insight.description}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{insight.description}</p>
                 </div>
               </div>
             ))}
@@ -270,24 +270,24 @@ const Properties = () => {
       </section>
 
       {/* Property Listings */}
-      <section className="py-16 bg-background">
+      <section className="py-8 sm:py-12 md:py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-foreground font-playfair">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-playfair">
               {loading ? (
                 <div className="flex items-center space-x-2">
                   <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
-                  <span>Loading Properties...</span>
+                  <span className="text-base sm:text-2xl">Loading Properties...</span>
                 </div>
               ) : (
                 `Featured Properties (${properties.length})`
               )}
             </h2>
-            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <span>Sort by:</span>
-              <Button variant="ghost" size="sm">Price</Button>
-              <Button variant="ghost" size="sm">Date Listed</Button>
-              <Button variant="ghost" size="sm">Rating</Button>
+            <div className="flex items-center flex-wrap gap-2 text-sm text-muted-foreground">
+              <span className="hidden sm:inline">Sort by:</span>
+              <Button variant="ghost" size="sm" className="text-xs sm:text-sm">Price</Button>
+              <Button variant="ghost" size="sm" className="text-xs sm:text-sm">Date Listed</Button>
+              <Button variant="ghost" size="sm" className="text-xs sm:text-sm">Rating</Button>
             </div>
           </div>
 
@@ -492,8 +492,8 @@ const Properties = () => {
           )}
 
           {/* Load More Button */}
-          <div className="text-center mt-12">
-            <Button size="lg" variant="outline" className="shadow-button">
+          <div className="text-center mt-8 sm:mt-12">
+            <Button size="lg" variant="outline" className="shadow-button w-full sm:w-auto">
               Load More Properties
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -502,14 +502,14 @@ const Properties = () => {
       </section>
 
       {/* Related Services Sidebar */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-8 sm:py-12 md:py-16 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
             <div className="lg:col-span-3">
-              <h2 className="text-3xl font-bold text-foreground font-playfair mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground font-playfair mb-6 sm:mb-8">
                 Why Choose Our Properties?
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                 <Card className="p-6 text-center">
                   <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Visa Compliant</h3>
