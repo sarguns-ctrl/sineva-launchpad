@@ -352,18 +352,18 @@ ${formData.message}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
             <a 
-              href="tel:+15551234567" 
+              href="tel:+18322896124" 
               className="flex items-center justify-center space-x-2 text-sm text-primary hover:text-accent transition-colors"
             >
               <Phone className="w-4 h-4" />
-              <span>+1 (555) 123-4567</span>
+              <span>+1 (832) 289-6124</span>
             </a>
             <a 
-              href="mailto:invest@sineva.com" 
+              href="mailto:contact@sinevagrupo.com" 
               className="flex items-center justify-center space-x-2 text-sm text-primary hover:text-accent transition-colors"
             >
               <Mail className="w-4 h-4" />
-              <span>invest@sineva.com</span>
+              <span>contact@sinevagrupo.com</span>
             </a>
             <div className="flex items-center justify-center space-x-2 text-sm text-muted-foreground">
               <Globe className="w-4 h-4" />

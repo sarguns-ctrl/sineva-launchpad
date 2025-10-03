@@ -63,8 +63,8 @@ const PressMedia = () => {
     {
       name: "Maria Rodriguez",
       title: "Director of Communications",
-      phone: "+1 (713) 555-0130",
-      email: "media@sinevabrokeragre.com",
+      phone: "+1 (832) 289-6124",
+      email: "contact@sinevagrupo.com",
       region: "North America"
     },
     {

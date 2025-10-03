@@ -12,9 +12,9 @@ const GlobalPresence = () => {
         {
           city: "Houston",
           country: "USA",
-          address: "2200 Post Oak Blvd, Suite 1000",
-          phone: "+1 (713) 555-0123",
-          email: "houston@sinevabrokeragre.com",
+          address: "5718 Westheimer Rd, Suite 1000",
+          phone: "+1 (832) 289-6124",
+          email: "contact@sinevagrupo.com",
           agents: 45,
           isHeadquarters: true
         },

@@ -296,7 +296,7 @@ const FranchiseWithUs = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold mb-2">+1 (555) 123-4567</p>
+                <p className="text-2xl font-bold mb-2">+1 (832) 289-6124</p>
                 <p className="text-white/80">Speak with a franchise consultant</p>
               </CardContent>
             </Card>

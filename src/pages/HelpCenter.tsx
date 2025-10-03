@@ -130,7 +130,7 @@ const HelpCenter = () => {
     {
       title: "Phone Support",
       description: "Speak directly with a specialist",
-      availability: "+1 (713) 555-0100",
+      availability: "+1 (832) 289-6124",
       icon: Phone,
       action: "Call Now",
       primary: false

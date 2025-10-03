@@ -125,15 +125,15 @@ const Footer = () => {
               <div className="space-y-2 text-sm">
                 <div className="flex items-center space-x-2">
                   <MapPin className="h-4 w-4 text-accent" />
-                  <span>Houston, Texas, USA</span>
+                  <span>5718 Westheimer Rd, Suite 1000, Houston, TX 77057</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4 text-accent" />
-                  <span>+1 (555) 123-4567</span>
+                  <span>+1 (832) 289-6124</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Mail className="h-4 w-4 text-accent" />
-                  <span>info@sinevabrokeragre.com</span>
+                  <span>contact@sinevagrupo.com</span>
                 </div>
               </div>
             </div>

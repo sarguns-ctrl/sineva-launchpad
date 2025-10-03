@@ -34,7 +34,7 @@ const CrossPageCTA = ({
       icon: Phone,
       text: "Call Now",
       href: "tel:+15551234567",
-      description: "+1 (555) 123-4567"
+      description: "+1 (832) 289-6124"
     },
     {
       icon: Calendar,

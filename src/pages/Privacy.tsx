@@ -157,9 +157,9 @@ const Privacy = () => {
   ];
 
   const contactInfo = {
-    email: "privacy@sinevabrokerage.com",
-    phone: "+1 (713) 555-0100",
-    address: "1401 McKinney Street, Suite 2000, Houston, TX 77010",
+    email: "contact@sinevagrupo.com",
+    phone: "+1 (832) 289-6124",
+    address: "5718 Westheimer Rd, Suite 1000, Houston, TX 77057",
     dpo: "Data Protection Officer"
   };
 

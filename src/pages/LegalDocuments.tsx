@@ -233,7 +233,7 @@ const LegalDocuments = () => {
             </p>
             <p>
               <strong>Support:</strong> For questions about document usage or to request customized forms, contact our Legal Affairs department 
-              at legal@sinevabrokeragre.com or call +1 (713) 555-0199.
+              at contact@sinevagrupo.com or call +1 (832) 289-6124.
             </p>
           </div>
           

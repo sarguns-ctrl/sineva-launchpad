@@ -184,7 +184,7 @@ const Navigation = () => {
             
             <div className="hidden xl:flex items-center space-x-2 text-sm text-primary-foreground/80">
               <Phone className="w-4 h-4" />
-              <span className="font-mono whitespace-nowrap">+1 (555) 123-4567</span>
+              <span className="font-mono whitespace-nowrap">+1 (832) 289-6124</span>
             </div>
             
             {user ? (
@@ -332,7 +332,7 @@ const Navigation = () => {
               
               <div className="flex items-center space-x-2 text-sm text-primary-foreground/80 px-3">
                 <Phone className="w-4 h-4" />
-                <span className="font-mono whitespace-nowrap">+1 (555) 123-4567</span>
+                <span className="font-mono whitespace-nowrap">+1 (832) 289-6124</span>
               </div>
               
               <div className="flex space-x-3">
