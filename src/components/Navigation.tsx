@@ -216,7 +216,7 @@ const Navigation = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild className="bg-white hover:bg-white/90 text-primary shadow-lg hover:shadow-xl transition-all duration-300 font-semibold">
+              <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 font-semibold">
                 <Link to="/auth">
                   <User className="w-4 h-4 mr-2" />
                   Sign In
@@ -232,7 +232,7 @@ const Navigation = () => {
             </div>
             <LanguageSwitcher />
             {!user && (
-              <Button size="sm" asChild className="bg-white hover:bg-white/90 text-primary shadow-md font-semibold">
+              <Button size="sm" asChild className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-md font-semibold">
                 <Link to="/auth">Sign In</Link>
               </Button>
             )}
@@ -359,7 +359,7 @@ const Navigation = () => {
                     </Button>
                   </>
                 ) : (
-                  <Button className="w-full bg-white hover:bg-white/90 text-primary shadow-lg font-semibold" asChild>
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg font-semibold" asChild>
                     <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
                       <User className="w-4 h-4 mr-2" />
                       Sign In
