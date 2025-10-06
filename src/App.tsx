@@ -77,6 +77,7 @@ import AdvancedSearchPage from "./pages/AdvancedSearchPage";
 import AdvancedAnalyticsPage from "./pages/AdvancedAnalyticsPage";
 import MarketInsights from "./pages/MarketInsights";
 import NewProperties from "./pages/NewProperties";
+import ThankYou from "./pages/ThankYou";
 
 const queryClient = new QueryClient();
 
@@ -163,6 +164,7 @@ const App = () => {
         <Route path="/legal-documents" element={<LegalDocuments />} />
         <Route path="/franchise" element={<FranchiseWithUs />} />
         <Route path="/help" element={<HelpCenter />} />
+        <Route path="/thank-you" element={<ThankYou />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
