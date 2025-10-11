@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import SinevaBrokerageSection from "@/components/SinevaBrokerageSection";
 import SocialProofBanner from "@/components/SocialProofBanner";
 import MarketLocationCards from "@/components/MarketLocationCards";
-import LeadCaptureForm from "@/components/LeadCaptureForm";
+import VisualShowcase from "@/components/VisualShowcase";
 import ExitIntentPopup, { useExitIntent } from "@/components/ExitIntentPopup";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -12,7 +12,6 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import LazySection from "@/components/LazySection";
 import SEOHead from "@/components/SEOHead";
-// import PersonalizationEngine from "@/components/PersonalizationEngine";
 import ConversionOptimizer from "@/components/ConversionOptimizer";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
@@ -81,6 +80,10 @@ const Index = () => {
 
       <ErrorBoundary>
         <MarketLocationCards />
+      </ErrorBoundary>
+
+      <ErrorBoundary>
+        <VisualShowcase />
       </ErrorBoundary>
 
       {/* Removed Recommended Properties section */}

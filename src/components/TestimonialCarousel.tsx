@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { Link } from 'react-router-dom';
 
 interface Testimonial {
   id: string;
@@ -127,13 +128,13 @@ const TestimonialCarousel = () => {
         }`}>
           <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6 border border-accent/20">
             <Quote className="w-4 h-4" />
-            Client Success Stories
+            Success Stories
           </div>
           <h2 className="text-4xl md:text-5xl font-bold font-clash text-primary mb-4">
-            Trusted by International Investors
+            Trusted by Global Investors
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Join hundreds of successful investors who've achieved their American dream through our expertise
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+            Join hundreds who've achieved their dream
           </p>
         </div>
 
@@ -163,10 +164,9 @@ const TestimonialCarousel = () => {
                     </span>
                   </div>
 
-                  {/* Quote */}
-                  <blockquote className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
-                    "{currentTestimonial.content}"
-                  </blockquote>
+          <blockquote className="text-lg md:text-xl font-medium text-foreground leading-relaxed">
+            "{currentTestimonial.content}"
+          </blockquote>
 
                   {/* Client Info */}
                   <div className="space-y-2">
@@ -253,9 +253,8 @@ const TestimonialCarousel = () => {
 
         {/* Call-to-Action */}
         <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">Ready to join our success stories?</p>
-          <Button className="bg-gradient-primary hover:shadow-accent shadow-button">
-            Schedule Your Consultation
+          <Button className="bg-gradient-primary hover:shadow-accent shadow-button" size="lg" asChild>
+            <Link to="/contact">Schedule Consultation</Link>
           </Button>
         </div>
       </div>

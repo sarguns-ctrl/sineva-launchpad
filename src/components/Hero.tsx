@@ -77,25 +77,25 @@ const Hero = () => {
           
           {/* Enhanced value proposition with social proof - enhanced for video background */}
           <div className="space-y-4 mb-12">
-            <p className="text-xl sm:text-2xl text-foreground/90 max-w-4xl mx-auto font-satoshi leading-relaxed drop-shadow-sm">
-              Connect with North America's most trusted business investment professionals.
+            <p className="text-xl sm:text-2xl text-foreground/90 max-w-3xl mx-auto font-satoshi leading-relaxed drop-shadow-sm">
+              North America's most trusted investment professionals
               <br className="hidden sm:block" />
-              <span className="text-foreground font-medium">20+ years of expertise</span> in business acquisitions & visa programs.
+              <span className="text-foreground font-medium">20+ years expertise</span> • Business acquisitions • Visa programs
             </p>
             
             {/* Live social proof - enhanced for video background */}
-            <div className="flex items-center justify-center space-x-6 text-sm text-foreground/80 bg-background/30 backdrop-blur-sm rounded-full px-6 py-3 border border-foreground/10">
+            <div className="flex items-center justify-center space-x-6 text-sm text-foreground/80 bg-background/30 backdrop-blur-sm rounded-full px-6 py-3 border border-foreground/10 max-w-2xl mx-auto">
               <div className="flex items-center space-x-2">
                 <Award className="w-4 h-4 text-accent" />
-                <span>Licensed Professionals</span>
+                <span className="hidden sm:inline">Licensed</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Users className="w-4 h-4 text-accent" />
-                <span>{staticStats.successfulInvestors}+ Successful Investors</span>
+                <span>{staticStats.successfulInvestors}+ Investors</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Globe className="w-4 h-4 text-accent" />
-                <span>{staticStats.countriesServed}+ Countries Served</span>
+                <span>{staticStats.countriesServed}+ Countries</span>
               </div>
             </div>
           </div>
