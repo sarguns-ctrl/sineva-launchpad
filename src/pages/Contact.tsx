@@ -20,6 +20,7 @@ import {
   Send
 } from "lucide-react";
 import { useState } from "react";
+import contactHero from "@/assets/contact-center.jpg";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -215,18 +216,21 @@ const Contact = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-28 pb-16 bg-gradient-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6">
+      <section className="relative h-[50vh] min-h-[400px] flex items-center">
+        <div className="absolute inset-0">
+          <img src={contactHero} alt="Contact our team" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center space-y-6 text-white">
             <Badge className="bg-accent text-accent-foreground px-6 py-2 text-sm font-medium">
               GET IN TOUCH
             </Badge>
-            <h1 className="text-5xl md:text-6xl font-bold text-white font-playfair">
+            <h1 className="text-5xl md:text-6xl font-bold">
               Contact Our Experts
             </h1>
-            <p className="text-xl text-white/90 max-w-4xl mx-auto leading-relaxed">
-              Ready to discuss your real estate investment goals? Our international 
-              team is here to provide personalized guidance every step of the way.
+            <p className="text-xl opacity-90 max-w-4xl mx-auto">
+              Our international team is here to guide you every step of the way
             </p>
           </div>
         </div>

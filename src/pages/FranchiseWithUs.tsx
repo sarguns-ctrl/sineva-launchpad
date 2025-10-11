@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import franchiseOffice from "@/assets/franchise-office.jpg";
+import franchisePartnership from "@/assets/franchise-partnership.jpg";
 import { 
   Trophy, 
   TrendingUp, 
@@ -122,31 +124,36 @@ const FranchiseWithUs = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-primary text-primary-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-6 bg-white/20 text-white border-white/30">
-            Franchise Opportunity
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Franchise with <span className="text-accent">Sineva Brokerage</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
-            Join our growing network of successful real estate professionals and build your own thriving brokerage business.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
-              <a href="tel:+15551234567">
-                <Phone className="w-5 h-5 mr-2" />
-                Schedule a Call
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 border-white text-white hover:bg-white hover:text-primary" asChild>
-              <a href="mailto:franchise@sineva.com?subject=Franchise Information Request">
-                <Mail className="w-5 h-5 mr-2" />
-                Request Information
-              </a>
-            </Button>
+      <section className="relative h-[70vh] min-h-[600px] flex items-center">
+        <div className="absolute inset-0">
+          <img src={franchiseOffice} alt="Franchise office" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/70" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="max-w-3xl text-white space-y-6">
+            <Badge className="bg-accent text-accent-foreground px-6 py-2 text-sm font-medium">
+              Franchise Opportunity
+            </Badge>
+            <h1 className="text-5xl md:text-6xl font-bold">
+              Build Your Empire
+            </h1>
+            <p className="text-2xl opacity-90">
+              Join our growing network of successful real estate professionals
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button size="lg" className="shadow-button" asChild>
+                <a href="tel:+15551234567">
+                  <Phone className="w-5 h-5 mr-2" />
+                  Schedule a Call
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" className="bg-white/10 text-white border-white hover:bg-white hover:text-primary" asChild>
+                <a href="mailto:franchise@sineva.com?subject=Franchise Information Request">
+                  <Mail className="w-5 h-5 mr-2" />
+                  Request Information
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -245,11 +252,16 @@ const FranchiseWithUs = () => {
       {/* Success Stories */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Franchise Success Stories</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Hear from our successful franchise partners across the country.
-            </p>
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-elegant">
+              <img src={franchisePartnership} alt="Franchise partnership" className="w-full h-full object-cover" />
+            </div>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
+              <p className="text-xl text-muted-foreground">
+                Hear from our successful franchise partners
+              </p>
+            </div>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">

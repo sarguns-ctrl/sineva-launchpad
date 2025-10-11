@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, BarChart3, Shield, Target, CheckCircle, ArrowRight, PieChart, Calculator, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import investmentMeeting from "@/assets/investment-meeting.jpg";
 
 const InvestmentAdvisory = () => {
   const { toast } = useToast();
@@ -112,23 +113,26 @@ const InvestmentAdvisory = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-primary text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6">
-            <h1 className="text-5xl md:text-6xl font-bold font-playfair">
-              Investment Advisory
+      <section className="relative h-[70vh] min-h-[600px] flex items-center">
+        <div className="absolute inset-0">
+          <img src={investmentMeeting} alt="Investment advisory" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/70" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl text-white space-y-6">
+            <h1 className="text-5xl md:text-6xl font-bold">
+              Strategic Investment Solutions
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Expert guidance on real estate and business investment opportunities. 
-              Data-driven strategies to maximize returns and minimize risks in your investment portfolio.
+            <p className="text-2xl opacity-90">
+              Maximize returns with data-driven strategies
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90" onClick={handleInvestmentAnalysis}>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button size="lg" className="shadow-button" onClick={handleInvestmentAnalysis}>
                 Investment Analysis
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" onClick={handleScheduleSession}>
-                Schedule Advisory Session
+              <Button size="lg" variant="outline" className="bg-white/10 text-white border-white hover:bg-white hover:text-primary" onClick={handleScheduleSession}>
+                Schedule Session
               </Button>
             </div>
           </div>

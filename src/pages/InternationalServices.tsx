@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Globe, Flag, DollarSign, FileText, CheckCircle, ArrowRight, Users, TrendingUp } from "lucide-react";
+import internationalTeam from "@/assets/international-team.jpg";
 
 const InternationalServices = () => {
   const services = [
@@ -54,23 +55,25 @@ const InternationalServices = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-primary text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6">
-            <h1 className="text-5xl md:text-6xl font-bold font-playfair">
-              International Services
+      <section className="relative h-[70vh] min-h-[600px] flex items-center">
+        <div className="absolute inset-0">
+          <img src={internationalTeam} alt="International team" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/70" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl text-white space-y-6">
+            <h1 className="text-5xl md:text-6xl font-bold">
+              Global Real Estate Solutions
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Cross-border transactions and international property investments. 
-              Expert guidance for global investors expanding their real estate portfolios.
+            <p className="text-2xl opacity-90">
+              Navigate cross-border investments with expert guidance
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                Explore Markets
-                <ArrowRight className="ml-2 h-5 w-5" />
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Button size="lg" className="shadow-button">
+                Schedule Consultation
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary">
-                International Consultation
+              <Button size="lg" variant="outline" className="bg-white/10 text-white border-white hover:bg-white hover:text-primary">
+                Download Guide
               </Button>
             </div>
           </div>

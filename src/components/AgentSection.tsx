@@ -5,6 +5,7 @@ import { CheckCircle, DollarSign, Globe, Zap, Users, Award } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import agentMeeting from "@/assets/agent-client-meeting.jpg";
 
 const AgentSection = () => {
   const { user } = useAuth();
@@ -68,18 +69,22 @@ const AgentSection = () => {
   return (
     <section id="agents" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center space-y-4 mb-16">
-          <Badge className="bg-accent text-accent-foreground px-4 py-2 text-sm font-medium">
-            FOR REAL ESTATE AGENTS
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Join the Sineva Advantage
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Get your personalized website, marketing support, exclusive listings showcase, 
-            and industry-leading commission structures with guaranteed income.
-          </p>
+        {/* Visual Header */}
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+          <div className="space-y-6">
+            <Badge className="bg-accent text-accent-foreground px-4 py-2 text-sm font-medium">
+              FOR REAL ESTATE AGENTS
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+              Join the Sineva Advantage
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              Personalized website, marketing support, exclusive listings, and industry-leading commissions with guaranteed income.
+            </p>
+          </div>
+          <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-elegant">
+            <img src={agentMeeting} alt="Agent with clients" className="w-full h-full object-cover" />
+          </div>
         </div>
 
         {/* Commission Structures */}
