@@ -8,56 +8,56 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Forest Green - Ultra Premium Dark Theme */
+    /* Navy Blue - Ultra Premium Dark Theme */
     --background: 0 0% 100%;
-    --foreground: 156 39% 11%;
+    --foreground: 220 60% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 156 39% 11%;
+    --card-foreground: 220 60% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 156 39% 11%;
+    --popover-foreground: 220 60% 15%;
 
-    /* Primary: Deep Forest Green - sophisticated, natural, premium */
-    --primary: 156 39% 11%;
+    /* Primary: Deep Navy Blue - sophisticated, professional, premium */
+    --primary: 220 60% 20%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 156 35% 25%;
+    --primary-glow: 220 55% 35%;
 
-    /* Secondary: Light Forest - subtle, clean */
-    --secondary: 156 20% 96%;
-    --secondary-foreground: 156 39% 11%;
+    /* Secondary: Light Navy - subtle, clean */
+    --secondary: 220 30% 96%;
+    --secondary-foreground: 220 60% 15%;
 
-    /* Muted backgrounds with forest undertones */
-    --muted: 156 15% 98%;
-    --muted-foreground: 156 20% 35%;
+    /* Muted backgrounds with navy undertones */
+    --muted: 220 25% 98%;
+    --muted-foreground: 220 30% 35%;
 
-    /* Accent: Bright Forest Green - fresh, premium, natural */
-    --accent: 156 50% 35%;
+    /* Accent: Bright Navy Blue - fresh, premium, professional */
+    --accent: 220 70% 45%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 156 25% 88%;
+    --accent-soft: 220 35% 88%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 90%;
-    --input: 210 20% 95%;
-    --ring: 0 0% 15%;
+    --border: 220 20% 90%;
+    --input: 220 20% 95%;
+    --ring: 220 60% 20%;
 
-    /* Forest Green ultra premium gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(156 39% 11%), hsl(156 35% 25%));
-    --gradient-secondary: linear-gradient(135deg, hsl(156 20% 96%), hsl(156 15% 98%));
-    --gradient-accent: linear-gradient(135deg, hsl(156 50% 35%), hsl(156 45% 45%));
-    --gradient-hero: linear-gradient(135deg, hsl(156 39% 8%) 0%, hsl(156 35% 18%) 50%, hsl(156 40% 35%) 100%);
-    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(156 39% 11% / 0.03) 0%, transparent 50%), 
-                     radial-gradient(circle at 80% 20%, hsl(156 50% 35% / 0.02) 0%, transparent 50%),
+    /* Navy Blue ultra premium gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(220 60% 15%), hsl(220 55% 30%));
+    --gradient-secondary: linear-gradient(135deg, hsl(220 30% 96%), hsl(220 25% 98%));
+    --gradient-accent: linear-gradient(135deg, hsl(220 70% 45%), hsl(220 65% 55%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 65% 12%) 0%, hsl(220 60% 22%) 50%, hsl(220 60% 40%) 100%);
+    --gradient-mesh: radial-gradient(circle at 20% 50%, hsl(220 60% 15% / 0.03) 0%, transparent 50%), 
+                     radial-gradient(circle at 80% 20%, hsl(220 70% 45% / 0.02) 0%, transparent 50%),
                      radial-gradient(circle at 40% 80%, hsl(0 0% 100% / 0.01) 0%, transparent 50%);
     
-    /* Ultra premium forest green shadows */
-    --shadow-elegant: 0 25px 50px -15px hsl(156 39% 11% / 0.25);
-    --shadow-card: 0 10px 30px -8px hsl(156 39% 11% / 0.15);
-    --shadow-button: 0 6px 20px -4px hsl(156 39% 11% / 0.3);
-    --shadow-accent: 0 8px 25px -6px hsl(156 50% 35% / 0.4);
-    --shadow-glow: 0 0 40px hsl(156 35% 25% / 0.3);
+    /* Ultra premium navy blue shadows */
+    --shadow-elegant: 0 25px 50px -15px hsl(220 60% 15% / 0.25);
+    --shadow-card: 0 10px 30px -8px hsl(220 60% 15% / 0.15);
+    --shadow-button: 0 6px 20px -4px hsl(220 60% 15% / 0.3);
+    --shadow-accent: 0 8px 25px -6px hsl(220 70% 45% / 0.4);
+    --shadow-glow: 0 0 40px hsl(220 55% 35% / 0.3);
     
     /* Advanced transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,35 +77,35 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 156 39% 8%;
+    --background: 220 60% 8%;
     --foreground: 0 0% 100%;
 
-    --card: 156 35% 12%;
+    --card: 220 55% 12%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 156 35% 12%;
+    --popover: 220 55% 12%;
     --popover-foreground: 0 0% 100%;
 
     --primary: 0 0% 100%;
-    --primary-foreground: 156 39% 11%;
-    --primary-glow: 156 45% 55%;
+    --primary-foreground: 220 60% 15%;
+    --primary-glow: 220 65% 60%;
 
-    --secondary: 156 25% 20%;
+    --secondary: 220 40% 20%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 156 30% 15%;
+    --muted: 220 45% 15%;
     --muted-foreground: 0 0% 85%;
 
-    --accent: 156 55% 55%;
-    --accent-foreground: 156 39% 8%;
-    --accent-soft: 156 35% 25%;
+    --accent: 220 75% 60%;
+    --accent-foreground: 220 60% 8%;
+    --accent-soft: 220 50% 25%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 90%;
+    --border: 220 20% 18%;
+    --input: 220 25% 15%;
+    --ring: 220 70% 90%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
