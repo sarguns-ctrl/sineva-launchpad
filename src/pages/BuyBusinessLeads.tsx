@@ -7,7 +7,16 @@ import BusinessBuyerLeadForm from '@/components/BusinessBuyerLeadForm';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import LazySection from '@/components/LazySection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import heroImage from '@/assets/texas-business-buyer.jpg';
+import heroImage from '@/assets/buy-business-hero.jpg';
+import networkingImage from '@/assets/business-networking-texas.jpg';
+import consultationImage from '@/assets/business-consultation-meeting.jpg';
+import commercialBuildingImage from '@/assets/texas-commercial-building.jpg';
+import closingDocsImage from '@/assets/business-closing-documents.jpg';
+import happyOwnerImage from '@/assets/happy-business-owner.jpg';
+import workspaceImage from '@/assets/professional-workspace.jpg';
+import businessDistrictImage from '@/assets/texas-business-district.jpg';
+import teamSuccessImage from '@/assets/business-team-success.jpg';
+import brokerMeetingImage from '@/assets/broker-client-meeting.jpg';
 import logo from '@/assets/logo-sineva-grupo.svg';
 
 const BuyBusinessLeads = () => {
@@ -147,20 +156,30 @@ const BuyBusinessLeads = () => {
       {/* Section 1 - Why This Matters */}
       <LazySection>
         <section ref={whyAnimation.elementRef} className="py-16 md:py-24 px-6 md:px-8 bg-muted/30">
-          <div className="max-w-6xl mx-auto space-y-12">
-            <div className="text-center space-y-4 max-w-3xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold">The Best Texas Businesses Never Hit the Public Market</h2>
-              <p className="text-xl text-muted-foreground">
-                Most high-performing Texas businesses are sold privately — to buyers who are pre-qualified, ready, and connected.
-                Sinevabrokerage gives you that insider access.
-              </p>
+          <div className="max-w-7xl mx-auto space-y-12">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className={`space-y-6 transition-all duration-700 ${whyAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+                <h2 className="text-4xl md:text-5xl font-bold">The Best Texas Businesses Never Hit the Public Market</h2>
+                <p className="text-xl text-muted-foreground">
+                  Most high-performing Texas businesses are sold privately — to buyers who are pre-qualified, ready, and connected.
+                  Sinevabrokerage gives you that insider access.
+                </p>
+              </div>
+              <div className={`relative overflow-hidden rounded-2xl shadow-2xl transition-all duration-700 delay-200 ${whyAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+                <img 
+                  src={networkingImage} 
+                  alt="Business Networking in Texas" 
+                  className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+              </div>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
               {benefits.map((benefit, index) => (
-                <Card key={index} className="border-2 hover:border-primary/50 transition-all duration-300">
+                <Card key={index} className="border-2 hover:border-primary/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
                   <CardContent className="p-6 space-y-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                       <benefit.icon className="w-6 h-6 text-primary" />
                     </div>
                     <h3 className="text-xl font-semibold">{benefit.title}</h3>
@@ -171,7 +190,7 @@ const BuyBusinessLeads = () => {
             </div>
 
             <div className="text-center mt-12">
-              <Button size="lg" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button size="lg" className="hover:scale-105 transition-transform" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
                 🚀 Request Access to Active Listings
               </Button>
             </div>
@@ -181,24 +200,38 @@ const BuyBusinessLeads = () => {
 
       {/* Section 2 - What You'll Receive */}
       <LazySection>
-        <section ref={receiveAnimation.elementRef} className="py-16 md:py-24 px-6 md:px-8">
-          <div className="max-w-6xl mx-auto space-y-12">
+        <section ref={receiveAnimation.elementRef} className="py-16 md:py-24 px-6 md:px-8 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-5">
+            <img src={businessDistrictImage} alt="" className="w-full h-full object-cover" />
+          </div>
+          <div className="max-w-6xl mx-auto space-y-12 relative z-10">
             <div className="text-center space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold">When You Join, You'll Instantly Gain Access To:</h2>
+              <h2 className={`text-4xl md:text-5xl font-bold transition-all duration-700 ${receiveAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                When You Join, You'll Instantly Gain Access To:
+              </h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mt-12">
-              {features.map((feature, index) => (
-                <div key={index} className="flex gap-4 p-6 rounded-lg bg-card border hover:border-primary/50 transition-all duration-300">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <feature.icon className="w-6 h-6 text-primary" />
+              <div className="relative overflow-hidden rounded-2xl shadow-xl">
+                <img 
+                  src={consultationImage} 
+                  alt="Business Consultation" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="space-y-6">
+                {features.map((feature, index) => (
+                  <div key={index} className="flex gap-4 p-6 rounded-lg bg-card border hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:translate-x-2 group">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <feature.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-semibold">{feature.title}</h3>
+                      <p className="text-muted-foreground">{feature.description}</p>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-semibold">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -209,15 +242,54 @@ const BuyBusinessLeads = () => {
         <section ref={opportunitiesAnimation.elementRef} className="py-16 md:py-24 px-6 md:px-8 bg-muted/30">
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold">Featured Opportunities Preview</h2>
+              <h2 className={`text-4xl md:text-5xl font-bold transition-all duration-700 ${opportunitiesAnimation.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                Featured Opportunities Preview
+              </h2>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 mt-12">
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
+                <img 
+                  src={commercialBuildingImage} 
+                  alt="Texas Commercial Building" 
+                  className="w-full h-[300px] object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <Badge className="mb-2">Prime Location</Badge>
+                  <h3 className="text-2xl font-bold text-white">Exclusive Texas Properties</h3>
+                </div>
+              </div>
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
+                <img 
+                  src={brokerMeetingImage} 
+                  alt="Broker Client Meeting" 
+                  className="w-full h-[300px] object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <Badge className="mb-2">Expert Guidance</Badge>
+                  <h3 className="text-2xl font-bold text-white">Personalized Service</h3>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
               {opportunities.map((opp, index) => (
-                <Card key={index} className="relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+                <Card key={index} className="relative overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src={workspaceImage} 
+                      alt="Business Opportunity" 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
                   <CardContent className="p-6 space-y-4">
-                    <div className="absolute inset-0 backdrop-blur-sm bg-background/60 flex items-center justify-center">
-                      <Lock className="w-8 h-8 text-primary" />
+                    <div className="absolute inset-0 backdrop-blur-sm bg-background/60 flex items-center justify-center z-10">
+                      <div className="text-center space-y-2">
+                        <Lock className="w-8 h-8 text-primary mx-auto" />
+                        <p className="text-sm font-semibold">Get Access</p>
+                      </div>
                     </div>
                     <div className="opacity-40">
                       <Badge variant="outline" className="mb-2">{opp.location}</Badge>
@@ -233,7 +305,7 @@ const BuyBusinessLeads = () => {
               <p className="text-lg text-muted-foreground">
                 Get access to these and dozens more — all verified and ready for qualified buyers.
               </p>
-              <Button size="lg" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button size="lg" className="hover:scale-105 transition-transform" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
                 📩 Show Me Available Businesses
               </Button>
             </div>
@@ -243,22 +315,34 @@ const BuyBusinessLeads = () => {
 
       {/* Section 4 - How It Works */}
       <LazySection>
-        <section ref={processAnimation.elementRef} className="py-16 md:py-24 px-6 md:px-8">
-          <div className="max-w-6xl mx-auto space-y-12">
+        <section ref={processAnimation.elementRef} className="py-16 md:py-24 px-6 md:px-8 relative">
+          <div className="max-w-7xl mx-auto space-y-12">
             <div className="text-center space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold">Our Buyer Process Is Simple, Transparent, and Proven</h2>
+              <h2 className={`text-4xl md:text-5xl font-bold transition-all duration-700 ${processAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                Our Buyer Process Is Simple, Transparent, and Proven
+              </h2>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 mt-12">
-              {processSteps.map((step, index) => (
-                <div key={index} className="flex gap-6 p-6 rounded-lg bg-card border">
-                  <div className="text-5xl font-bold text-primary/20">{step.number}</div>
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-semibold">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
+            <div className="grid lg:grid-cols-2 gap-12 items-center mt-12">
+              <div className="space-y-6">
+                {processSteps.map((step, index) => (
+                  <div key={index} className={`flex gap-6 p-6 rounded-lg bg-card border hover:border-primary/50 hover:shadow-lg transition-all duration-500 hover:translate-x-2 ${processAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`} style={{ transitionDelay: `${index * 150}ms` }}>
+                    <div className="text-5xl font-bold text-primary/20">{step.number}</div>
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-semibold">{step.title}</h3>
+                      <p className="text-muted-foreground">{step.description}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <div className={`relative overflow-hidden rounded-2xl shadow-2xl transition-all duration-700 delay-300 ${processAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+                <img 
+                  src={closingDocsImage} 
+                  alt="Business Closing Process" 
+                  className="w-full h-[500px] object-cover hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+              </div>
             </div>
           </div>
         </section>
@@ -267,30 +351,49 @@ const BuyBusinessLeads = () => {
       {/* Section 5 - Social Proof */}
       <LazySection>
         <section ref={proofAnimation.elementRef} className="py-16 md:py-24 px-6 md:px-8 bg-muted/30">
-          <div className="max-w-6xl mx-auto space-y-12">
-            <div className="grid md:grid-cols-2 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="border-2">
-                  <CardContent className="p-8 space-y-4">
-                    <p className="text-lg italic">"{testimonial.quote}"</p>
-                    <div className="pt-4 border-t">
-                      <p className="font-semibold">{testimonial.author}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+          <div className="max-w-7xl mx-auto space-y-12">
+            <div className="grid lg:grid-cols-3 gap-8 mb-12">
+              <div className="lg:col-span-1 relative overflow-hidden rounded-2xl shadow-2xl">
+                <img 
+                  src={happyOwnerImage} 
+                  alt="Successful Business Owner" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="lg:col-span-2 space-y-6">
+                {testimonials.map((testimonial, index) => (
+                  <Card key={index} className={`border-2 hover:border-primary/50 hover:shadow-xl transition-all duration-500 ${proofAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 200}ms` }}>
+                    <CardContent className="p-8 space-y-4">
+                      <p className="text-lg italic">"{testimonial.quote}"</p>
+                      <div className="pt-4 border-t flex items-center gap-4">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                          <span className="text-xl font-bold text-primary">{testimonial.author.charAt(0)}</span>
+                        </div>
+                        <div>
+                          <p className="font-semibold">{testimonial.author}</p>
+                          <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
 
-            <div className="mt-12">
-              <h3 className="text-2xl font-bold text-center mb-8">📊 Results You Can Trust:</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center space-y-2">
-                    <div className="text-4xl font-bold text-primary">{stat.value}</div>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
-                  </div>
-                ))}
+            <div className="relative overflow-hidden rounded-2xl p-12 bg-gradient-to-br from-primary/10 to-transparent border-2">
+              <div className="absolute inset-0 opacity-10">
+                <img src={teamSuccessImage} alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="relative z-10">
+                <h3 className="text-3xl font-bold text-center mb-12">📊 Results You Can Trust:</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                  {stats.map((stat, index) => (
+                    <div key={index} className={`text-center space-y-2 transition-all duration-500 hover:scale-110 ${proofAnimation.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`} style={{ transitionDelay: `${index * 150}ms` }}>
+                      <div className="text-5xl font-bold text-primary">{stat.value}</div>
+                      <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
