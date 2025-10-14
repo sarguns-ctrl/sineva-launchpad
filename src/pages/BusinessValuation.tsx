@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -37,6 +38,7 @@ import valuationReport from "@/assets/valuation-report.jpg";
 import brokerPresentation from "@/assets/broker-presentation.jpg";
 
 const BusinessValuation = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -45,7 +47,6 @@ const BusinessValuation = () => {
     agreeToContact: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
   const heroAnimation = useScrollAnimation();
@@ -77,11 +78,13 @@ const BusinessValuation = () => {
 
       if (error) throw error;
 
-      setIsSubmitted(true);
       toast({
         title: "Request Submitted!",
         description: "We'll contact you shortly with your valuation.",
       });
+      
+      // Redirect to thank you page
+      navigate('/thank-you');
     } catch (error: any) {
       console.error("Error submitting form:", error);
       toast({
@@ -125,40 +128,6 @@ const BusinessValuation = () => {
       answer: "The valuation is free. If you decide to sell, brokerage fees are only charged after a successful sale."
     }
   ];
-
-  if (isSubmitted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-        <div className="container mx-auto px-4 py-20">
-          <Card className="max-w-2xl mx-auto text-center border-2 shadow-2xl">
-            <CardContent className="p-12">
-              <div className="mb-8">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <CheckCircle2 className="w-10 h-10 text-primary" />
-                </div>
-                <h1 className="text-4xl font-bold mb-4">
-                  Thank You! Your Valuation Request Has Been Received.
-                </h1>
-                <p className="text-xl text-muted-foreground mb-6">
-                  A Sinevabrokerage broker will contact you shortly with your valuation results.
-                </p>
-                <p className="text-lg text-muted-foreground">
-                  Check your inbox for your free guide: <strong>"Preparing to Sell Your Business in Texas."</strong>
-                </p>
-              </div>
-              <Button 
-                size="lg" 
-                onClick={() => window.location.href = '/'}
-                className="bg-primary hover:bg-primary/90"
-              >
-                Return to Home
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen">
