@@ -253,9 +253,10 @@ const BuyBusinessLeads = () => {
                   alt="Texas Commercial Building" 
                   className="w-full h-[300px] object-cover group-hover:scale-110 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
-                  <Badge className="mb-2">Prime Location</Badge>
-                  <h3 className="text-2xl font-bold text-foreground">Exclusive Texas Properties</h3>
+                  <Badge className="mb-2 bg-white text-black hover:bg-white/90">Prime Location</Badge>
+                  <h3 className="text-2xl font-bold text-white drop-shadow-lg">Exclusive Texas Properties</h3>
                 </div>
               </div>
               <div className="relative overflow-hidden rounded-2xl group">
@@ -264,30 +265,34 @@ const BuyBusinessLeads = () => {
                   alt="Broker Client Meeting" 
                   className="w-full h-[300px] object-cover group-hover:scale-110 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
-                  <Badge className="mb-2">Expert Guidance</Badge>
-                  <h3 className="text-2xl font-bold text-foreground">Personalized Service</h3>
+                  <Badge className="mb-2 bg-white text-black hover:bg-white/90">Expert Guidance</Badge>
+                  <h3 className="text-2xl font-bold text-white drop-shadow-lg">Personalized Service</h3>
                 </div>
               </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              {opportunities.map((opp, index) => (
-                <Card key={index} className="relative overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                  <div className="h-48 overflow-hidden">
-                    <img 
-                      src={workspaceImage} 
-                      alt="Business Opportunity" 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </div>
-                  <CardContent className="p-6 space-y-4">
-                    <Badge variant="outline" className="mb-2">{opp.location}</Badge>
-                    <h3 className="text-xl font-semibold">{opp.title}</h3>
-                    <p className="text-primary font-semibold">{opp.revenue}</p>
-                  </CardContent>
-                </Card>
-              ))}
+              {opportunities.map((opp, index) => {
+                const images = [closingDocsImage, happyOwnerImage, teamSuccessImage];
+                return (
+                  <Card key={index} className="relative overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div className="h-48 overflow-hidden">
+                      <img 
+                        src={images[index]} 
+                        alt="Business Opportunity" 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+                    <CardContent className="p-6 space-y-4">
+                      <Badge variant="outline" className="mb-2">{opp.location}</Badge>
+                      <h3 className="text-xl font-semibold">{opp.title}</h3>
+                      <p className="text-primary font-semibold">{opp.revenue}</p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
 
             <div className="text-center space-y-6 mt-12">
