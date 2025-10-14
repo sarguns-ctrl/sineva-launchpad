@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,6 +15,7 @@ interface BusinessBuyerLeadFormProps {
 
 const BusinessBuyerLeadForm = ({ onSuccess }: BusinessBuyerLeadFormProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [formData, setFormData] = useState({
@@ -38,19 +40,15 @@ const BusinessBuyerLeadForm = ({ onSuccess }: BusinessBuyerLeadFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from('leads').insert([
-        {
-          lead_source: 'buy_business_leads_page',
-          lead_status: 'new',
-          contact_info: {
-            full_name: formData.full_name,
-            email: formData.email,
-            phone: formData.phone,
-            investment_budget: formData.investment_budget,
-          },
-          notes: `Business buyer lead - Budget: ${formData.investment_budget}`,
+      const { error } = await supabase.functions.invoke('contact-form', {
+        body: {
+          formType: 'business_buyer_lead',
+          full_name: formData.full_name,
+          email: formData.email,
+          phone: formData.phone,
+          investment_budget: formData.investment_budget,
         },
-      ]);
+      });
 
       if (error) throw error;
 
@@ -59,17 +57,12 @@ const BusinessBuyerLeadForm = ({ onSuccess }: BusinessBuyerLeadFormProps) => {
         description: "Your information has been submitted. We'll contact you within 24 hours.",
       });
 
-      setFormData({
-        full_name: '',
-        email: '',
-        phone: '',
-        investment_budget: '',
-      });
-      setAgreedToTerms(false);
-
       if (onSuccess) {
         onSuccess();
       }
+
+      // Redirect to thank you page
+      navigate('/thank-you');
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
