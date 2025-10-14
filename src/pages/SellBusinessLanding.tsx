@@ -23,7 +23,16 @@ import {
   Award
 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import businessConferenceRoom from "@/assets/business-conference-room.jpg";
+import successfulBusinessOwner from "@/assets/successful-business-owner.jpg";
+import businessHandshake from "@/assets/business-handshake.jpg";
+import businessDealHandshake from "@/assets/business-deal-handshake.jpg";
+import professionalWorkspace from "@/assets/professional-workspace.jpg";
+import businessGrowthAnalytics from "@/assets/business-growth-analytics.jpg";
+import consultationMeeting from "@/assets/consultation-meeting.jpg";
+import texasBusinessDistrict from "@/assets/texas-business-district.jpg";
+import happyBusinessOwner from "@/assets/happy-business-owner.jpg";
+import businessTeamSuccess from "@/assets/business-team-success.jpg";
+import investmentMeeting from "@/assets/investment-meeting.jpg";
 
 const SellBusinessLanding = () => {
   const heroAnimation = useScrollAnimation();
@@ -135,7 +144,7 @@ const SellBusinessLanding = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url(${businessConferenceRoom})`
+            backgroundImage: `url(${successfulBusinessOwner})`
           }}
         ></div>
         {/* Dark Overlay */}
@@ -173,6 +182,15 @@ const SellBusinessLanding = () => {
       {/* Section 1 - Why Choose Sinevabrokerage */}
       <section ref={section1Animation.elementRef} className="py-20 bg-background">
         <div className="container mx-auto px-4">
+          {/* Image Banner */}
+          <div className="max-w-6xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl">
+            <img 
+              src={businessHandshake} 
+              alt="Professional business brokerage services" 
+              className="w-full h-[400px] object-cover"
+            />
+          </div>
+
           <div className={`max-w-4xl mx-auto text-center mb-16 transition-all duration-1000 ${section1Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Texas Business Owners Deserve a Brokerage That Protects Their Legacy
@@ -183,7 +201,7 @@ const SellBusinessLanding = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border-2 hover:shadow-lg transition-all duration-300 hover:scale-105">
               <CardContent className="p-8">
                 <div className="flex items-start space-x-4">
                   <div className="bg-primary/10 p-3 rounded-lg">
@@ -199,7 +217,7 @@ const SellBusinessLanding = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border-2 hover:shadow-lg transition-all duration-300 hover:scale-105">
               <CardContent className="p-8">
                 <div className="flex items-start space-x-4">
                   <div className="bg-primary/10 p-3 rounded-lg">
@@ -215,7 +233,7 @@ const SellBusinessLanding = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border-2 hover:shadow-lg transition-all duration-300 hover:scale-105">
               <CardContent className="p-8">
                 <div className="flex items-start space-x-4">
                   <div className="bg-primary/10 p-3 rounded-lg">
@@ -231,7 +249,7 @@ const SellBusinessLanding = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:shadow-lg transition-shadow">
+            <Card className="border-2 hover:shadow-lg transition-all duration-300 hover:scale-105">
               <CardContent className="p-8">
                 <div className="flex items-start space-x-4">
                   <div className="bg-primary/10 p-3 rounded-lg">
@@ -259,11 +277,29 @@ const SellBusinessLanding = () => {
             </h2>
           </div>
 
+          {/* Image Grid */}
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-12">
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={consultationMeeting} 
+                alt="Business consultation meeting" 
+                className="w-full h-[300px] object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={businessDealHandshake} 
+                alt="Business deal closing" 
+                className="w-full h-[300px] object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          </div>
+
           <div className="max-w-4xl mx-auto space-y-6">
             {sellingProcess.map((item, index) => {
               const Icon = item.icon;
               return (
-                <Card key={index} className="border-2 hover:shadow-lg transition-shadow">
+                <Card key={index} className="border-2 hover:shadow-lg transition-all duration-300 hover:scale-102">
                   <CardContent className="p-8">
                     <div className="flex items-start space-x-6">
                       <div className="bg-primary/10 p-4 rounded-lg shrink-0">
@@ -283,7 +319,7 @@ const SellBusinessLanding = () => {
           <div className="text-center mt-12">
             <Button 
               size="lg" 
-              className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-white"
+              className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-white shadow-xl hover:shadow-2xl transition-all duration-300"
               onClick={() => window.open('https://cal.com/sineva-brokerage/sell', '_blank')}
             >
               <Phone className="w-5 h-5 mr-2" />
@@ -296,6 +332,15 @@ const SellBusinessLanding = () => {
       {/* Section 3 - Local Brokerage Value */}
       <section ref={section3Animation.elementRef} className="py-20 bg-background">
         <div className="container mx-auto px-4">
+          {/* Featured Image */}
+          <div className="max-w-5xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl">
+            <img 
+              src={texasBusinessDistrict} 
+              alt="Texas business district" 
+              className="w-full h-[500px] object-cover"
+            />
+          </div>
+
           <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${section3Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               The Value of Working with a Local Brokerage
@@ -308,7 +353,7 @@ const SellBusinessLanding = () => {
               <h3 className="text-2xl font-bold mb-6">We Sell Businesses In:</h3>
               <div className="grid md:grid-cols-3 gap-4">
                 {texasCities.map((city, index) => (
-                  <div key={index} className="flex items-center justify-center space-x-2 p-4 bg-background rounded-lg">
+                  <div key={index} className="flex items-center justify-center space-x-2 p-4 bg-background rounded-lg hover:shadow-md transition-shadow">
                     <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
                     <span className="font-semibold">{city}</span>
                   </div>
@@ -328,18 +373,43 @@ const SellBusinessLanding = () => {
             </h2>
           </div>
 
+          {/* Success Images */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={happyBusinessOwner} 
+                alt="Happy business owner after successful sale" 
+                className="w-full h-[250px] object-cover hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={businessTeamSuccess} 
+                alt="Team celebrating successful business transaction" 
+                className="w-full h-[250px] object-cover hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={investmentMeeting} 
+                alt="Investment meeting with buyers" 
+                className="w-full h-[250px] object-cover hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-2">
+              <Card key={index} className="border-2 hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-8">
                   <div className="mb-4">
-                    <div className="flex text-yellow-400 mb-4">
+                    <div className="flex text-yellow-400 mb-4 text-2xl">
                       {[...Array(5)].map((_, i) => (
                         <span key={i}>★</span>
                       ))}
                     </div>
                     <p className="text-lg italic mb-6">"{testimonial.quote}"</p>
-                    <p className="font-bold">— {testimonial.author}</p>
+                    <p className="font-bold text-lg">— {testimonial.author}</p>
                     <p className="text-muted-foreground">{testimonial.location}</p>
                   </div>
                 </CardContent>
@@ -348,7 +418,7 @@ const SellBusinessLanding = () => {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <Card className="border-2 bg-primary/5">
+            <Card className="border-2 bg-primary/5 shadow-xl">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-center mb-8">Transaction Highlights</h3>
                 <div className="grid md:grid-cols-2 gap-6">
@@ -371,6 +441,15 @@ const SellBusinessLanding = () => {
       {/* Section 5 - Educational Value */}
       <section ref={section5Animation.elementRef} className="py-20 bg-background">
         <div className="container mx-auto px-4">
+          {/* Featured Analytics Image */}
+          <div className="max-w-5xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl">
+            <img 
+              src={businessGrowthAnalytics} 
+              alt="Business growth analytics and valuation" 
+              className="w-full h-[400px] object-cover"
+            />
+          </div>
+
           <div className={`max-w-4xl mx-auto transition-all duration-1000 ${section5Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-6">
               Want a Higher Selling Price? Here's What Buyers Look For:
@@ -379,11 +458,11 @@ const SellBusinessLanding = () => {
               We'll help you position your business to command top dollar.
             </p>
 
-            <Card className="border-2">
+            <Card className="border-2 shadow-xl">
               <CardContent className="p-8">
                 <div className="space-y-4">
                   {valueFactors.map((factor, index) => (
-                    <div key={index} className="flex items-start space-x-4">
+                    <div key={index} className="flex items-start space-x-4 p-4 rounded-lg hover:bg-muted/50 transition-colors">
                       <CheckCircle2 className="w-6 h-6 text-primary shrink-0 mt-1" />
                       <span className="text-lg">{factor}</span>
                     </div>
@@ -398,6 +477,15 @@ const SellBusinessLanding = () => {
       {/* Section 6 - About Us */}
       <section ref={section6Animation.elementRef} className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
+          {/* Professional Workspace Image */}
+          <div className="max-w-5xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl">
+            <img 
+              src={professionalWorkspace} 
+              alt="Professional brokerage workspace" 
+              className="w-full h-[400px] object-cover"
+            />
+          </div>
+
           <div className={`max-w-4xl mx-auto transition-all duration-1000 ${section6Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-6">
               About Sinevabrokerage
@@ -406,12 +494,12 @@ const SellBusinessLanding = () => {
               Sinevabrokerage is a Texas-based brokerage firm dedicated to helping entrepreneurs buy and sell businesses with transparency, precision, and confidentiality. Our team of licensed brokers, financial analysts, and transaction coordinators manages the entire process — so you don't have to.
             </p>
 
-            <Card className="border-2">
+            <Card className="border-2 shadow-xl">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-center mb-8">Our reputation is built on:</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   {aboutPoints.map((point, index) => (
-                    <div key={index} className="flex items-center space-x-4">
+                    <div key={index} className="flex items-center space-x-4 p-4 rounded-lg hover:bg-muted/50 transition-colors">
                       <CheckCircle2 className="w-6 h-6 text-primary shrink-0" />
                       <span className="text-lg font-semibold">{point}</span>
                     </div>
@@ -448,7 +536,7 @@ const SellBusinessLanding = () => {
       </section>
 
       {/* Section 8 - Final CTA */}
-      <section ref={section8Animation.elementRef} className="py-20 bg-primary/5">
+      <section ref={section8Animation.elementRef} className="py-20 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
         <div className="container mx-auto px-4">
           <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${section8Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
@@ -459,7 +547,7 @@ const SellBusinessLanding = () => {
             </p>
             <Button 
               size="lg" 
-              className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-white shadow-xl"
+              className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-white shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
               onClick={() => window.open('https://cal.com/sineva-brokerage/sell', '_blank')}
             >
               <Calendar className="w-5 h-5 mr-2" />
