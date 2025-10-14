@@ -46,7 +46,6 @@ const BuyBusinessLeads = () => {
 
   const opportunities = [
     { title: 'Established HVAC Company', location: 'Houston Area', revenue: '$2.3M Revenue', blur: true },
-    { title: 'Pet Grooming and Training School', location: 'Austin', revenue: '$380K Net Profit', blur: true },
     { title: 'Franchise Restaurant', location: 'Dallas Metroplex', revenue: 'Prime Location', blur: true },
   ];
 
@@ -273,9 +272,9 @@ const BuyBusinessLeads = () => {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {opportunities.map((opp, index) => {
-                const images = [closingDocsImage, happyOwnerImage, teamSuccessImage];
+                const images = [closingDocsImage, teamSuccessImage];
                 return (
                   <Card key={index} className="relative overflow-hidden group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
                     <div className="h-48 overflow-hidden">
