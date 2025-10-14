@@ -332,32 +332,56 @@ const SellBusinessLanding = () => {
       {/* Section 3 - Local Brokerage Value */}
       <section ref={section3Animation.elementRef} className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          {/* Featured Image */}
-          <div className="max-w-5xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl">
-            <img 
-              src={texasBusinessDistrict} 
-              alt="Texas business district" 
-              className="w-full h-[500px] object-cover"
-            />
-          </div>
+          <div className={`max-w-6xl mx-auto transition-all duration-1000 ${section3Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                The Value of Working with a Local Brokerage
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Unlike national online listing sites, Sinevabrokerage specializes exclusively in Texas transactions. We know the local market, buyer demand, and pricing realities that maximize your sale.
+              </p>
+            </div>
 
-          <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${section3Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              The Value of Working with a Local Brokerage
-            </h2>
-            <p className="text-xl text-muted-foreground mb-12">
-              Unlike national online listing sites, Sinevabrokerage specializes exclusively in Texas transactions. We know the local market, buyer demand, and pricing realities that maximize your sale.
-            </p>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Image */}
+              <div className="rounded-2xl overflow-hidden shadow-2xl">
+                <img 
+                  src={texasBusinessDistrict} 
+                  alt="Texas business district" 
+                  className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
 
-            <div className="bg-muted/50 rounded-lg p-8">
-              <h3 className="text-2xl font-bold mb-6">We Sell Businesses In:</h3>
-              <div className="grid md:grid-cols-3 gap-4">
-                {texasCities.map((city, index) => (
-                  <div key={index} className="flex items-center justify-center space-x-2 p-4 bg-background rounded-lg hover:shadow-md transition-shadow">
-                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                    <span className="font-semibold">{city}</span>
+              {/* Cities List */}
+              <div className="space-y-6">
+                <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-8 border-2 border-primary/10">
+                  <h3 className="text-2xl font-bold mb-6 flex items-center">
+                    <CheckCircle2 className="w-6 h-6 text-primary mr-3" />
+                    We Sell Businesses Across Texas
+                  </h3>
+                  <div className="space-y-3 text-lg">
+                    <p className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      <span className="font-semibold">Houston • Dallas-Fort Worth • San Antonio</span>
+                    </p>
+                    <p className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      <span className="font-semibold">Austin • El Paso</span>
+                    </p>
+                    <p className="flex items-center space-x-3">
+                      <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      <span className="font-semibold">and every growing Texas community</span>
+                    </p>
                   </div>
-                ))}
+                </div>
+                
+                <Card className="border-2">
+                  <CardContent className="p-6">
+                    <p className="text-muted-foreground italic">
+                      "Deep local knowledge means better pricing, faster sales, and qualified buyers who understand your market."
+                    </p>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
