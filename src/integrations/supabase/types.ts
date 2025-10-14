@@ -511,6 +511,39 @@ export type Database = {
           },
         ]
       }
+      business_valuation_requests: {
+        Row: {
+          annual_revenue_range: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          phone: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          annual_revenue_range: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          phone: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          annual_revenue_range?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       businesses: {
         Row: {
           annual_profit: number | null

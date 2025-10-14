@@ -14,8 +14,12 @@ const Navigation = () => {
   const location = useLocation();
 
   const navigationItems = [
-    { name: 'Businesses', href: '/businesses' },
     { name: 'Franchise with Us', href: '/franchise' },
+  ];
+
+  const businessItems = [
+    { name: 'Browse Businesses', href: '/businesses' },
+    { name: 'Sell Your Business', href: '/business-valuation' },
   ];
 
   const propertyItems = [
@@ -55,6 +59,32 @@ const Navigation = () => {
 
           {/* Desktop Navigation with improved structure */}
           <div className="hidden lg:flex items-center space-x-6">
+            {/* Businesses Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="font-space text-sm font-medium text-primary-foreground hover:text-white transition-all duration-300 px-3 py-2 h-auto group relative"
+                >
+                  Businesses
+                  <ChevronDown className="ml-1 h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
+                  <span className="absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300 w-0 group-hover:w-full" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48 bg-background border border-border shadow-lg z-[60]">
+                {businessItems.map((item) => (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link
+                      to={item.href}
+                      className="w-full cursor-pointer text-foreground hover:bg-primary/10 transition-colors px-3 py-2"
+                    >
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             {/* Properties Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
