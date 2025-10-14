@@ -40,9 +40,8 @@ const BusinessBuyerLeadForm = ({ onSuccess }: BusinessBuyerLeadFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('contact-form', {
+      const { error } = await supabase.functions.invoke('business-buyer-leads', {
         body: {
-          formType: 'business_buyer_lead',
           full_name: formData.full_name,
           email: formData.email,
           phone: formData.phone,
