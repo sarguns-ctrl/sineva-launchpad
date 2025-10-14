@@ -123,7 +123,7 @@ const BuyBusinessLeads = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center py-20 px-6 md:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={heroImage} alt="Texas Business Buyer" className="w-full h-full object-cover" />
+          <img src={heroImage} alt="Texas Business Buyer" className="w-full h-full object-cover brightness-[0.4]" />
           <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-primary/20" />
         </div>
         
@@ -257,7 +257,7 @@ const BuyBusinessLeads = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <Badge className="mb-2">Prime Location</Badge>
-                  <h3 className="text-2xl font-bold text-white">Exclusive Texas Properties</h3>
+                  <h3 className="text-2xl font-bold text-foreground">Exclusive Texas Properties</h3>
                 </div>
               </div>
               <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
@@ -269,7 +269,7 @@ const BuyBusinessLeads = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <Badge className="mb-2">Expert Guidance</Badge>
-                  <h3 className="text-2xl font-bold text-white">Personalized Service</h3>
+                  <h3 className="text-2xl font-bold text-foreground">Personalized Service</h3>
                 </div>
               </div>
             </div>
@@ -285,17 +285,9 @@ const BuyBusinessLeads = () => {
                     />
                   </div>
                   <CardContent className="p-6 space-y-4">
-                    <div className="absolute inset-0 backdrop-blur-sm bg-background/60 flex items-center justify-center z-10">
-                      <div className="text-center space-y-2">
-                        <Lock className="w-8 h-8 text-primary mx-auto" />
-                        <p className="text-sm font-semibold">Get Access</p>
-                      </div>
-                    </div>
-                    <div className="opacity-40">
-                      <Badge variant="outline" className="mb-2">{opp.location}</Badge>
-                      <h3 className="text-xl font-semibold">{opp.title}</h3>
-                      <p className="text-primary font-semibold">{opp.revenue}</p>
-                    </div>
+                    <Badge variant="outline" className="mb-2">{opp.location}</Badge>
+                    <h3 className="text-xl font-semibold">{opp.title}</h3>
+                    <p className="text-primary font-semibold">{opp.revenue}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -352,32 +344,23 @@ const BuyBusinessLeads = () => {
       <LazySection>
         <section ref={proofAnimation.elementRef} className="py-16 md:py-24 px-6 md:px-8 bg-muted/30">
           <div className="max-w-7xl mx-auto space-y-12">
-            <div className="grid lg:grid-cols-3 gap-8 mb-12">
-              <div className="lg:col-span-1 relative overflow-hidden rounded-2xl shadow-2xl">
-                <img 
-                  src={happyOwnerImage} 
-                  alt="Successful Business Owner" 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="lg:col-span-2 space-y-6">
-                {testimonials.map((testimonial, index) => (
-                  <Card key={index} className={`border-2 hover:border-primary/50 hover:shadow-xl transition-all duration-500 ${proofAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 200}ms` }}>
-                    <CardContent className="p-8 space-y-4">
-                      <p className="text-lg italic">"{testimonial.quote}"</p>
-                      <div className="pt-4 border-t flex items-center gap-4">
-                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-primary">{testimonial.author.charAt(0)}</span>
-                        </div>
-                        <div>
-                          <p className="font-semibold">{testimonial.author}</p>
-                          <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                        </div>
+            <div className="space-y-6">
+              {testimonials.map((testimonial, index) => (
+                <Card key={index} className={`border-2 hover:border-primary/50 hover:shadow-xl transition-all duration-500 ${proofAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: `${index * 200}ms` }}>
+                  <CardContent className="p-8 space-y-4">
+                    <p className="text-lg italic">"{ testimonial.quote}"</p>
+                    <div className="pt-4 border-t flex items-center gap-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                        <span className="text-xl font-bold text-primary">{testimonial.author.charAt(0)}</span>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      <div>
+                        <p className="font-semibold">{testimonial.author}</p>
+                        <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
 
             <div className="relative overflow-hidden rounded-2xl p-12 bg-gradient-to-br from-primary/10 to-transparent border-2">
