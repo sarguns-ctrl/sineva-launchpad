@@ -123,8 +123,8 @@ const BuyBusinessLeads = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center py-20 px-6 md:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={heroImage} alt="Texas Business Buyer" className="w-full h-full object-cover brightness-[0.4]" />
-          <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-primary/20" />
+          <img src={heroImage} alt="Texas Business Buyer" className="w-full h-full object-cover brightness-[0.7]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/70 to-primary/20" />
         </div>
         
         <div ref={heroAnimation.elementRef} className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
@@ -165,13 +165,12 @@ const BuyBusinessLeads = () => {
                   Sinevabrokerage gives you that insider access.
                 </p>
               </div>
-              <div className={`relative overflow-hidden rounded-2xl shadow-2xl transition-all duration-700 delay-200 ${whyAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
+              <div className={`relative overflow-hidden rounded-2xl transition-all duration-700 delay-200 ${whyAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
                 <img 
                   src={networkingImage} 
                   alt="Business Networking in Texas" 
                   className="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
               </div>
             </div>
 
@@ -212,7 +211,7 @@ const BuyBusinessLeads = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mt-12">
-              <div className="relative overflow-hidden rounded-2xl shadow-xl">
+              <div className="relative overflow-hidden rounded-2xl">
                 <img 
                   src={consultationImage} 
                   alt="Business Consultation" 
@@ -248,25 +247,23 @@ const BuyBusinessLeads = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
+              <div className="relative overflow-hidden rounded-2xl group">
                 <img 
                   src={commercialBuildingImage} 
                   alt="Texas Commercial Building" 
                   className="w-full h-[300px] object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <Badge className="mb-2">Prime Location</Badge>
                   <h3 className="text-2xl font-bold text-foreground">Exclusive Texas Properties</h3>
                 </div>
               </div>
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl group">
+              <div className="relative overflow-hidden rounded-2xl group">
                 <img 
                   src={brokerMeetingImage} 
                   alt="Broker Client Meeting" 
                   className="w-full h-[300px] object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <Badge className="mb-2">Expert Guidance</Badge>
                   <h3 className="text-2xl font-bold text-foreground">Personalized Service</h3>
