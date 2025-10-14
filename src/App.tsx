@@ -79,12 +79,13 @@ import MarketInsights from "./pages/MarketInsights";
 import NewProperties from "./pages/NewProperties";
 import ThankYou from "./pages/ThankYou";
 import BuyBusinessLanding from "./pages/BuyBusinessLanding";
+import BuyBusinessLeads from "./pages/BuyBusinessLeads";
 
 const queryClient = new QueryClient();
 
 const ConditionalBreadcrumb = () => {
   const location = useLocation();
-  const hideBreadcrumbPaths = ['/buy-business'];
+  const hideBreadcrumbPaths = ['/buy-business', '/buy-business-leads'];
   
   if (hideBreadcrumbPaths.includes(location.pathname)) {
     return null;
@@ -178,6 +179,7 @@ const App = () => {
         <Route path="/help" element={<HelpCenter />} />
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/buy-business" element={<BuyBusinessLanding />} />
+        <Route path="/buy-business-leads" element={<BuyBusinessLeads />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
