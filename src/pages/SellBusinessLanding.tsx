@@ -23,7 +23,7 @@ import {
   Award
 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import successfulBusinessOwner from "@/assets/successful-business-owner.jpg";
+import sellBusinessHeroBanner from "@/assets/sell-business-hero-banner.jpg";
 import businessHandshake from "@/assets/business-handshake.jpg";
 import businessDealHandshake from "@/assets/business-deal-handshake.jpg";
 import professionalWorkspace from "@/assets/professional-workspace.jpg";
@@ -144,7 +144,7 @@ const SellBusinessLanding = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url(${successfulBusinessOwner})`
+            backgroundImage: `url(${sellBusinessHeroBanner})`
           }}
         ></div>
         {/* Dark Overlay */}
