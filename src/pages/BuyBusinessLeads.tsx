@@ -120,7 +120,7 @@ const BuyBusinessLeads = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroAnimation.elementRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -132,29 +132,28 @@ const BuyBusinessLeads = () => {
         <div className="absolute inset-0 bg-black/70"></div>
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-black/20 to-secondary/30"></div>
-        
         <div className="container mx-auto px-4 relative z-10">
-          <div ref={heroAnimation.elementRef} className="max-w-4xl mx-auto text-center space-y-8">
-          <Badge variant="secondary" className="text-base px-6 py-2">
-            <Shield className="w-4 h-4 mr-2" />
-            Exclusive Buyer Network
-          </Badge>
+          <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <Badge variant="secondary" className="text-base px-6 py-2">
+              <Shield className="w-4 h-4 mr-2" />
+              Exclusive Buyer Network
+            </Badge>
+            
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl bg-gradient-to-r from-white via-white to-white/90 bg-clip-text">
+              Discover Profitable Businesses for Sale in Texas — Before Everyone Else
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed drop-shadow-lg">
+              Join Sinevabrokerage's exclusive network of verified business buyers. Get early access to off-market opportunities and personalized deal recommendations — all confidential.
+            </p>
           
-          <h1 className={`text-5xl md:text-7xl font-bold leading-tight text-white drop-shadow-2xl bg-gradient-to-r from-white via-white to-white/90 bg-clip-text transition-all duration-700 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            Discover Profitable Businesses for Sale in Texas — Before Everyone Else
-          </h1>
-          
-          <p className={`text-xl md:text-2xl text-white/90 leading-relaxed drop-shadow-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            Join Sinevabrokerage's exclusive network of verified business buyers. Get early access to off-market opportunities and personalized deal recommendations — all confidential.
-          </p>
-          
-          <Button 
-            size="lg" 
-            className={`text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-white shadow-2xl border-0 transition-all duration-700 delay-300 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-            onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            📩 Get Access to Listings
-          </Button>
+            <Button 
+              size="lg" 
+              className="bg-primary hover:bg-primary/90 text-white shadow-2xl border-0"
+              onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              📩 Get Access to Listings
+            </Button>
           </div>
         </div>
       </section>
