@@ -7,7 +7,7 @@ import BusinessBuyerLeadForm from '@/components/BusinessBuyerLeadForm';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import LazySection from '@/components/LazySection';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import heroImage from '@/assets/buy-business-hero.jpg';
+import businessBgImage from '@/assets/business-conference-room.jpg';
 import networkingImage from '@/assets/business-networking-texas.jpg';
 import consultationImage from '@/assets/business-consultation-meeting.jpg';
 import commercialBuildingImage from '@/assets/texas-commercial-building.jpg';
@@ -120,14 +120,21 @@ const BuyBusinessLeads = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center py-20 px-6 md:px-8 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img src={heroImage} alt="Texas Business Buyer" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/70" />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-black/20 to-secondary/30" />
-        </div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${businessBgImage})`,
+          }}
+        ></div>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/70"></div>
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-black/20 to-secondary/30"></div>
         
-        <div ref={heroAnimation.elementRef} className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+        <div className="container mx-auto px-4 relative z-10">
+          <div ref={heroAnimation.elementRef} className="max-w-4xl mx-auto text-center space-y-8">
           <Badge variant="secondary" className="text-base px-6 py-2">
             <Shield className="w-4 h-4 mr-2" />
             Exclusive Buyer Network
@@ -148,6 +155,7 @@ const BuyBusinessLeads = () => {
           >
             📩 Get Access to Listings
           </Button>
+          </div>
         </div>
       </section>
 
