@@ -365,52 +365,48 @@ const SellBusinessLanding = () => {
       </section>
 
       {/* Section 4 - Testimonials */}
-      <section ref={section4Animation.elementRef} className="py-20 bg-muted/30">
+      <section ref={section4Animation.elementRef} className="py-20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
         <div className="container mx-auto px-4">
           <div className={`text-center mb-16 transition-all duration-1000 ${section4Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <Badge variant="outline" className="mb-4 px-4 py-2">
+              <Award className="w-4 h-4 mr-2" />
+              Client Success Stories
+            </Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Success Stories from Texas Business Owners
+              Real Results from Texas Business Owners
             </h2>
-          </div>
-
-          {/* Success Images */}
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
-            <div className="rounded-xl overflow-hidden shadow-lg">
-              <img 
-                src={happyBusinessOwner} 
-                alt="Happy business owner after successful sale" 
-                className="w-full h-[250px] object-cover hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-            <div className="rounded-xl overflow-hidden shadow-lg">
-              <img 
-                src={businessTeamSuccess} 
-                alt="Team celebrating successful business transaction" 
-                className="w-full h-[250px] object-cover hover:scale-110 transition-transform duration-500"
-              />
-            </div>
-            <div className="rounded-xl overflow-hidden shadow-lg">
-              <img 
-                src={investmentMeeting} 
-                alt="Investment meeting with buyers" 
-                className="w-full h-[250px] object-cover hover:scale-110 transition-transform duration-500"
-              />
-            </div>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Join hundreds of satisfied business owners who achieved their goals with our guidance
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-2 hover:shadow-xl transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="mb-4">
-                    <div className="flex text-yellow-400 mb-4 text-2xl">
-                      {[...Array(5)].map((_, i) => (
-                        <span key={i}>★</span>
-                      ))}
+              <Card key={index} className="border-2 hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-background to-muted/20 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-secondary/5 rounded-full -ml-12 -mb-12"></div>
+                <CardContent className="p-10 relative z-10">
+                  <div className="mb-6">
+                    <svg className="w-12 h-12 text-primary/20 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                  </div>
+                  <div className="flex text-yellow-400 mb-4 text-xl">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i}>★</span>
+                    ))}
+                  </div>
+                  <p className="text-lg mb-6 leading-relaxed">{testimonial.quote}</p>
+                  <div className="flex items-center space-x-3 pt-4 border-t">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                      <span className="text-xl font-bold text-primary">
+                        {testimonial.author.split(' ').map(n => n[0]).join('')}
+                      </span>
                     </div>
-                    <p className="text-lg italic mb-6">"{testimonial.quote}"</p>
-                    <p className="font-bold text-lg">— {testimonial.author}</p>
-                    <p className="text-muted-foreground">{testimonial.location}</p>
+                    <div>
+                      <p className="font-bold text-lg">{testimonial.author}</p>
+                      <p className="text-muted-foreground text-sm">{testimonial.location}</p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
