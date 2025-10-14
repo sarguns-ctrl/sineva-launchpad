@@ -360,18 +360,12 @@ const SellBusinessLanding = () => {
                     We Sell Businesses Across Texas
                   </h3>
                   <div className="space-y-3 text-lg">
-                    <p className="flex items-center space-x-3">
-                      <span className="w-2 h-2 bg-primary rounded-full"></span>
-                      <span className="font-semibold">Houston • Dallas-Fort Worth • San Antonio</span>
-                    </p>
-                    <p className="flex items-center space-x-3">
-                      <span className="w-2 h-2 bg-primary rounded-full"></span>
-                      <span className="font-semibold">Austin • El Paso</span>
-                    </p>
-                    <p className="flex items-center space-x-3">
-                      <span className="w-2 h-2 bg-primary rounded-full"></span>
-                      <span className="font-semibold">and every growing Texas community</span>
-                    </p>
+                    {texasCities.map((city, index) => (
+                      <p key={index} className="flex items-center space-x-3">
+                        <span className="w-2 h-2 bg-primary rounded-full"></span>
+                        <span className="font-semibold">{city}</span>
+                      </p>
+                    ))}
                   </div>
                 </div>
                 
