@@ -26,17 +26,8 @@ const BuyBusinessLanding = () => {
       />
       
       <div className="min-h-screen">
-        {/* Logo Header */}
-        <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b">
-          <div className="container px-4 py-4">
-            <Link to="/buy-business" className="flex items-center">
-              <img src={logoImage} alt="Sineva Brokerage" className="h-12" />
-            </Link>
-          </div>
-        </header>
-
         {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden mt-20">
+        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img 
               src={heroImage} 
@@ -48,6 +39,10 @@ const BuyBusinessLanding = () => {
           
           <div className="container relative z-10 px-4 text-center">
             <div className="max-w-4xl mx-auto space-y-8">
+              <Link to="/buy-business" className="inline-block mb-8">
+                <img src={logoImage} alt="Sineva Brokerage" className="h-16 md:h-20 mx-auto" />
+              </Link>
+              
               <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
                 Own a Profitable Texas Business
               </h1>
