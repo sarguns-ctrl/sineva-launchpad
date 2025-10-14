@@ -122,8 +122,9 @@ const BuyBusinessLeads = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center py-20 px-6 md:px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={heroImage} alt="Texas Business Buyer" className="w-full h-full object-cover brightness-[0.7]" />
-          <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/70 to-primary/20" />
+          <img src={heroImage} alt="Texas Business Buyer" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-black/20 to-secondary/30" />
         </div>
         
         <div ref={heroAnimation.elementRef} className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
@@ -132,11 +133,11 @@ const BuyBusinessLeads = () => {
             Exclusive Buyer Network
           </Badge>
           
-          <h1 className={`text-5xl md:text-7xl font-bold leading-tight transition-all duration-700 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h1 className={`text-5xl md:text-7xl font-bold leading-tight text-white drop-shadow-2xl bg-gradient-to-r from-white via-white to-white/90 bg-clip-text transition-all duration-700 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             Discover Profitable Businesses for Sale in Texas — Before Everyone Else
           </h1>
           
-          <p className={`text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto transition-all duration-700 delay-200 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <p className={`text-xl md:text-2xl text-white/90 leading-relaxed drop-shadow-lg max-w-3xl mx-auto transition-all duration-700 delay-200 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             Join Sinevabrokerage's exclusive network of verified business buyers. Get early access to off-market opportunities and personalized deal recommendations — all confidential.
           </p>
           
