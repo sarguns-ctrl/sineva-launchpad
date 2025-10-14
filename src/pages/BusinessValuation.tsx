@@ -29,9 +29,12 @@ import {
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import successfulBusinessOwner from "@/assets/successful-business-owner.jpg";
-import businessHandshake from "@/assets/business-handshake.jpg";
-import texasBusinessMap from "@/assets/texas-business-map.jpg";
+import businessValuationHero from "@/assets/business-valuation-hero.jpg";
+import valuationHandshake from "@/assets/valuation-handshake.jpg";
+import valuationConsultation from "@/assets/valuation-consultation.jpg";
+import proudBusinessOwner from "@/assets/proud-business-owner.jpg";
+import valuationReport from "@/assets/valuation-report.jpg";
+import brokerPresentation from "@/assets/broker-presentation.jpg";
 
 const BusinessValuation = () => {
   const [formData, setFormData] = useState({
@@ -163,7 +166,7 @@ const BusinessValuation = () => {
       <section ref={heroAnimation.elementRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${successfulBusinessOwner})` }}
+          style={{ backgroundImage: `url(${businessValuationHero})` }}
         ></div>
         <div className="absolute inset-0 bg-black/70"></div>
         <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-black/20 to-secondary/30"></div>
@@ -200,7 +203,7 @@ const BusinessValuation = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl">
             <img 
-              src={businessHandshake} 
+              src={valuationHandshake} 
               alt="Business handshake with Texas skyline" 
               className="w-full h-[400px] object-cover"
             />
@@ -302,6 +305,15 @@ const BusinessValuation = () => {
       {/* Section 2 – What You'll Receive */}
       <section ref={section2Animation.elementRef} className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
+          {/* Featured Image */}
+          <div className="max-w-5xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl">
+            <img 
+              src={proudBusinessOwner} 
+              alt="Proud business owner" 
+              className="w-full h-[400px] object-cover"
+            />
+          </div>
+
           <div className={`max-w-4xl mx-auto text-center mb-16 transition-all duration-1000 ${section2Animation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               What You'll Receive
@@ -407,6 +419,31 @@ const BusinessValuation = () => {
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               The Selling Process
             </h2>
+          </div>
+
+          {/* Image Grid */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={valuationConsultation} 
+                alt="Business consultation meeting" 
+                className="w-full h-[250px] object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={valuationReport} 
+                alt="Business valuation report" 
+                className="w-full h-[250px] object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src={brokerPresentation} 
+                alt="Broker presenting to client" 
+                className="w-full h-[250px] object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-6">
