@@ -27,7 +27,7 @@ const BuyBusinessLanding = () => {
       
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20">
           <div className="absolute inset-0 z-0">
             <img 
               src={heroImage} 
@@ -37,40 +37,40 @@ const BuyBusinessLanding = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-primary/80" />
           </div>
           
-          <div className="container relative z-10 px-4 text-center">
-            <div className="max-w-4xl mx-auto space-y-8">
-              <Link to="/buy-business" className="inline-block mb-8">
-                <img src={logoImage} alt="Sineva Brokerage" className="h-16 md:h-20 mx-auto" />
+          <div className="container relative z-10 px-6 md:px-8 text-center">
+            <div className="max-w-5xl mx-auto space-y-6">
+              <Link to="/buy-business" className="inline-block mb-6">
+                <img src={logoImage} alt="Sineva Brokerage" className="h-20 md:h-24 mx-auto" />
               </Link>
               
-              <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight px-4">
                 Own a Profitable Texas Business
               </h1>
               
-              <p className="text-xl md:text-2xl text-white/95 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl lg:text-2xl text-white/95 leading-relaxed max-w-3xl mx-auto px-4 pt-2">
                 Access verified opportunities across Texas. Our licensed brokers guide you through evaluation, negotiation, and closing — so you can focus on success, not stress.
               </p>
 
-              <div className="flex flex-wrap gap-4 justify-center items-center pt-4">
-                <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm text-base py-2 px-4">
-                  <CheckCircle className="w-5 h-5 mr-2" />
+              <div className="flex flex-wrap gap-3 justify-center items-center pt-6 px-4">
+                <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm text-sm md:text-base py-2 px-4">
+                  <CheckCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                   20+ Years Experience
                 </Badge>
-                <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm text-base py-2 px-4">
-                  <CheckCircle className="w-5 h-5 mr-2" />
+                <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm text-sm md:text-base py-2 px-4">
+                  <CheckCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                   100% Texas Focus
                 </Badge>
-                <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm text-base py-2 px-4">
-                  <CheckCircle className="w-5 h-5 mr-2" />
+                <Badge variant="secondary" className="bg-white/20 text-white border-white/30 backdrop-blur-sm text-sm md:text-base py-2 px-4">
+                  <CheckCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                   Licensed Brokers
                 </Badge>
               </div>
 
-              <div className="pt-6">
-                <p className="text-white/90 text-lg mb-4">🎯 Free 30-Minute Buyer Consultation with Licensed Texas Broker</p>
+              <div className="pt-8 px-4">
+                <p className="text-white/90 text-base md:text-lg mb-6">🎯 Free 30-Minute Buyer Consultation with Licensed Texas Broker</p>
                 <Button 
                   size="lg" 
-                  className="text-lg px-8 py-6 bg-white text-primary hover:bg-white/90 hover:scale-105 transition-transform"
+                  className="text-base md:text-lg px-8 py-6 bg-white text-primary hover:bg-white/90 hover:scale-105 transition-transform"
                   asChild
                 >
                   <a href={bookingUrl} target="_blank" rel="noopener noreferrer">
@@ -83,8 +83,8 @@ const BuyBusinessLanding = () => {
         </section>
 
         {/* Image + Benefits Section */}
-        <section className="py-20 bg-background">
-          <div className="container px-4">
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container px-6 md:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
               <div>
                 <img 
@@ -166,8 +166,8 @@ const BuyBusinessLanding = () => {
         </section>
 
         {/* Detailed Process with Image */}
-        <section className="py-20 bg-muted/30">
-          <div className="container px-4">
+        <section className="py-16 md:py-24 bg-muted/30">
+          <div className="container px-6 md:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
                 We Simplify the Business Buying Process
@@ -285,8 +285,8 @@ const BuyBusinessLanding = () => {
         </section>
 
         {/* Texas Market with Large Visual */}
-        <section className="py-20 bg-background">
-          <div className="container px-4">
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container px-6 md:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
               <div>
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -356,8 +356,8 @@ const BuyBusinessLanding = () => {
         </section>
 
         {/* Success Stories with Images */}
-        <section className="py-20 bg-primary text-primary-foreground">
-          <div className="container px-4">
+        <section className="py-16 md:py-24 bg-primary text-primary-foreground">
+          <div className="container px-6 md:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
                 Real Success Stories from Texas Buyers
@@ -423,8 +423,8 @@ const BuyBusinessLanding = () => {
         </section>
 
         {/* About */}
-        <section className="py-20 bg-background">
-          <div className="container px-4">
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container px-6 md:px-8">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
                 We're More Than Brokers — We're Your Texas Business Partners
@@ -461,8 +461,8 @@ const BuyBusinessLanding = () => {
         </section>
 
         {/* FAQ */}
-        <section className="py-20 bg-muted/30">
-          <div className="container px-4">
+        <section className="py-16 md:py-24 bg-muted/30">
+          <div className="container px-6 md:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
                 Frequently Asked Questions
@@ -524,8 +524,8 @@ const BuyBusinessLanding = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="py-20 bg-primary text-primary-foreground">
-          <div className="container px-4 text-center">
+        <section className="py-16 md:py-24 bg-primary text-primary-foreground">
+          <div className="container px-6 md:px-8 text-center">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
                 Start Your Texas Business Ownership Journey Today
