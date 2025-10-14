@@ -127,8 +127,6 @@ const BuyBusinessLeads = () => {
         </div>
         
         <div ref={heroAnimation.elementRef} className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-          <img src={logo} alt="Sineva Brokerage" className="h-20 md:h-24 mx-auto mb-8" />
-          
           <Badge variant="secondary" className="text-base px-6 py-2">
             <Shield className="w-4 h-4 mr-2" />
             Exclusive Buyer Network
