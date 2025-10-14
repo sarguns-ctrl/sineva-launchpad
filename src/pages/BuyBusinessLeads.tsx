@@ -143,7 +143,7 @@ const BuyBusinessLeads = () => {
           
           <Button 
             size="lg" 
-            className={`text-lg px-8 py-6 transition-all duration-700 delay-300 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            className={`text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-white shadow-2xl border-0 transition-all duration-700 delay-300 ${heroAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
             onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
           >
             📩 Get Access to Listings
@@ -187,7 +187,7 @@ const BuyBusinessLeads = () => {
             </div>
 
             <div className="text-center mt-12">
-              <Button size="lg" className="hover:scale-105 transition-transform" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white hover:scale-105 transition-transform" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
                 🚀 Request Access to Active Listings
               </Button>
             </div>
@@ -297,7 +297,7 @@ const BuyBusinessLeads = () => {
               <p className="text-lg text-muted-foreground">
                 Get access to these and dozens more — all verified and ready for qualified buyers.
               </p>
-              <Button size="lg" className="hover:scale-105 transition-transform" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white hover:scale-105 transition-transform" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
                 📩 Show Me Available Businesses
               </Button>
             </div>
@@ -423,10 +423,10 @@ const BuyBusinessLeads = () => {
               Join hundreds of Texas entrepreneurs who found their next opportunity through Sinevabrokerage.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white" onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}>
                 📩 Get Access to Listings Now
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-primary/30 hover:border-primary/50">
                 📘 Download: "The Texas Business Buyer's Checklist (Free PDF)"
               </Button>
             </div>
