@@ -1,10 +1,13 @@
 import { Badge } from "./ui/badge";
-import { CheckCircle, MapPin, FileText, Search, DollarSign, Handshake, ArrowRight } from 'lucide-react';
-import businessHandshake from '@/assets/business-handshake.jpg';
+import { CheckCircle, MapPin, FileText, Search, DollarSign, Handshake, ArrowRight, Shield } from 'lucide-react';
+import modernWorkspaceTeam from '@/assets/modern-workspace-team.jpg';
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const SinevaBrokerageSection = () => {
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  
   const mainServices = [
     { icon: Search, title: "Find the Right Business", description: "Match your budget, visa needs & lifestyle" },
     { icon: MapPin, title: "Perfect Location", description: "Safe neighborhoods, good schools, great community" },
@@ -15,19 +18,24 @@ const SinevaBrokerageSection = () => {
   ];
 
   return (
-    <section className="relative py-24 bg-background overflow-hidden">
+    <section ref={elementRef} className="relative py-24 bg-gradient-to-b from-muted/30 to-background overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header with Image */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          <div>
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+          <div 
+            className={`transition-all duration-1000 ${
+              isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
+            }`}
+          >
             <Badge className="bg-accent/10 text-accent px-6 py-3 text-sm font-medium border border-accent/40 mb-6">
-              🏪 Sineva Brokerage
+              <Shield className="w-4 h-4 mr-2 inline" />
+              Sineva Brokerage
             </Badge>
             
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-clash font-bold text-foreground mb-6 leading-tight">
@@ -50,12 +58,17 @@ const SinevaBrokerageSection = () => {
             </Button>
           </div>
 
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-accent rounded-3xl blur-2xl opacity-20" />
+          <div 
+            className={`relative transition-all duration-1000 ${
+              isVisible ? 'animate-fade-in' : 'opacity-0'
+            }`}
+            style={{ animationDelay: '300ms' }}
+          >
+            <div className="absolute inset-0 bg-gradient-accent rounded-3xl blur-2xl opacity-20 animate-pulse" />
             <img 
-              src={businessHandshake} 
-              alt="Business Partnership" 
-              className="relative rounded-3xl shadow-elegant w-full h-[400px] object-cover"
+              src={modernWorkspaceTeam} 
+              alt="Professional Business Team Collaboration" 
+              className="relative rounded-3xl shadow-elegant w-full h-[400px] object-cover hover:scale-[1.02] transition-transform duration-500"
             />
           </div>
         </div>

@@ -5,6 +5,7 @@ import SinevaBrokerageSection from "@/components/SinevaBrokerageSection";
 import SocialProofBanner from "@/components/SocialProofBanner";
 import MarketLocationCards from "@/components/MarketLocationCards";
 import VisualShowcase from "@/components/VisualShowcase";
+import FeaturedOpportunities from "@/components/FeaturedOpportunities";
 import ExitIntentPopup, { useExitIntent } from "@/components/ExitIntentPopup";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -86,7 +87,9 @@ const Index = () => {
         <VisualShowcase />
       </ErrorBoundary>
 
-      {/* Removed Recommended Properties section */}
+      <ErrorBoundary>
+        <FeaturedOpportunities />
+      </ErrorBoundary>
       
       <ErrorBoundary>
         <LazySection>
