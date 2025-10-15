@@ -3,10 +3,9 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Link } from "react-router-dom";
 import { ArrowRight, TrendingUp, Building2, Home, Briefcase } from "lucide-react";
-import modernOfficeHero from "@/assets/modern-office-hero.jpg";
-import luxuryBuildingExterior from "@/assets/luxury-building-exterior.jpg";
-import modernWorkspaceTeam from "@/assets/modern-workspace-team.jpg";
-import citySkylineDusk from "@/assets/city-skyline-dusk.jpg";
+import downtownCommercial from "@/assets/downtown-commercial-building.jpg";
+import techStartupOffice from "@/assets/tech-startup-office.jpg";
+import miamiDevelopment from "@/assets/miami-development.jpg";
 
 const FeaturedOpportunities = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
@@ -14,7 +13,7 @@ const FeaturedOpportunities = () => {
   const opportunities = [
     {
       id: 1,
-      image: luxuryBuildingExterior,
+      image: downtownCommercial,
       category: "Commercial",
       badge: "Trending",
       title: "Downtown Office Building",
@@ -26,7 +25,7 @@ const FeaturedOpportunities = () => {
     },
     {
       id: 2,
-      image: modernWorkspaceTeam,
+      image: techStartupOffice,
       category: "Business",
       badge: "Hot Deal",
       title: "Tech Startup Portfolio",
@@ -38,7 +37,7 @@ const FeaturedOpportunities = () => {
     },
     {
       id: 3,
-      image: citySkylineDusk,
+      image: miamiDevelopment,
       category: "Investment",
       badge: "Premium",
       title: "Mixed-Use Development",
