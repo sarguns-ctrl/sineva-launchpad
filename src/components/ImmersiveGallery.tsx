@@ -16,12 +16,12 @@ const ImmersiveGallery = () => {
   return (
     <section 
       ref={elementRef}
-      className="relative py-32 bg-gradient-to-b from-background via-muted/30 to-background overflow-hidden"
+      className="relative py-32 bg-gradient-to-b from-muted/40 via-background to-secondary/30 overflow-hidden"
     >
       {/* Decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-accent/[0.06] rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-primary/[0.05] rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '1s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -31,16 +31,16 @@ const ImmersiveGallery = () => {
             isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'
           }`}
         >
-          <Badge className="bg-accent/10 text-accent px-6 py-3 text-sm font-medium border border-accent/40 mb-6">
+          <Badge className="bg-accent/10 text-accent px-6 py-2.5 text-sm font-semibold border border-accent/30 mb-6 shadow-sm">
             <Sparkles className="w-4 h-4 mr-2 inline" />
             Why Choose Sineva Grupo
           </Badge>
           
-          <h2 className="text-4xl md:text-6xl font-bold text-foreground font-clash mb-6 leading-tight">
+          <h2 className="text-5xl md:text-7xl font-bold text-foreground font-clash mb-6 leading-tight">
             Your Vision,
-            <span className="text-accent bg-gradient-accent bg-clip-text text-transparent"> Our Expertise</span>
+            <span className="block mt-2 bg-gradient-accent bg-clip-text text-transparent">Our Expertise</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             From strategy to success - we guide international investors through every step of their North American business journey
           </p>
         </div>
@@ -53,17 +53,17 @@ const ImmersiveGallery = () => {
               isVisible ? 'animate-fade-in' : 'opacity-0'
             }`}
           >
-            <div className="group relative h-[600px] rounded-3xl overflow-hidden shadow-elegant hover:shadow-glow transition-all duration-500">
+            <div className="group relative h-[600px] rounded-3xl overflow-hidden shadow-elegant hover:shadow-glow transition-all duration-700 border border-border/40 hover:border-accent/30">
               <img 
                 src={heroBusinessMeeting}
                 alt="Professional business meeting with international investors"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-card/98 via-card/50 to-transparent" />
               
               {/* Floating Badge */}
               <div className="absolute top-6 left-6">
-                <Badge className="bg-accent text-accent-foreground border-0 shadow-accent px-4 py-2">
+                <Badge className="bg-accent text-accent-foreground border-0 shadow-accent px-5 py-2.5 font-semibold text-sm">
                   <Award className="w-4 h-4 mr-2" />
                   Premium Service
                 </Badge>
@@ -71,17 +71,17 @@ const ImmersiveGallery = () => {
 
               {/* Content Overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-8">
-                <div className="bg-card/90 backdrop-blur-md border border-border rounded-2xl p-8">
-                  <h3 className="text-3xl font-bold text-foreground mb-3 font-clash">
+                <div className="bg-card/95 backdrop-blur-xl border border-border/60 rounded-2xl p-8 shadow-elegant">
+                  <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-clash leading-tight">
                     Strategic Business Advisory
                   </h3>
-                  <p className="text-muted-foreground mb-6 text-lg">
+                  <p className="text-muted-foreground mb-7 text-lg leading-relaxed">
                     Expert guidance for E-2, EB-5, and business immigration programs with proven success rates
                   </p>
-                  <Button asChild size="lg" className="group/btn shadow-accent">
+                  <Button asChild size="lg" className="group/btn shadow-accent hover:shadow-glow">
                     <Link to="/services">
                       Explore Services
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
                     </Link>
                   </Button>
                 </div>
@@ -98,21 +98,21 @@ const ImmersiveGallery = () => {
               }`}
               style={{ animationDelay: '200ms' }}
             >
-              <div className="group relative h-[285px] rounded-3xl overflow-hidden shadow-card hover:shadow-elegant transition-all duration-500">
+              <div className="group relative h-[285px] rounded-2xl overflow-hidden shadow-card hover:shadow-elegant transition-all duration-700 border border-border/40 hover:border-accent/30">
                 <img 
                   src={teamCollaboration}
                   alt="Team collaboration and strategic planning"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-card/95 via-card/55 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <div className="flex items-start space-x-3">
-                    <div className="w-12 h-12 bg-accent/20 backdrop-blur-md rounded-xl flex items-center justify-center border border-accent/40 flex-shrink-0">
+                    <div className="w-12 h-12 bg-accent/15 backdrop-blur-xl rounded-xl flex items-center justify-center border border-accent/30 flex-shrink-0 shadow-sm">
                       <Target className="w-6 h-6 text-accent" />
                     </div>
                     <div>
                       <h4 className="text-xl font-bold text-foreground mb-2 font-clash">End-to-End Support</h4>
-                      <p className="text-sm text-muted-foreground">From visa applications to business setup</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">From visa applications to business setup</p>
                     </div>
                   </div>
                 </div>
@@ -126,21 +126,21 @@ const ImmersiveGallery = () => {
               }`}
               style={{ animationDelay: '400ms' }}
             >
-              <div className="group relative h-[285px] rounded-3xl overflow-hidden shadow-card hover:shadow-elegant transition-all duration-500">
+              <div className="group relative h-[285px] rounded-2xl overflow-hidden shadow-card hover:shadow-elegant transition-all duration-700 border border-border/40 hover:border-primary/30">
                 <img 
                   src={businessSkyline}
                   alt="Modern city skyline representing business opportunities"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-card/95 via-card/55 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <div className="flex items-start space-x-3">
-                    <div className="w-12 h-12 bg-primary/20 backdrop-blur-md rounded-xl flex items-center justify-center border border-primary/40 flex-shrink-0">
+                    <div className="w-12 h-12 bg-primary/15 backdrop-blur-xl rounded-xl flex items-center justify-center border border-primary/30 flex-shrink-0 shadow-sm">
                       <Shield className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h4 className="text-xl font-bold text-foreground mb-2 font-clash">Trusted Excellence</h4>
-                      <p className="text-sm text-muted-foreground">20+ years of proven market expertise</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">20+ years of proven market expertise</p>
                     </div>
                   </div>
                 </div>
