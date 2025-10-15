@@ -70,9 +70,9 @@ const VisualShowcase = () => {
               
               <div className="absolute bottom-0 left-0 right-0 p-8">
                 <div className="bg-card/95 backdrop-blur-xl border border-border/60 rounded-2xl p-8 shadow-elegant">
-                  <Badge className="bg-accent text-accent-foreground mb-4 border-0 px-4 py-1.5 font-semibold shadow-accent">
-                    Featured Investment
-                  </Badge>
+                <Badge className="bg-accent/95 text-accent-foreground border border-accent/30 mb-4 px-4 py-1.5 font-semibold shadow-accent backdrop-blur-md">
+                  Featured Investment
+                </Badge>
                   <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-clash leading-tight">
                     Premium Business Districts
                   </h3>
@@ -105,7 +105,7 @@ const VisualShowcase = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card/98 via-card/65 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <Badge className="bg-accent/15 text-accent border border-accent/30 mb-3 font-semibold shadow-sm">
+                <Badge className="bg-accent/95 text-accent-foreground border border-accent/30 mb-3 font-semibold shadow-accent backdrop-blur-md">
                   Ready to Operate
                 </Badge>
                 <h3 className="text-xl font-bold text-foreground mb-2 font-clash">Turn-Key Businesses</h3>
@@ -135,7 +135,7 @@ const VisualShowcase = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card/98 via-card/65 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <Badge className="bg-primary/15 text-primary-foreground border border-primary/30 mb-3 font-semibold shadow-sm">
+                <Badge className="bg-accent/95 text-accent-foreground border border-accent/30 mb-3 font-semibold shadow-accent backdrop-blur-md">
                   Growth Analytics
                 </Badge>
                 <h3 className="text-xl font-bold text-foreground mb-2 font-clash">Market Insights</h3>

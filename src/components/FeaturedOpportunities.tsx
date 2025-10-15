@@ -105,7 +105,7 @@ const FeaturedOpportunities = () => {
                   
                   {/* Badge */}
                   <div className="absolute top-5 right-5">
-                    <Badge className="bg-accent text-accent-foreground border-0 shadow-accent px-4 py-1.5 font-semibold">
+                    <Badge className="bg-accent/95 text-accent-foreground border border-accent/30 shadow-accent px-4 py-1.5 font-semibold backdrop-blur-md">
                       {opportunity.badge}
                     </Badge>
                   </div>
