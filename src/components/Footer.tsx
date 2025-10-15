@@ -135,6 +135,24 @@ const Footer = () => {
                   <Mail className="h-4 w-4 text-accent" />
                   <span>contact@sinevagrupo.com</span>
                 </div>
+                <div className="mt-4 space-y-2 text-sm">
+                  <a 
+                    href="https://drive.google.com/file/d/1DDAonBY1OQ6gGkXGwidXTuzcJO-37q0D/view" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 block underline"
+                  >
+                    Texas Real Estate Commission Information About Brokerage Services
+                  </a>
+                  <a 
+                    href="https://drive.google.com/file/d/1TWJLmGfGVIHLOlBsvQU-axEGvY3Y7kVs/view" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary-foreground/80 hover:text-accent transition-colors duration-200 block underline"
+                  >
+                    Texas Real Estate Commission Consumer Protection Notice
+                  </a>
+                </div>
               </div>
             </div>
 
