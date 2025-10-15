@@ -32,11 +32,11 @@ All colors MUST be HSL.
     --muted: 220 30% 97%;
     --muted-foreground: 220 25% 42%;
 
-    /* Accent: Vibrant Blue - premium, professional, energetic */
-    --accent: 214 100% 50%;
+    /* Accent: Navy Blue - consistent with primary theme */
+    --accent: 220 60% 35%;
     --accent-foreground: 0 0% 100%;
-    --accent-soft: 214 80% 92%;
-    --accent-muted: 214 70% 85%;
+    --accent-soft: 220 50% 92%;
+    --accent-muted: 220 45% 85%;
 
     /* Gold Accent - luxury touch */
     --gold: 45 90% 55%;
@@ -48,15 +48,15 @@ All colors MUST be HSL.
 
     --border: 220 25% 92%;
     --input: 220 25% 96%;
-    --ring: 214 100% 50%;
+    --ring: 220 60% 35%;
 
     /* Premium gradients */
     --gradient-primary: linear-gradient(135deg, hsl(220 70% 15%), hsl(220 65% 28%));
     --gradient-secondary: linear-gradient(135deg, hsl(220 35% 97%), hsl(220 30% 99%));
-    --gradient-accent: linear-gradient(135deg, hsl(214 100% 50%), hsl(214 90% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(220 60% 35%), hsl(220 55% 45%));
     --gradient-gold: linear-gradient(135deg, hsl(45 90% 55%), hsl(45 85% 65%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 70% 12%) 0%, hsl(220 65% 20%) 50%, hsl(214 100% 50%) 100%);
-    --gradient-mesh: radial-gradient(circle at 15% 50%, hsl(214 100% 50% / 0.04) 0%, transparent 50%), 
+    --gradient-hero: linear-gradient(135deg, hsl(220 70% 12%) 0%, hsl(220 65% 20%) 50%, hsl(220 60% 35%) 100%);
+    --gradient-mesh: radial-gradient(circle at 15% 50%, hsl(220 60% 35% / 0.04) 0%, transparent 50%), 
                      radial-gradient(circle at 85% 20%, hsl(220 70% 15% / 0.03) 0%, transparent 50%),
                      radial-gradient(circle at 50% 90%, hsl(45 90% 55% / 0.02) 0%, transparent 50%);
     
@@ -64,9 +64,9 @@ All colors MUST be HSL.
     --shadow-elegant: 0 20px 50px -12px hsl(220 70% 15% / 0.2);
     --shadow-card: 0 8px 24px -6px hsl(220 70% 15% / 0.12);
     --shadow-button: 0 4px 16px -3px hsl(220 70% 15% / 0.25);
-    --shadow-accent: 0 8px 24px -6px hsl(214 100% 50% / 0.35);
+    --shadow-accent: 0 8px 24px -6px hsl(220 60% 35% / 0.35);
     --shadow-gold: 0 8px 24px -6px hsl(45 90% 55% / 0.3);
-    --shadow-glow: 0 0 35px hsl(214 100% 50% / 0.25);
+    --shadow-glow: 0 0 35px hsl(220 60% 35% / 0.25);
     
     /* Advanced transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
