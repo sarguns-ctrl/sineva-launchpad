@@ -6,6 +6,7 @@ import SocialProofBanner from "@/components/SocialProofBanner";
 import MarketLocationCards from "@/components/MarketLocationCards";
 import VisualShowcase from "@/components/VisualShowcase";
 import FeaturedOpportunities from "@/components/FeaturedOpportunities";
+import ImmersiveGallery from "@/components/ImmersiveGallery";
 import ExitIntentPopup, { useExitIntent } from "@/components/ExitIntentPopup";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -85,6 +86,10 @@ const Index = () => {
 
       <ErrorBoundary>
         <VisualShowcase />
+      </ErrorBoundary>
+
+      <ErrorBoundary>
+        <ImmersiveGallery />
       </ErrorBoundary>
 
       <ErrorBoundary>

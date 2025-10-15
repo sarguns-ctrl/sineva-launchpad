@@ -1,6 +1,7 @@
-import modernOfficeHero from '@/assets/modern-office-hero.jpg';
-import realEstateKeys from '@/assets/real-estate-keys.jpg';
-import luxuryApartmentInterior from '@/assets/luxury-apartment-interior.jpg';
+import officeBuildingModern from '@/assets/office-building-modern.jpg';
+import teamMeetingRoom from '@/assets/team-meeting-room.jpg';
+import businessGrowth from '@/assets/business-growth.jpg';
+import dataAnalytics from '@/assets/data-analytics.jpg';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -53,8 +54,8 @@ const VisualShowcase = () => {
           >
             <div className="relative h-full min-h-[500px]">
               <img 
-                src={modernOfficeHero}
-                alt="Modern Premium Office Building"
+                src={officeBuildingModern}
+                alt="Modern premium office building for commercial investments"
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
@@ -98,8 +99,8 @@ const VisualShowcase = () => {
           >
             <div className="relative h-[240px]">
               <img 
-                src={realEstateKeys}
-                alt="Turn-Key Business Solutions"
+                src={teamMeetingRoom}
+                alt="Turn-key business solutions with complete setup"
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/60 to-transparent" />
@@ -128,20 +129,20 @@ const VisualShowcase = () => {
           >
             <div className="relative h-[240px]">
               <img 
-                src={luxuryApartmentInterior}
-                alt="Luxury Residential Properties"
+                src={businessGrowth}
+                alt="Business growth and investment opportunities"
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/60 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <Badge className="bg-primary/20 text-primary-foreground border border-primary/40 mb-3">
-                  Premium Living
+                  Growth Analytics
                 </Badge>
-                <h3 className="text-xl font-bold text-foreground mb-2 font-clash">Luxury Residences</h3>
-                <p className="text-sm text-muted-foreground mb-4">Exclusive properties in prime locations</p>
+                <h3 className="text-xl font-bold text-foreground mb-2 font-clash">Market Insights</h3>
+                <p className="text-sm text-muted-foreground mb-4">Real-time data and performance tracking</p>
                 <Button asChild variant="outline" size="sm" className="group/btn border-foreground/20 hover:bg-card/50">
-                  <Link to="/residential-properties">
-                    View Collection
+                  <Link to="/market-insights">
+                    View Analytics
                     <ArrowRight className="ml-2 w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
