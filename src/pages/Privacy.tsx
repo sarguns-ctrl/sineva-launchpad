@@ -17,140 +17,120 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const Privacy = () => {
   const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
 
-  const lastUpdated = "March 15, 2024";
+  const lastUpdated = "November 2, 2015";
 
   const sections = [
     {
-      id: "information-collection",
-      title: "Information We Collect",
-      icon: Eye,
-      content: [
-        {
-          subtitle: "Personal Information",
-          details: "We collect personal information you provide directly to us, such as when you create an account, contact us, or use our services. This may include your name, email address, phone number, postal address, and professional information."
-        },
-        {
-          subtitle: "Property and Investment Information", 
-          details: "When you inquire about properties or investment opportunities, we collect information about your investment preferences, budget, visa status, and specific requirements for immigration-related investments."
-        },
-        {
-          subtitle: "Usage Information",
-          details: "We automatically collect information about how you use our website, including your IP address, browser type, pages visited, time spent on pages, and other analytics data."
-        },
-        {
-          subtitle: "Communication Records",
-          details: "We maintain records of communications between you and our agents, including emails, phone calls, and chat messages to provide better service and maintain transaction records."
-        }
-      ]
-    },
-    {
-      id: "information-use",
-      title: "How We Use Your Information",
-      icon: Users,
-      content: [
-        {
-          subtitle: "Service Provision",
-          details: "We use your information to provide real estate services, match you with suitable properties, facilitate transactions, and provide immigration-related investment guidance."
-        },
-        {
-          subtitle: "Communication",
-          details: "We use your contact information to respond to inquiries, provide updates on properties or market conditions, and send important notifications about our services."
-        },
-        {
-          subtitle: "Personalization", 
-          details: "We use your preferences and behavior data to personalize your experience, recommend relevant properties, and improve our services."
-        },
-        {
-          subtitle: "Legal Compliance",
-          details: "We may use your information to comply with legal obligations, including anti-money laundering requirements, tax reporting, and immigration documentation requirements."
-        }
-      ]
-    },
-    {
-      id: "information-sharing",
-      title: "Information Sharing and Disclosure",
-      icon: Globe,
-      content: [
-        {
-          subtitle: "Service Providers",
-          details: "We may share your information with trusted third-party service providers who assist us in operating our business, such as payment processors, background check companies, and marketing platforms."
-        },
-        {
-          subtitle: "Real Estate Partners",
-          details: "With your consent, we may share relevant information with real estate professionals, property sellers, lenders, and other parties involved in your transaction."
-        },
-        {
-          subtitle: "Legal Requirements",
-          details: "We may disclose your information when required by law, court order, or government regulation, or when we believe disclosure is necessary to protect our rights or comply with legal processes."
-        },
-        {
-          subtitle: "Business Transfers",
-          details: "In the event of a merger, acquisition, or sale of business assets, your information may be transferred to the acquiring entity as part of the transaction."
-        }
-      ]
-    },
-    {
-      id: "data-security",
-      title: "Data Security",
-      icon: Lock,
-      content: [
-        {
-          subtitle: "Security Measures",
-          details: "We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction."
-        },
-        {
-          subtitle: "Encryption",
-          details: "We use industry-standard encryption protocols (SSL/TLS) to protect data transmission and store sensitive information using encrypted databases."
-        },
-        {
-          subtitle: "Access Controls",
-          details: "Access to your personal information is restricted to authorized employees and service providers who need the information to perform their job functions."
-        },
-        {
-          subtitle: "Regular Monitoring",
-          details: "We regularly monitor our systems for vulnerabilities and potential security breaches, and we have incident response procedures in place."
-        }
-      ]
-    },
-    {
-      id: "your-rights",
-      title: "Your Privacy Rights",
+      id: "trec-regulation",
+      title: "Texas Real Estate Commission Regulation",
       icon: Shield,
       content: [
         {
-          subtitle: "Access and Correction",
-          details: "You have the right to access, update, or correct your personal information. You can do this by logging into your account or contacting us directly."
+          subtitle: "TREC Oversight",
+          details: "The Texas Real Estate Commission (TREC) regulates real estate brokers and sales agents, real estate inspectors, easement and right-of-way agents, and timeshare interest providers. You can find more information and check the status of a license holder at www.trec.texas.gov"
         },
         {
-          subtitle: "Data Portability",
-          details: "You have the right to request a copy of your personal information in a structured, machine-readable format for transfer to another service provider."
+          subtitle: "Filing Complaints",
+          details: "You can send a complaint against a license holder to TREC. A complaint form is available on the TREC website."
         },
         {
-          subtitle: "Deletion",
-          details: "You can request deletion of your personal information, subject to certain exceptions such as legal requirements or legitimate business purposes."
+          subtitle: "Recovery Trust Account",
+          details: "TREC administers the Real Estate Recovery Trust Account which may be used to satisfy a civil court judgment against a broker, sales agent, or easement or right-of-way agent, if certain requirements are met."
         },
         {
-          subtitle: "Marketing Opt-out",
-          details: "You can opt out of receiving marketing communications from us at any time by using the unsubscribe link in emails or contacting us directly."
+          subtitle: "Inspector Insurance Requirements",
+          details: "Real estate inspectors are required to maintain errors and omissions insurance to cover losses arising from the performance of a real estate inspection in a negligent or incompetent manner. Please note: Inspectors may limit liability through provisions in the contract or inspection agreement. Please be sure to read any contract or agreement carefully. If you do not understand any terms or provisions, consult an attorney."
         }
       ]
     },
     {
-      id: "international-transfers",
-      title: "International Data Transfers",
-      icon: Globe,
+      id: "license-holders",
+      title: "Types of Real Estate License Holders",
+      icon: Users,
       content: [
         {
-          subtitle: "Cross-Border Services",
-          details: "As we serve international clients, your information may be transferred to and processed in countries other than your country of residence, including the United States."
+          subtitle: "Broker",
+          details: "A BROKER is responsible for all brokerage activities, including acts performed by sales agents sponsored by the broker."
         },
         {
-          subtitle: "Adequate Protections",
-          details: "When we transfer personal information internationally, we ensure adequate safeguards are in place, such as standard contractual clauses or other approved transfer mechanisms."
+          subtitle: "Sales Agent",
+          details: "A SALES AGENT must be sponsored by a broker and works with clients on behalf of the broker."
+        }
+      ]
+    },
+    {
+      id: "broker-duties",
+      title: "A Broker's Minimum Duties Required by Law",
+      icon: AlertTriangle,
+      content: [
+        {
+          subtitle: "Client Representation",
+          details: "A client is the person or party that the broker represents. The broker must:"
         },
         {
-          subtitle: "Group Sineva Network",
-          details: "Your information may be shared within the Grupo Sineva network of companies to provide comprehensive services across our international offices."
+          subtitle: "Primary Obligations",
+          details: "• Put the interests of the client above all others, including the broker's own interests\n• Inform the client of any material information about the property or transaction received by the broker\n• Answer the client's questions and present any offer to or counter-offer from the client\n• Treat all parties to a real estate transaction honestly and fairly"
+        }
+      ]
+    },
+    {
+      id: "representation-types",
+      title: "How a License Holder Can Represent a Party",
+      icon: Users,
+      content: [
+        {
+          subtitle: "As Agent for Owner (Seller/Landlord)",
+          details: "The broker becomes the property owner's agent through an agreement with the owner, usually in a written listing to sell or property management agreement. An owner's agent must perform the broker's minimum duties and must inform the owner of any material information about the property or transaction known by the agent, including information disclosed to the agent or subagent by the buyer or buyer's agent."
+        },
+        {
+          subtitle: "As Agent for Buyer/Tenant",
+          details: "The broker becomes the buyer/tenant's agent by agreeing to represent the buyer, usually through a written representation agreement. A buyer's agent must perform the broker's minimum duties and must inform the buyer of any material information about the property or transaction known by the agent, including information disclosed to the agent by the seller or seller's agent."
+        },
+        {
+          subtitle: "As Agent for Both - Intermediary",
+          details: "To act as an intermediary between the parties the broker must first obtain the written agreement of each party to the transaction. The written agreement must state who will pay the broker and, in conspicuous bold or underlined print, set forth the broker's obligations as an intermediary."
+        },
+        {
+          subtitle: "Intermediary Obligations",
+          details: "A broker who acts as an intermediary:\n• Must treat all parties to the transaction impartially and fairly\n• May, with the parties' written consent, appoint a different license holder associated with the broker to each party (owner and buyer) to communicate with, provide opinions and advice to, and carry out the instructions of each party to the transaction\n• Must not, unless specifically authorized in writing to do so by the party, disclose: that the owner will accept a price less than the written asking price; that the buyer/tenant will pay a price greater than the price submitted in a written offer; and any confidential information or any other information that a party specifically instructs the broker in writing not to disclose, unless required to do so by law"
+        },
+        {
+          subtitle: "As Subagent",
+          details: "A license holder acts as a subagent when aiding a buyer in a transaction without an agreement to represent the buyer. A subagent can assist the buyer but does not represent the buyer and must place the interests of the owner first."
+        }
+      ]
+    },
+    {
+      id: "written-agreements",
+      title: "Importance of Written Agreements",
+      icon: Lock,
+      content: [
+        {
+          subtitle: "Clear Documentation",
+          details: "To avoid disputes, all agreements between you and a broker should be in writing and clearly establish:"
+        },
+        {
+          subtitle: "Key Elements",
+          details: "• The broker's duties and responsibilities to you, and your obligations under the representation agreement\n• Who will pay the broker for services provided to you, when payment will be made and how the payment will be calculated"
+        }
+      ]
+    },
+    {
+      id: "contact-information",
+      title: "License Holder Contact Information",
+      icon: Mail,
+      content: [
+        {
+          subtitle: "Stewart and Campbell Real Estate",
+          details: "Licensed Broker/Broker Firm Name\nLicense No: 9001706\nEmail: broker@stewartandcampbell.com\nPhone: (713) 955-8817"
+        },
+        {
+          subtitle: "Rodney Campbell - Designated Broker",
+          details: "License No: 613021\nEmail: broker@stewartandcampbell.com\nPhone: (713) 955-8817"
+        },
+        {
+          subtitle: "Important Notice",
+          details: "This notice is being provided for information purposes. It does not create an obligation for you to use the broker's services."
         }
       ]
     }
@@ -180,11 +160,10 @@ const Privacy = () => {
               LEGAL INFORMATION
             </Badge>
             <h1 className="text-5xl md:text-6xl font-bold text-white font-playfair">
-              Privacy Policy
+              Information About Brokerage Services
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              Your privacy is important to us. This policy explains how Sineva Brokerage 
-              collects, uses, and protects your personal information.
+              Important information about real estate brokerage services and Texas Real Estate Commission regulations
             </p>
             <div className="flex items-center justify-center space-x-2 text-white/80">
               <Calendar className="h-4 w-4" />
@@ -205,17 +184,17 @@ const Privacy = () => {
                   <Shield className="h-6 w-6 text-primary" />
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-2xl font-bold font-playfair">Our Commitment to Privacy</h2>
+                  <h2 className="text-2xl font-bold font-playfair">Equal Housing Opportunity</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    Sineva Brokerage ("we," "our," or "us") is committed to protecting your privacy and 
-                    maintaining the confidentiality of your personal information. This Privacy Policy 
-                    describes our practices concerning the collection, use, and disclosure of information 
-                    you provide to us through our website, services, and interactions with our team.
+                    This information is provided by the Texas Real Estate Commission to inform you about 
+                    brokerage services, the types of real estate license holders, and their legal duties 
+                    and responsibilities. Understanding these distinctions will help you make informed 
+                    decisions when engaging real estate services.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    This policy applies to all users of our services, including prospective clients, 
-                    current clients, website visitors, and anyone who interacts with our real estate 
-                    and investment advisory services.
+                    For more information about TREC and to verify license holder status, visit www.trec.texas.gov. 
+                    Contact information: Texas Real Estate Commission, P.O. Box 12188, Austin, Texas 78711-2188, 
+                    Phone: (512) 936-3000
                   </p>
                 </div>
               </div>
@@ -257,13 +236,13 @@ const Privacy = () => {
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold font-playfair">Contact Us About Privacy</h2>
+                <h2 className="text-2xl font-bold font-playfair">Acknowledgment of Receipt</h2>
               </div>
               
               <div className="ml-16 space-y-6">
                 <p className="text-muted-foreground leading-relaxed">
-                  If you have questions about this Privacy Policy, wish to exercise your privacy rights, 
-                  or need to report a privacy concern, please contact us using the information below:
+                  Please acknowledge that you have received this notice about brokerage services. 
+                  Retain a copy for your records. For questions or additional information, please contact:
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -313,12 +292,12 @@ const Privacy = () => {
               <div className="flex items-start space-x-3">
                 <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
                 <div className="space-y-2">
-                  <h3 className="font-semibold text-amber-800">Policy Updates</h3>
+                  <h3 className="font-semibold text-amber-800">Important Notice</h3>
                   <p className="text-sm text-amber-700 leading-relaxed">
-                    We may update this Privacy Policy from time to time to reflect changes in our 
-                    practices or legal requirements. We will notify you of any material changes by 
-                    posting the updated policy on our website and updating the "Last updated" date. 
-                    We encourage you to review this policy periodically.
+                    This information about brokerage services is provided for informational purposes only. 
+                    It does not create an obligation for you to use any specific broker's services. 
+                    All agreements should be in writing to avoid disputes and clearly establish the duties, 
+                    responsibilities, and payment terms between you and your chosen broker.
                   </p>
                 </div>
               </div>
