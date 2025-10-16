@@ -6,7 +6,7 @@ import RoleProtectedRoute from "@/components/RoleProtectedRoute";
 
 const AdminDashboardPage = () => {
   return (
-    <RoleProtectedRoute allowedRoles={['admin', 'manager']}>
+    <RoleProtectedRoute allowedRoles={['admin', 'hr']}>
       <SEOHead 
         title="Admin Dashboard - Platform Management | Grupo Sineva"
         description="Administrative dashboard for managing users, properties, agents, and platform operations."

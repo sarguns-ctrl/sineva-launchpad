@@ -8,7 +8,7 @@ import { MessageSquare } from 'lucide-react';
 
 const AdminLeads = () => {
   return (
-    <RoleProtectedRoute allowedRoles={['admin', 'manager', 'agent']}>
+    <RoleProtectedRoute allowedRoles={['admin', 'hr', 'agent']}>
       <div className="min-h-screen bg-background">
         <SEOHead 
           title="Admin - Lead Management | Grupo Sineva"

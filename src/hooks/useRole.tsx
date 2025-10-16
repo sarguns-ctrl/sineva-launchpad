@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 
-export type UserRole = 'admin' | 'hr' | 'manager' | 'employee' | 'agent' | 'user';
+export type UserRole = 'admin' | 'hr' | 'agent' | 'user';
 
 interface RoleData {
   role: UserRole;
@@ -126,12 +126,11 @@ export const useRole = () => {
         'employee.manage', 
         'training.manage',
         'reports.view',
-        'notifications.send'
-      ],
-      manager: [
-        'team.manage',
-        'reports.view',
-        'employee.view'
+        'notifications.send',
+        'team.manage', // Merged from manager role
+        'employee.view',
+        'properties.manage', // Can manage property approvals
+        'business.manage' // Can manage business approvals
       ],
       agent: [
         'properties.manage',
@@ -139,12 +138,9 @@ export const useRole = () => {
         'commissions.view',
         'clients.manage'
       ],
-      employee: [
-        'profile.edit',
-        'training.access'
-      ],
       user: [
         'profile.view',
+        'profile.edit',
         'properties.view',
         'favorites.manage'
       ]
@@ -156,7 +152,6 @@ export const useRole = () => {
 
   const isAdmin = (): boolean => hasRole('admin');
   const isAgent = (): boolean => hasRole(['admin', 'agent']);
-  const isEmployee = (): boolean => hasRole(['admin', 'hr', 'manager', 'employee', 'agent']);
   const canManageUsers = (): boolean => hasRole(['admin', 'hr']);
 
   return {
@@ -168,7 +163,6 @@ export const useRole = () => {
     hasPermission,
     isAdmin,
     isAgent,
-    isEmployee,
     canManageUsers,
     assignRole,
     refetch: fetchUserRole
