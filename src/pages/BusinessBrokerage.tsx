@@ -194,7 +194,7 @@ const BusinessBrokerage = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroRef} className="relative min-h-[80vh] sm:min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-0">
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -206,18 +206,18 @@ const BusinessBrokerage = () => {
         <div className="absolute inset-0 bg-black/70"></div>
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-black/20 to-secondary/30"></div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 sm:py-12">
           <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl bg-gradient-to-r from-white via-white to-white/90 bg-clip-text">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 text-white drop-shadow-2xl bg-gradient-to-r from-white via-white to-white/90 bg-clip-text leading-tight">
               Buy Your American Dream
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed drop-shadow-lg">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-8 leading-relaxed drop-shadow-lg px-2">
               Discover established U.S. businesses perfect for international entrepreneurs seeking E-2 and EB-5 visa opportunities
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto mb-8">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md mx-auto mb-6 sm:mb-8 px-4">
               <Button 
                 size="lg" 
-                className="flex-1 bg-primary hover:bg-primary/90 text-white shadow-2xl border-0"
+                className="flex-1 w-full sm:w-auto bg-primary hover:bg-primary/90 text-white shadow-2xl border-0 text-sm sm:text-base"
                 onClick={() => document.getElementById('business-listings')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Browse Businesses
@@ -225,10 +225,10 @@ const BusinessBrokerage = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="flex-1 bg-white/10 hover:bg-white/20 text-white border-white/30 hover:border-white/50 backdrop-blur-sm shadow-xl"
+                className="flex-1 w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border-white/30 hover:border-white/50 backdrop-blur-sm shadow-xl text-sm sm:text-base"
                 onClick={() => document.getElementById('business-search')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Start Business Search
+                Start Search
               </Button>
             </div>
             
@@ -237,9 +237,9 @@ const BusinessBrokerage = () => {
                 onClick={handleListBusiness}
                 variant="secondary"
                 size="lg"
-                className="mb-8"
+                className="mb-6 sm:mb-8 w-full sm:w-auto"
               >
-                <Plus className="w-5 h-5 mr-2" />
+                <Plus className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 List Your Business
               </Button>
             )}
@@ -248,38 +248,38 @@ const BusinessBrokerage = () => {
       </section>
 
       {/* Sineva Brokerage Brief Section */}
-      <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/5 border-y border-border/50">
-        <div className="container mx-auto px-4">
+      <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-r from-primary/5 to-secondary/5 border-y border-border/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge className="bg-primary/10 text-primary px-6 py-2 text-sm font-medium border border-primary/20 mb-6">
+            <Badge className="bg-primary/10 text-primary px-4 sm:px-6 py-2 text-xs sm:text-sm font-medium border border-primary/20 mb-4 sm:mb-6">
               🏪 Sineva Brokerage
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-foreground px-2">
               Helping You Buy Your First 
               <span className="text-primary"> U.S. Business</span>
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed px-2">
               Buying a business is stressful — especially when it's your first time and you're moving your family. 
               At Sineva Brokerage, we make the process simple, safe, and practical.
             </p>
             
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <div className="flex items-center justify-center space-x-2 text-sm font-medium">
-                <CheckCircle className="w-5 h-5 text-primary" />
-                <span>Business Selection & Location Guidance</span>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="flex items-center justify-center space-x-2 text-xs sm:text-sm font-medium px-2">
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                <span className="text-left sm:text-center">Business Selection & Location Guidance</span>
               </div>
-              <div className="flex items-center justify-center space-x-2 text-sm font-medium">
-                <CheckCircle className="w-5 h-5 text-primary" />
-                <span>Due Diligence & Legal Support</span>
+              <div className="flex items-center justify-center space-x-2 text-xs sm:text-sm font-medium px-2">
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                <span className="text-left sm:text-center">Due Diligence & Legal Support</span>
               </div>
-              <div className="flex items-center justify-center space-x-2 text-sm font-medium">
-                <CheckCircle className="w-5 h-5 text-primary" />
-                <span>Financing & Post-Purchase Support</span>
+              <div className="flex items-center justify-center space-x-2 text-xs sm:text-sm font-medium px-2">
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                <span className="text-left sm:text-center">Financing & Post-Purchase Support</span>
               </div>
             </div>
             
-            <div className="flex items-center justify-center space-x-2 text-primary font-medium">
-              <Globe className="w-5 h-5" />
+            <div className="flex items-center justify-center space-x-2 text-primary font-medium text-xs sm:text-sm md:text-base">
+              <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>In-person support available nationwide</span>
             </div>
           </div>
@@ -287,38 +287,39 @@ const BusinessBrokerage = () => {
       </section>
 
       {/* Business Search & Listings Section */}
-      <section id="business-search" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section id="business-search" className="py-8 sm:py-12 md:py-16 lg:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Available Businesses</h2>
-              <p className="text-xl text-muted-foreground">
+            <div className="text-center mb-6 sm:mb-8 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">Available Businesses</h2>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
                 {totalCount} businesses available for acquisition
               </p>
             </div>
 
             {/* Search and Filter Controls */}
-            <div className="flex flex-col lg:flex-row gap-6 mb-8">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4 sm:w-5 sm:h-5" />
                   <Input
-                    placeholder="Search businesses by name or description..."
+                    placeholder="Search businesses..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
+                    className="pl-9 sm:pl-10 text-sm sm:text-base"
                   />
                 </div>
               </div>
               <Button
                 variant="outline"
                 onClick={() => setShowFilters(!showFilters)}
+                className="w-full sm:w-auto text-sm sm:text-base"
               >
                 Filters
               </Button>
-              <Button onClick={handleListBusiness}>
-                <Plus className="w-4 h-4 mr-2" />
-                List Your Business
+              <Button onClick={handleListBusiness} className="w-full sm:w-auto text-sm sm:text-base">
+                <Plus className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                List Business
               </Button>
             </div>
 
@@ -334,12 +335,12 @@ const BusinessBrokerage = () => {
             )}
 
             {/* Results Summary */}
-            <div className="flex items-center justify-between mb-6">
-              <p className="text-muted-foreground">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-4 sm:mb-6">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Showing {filteredBusinesses.length} of {totalCount} businesses
               </p>
               {Object.keys(filters).length > 0 && (
-                <Badge variant="secondary">
+                <Badge variant="secondary" className="text-xs sm:text-sm">
                   {Object.keys(filters).length} filter(s) applied
                 </Badge>
               )}
@@ -348,7 +349,7 @@ const BusinessBrokerage = () => {
             {/* Business Listings */}
             <div id="business-listings">
               {loading ? (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {[...Array(6)].map((_, i) => (
                     <div key={i} className="space-y-4">
                       <Skeleton className="h-48 w-full" />
@@ -379,7 +380,7 @@ const BusinessBrokerage = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {filteredBusinesses.map((business) => (
                     <BusinessCard
                       key={business.id}
@@ -401,17 +402,17 @@ const BusinessBrokerage = () => {
       </section>
 
       {/* How It Works */}
-      <section ref={howItWorksRef} className="py-20 bg-secondary/10">
-        <div className="container mx-auto px-4">
+      <section ref={howItWorksRef} className="py-8 sm:py-12 md:py-16 lg:py-20 bg-secondary/10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`max-w-6xl mx-auto transition-all duration-1000 ${howItWorksVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">How It Works</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 px-2">How It Works</h2>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
                 Our streamlined process makes business acquisition simple and secure for international investors
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {howItWorksSteps.map((step, index) => (
                 <div 
                   key={step.step}
