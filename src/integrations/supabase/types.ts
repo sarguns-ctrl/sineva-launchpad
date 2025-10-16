@@ -172,6 +172,45 @@ export type Database = {
           },
         ]
       }
+      analysis_requests: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          investment_budget: string | null
+          message: string | null
+          name: string
+          phone: string | null
+          property_type: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          investment_budget?: string | null
+          message?: string | null
+          name: string
+          phone?: string | null
+          property_type: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          investment_budget?: string | null
+          message?: string | null
+          name?: string
+          phone?: string | null
+          property_type?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       appointments: {
         Row: {
           agent_id: string | null

@@ -46,3 +46,6 @@ port = 54327
 
 [functions.contact-form]
 verify_jwt = false
+
+[functions.analysis-request]
+verify_jwt = false

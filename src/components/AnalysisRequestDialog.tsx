@@ -41,30 +41,19 @@ export const AnalysisRequestDialog: React.FC<AnalysisRequestDialogProps> = ({ op
     setLoading(true);
 
     try {
-      // Save to database
-      const { error: dbError } = await supabase
-        .from('contact_submissions')
-        .insert({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || null,
-          inquiry_type: 'Commercial Analysis Request',
-          message: `Property Type: ${formData.propertyType}\nInvestment Budget: ${formData.investmentBudget}\n\n${formData.message}`,
-          status: 'new'
-        });
-
-      if (dbError) throw dbError;
-
-      // Send email notification
-      await supabase.functions.invoke('contact-form', {
+      // Send request via edge function (which saves to DB and sends emails)
+      const { data, error } = await supabase.functions.invoke('analysis-request', {
         body: {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          inquiry_type: 'Commercial Analysis Request',
-          message: `Property Type: ${formData.propertyType}\nInvestment Budget: ${formData.investmentBudget}\n\n${formData.message}`
+          propertyType: formData.propertyType,
+          investmentBudget: formData.investmentBudget,
+          message: formData.message
         }
       });
+
+      if (error) throw error;
 
       toast({
         title: "Request Submitted",
