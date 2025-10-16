@@ -12,7 +12,8 @@ interface ContactFormData {
   email: string
   phone?: string
   country?: string
-  inquiryType: string
+  inquiryType?: string
+  inquiry_type?: string
   investmentRange?: string
   visaType?: string
   message: string
@@ -36,6 +37,8 @@ serve(async (req) => {
 
     console.log('Processing contact form submission:', { name: formData.name, email: formData.email })
 
+    const inquiryType = formData.inquiry_type || formData.inquiryType || 'General Inquiry'
+    
     // Store in contact_submissions
     const { data: submission, error: dbError } = await supabaseClient
       .from('contact_submissions')
@@ -44,7 +47,7 @@ serve(async (req) => {
         email: formData.email,
         phone: formData.phone,
         country: formData.country,
-        inquiry_type: formData.inquiryType,
+        inquiry_type: inquiryType,
         investment_range: formData.investmentRange,
         visa_type: formData.visaType,
         message: formData.message
@@ -76,7 +79,7 @@ serve(async (req) => {
 
         <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="color: #374151; margin-top: 0;">Inquiry Details</h3>
-          <p><strong>Inquiry Type:</strong> ${formData.inquiryType}</p>
+          <p><strong>Inquiry Type:</strong> ${inquiryType}</p>
           ${formData.investmentRange ? `<p><strong>Investment Range:</strong> ${formData.investmentRange}</p>` : ''}
           ${formData.visaType ? `<p><strong>Visa Type:</strong> ${formData.visaType}</p>` : ''}
         </div>
@@ -94,9 +97,9 @@ serve(async (req) => {
     `
 
     const { error: emailError } = await resend.emails.send({
-      from: 'Sineva Grupo <noreply@sinevagrupo.com>',
-      to: ['contact@sinevagrupo.com'],
-      subject: `New Contact Inquiry - ${formData.inquiryType}`,
+      from: 'Sineva Brokerage <onboarding@resend.dev>',
+      to: ['contact@sinevabrokerage.com'],
+      subject: `New Contact Inquiry - ${inquiryType}`,
       html: emailContent,
     })
 
@@ -116,7 +119,7 @@ serve(async (req) => {
         
         <p>Dear ${formData.name},</p>
         
-        <p>Thank you for contacting Sineva Grupo. We have received your inquiry about <strong>${formData.inquiryType}</strong> and will respond within 24 hours.</p>
+        <p>Thank you for contacting Sineva Grupo. We have received your inquiry about <strong>${inquiryType}</strong> and will respond within 24 hours.</p>
         
         <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="color: #374151; margin-top: 0;">What happens next?</h3>
@@ -143,7 +146,7 @@ serve(async (req) => {
     `
 
     await resend.emails.send({
-      from: 'Sineva Grupo <noreply@sinevagrupo.com>',
+      from: 'Sineva Brokerage <onboarding@resend.dev>',
       to: [formData.email],
       subject: 'Thank You for Your Inquiry - Sineva Grupo',
       html: confirmationEmail,

@@ -48,7 +48,7 @@ export const AnalysisRequestDialog: React.FC<AnalysisRequestDialogProps> = ({ op
           name: formData.name,
           email: formData.email,
           phone: formData.phone || null,
-          inquiry_type: 'analysis_request',
+          inquiry_type: 'Commercial Analysis Request',
           message: `Property Type: ${formData.propertyType}\nInvestment Budget: ${formData.investmentBudget}\n\n${formData.message}`,
           status: 'new'
         });
