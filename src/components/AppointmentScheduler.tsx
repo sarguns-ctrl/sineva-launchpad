@@ -143,6 +143,36 @@ export const AppointmentScheduler: React.FC = () => {
 
       if (error) throw error;
 
+      // Get user profile for email
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('full_name')
+        .eq('user_id', user?.id)
+        .single();
+
+      // Get agent details
+      const agent = agents.find(a => a.id === selectedAgent);
+      
+      // Get property details if selected
+      const property = selectedProperty && selectedProperty !== 'none' 
+        ? properties.find(p => p.id === selectedProperty) 
+        : null;
+
+      // Send email notification
+      const emailData = {
+        clientName: profile?.full_name || user?.email?.split('@')[0] || 'Client',
+        clientEmail: user?.email || '',
+        agentName: agent?.full_name || 'Agent',
+        appointmentType: appointmentType,
+        scheduledAt: scheduledAt,
+        propertyAddress: property ? `${property.title}, ${property.address}, ${property.city}, ${property.state}` : undefined,
+        notes: notes || undefined
+      };
+
+      await supabase.functions.invoke('send-appointment-email', {
+        body: emailData
+      });
+
       toast({
         title: "Success",
         description: "Appointment scheduled successfully"
