@@ -76,11 +76,7 @@ export const AppointmentScheduler: React.FC = () => {
       // Load appointments
       const { data: appointmentsData, error: appointmentsError } = await supabase
         .from('appointments')
-        .select(`
-          *,
-          property:properties(id, title, address),
-          agent:employee_profiles(id, full_name, email)
-        `)
+        .select('*')
         .eq('client_id', user?.id)
         .order('scheduled_at', { ascending: true });
 
@@ -103,8 +99,12 @@ export const AppointmentScheduler: React.FC = () => {
         .eq('status', 'active')
         .limit(50);
 
-      if (propertiesError) throw propertiesError;
-      setProperties(propertiesData || []);
+      if (propertiesError) {
+        console.warn('Properties fetch failed, continuing without properties:', propertiesError.message);
+        setProperties([]);
+      } else {
+        setProperties(propertiesData || []);
+      }
     } catch (error: any) {
       toast({
         title: "Error",
@@ -117,6 +117,15 @@ export const AppointmentScheduler: React.FC = () => {
   };
 
   const createAppointment = async () => {
+    if (!user) {
+      toast({
+        title: "Login required",
+        description: "Please log in to schedule an appointment.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!selectedAgent || !appointmentType || !scheduledDate || !scheduledTime) {
       toast({
         title: "Error",
