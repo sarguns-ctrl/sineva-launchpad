@@ -58,6 +58,7 @@ import AdminLeads from "./pages/AdminLeads";
 import AdminSettings from "./pages/AdminSettings";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import AdminRoles from "./pages/AdminRoles";
+import AdminAgentApplications from "./pages/AdminAgentApplications";
 import MessagingPage from "./pages/MessagingPage";
 import AppointmentsPage from "./pages/AppointmentsPage";
 
@@ -127,6 +128,7 @@ const App = () => {
           <Route path="/appointments" element={<AppointmentsPage />} />
           <Route path="/admin" element={<AdminDashboardPage />} />
             <Route path="/admin/roles" element={<AdminRoles />} />
+            <Route path="/admin/agent-applications" element={<AdminAgentApplications />} />
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/properties" element={<AdminProperties />} />
             <Route path="/admin/blog" element={<AdminBlog />} />

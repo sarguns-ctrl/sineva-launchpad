@@ -11,7 +11,8 @@ import {
   Settings, 
   Briefcase,
   TrendingUp,
-  Database
+  Database,
+  UserCheck
 } from 'lucide-react';
 
 import {
@@ -62,6 +63,12 @@ const adminItems = [
     title: "Users",
     url: "/admin/users",
     icon: Users,
+    group: "Management"
+  },
+  {
+    title: "Agent Applications",
+    url: "/admin/agent-applications",
+    icon: UserCheck,
     group: "Management"
   },
   {

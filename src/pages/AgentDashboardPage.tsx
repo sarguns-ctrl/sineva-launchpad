@@ -3,11 +3,11 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { AdvancedAgentDashboard } from "@/components/AdvancedAgentDashboard";
 import SEOHead from "@/components/SEOHead";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
+import RoleProtectedRoute from "@/components/RoleProtectedRoute";
 
 const AgentDashboardPage = () => {
   return (
-    <ProtectedRoute>
+    <RoleProtectedRoute allowedRoles={['agent', 'admin']}>
       <div className="min-h-screen bg-background">
         <SEOHead 
           title="Agent Dashboard - Performance & Management | Grupo Sineva"
@@ -21,7 +21,7 @@ const AgentDashboardPage = () => {
 
         <Footer />
       </div>
-    </ProtectedRoute>
+    </RoleProtectedRoute>
   );
 };
 
