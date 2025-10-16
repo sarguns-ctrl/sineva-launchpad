@@ -88,7 +88,7 @@ const JoinTeam = () => {
     const { data: existingApplication, error: checkError } = await supabase
       .from('agent_applications')
       .select('id, status, package_type, email, phone')
-      .or(`email.eq.${applicationData.email},phone.eq.${applicationData.phone}`)
+      .or(`user_id.eq.${user!.id},email.eq.${applicationData.email},phone.eq.${applicationData.phone}`)
       .maybeSingle();
 
     if (checkError) {
