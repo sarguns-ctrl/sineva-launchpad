@@ -30,9 +30,16 @@ import {
   CheckCircle
 } from "lucide-react";
 import { useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { supabase } from "@/integrations/supabase/client";
 
 const MarketInsights = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const [showSubscribeDialog, setShowSubscribeDialog] = useState(false);
+  const [subscriberEmail, setSubscriberEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -43,11 +50,57 @@ const MarketInsights = () => {
     });
   };
 
-  const handleSubscribeUpdates = () => {
-    toast({
-      title: "Subscription Added",
-      description: "You'll receive weekly market updates and exclusive insights.",
-    });
+  const handleSubscribeUpdates = async () => {
+    if (!subscriberEmail) {
+      toast({
+        title: "Email Required",
+        description: "Please enter your email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(subscriberEmail)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      const { error } = await supabase
+        .from("subscribers")
+        .upsert(
+          [{ email: subscriberEmail, user_id: user?.id || null }],
+          { onConflict: user?.id ? 'user_id' : 'email' }
+        );
+
+      if (error) throw error;
+
+      toast({
+        title: "Subscription Added",
+        description: "You'll receive weekly market updates and exclusive insights.",
+      });
+      
+      setShowSubscribeDialog(false);
+      setSubscriberEmail("");
+    } catch (error) {
+      console.error("Subscription error:", error);
+      toast({
+        title: "Subscription Failed",
+        description: "There was an error subscribing. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleRequestCustomReport = () => {
@@ -542,7 +595,7 @@ const MarketInsights = () => {
                 Request Custom Report
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" onClick={handleSubscribeUpdates}>
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary" onClick={() => setShowSubscribeDialog(true)}>
                 Subscribe to Updates
               </Button>
             </div>
@@ -551,6 +604,42 @@ const MarketInsights = () => {
       </section>
 
       <Footer />
+
+      {/* Subscribe Dialog */}
+      <Dialog open={showSubscribeDialog} onOpenChange={setShowSubscribeDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Subscribe to Market Updates</DialogTitle>
+            <DialogDescription>
+              Get weekly market insights, investment opportunities, and exclusive reports delivered to your inbox.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 pt-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email Address</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="your@email.com"
+                value={subscriberEmail}
+                onChange={(e) => setSubscriberEmail(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSubscribeUpdates();
+                  }
+                }}
+              />
+            </div>
+            <Button 
+              className="w-full" 
+              onClick={handleSubscribeUpdates}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
