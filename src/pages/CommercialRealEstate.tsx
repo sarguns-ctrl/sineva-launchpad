@@ -5,10 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building, MapPin, TrendingUp, Users, CheckCircle, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { AnalysisRequestDialog } from "@/components/AnalysisRequestDialog";
+import { useState } from "react";
 
 const CommercialRealEstate = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [showAnalysisDialog, setShowAnalysisDialog] = useState(false);
 
   const handleViewProperties = () => {
     navigate('/properties');
@@ -19,10 +22,7 @@ const CommercialRealEstate = () => {
   };
 
   const handleRequestAnalysis = () => {
-    toast({
-      title: "Analysis Request Sent",
-      description: "Our team will prepare a detailed investment analysis and contact you within 24 hours.",
-    });
+    setShowAnalysisDialog(true);
   };
 
   const handleContactTeam = () => {
@@ -197,6 +197,11 @@ const CommercialRealEstate = () => {
       </section>
 
       <Footer />
+      
+      <AnalysisRequestDialog 
+        open={showAnalysisDialog} 
+        onOpenChange={setShowAnalysisDialog} 
+      />
     </div>
   );
 };
