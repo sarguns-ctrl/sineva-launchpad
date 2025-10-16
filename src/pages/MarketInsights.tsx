@@ -73,20 +73,15 @@ const MarketInsights = () => {
     setIsSubmitting(true);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      const { error } = await supabase
-        .from("subscribers")
-        .upsert(
-          [{ email: subscriberEmail, user_id: user?.id || null }],
-          { onConflict: user?.id ? 'user_id' : 'email' }
-        );
+      const { data, error } = await supabase.functions.invoke('subscribe-newsletter', {
+        body: { email: subscriberEmail }
+      });
 
       if (error) throw error;
 
       toast({
         title: "Subscription Added",
-        description: "You'll receive weekly market updates and exclusive insights.",
+        description: "You'll receive daily market updates with AI-curated property insights!",
       });
       
       setShowSubscribeDialog(false);
