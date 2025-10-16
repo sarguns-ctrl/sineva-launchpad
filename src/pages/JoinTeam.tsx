@@ -41,6 +41,8 @@ const JoinTeam = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [isApplying, setIsApplying] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState('starter');
   const [applicationData, setApplicationData] = useState({
     full_name: '',
     email: user?.email || '',
@@ -53,14 +55,19 @@ const JoinTeam = () => {
     package_type: 'starter'
   });
 
-  const handleApplyNow = async (packageType: string) => {
+  const handleApplyClick = (packageType: string) => {
     if (!user) {
       console.log('[JoinTeam] Apply clicked without auth, redirecting to /auth');
       toast({ title: 'Please sign in', description: 'Create an account or sign in to apply as an agent.' });
       navigate('/auth');
       return;
     }
+    setSelectedPackage(packageType);
+    setApplicationData(prev => ({ ...prev, package_type: packageType }));
+    setIsDialogOpen(true);
+  };
 
+  const handleSubmitApplication = async () => {
     // Validate required fields
     if (!applicationData.full_name || !applicationData.phone || !applicationData.motivation) {
       toast({
@@ -75,16 +82,16 @@ const JoinTeam = () => {
       setIsApplying(true);
       
       const applicationPayload = {
-        user_id: user.id,
+        user_id: user!.id,
         full_name: applicationData.full_name,
-        email: user.email || '',
+        email: user!.email || '',
         phone: applicationData.phone,
         experience_years: applicationData.experience_years || 0,
         specializations: applicationData.specializations.length > 0 ? applicationData.specializations : ['General Real Estate'],
         previous_company: applicationData.previous_company || '',
         license_number: applicationData.license_number || '',
         motivation: applicationData.motivation,
-        package_type: packageType,
+        package_type: selectedPackage,
         status: 'pending'
       };
       
@@ -126,7 +133,7 @@ const JoinTeam = () => {
         description: "Check your email for confirmation. We'll contact you within 24-48 hours.",
       });
       
-      // Reset form
+      // Reset form and close dialog
       setApplicationData({
         full_name: '',
         email: user?.email || '',
@@ -138,6 +145,7 @@ const JoinTeam = () => {
         motivation: '',
         package_type: 'starter'
       });
+      setIsDialogOpen(false);
     } catch (error: any) {
       console.error('Application error:', error);
       toast({
@@ -222,7 +230,7 @@ const JoinTeam = () => {
       ],
       popular: false,
               ctaText: "Apply Now",
-              onClick: () => handleApplyNow('starter')
+              onClick: () => handleApplyClick('starter')
     },
     {
       name: "Professional Package", 
@@ -241,7 +249,7 @@ const JoinTeam = () => {
       ],
       popular: true,
       ctaText: "Apply Now",
-      onClick: () => handleApplyNow('professional')
+      onClick: () => handleApplyClick('professional')
     },
     {
       name: "Elite Package",
@@ -261,7 +269,7 @@ const JoinTeam = () => {
       ],
       popular: false,
       ctaText: "Apply Now",
-      onClick: () => handleApplyNow('elite')
+      onClick: () => handleApplyClick('elite')
     }
   ];
 
@@ -333,6 +341,141 @@ const JoinTeam = () => {
     <div className="min-h-screen">
       <Navigation />
       
+      {/* Application Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Agent Application - {selectedPackage.charAt(0).toUpperCase() + selectedPackage.slice(1)} Package</DialogTitle>
+            <DialogDescription>
+              Complete the form below to submit your application. We'll review it and contact you within 24-48 hours.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="full_name">Full Name *</Label>
+                <Input
+                  id="full_name"
+                  value={applicationData.full_name}
+                  onChange={(e) => setApplicationData({...applicationData, full_name: e.target.value})}
+                  placeholder="John Doe"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email *</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={applicationData.email}
+                  onChange={(e) => setApplicationData({...applicationData, email: e.target.value})}
+                  placeholder="john@example.com"
+                  disabled
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number *</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={applicationData.phone}
+                  onChange={(e) => setApplicationData({...applicationData, phone: e.target.value})}
+                  placeholder="+1 (555) 123-4567"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="experience">Years of Experience</Label>
+                <Input
+                  id="experience"
+                  type="number"
+                  min="0"
+                  value={applicationData.experience_years}
+                  onChange={(e) => setApplicationData({...applicationData, experience_years: parseInt(e.target.value) || 0})}
+                  placeholder="0"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="previous_company">Previous Company</Label>
+                <Input
+                  id="previous_company"
+                  value={applicationData.previous_company}
+                  onChange={(e) => setApplicationData({...applicationData, previous_company: e.target.value})}
+                  placeholder="ABC Realty"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="license_number">License Number</Label>
+                <Input
+                  id="license_number"
+                  value={applicationData.license_number}
+                  onChange={(e) => setApplicationData({...applicationData, license_number: e.target.value})}
+                  placeholder="RE12345"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Specializations (select all that apply)</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {specializations.map((spec) => (
+                  <div key={spec} className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id={spec}
+                      checked={applicationData.specializations.includes(spec)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setApplicationData({
+                            ...applicationData,
+                            specializations: [...applicationData.specializations, spec]
+                          });
+                        } else {
+                          setApplicationData({
+                            ...applicationData,
+                            specializations: applicationData.specializations.filter(s => s !== spec)
+                          });
+                        }
+                      }}
+                      className="rounded border-gray-300"
+                    />
+                    <label htmlFor={spec} className="text-sm cursor-pointer">{spec}</label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="motivation">Why do you want to join Sineva Brokerage? *</Label>
+              <Textarea
+                id="motivation"
+                value={applicationData.motivation}
+                onChange={(e) => setApplicationData({...applicationData, motivation: e.target.value})}
+                placeholder="Tell us about your goals and why you're interested in joining our team..."
+                rows={4}
+              />
+            </div>
+
+            <Button 
+              onClick={handleSubmitApplication} 
+              className="w-full"
+              disabled={isApplying}
+            >
+              {isApplying ? 'Submitting Application...' : 'Submit Application'}
+            </Button>
+            
+            <p className="text-xs text-muted-foreground text-center">
+              * Required fields. We'll contact you at {applicationData.email} within 24-48 hours.
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
+      
       {/* Hero Section */}
       <section className="pt-28 pb-20 bg-gradient-hero">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -357,10 +500,9 @@ const JoinTeam = () => {
                 <Button 
                   size="lg" 
                   className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-button"
-                  onClick={() => handleApplyNow('professional')}
-                  disabled={isApplying}
+                  onClick={() => handleApplyClick('professional')}
                 >
-                  {isApplying ? 'Submitting...' : 'Apply Now'}
+                  Apply Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button 
@@ -763,7 +905,7 @@ const JoinTeam = () => {
                         </Select>
                       </div>
                       <Button 
-                        onClick={() => handleApplyNow(applicationData.package_type)} 
+                        onClick={handleSubmitApplication} 
                         className="w-full"
                         disabled={isApplying}
                       >
