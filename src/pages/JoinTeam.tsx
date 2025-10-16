@@ -61,62 +61,83 @@ const JoinTeam = () => {
       return;
     }
 
+    // Validate required fields
+    if (!applicationData.full_name || !applicationData.phone || !applicationData.motivation) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in your name, phone number, and motivation.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     try {
       setIsApplying(true);
       
-      // Use better default values for the application
       const applicationPayload = {
         user_id: user.id,
-        full_name: applicationData.full_name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Agent Applicant',
-        email: applicationData.email || user.email || '',
-        phone: applicationData.phone || 'Phone TBD',
+        full_name: applicationData.full_name,
+        email: user.email || '',
+        phone: applicationData.phone,
         experience_years: applicationData.experience_years || 0,
         specializations: applicationData.specializations.length > 0 ? applicationData.specializations : ['General Real Estate'],
-        previous_company: applicationData.previous_company || 'Previous experience to be discussed',
-        license_number: applicationData.license_number || 'License pending',
-        motivation: applicationData.motivation || `I am interested in joining as a real estate agent with the ${packageType} package.`,
+        previous_company: applicationData.previous_company || '',
+        license_number: applicationData.license_number || '',
+        motivation: applicationData.motivation,
         package_type: packageType,
         status: 'pending'
       };
       
-      const { error } = await supabase
+      // Insert application into database
+      const { error: dbError } = await supabase
         .from('agent_applications')
         .insert(applicationPayload);
 
-      if (error) {
-        if (error.code === '23505') { // Unique constraint violation
+      if (dbError) {
+        if (dbError.code === '23505') {
           toast({
             title: "Application exists",
             description: "You have already submitted an agent application.",
             variant: "destructive"
           });
         } else {
-          console.error('Application error:', error);
+          console.error('Application error:', dbError);
           toast({
             title: "Error",
-            description: error.message || "Failed to submit application. Please try again.",
+            description: dbError.message || "Failed to submit application. Please try again.",
             variant: "destructive"
           });
         }
-      } else {
-        toast({
-          title: "Application submitted!",
-          description: "We'll review your application and get back to you soon.",
-        });
-        
-        // Reset form
-        setApplicationData({
-          full_name: '',
-          email: user?.email || '',
-          phone: '',
-          experience_years: 0,
-          specializations: [],
-          previous_company: '',
-          license_number: '',
-          motivation: '',
-          package_type: 'starter'
-        });
+        return;
       }
+
+      // Send email notifications
+      try {
+        await supabase.functions.invoke('agent-application', {
+          body: applicationPayload
+        });
+      } catch (emailError) {
+        console.error('Email notification error:', emailError);
+        // Don't fail the application if email fails
+      }
+
+      toast({
+        title: "Application Submitted!",
+        description: "Check your email for confirmation. We'll contact you within 24-48 hours.",
+      });
+      
+      // Reset form
+      setApplicationData({
+        full_name: '',
+        email: user?.email || '',
+        phone: '',
+        experience_years: 0,
+        specializations: [],
+        previous_company: '',
+        license_number: '',
+        motivation: '',
+        package_type: 'starter'
+      });
     } catch (error: any) {
       console.error('Application error:', error);
       toast({
@@ -662,24 +683,27 @@ const JoinTeam = () => {
                         Sign In / Create Account
                       </Button>
                     </div>
-                  ) : (
+                   ) : (
                     <div className="space-y-4">
                       <div>
-                        <Label htmlFor="full_name">Full Name</Label>
+                        <Label htmlFor="full_name">Full Name *</Label>
                         <Input
                           id="full_name"
                           value={applicationData.full_name}
                           onChange={(e) => setApplicationData({...applicationData, full_name: e.target.value})}
                           placeholder="Your full name"
+                          required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="phone">Phone Number</Label>
+                        <Label htmlFor="phone">Phone Number *</Label>
                         <Input
                           id="phone"
+                          type="tel"
                           value={applicationData.phone}
                           onChange={(e) => setApplicationData({...applicationData, phone: e.target.value})}
-                          placeholder="Your phone number"
+                          placeholder="+1 (555) 123-4567"
+                          required
                         />
                       </div>
                       <div>
@@ -687,27 +711,67 @@ const JoinTeam = () => {
                         <Input
                           id="experience"
                           type="number"
+                          min="0"
                           value={applicationData.experience_years}
                           onChange={(e) => setApplicationData({...applicationData, experience_years: parseInt(e.target.value) || 0})}
                           placeholder="0"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="motivation">Why do you want to join?</Label>
+                        <Label htmlFor="previous_company">Previous Company</Label>
+                        <Input
+                          id="previous_company"
+                          value={applicationData.previous_company}
+                          onChange={(e) => setApplicationData({...applicationData, previous_company: e.target.value})}
+                          placeholder="Your previous brokerage"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="license_number">Real Estate License Number</Label>
+                        <Input
+                          id="license_number"
+                          value={applicationData.license_number}
+                          onChange={(e) => setApplicationData({...applicationData, license_number: e.target.value})}
+                          placeholder="License #"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="motivation">Why do you want to join? *</Label>
                         <Textarea
                           id="motivation"
                           value={applicationData.motivation}
                           onChange={(e) => setApplicationData({...applicationData, motivation: e.target.value})}
-                          placeholder="Tell us about your motivation..."
+                          placeholder="Tell us about your motivation and what makes you a great fit..."
+                          rows={4}
+                          required
                         />
                       </div>
+                      <div>
+                        <Label htmlFor="package_type">Preferred Package</Label>
+                        <Select 
+                          value={applicationData.package_type}
+                          onValueChange={(value) => setApplicationData({...applicationData, package_type: value})}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a package" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="starter">Starter Package ($299/mo)</SelectItem>
+                            <SelectItem value="professional">Professional Package ($599/mo)</SelectItem>
+                            <SelectItem value="elite">Elite Package ($999/mo)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
                       <Button 
-                        onClick={() => handleApplyNow('starter')} 
+                        onClick={() => handleApplyNow(applicationData.package_type)} 
                         className="w-full"
                         disabled={isApplying}
                       >
                         {isApplying ? 'Submitting...' : 'Submit Application'}
                       </Button>
+                      <p className="text-xs text-muted-foreground">
+                        * Required fields. By submitting this application, you agree to our terms and conditions.
+                      </p>
                     </div>
                   )}
                 </DialogContent>
