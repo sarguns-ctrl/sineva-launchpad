@@ -64,21 +64,31 @@ export const useRole = () => {
   };
 
   const assignRole = async (role: UserRole, assignedBy?: string) => {
-    if (!user) return;
+    if (!user) {
+      return { success: false, error: 'User not authenticated' };
+    }
 
     try {
       const { error } = await supabase
         .from('user_roles')
         .upsert({
           user_id: user.id,
-          role: role as any, // Cast to handle type mismatch with generated types
+          role: role as any,
           assigned_by: assignedBy || user.id,
           assigned_at: new Date().toISOString()
         }, {
           onConflict: 'user_id,role'
         });
 
-      if (error) throw error;
+      if (error) {
+        if (error.code === '42501' || error.message.includes('policy')) {
+          return { 
+            success: false, 
+            error: 'Permission denied. Only admins and HR can assign roles.' 
+          };
+        }
+        throw error;
+      }
 
       setUserRole(role);
       setRoleData({

@@ -77,7 +77,7 @@ export const RoleManagement: React.FC = () => {
   const assignRole = async () => {
     if (!selectedUser || !selectedRole) {
       toast({
-        title: "Error",
+        title: "Missing Information",
         description: "Please select both a user and a role",
         variant: "destructive",
       });
@@ -93,10 +93,18 @@ export const RoleManagement: React.FC = () => {
         });
 
       if (error) {
-        if (error.code === '23505') { // Unique constraint violation
+        if (error.code === '23505') {
           toast({
             title: "Role Already Assigned",
             description: "This user already has this role",
+            variant: "destructive",
+          });
+          return;
+        }
+        if (error.code === '42501' || error.message.includes('policy')) {
+          toast({
+            title: "Permission Denied",
+            description: "You don't have permission to assign roles. Only admins and HR can assign roles.",
             variant: "destructive",
           });
           return;
@@ -109,13 +117,13 @@ export const RoleManagement: React.FC = () => {
         description: "Role assigned successfully",
       });
 
-      fetchUsers(); // Refresh the list
+      fetchUsers();
       setSelectedUser('');
       setSelectedRole('');
     } catch (error: any) {
       toast({
         title: "Error",
-        description: error.message,
+        description: error.message || "Failed to assign role",
         variant: "destructive",
       });
     }
@@ -129,18 +137,28 @@ export const RoleManagement: React.FC = () => {
         .eq('user_id', userId)
         .eq('role', role as 'admin' | 'hr' | 'manager' | 'employee');
 
-      if (error) throw error;
+      if (error) {
+        if (error.code === '42501' || error.message.includes('policy')) {
+          toast({
+            title: "Permission Denied",
+            description: "You don't have permission to remove roles. Only admins and HR can manage roles.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw error;
+      }
 
       toast({
         title: "Success",
         description: "Role removed successfully",
       });
 
-      fetchUsers(); // Refresh the list
+      fetchUsers();
     } catch (error: any) {
       toast({
         title: "Error",
-        description: error.message,
+        description: error.message || "Failed to remove role",
         variant: "destructive",
       });
     }
