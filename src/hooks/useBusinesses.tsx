@@ -124,29 +124,67 @@ export const useBusinesses = (filters?: BusinessFilters) => {
 
   const addToFavorites = async (businessId: string) => {
     try {
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        return { 
+          success: false, 
+          error: 'You must be logged in to add favorites' 
+        };
+      }
+
       const { error } = await supabase
         .from('business_favorites')
-        .insert({ business_id: businessId, user_id: (await supabase.auth.getUser()).data.user?.id });
+        .insert({ business_id: businessId, user_id: user.id });
       
-      if (error) throw error;
+      if (error) {
+        return { 
+          success: false, 
+          error: error.message 
+        };
+      }
+
+      return { success: true };
     } catch (err) {
       console.error('Error adding to favorites:', err);
-      throw err;
+      return { 
+        success: false, 
+        error: err instanceof Error ? err.message : 'Failed to add to favorites' 
+      };
     }
   };
 
   const removeFromFavorites = async (businessId: string) => {
     try {
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        return { 
+          success: false, 
+          error: 'You must be logged in to remove favorites' 
+        };
+      }
+
       const { error } = await supabase
         .from('business_favorites')
         .delete()
         .eq('business_id', businessId)
-        .eq('user_id', (await supabase.auth.getUser()).data.user?.id);
+        .eq('user_id', user.id);
       
-      if (error) throw error;
+      if (error) {
+        return { 
+          success: false, 
+          error: error.message 
+        };
+      }
+
+      return { success: true };
     } catch (err) {
       console.error('Error removing from favorites:', err);
-      throw err;
+      return { 
+        success: false, 
+        error: err instanceof Error ? err.message : 'Failed to remove from favorites' 
+      };
     }
   };
 
@@ -159,8 +197,14 @@ export const useBusinesses = (filters?: BusinessFilters) => {
     phone?: string;
   }) => {
     try {
-      const user = (await supabase.auth.getUser()).data.user;
-      if (!user) throw new Error('Authentication required');
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        return { 
+          success: false, 
+          error: 'You must be logged in to submit an inquiry' 
+        };
+      }
 
       const { error } = await supabase
         .from('business_inquiries')
@@ -175,10 +219,20 @@ export const useBusinesses = (filters?: BusinessFilters) => {
           visa_requirement: inquiryData.visaRequirement,
         });
       
-      if (error) throw error;
+      if (error) {
+        return { 
+          success: false, 
+          error: error.message 
+        };
+      }
+
+      return { success: true };
     } catch (err) {
       console.error('Error submitting inquiry:', err);
-      throw err;
+      return { 
+        success: false, 
+        error: err instanceof Error ? err.message : 'Failed to submit inquiry' 
+      };
     }
   };
 

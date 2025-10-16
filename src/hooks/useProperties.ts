@@ -238,8 +238,17 @@ export const useProperties = (filters?: PropertyFilters) => {
 
   const addToFavorites = async (propertyId: string) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Must be logged in');
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        const errorMsg = 'You must be logged in to add favorites';
+        toast({
+          title: "Authentication Required",
+          description: errorMsg,
+          variant: "destructive"
+        });
+        return { success: false, error: errorMsg };
+      }
 
       const { error } = await supabase
         .from('user_favorites')
@@ -248,7 +257,14 @@ export const useProperties = (filters?: PropertyFilters) => {
           property_id: propertyId
         });
 
-      if (error) throw error;
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive"
+        });
+        return { success: false, error: error.message };
+      }
 
       toast({
         title: "Added to favorites",
@@ -257,19 +273,29 @@ export const useProperties = (filters?: PropertyFilters) => {
 
       return { success: true };
     } catch (err: any) {
+      const errorMsg = err instanceof Error ? err.message : 'Failed to add to favorites';
       toast({
         title: "Error",
-        description: err.message,
+        description: errorMsg,
         variant: "destructive"
       });
-      return { success: false, error: err.message };
+      return { success: false, error: errorMsg };
     }
   };
 
   const removeFromFavorites = async (propertyId: string) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Must be logged in');
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        const errorMsg = 'You must be logged in to remove favorites';
+        toast({
+          title: "Authentication Required",
+          description: errorMsg,
+          variant: "destructive"
+        });
+        return { success: false, error: errorMsg };
+      }
 
       const { error } = await supabase
         .from('user_favorites')
@@ -277,7 +303,14 @@ export const useProperties = (filters?: PropertyFilters) => {
         .eq('user_id', user.id)
         .eq('property_id', propertyId);
 
-      if (error) throw error;
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive"
+        });
+        return { success: false, error: error.message };
+      }
 
       toast({
         title: "Removed from favorites",
@@ -286,19 +319,29 @@ export const useProperties = (filters?: PropertyFilters) => {
 
       return { success: true };
     } catch (err: any) {
+      const errorMsg = err instanceof Error ? err.message : 'Failed to remove from favorites';
       toast({
         title: "Error",
-        description: err.message,
+        description: errorMsg,
         variant: "destructive"
       });
-      return { success: false, error: err.message };
+      return { success: false, error: errorMsg };
     }
   };
 
   const scheduleViewing = async (propertyId: string, viewingData: any) => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Must be logged in');
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        const errorMsg = 'You must be logged in to schedule a viewing';
+        toast({
+          title: "Authentication Required",
+          description: errorMsg,
+          variant: "destructive"
+        });
+        return { success: false, error: errorMsg };
+      }
 
       const { error } = await supabase
         .from('appointments')
@@ -310,7 +353,14 @@ export const useProperties = (filters?: PropertyFilters) => {
           notes: viewingData.notes
         });
 
-      if (error) throw error;
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive"
+        });
+        return { success: false, error: error.message };
+      }
 
       toast({
         title: "Viewing scheduled",
@@ -319,12 +369,13 @@ export const useProperties = (filters?: PropertyFilters) => {
 
       return { success: true };
     } catch (err: any) {
+      const errorMsg = err instanceof Error ? err.message : 'Failed to schedule viewing';
       toast({
         title: "Error",
-        description: err.message,
+        description: errorMsg,
         variant: "destructive"
       });
-      return { success: false, error: err.message };
+      return { success: false, error: errorMsg };
     }
   };
 
