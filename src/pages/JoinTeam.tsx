@@ -55,15 +55,41 @@ const JoinTeam = () => {
     package_type: 'starter'
   });
 
-  const handleApplyClick = (packageType: string) => {
+  const handleApplyClick = async (packageType: string) => {
     if (!user) {
       console.log('[JoinTeam] Apply clicked without auth, redirecting to /auth');
       toast({ title: 'Please sign in', description: 'Create an account or sign in to apply as an agent.' });
       navigate('/auth');
       return;
     }
+
+    // Check if user already has an application
+    const { data: existingApplication, error: checkError } = await supabase
+      .from('agent_applications')
+      .select('id, status, package_type')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    if (checkError) {
+      console.error('Error checking existing application:', checkError);
+    }
+
+    if (existingApplication) {
+      toast({
+        title: "Application Already Submitted",
+        description: `You have already submitted an application for the ${existingApplication.package_type} package. Status: ${existingApplication.status}. We'll contact you within 24-48 hours.`,
+        variant: "default"
+      });
+      return;
+    }
+
     setSelectedPackage(packageType);
-    setApplicationData(prev => ({ ...prev, package_type: packageType }));
+    setApplicationData(prev => ({ 
+      ...prev, 
+      package_type: packageType,
+      full_name: user.user_metadata?.full_name || '',
+      email: user.email || ''
+    }));
     setIsDialogOpen(true);
   };
 
@@ -392,9 +418,13 @@ const JoinTeam = () => {
                   id="experience"
                   type="number"
                   min="0"
-                  value={applicationData.experience_years}
-                  onChange={(e) => setApplicationData({...applicationData, experience_years: parseInt(e.target.value) || 0})}
-                  placeholder="0"
+                  max="50"
+                  value={applicationData.experience_years.toString()}
+                  onChange={(e) => {
+                    const value = e.target.value === '' ? 0 : parseInt(e.target.value, 10);
+                    setApplicationData({...applicationData, experience_years: isNaN(value) ? 0 : value});
+                  }}
+                  placeholder="Enter years (e.g., 5)"
                 />
               </div>
             </div>
