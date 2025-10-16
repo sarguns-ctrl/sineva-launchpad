@@ -21,12 +21,16 @@ import {
   CheckCircle
 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import InteractiveCard from "@/components/InteractiveCard";
+import { LiveChatDialog } from "@/components/LiveChatDialog";
 
 const HelpCenter = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const navigate = useNavigate();
   const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
 
   const categories = [
@@ -125,7 +129,8 @@ const HelpCenter = () => {
       availability: "Mon-Fri 9AM-6PM EST",
       icon: MessageCircle,
       action: "Start Chat",
-      primary: true
+      primary: true,
+      onClick: () => setIsChatOpen(true)
     },
     {
       title: "Phone Support",
@@ -133,7 +138,8 @@ const HelpCenter = () => {
       availability: "+1 (832) 289-6124",
       icon: Phone,
       action: "Call Now",
-      primary: false
+      primary: false,
+      onClick: () => window.location.href = "tel:+18322896124"
     },
     {
       title: "Email Support",
@@ -141,7 +147,8 @@ const HelpCenter = () => {
       availability: "Response within 24 hours",
       icon: Mail,
       action: "Send Email",
-      primary: false
+      primary: false,
+      onClick: () => window.location.href = "mailto:contact@sinevabrokerage.com"
     },
     {
       title: "Schedule Consultation",
@@ -149,7 +156,8 @@ const HelpCenter = () => {
       availability: "Available worldwide",
       icon: Users,
       action: "Book Session",
-      primary: false
+      primary: false,
+      onClick: () => navigate('/appointments')
     }
   ];
 
@@ -235,6 +243,7 @@ const HelpCenter = () => {
                   <Button 
                     className={`w-full ${option.primary ? 'shadow-button' : ''}`}
                     variant={option.primary ? 'default' : 'outline'}
+                    onClick={option.onClick}
                   >
                     {option.action}
                   </Button>
@@ -307,7 +316,12 @@ const HelpCenter = () => {
                       <CheckCircle className="h-4 w-4 text-green-600" />
                       <span className="text-muted-foreground">{article.helpful}% found helpful</span>
                     </div>
-                    <Button variant="ghost" size="sm" className="text-primary">
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-primary"
+                      onClick={() => navigate('/blog')}
+                    >
                       Read Article
                       <ChevronRight className="ml-1 h-4 w-4" />
                     </Button>
@@ -373,10 +387,19 @@ const HelpCenter = () => {
               personalized assistance with your specific questions and needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-button">
+              <Button 
+                size="lg" 
+                className="bg-white text-primary hover:bg-white/90 shadow-button"
+                onClick={() => navigate('/contact')}
+              >
                 Contact Support Team
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-primary"
+                onClick={() => navigate('/appointments')}
+              >
                 Schedule Consultation
               </Button>
             </div>
@@ -385,6 +408,9 @@ const HelpCenter = () => {
       </section>
 
       <Footer />
+      
+      {/* Live Chat Dialog */}
+      <LiveChatDialog open={isChatOpen} onOpenChange={setIsChatOpen} />
     </div>
   );
 };
