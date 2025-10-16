@@ -84,28 +84,46 @@ const JoinTeam = () => {
       return;
     }
 
-    // Check if application already exists with this email or phone
-    const { data: existingApplication, error: checkError } = await supabase
-      .from('agent_applications')
-      .select('id, status, package_type, email, phone')
-      .or(`user_id.eq.${user!.id},email.eq.${applicationData.email},phone.eq.${applicationData.phone}`)
-      .maybeSingle();
-
-    if (checkError) {
-      console.error('Error checking existing application:', checkError);
-    }
-
-    if (existingApplication) {
-      toast({
-        title: "Application Already Exists",
-        description: `An application already exists with this ${existingApplication.email === applicationData.email ? 'email' : 'phone number'}. Status: ${existingApplication.status}. We'll contact you within 24-48 hours.`,
-        variant: "destructive"
-      });
-      return;
-    }
-
     try {
       setIsApplying(true);
+      
+      console.log('Checking for existing application...', {
+        user_id: user!.id,
+        email: applicationData.email,
+        phone: applicationData.phone
+      });
+
+      // Check if application already exists with this user_id, email, or phone
+      const { data: existingApplications, error: checkError } = await supabase
+        .from('agent_applications')
+        .select('id, status, package_type, email, phone, full_name')
+        .or(`user_id.eq.${user!.id},email.eq.${applicationData.email},phone.eq.${applicationData.phone}`);
+
+      console.log('Existing applications check:', { existingApplications, checkError });
+
+      if (checkError) {
+        console.error('Error checking existing application:', checkError);
+        toast({
+          title: "Error",
+          description: "Failed to check existing applications. Please try again.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      if (existingApplications && existingApplications.length > 0) {
+        const existing = existingApplications[0];
+        toast({
+          title: "Application Already Exists",
+          description: `You already have an application on file (${existing.package_type} package, Status: ${existing.status}). We'll contact you within 24-48 hours.`,
+          variant: "destructive"
+        });
+        setIsApplying(false);
+        return;
+      }
+
+      // No existing application found, proceed with insert
+      console.log('No existing application, proceeding with insert...');
       
       const applicationPayload = {
         user_id: user!.id,
