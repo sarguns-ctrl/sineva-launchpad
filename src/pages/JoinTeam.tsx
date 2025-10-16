@@ -55,31 +55,11 @@ const JoinTeam = () => {
     package_type: 'starter'
   });
 
-  const handleApplyClick = async (packageType: string) => {
+  const handleApplyClick = (packageType: string) => {
     if (!user) {
       console.log('[JoinTeam] Apply clicked without auth, redirecting to /auth');
       toast({ title: 'Please sign in', description: 'Create an account or sign in to apply as an agent.' });
       navigate('/auth');
-      return;
-    }
-
-    // Check if user already has an application
-    const { data: existingApplication, error: checkError } = await supabase
-      .from('agent_applications')
-      .select('id, status, package_type')
-      .eq('user_id', user.id)
-      .maybeSingle();
-
-    if (checkError) {
-      console.error('Error checking existing application:', checkError);
-    }
-
-    if (existingApplication) {
-      toast({
-        title: "Application Already Submitted",
-        description: `You have already submitted an application for the ${existingApplication.package_type} package. Status: ${existingApplication.status}. We'll contact you within 24-48 hours.`,
-        variant: "default"
-      });
       return;
     }
 
@@ -99,6 +79,26 @@ const JoinTeam = () => {
       toast({
         title: "Missing Information",
         description: "Please fill in your name, phone number, and motivation.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Check if application already exists with this email or phone
+    const { data: existingApplication, error: checkError } = await supabase
+      .from('agent_applications')
+      .select('id, status, package_type, email, phone')
+      .or(`email.eq.${applicationData.email},phone.eq.${applicationData.phone}`)
+      .maybeSingle();
+
+    if (checkError) {
+      console.error('Error checking existing application:', checkError);
+    }
+
+    if (existingApplication) {
+      toast({
+        title: "Application Already Exists",
+        description: `An application already exists with this ${existingApplication.email === applicationData.email ? 'email' : 'phone number'}. Status: ${existingApplication.status}. We'll contact you within 24-48 hours.`,
         variant: "destructive"
       });
       return;
