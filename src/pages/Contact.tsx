@@ -94,6 +94,19 @@ const Contact = () => {
     }
   ];
 
+  const handleAppointmentClick = () => {
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please log in to book appointments.",
+        variant: "destructive"
+      });
+      navigate('/auth');
+    } else {
+      navigate('/appointments');
+    }
+  };
+
   const contactMethods = [
     {
       icon: Phone,
@@ -129,19 +142,7 @@ const Contact = () => {
       action: "Book appointment", 
       details: "Available worldwide",
       color: "bg-orange-100 text-orange-700",
-      handler: () => {
-        const { user } = useAuth();
-        if (!user) {
-          toast({
-            title: "Login Required",
-            description: "Please log in to book appointments.",
-            variant: "destructive"
-          });
-          navigate('/auth');
-        } else {
-          navigate('/appointments');
-        }
-      }
+      handler: handleAppointmentClick
     }
   ];
 
