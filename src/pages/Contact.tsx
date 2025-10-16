@@ -20,10 +20,13 @@ import {
   Send
 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import contactHero from "@/assets/contact-center.jpg";
+import { LiveChatDialog } from "@/components/LiveChatDialog";
 
 const Contact = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,6 +39,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [showLiveChat, setShowLiveChat] = useState(false);
 
   const officeLocations = [
     {
@@ -95,7 +99,8 @@ const Contact = () => {
       description: "Speak directly with our experts",
       action: "Schedule a call",
       details: "Available in 8 languages",
-      color: "bg-green-100 text-green-700"
+      color: "bg-green-100 text-green-700",
+      handler: () => window.location.href = 'tel:+18322896124'
     },
     {
       icon: Mail,
@@ -103,7 +108,8 @@ const Contact = () => {
       description: "Get detailed information via email",
       action: "Send us a message",
       details: "Response within 4 hours",
-      color: "bg-blue-100 text-blue-700"
+      color: "bg-blue-100 text-blue-700",
+      handler: () => window.location.href = 'mailto:contact@sinevagrupo.com?subject=Inquiry from Website'
     },
     {
       icon: MessageSquare,
@@ -111,7 +117,8 @@ const Contact = () => {
       description: "Instant answers to your questions", 
       action: "Start chat now",
       details: "Available 24/7",
-      color: "bg-purple-100 text-purple-700"
+      color: "bg-purple-100 text-purple-700",
+      handler: () => setShowLiveChat(true)
     },
     {
       icon: Calendar,
@@ -119,7 +126,8 @@ const Contact = () => {
       description: "Meet at our office or your location",
       action: "Book appointment", 
       details: "Available worldwide",
-      color: "bg-orange-100 text-orange-700"
+      color: "bg-orange-100 text-orange-700",
+      handler: () => navigate('/appointments')
     }
   ];
 
@@ -251,7 +259,10 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="text-xs text-muted-foreground">{method.details}</div>
-                  <Button className="w-full group-hover:shadow-button transition-all duration-300">
+                  <Button 
+                    className="w-full group-hover:shadow-button transition-all duration-300"
+                    onClick={method.handler}
+                  >
                     {method.action}
                   </Button>
                 </CardContent>
@@ -260,6 +271,8 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      <LiveChatDialog open={showLiveChat} onOpenChange={setShowLiveChat} />
 
       {/* Main Contact Section */}
       <section className="py-16 bg-muted/30">
