@@ -47,7 +47,7 @@ interface Property {
 }
 
 export const AppointmentScheduler: React.FC = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { toast } = useToast();
   
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -148,7 +148,7 @@ export const AppointmentScheduler: React.FC = () => {
         .from('profiles')
         .select('full_name')
         .eq('user_id', user?.id)
-        .single();
+        .maybeSingle();
 
       // Get agent details
       const agent = agents.find(a => a.id === selectedAgent);
@@ -261,8 +261,28 @@ export const AppointmentScheduler: React.FC = () => {
     appointment => new Date(appointment.scheduled_at) <= new Date() || appointment.status === 'cancelled'
   );
 
-  if (loading) {
+  if (authLoading || loading) {
     return <div className="flex items-center justify-center h-64">Loading...</div>;
+  }
+
+  if (!user) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Authentication Required</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground mb-4">
+              Please log in to view and schedule appointments.
+            </p>
+            <Button onClick={() => window.location.href = '/auth'}>
+              Go to Login
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (
