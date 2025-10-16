@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import { 
   Phone,
   Mail,
@@ -26,6 +27,7 @@ import { LiveChatDialog } from "@/components/LiveChatDialog";
 
 const Contact = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -127,7 +129,19 @@ const Contact = () => {
       action: "Book appointment", 
       details: "Available worldwide",
       color: "bg-orange-100 text-orange-700",
-      handler: () => navigate('/appointments')
+      handler: () => {
+        const { user } = useAuth();
+        if (!user) {
+          toast({
+            title: "Login Required",
+            description: "Please log in to book appointments.",
+            variant: "destructive"
+          });
+          navigate('/auth');
+        } else {
+          navigate('/appointments');
+        }
+      }
     }
   ];
 

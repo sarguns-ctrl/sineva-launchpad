@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Phone, Calendar, MessageCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 interface CrossPageCTAProps {
   title?: string;
@@ -28,6 +30,22 @@ const CrossPageCTA = ({
   variant = 'default',
   showContactOptions = true
 }: CrossPageCTAProps) => {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleContactClick = (href: string) => {
+    if ((href === '/appointments' || href === '/messages') && !user) {
+      toast({
+        title: "Login Required",
+        description: "Please log in to access this feature.",
+        variant: "destructive"
+      });
+      navigate('/auth');
+      return;
+    }
+    navigate(href);
+  };
 
   const contactOptions = [
     {
@@ -87,15 +105,15 @@ const CrossPageCTA = ({
             {showContactOptions && (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto">
                 {contactOptions.map((option, index) => (
-                  <Link
+                  <button
                     key={index}
-                    to={option.href}
-                    className="flex flex-col items-center space-y-2 p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 group"
+                    onClick={() => handleContactClick(option.href)}
+                    className="flex flex-col items-center space-y-2 p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 group cursor-pointer"
                   >
                     <option.icon className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
                     <div className="text-sm font-medium">{option.text}</div>
                     <div className="text-xs text-white/80">{option.description}</div>
-                  </Link>
+                  </button>
                 ))}
               </div>
             )}
@@ -166,15 +184,15 @@ const CrossPageCTA = ({
             {showContactOptions && (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">
                 {contactOptions.map((option, index) => (
-                  <Link
+                  <button
                     key={index}
-                    to={option.href}
-                    className="flex flex-col items-center space-y-2 p-4 rounded-lg border border-border hover:bg-accent/5 hover:border-accent/30 transition-all duration-300 group"
+                    onClick={() => handleContactClick(option.href)}
+                    className="flex flex-col items-center space-y-2 p-4 rounded-lg border border-border hover:bg-accent/5 hover:border-accent/30 transition-all duration-300 group cursor-pointer"
                   >
                     <option.icon className="h-5 w-5 text-accent group-hover:scale-110 transition-transform duration-300" />
                     <div className="text-sm font-medium text-foreground">{option.text}</div>
                     <div className="text-xs text-muted-foreground">{option.description}</div>
-                  </Link>
+                  </button>
                 ))}
               </div>
             )}

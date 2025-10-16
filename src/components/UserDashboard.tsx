@@ -290,7 +290,18 @@ export const UserDashboard: React.FC = () => {
             <Button 
               className="h-20 flex-col gap-2" 
               variant="outline"
-              onClick={() => navigate('/appointments')}
+              onClick={() => {
+                if (!user) {
+                  toast({
+                    title: "Login Required",
+                    description: "Please log in to schedule appointments.",
+                    variant: "destructive"
+                  });
+                  navigate('/auth');
+                } else {
+                  navigate('/appointments');
+                }
+              }}
             >
               <Calendar className="h-6 w-6" />
               Schedule Viewing

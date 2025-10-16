@@ -25,11 +25,15 @@ import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import InteractiveCard from "@/components/InteractiveCard";
 import { LiveChatDialog } from "@/components/LiveChatDialog";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 const HelpCenter = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const { user } = useAuth();
+  const { toast } = useToast();
   const navigate = useNavigate();
   const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation({ threshold: 0.3 });
 
@@ -157,7 +161,18 @@ const HelpCenter = () => {
       icon: Users,
       action: "Book Session",
       primary: false,
-      onClick: () => navigate('/appointments')
+      onClick: () => {
+        if (!user) {
+          toast({
+            title: "Login Required",
+            description: "Please log in to schedule consultations.",
+            variant: "destructive"
+          });
+          navigate('/auth');
+        } else {
+          navigate('/appointments');
+        }
+      }
     }
   ];
 
@@ -398,7 +413,18 @@ const HelpCenter = () => {
                 size="lg" 
                 variant="outline" 
                 className="border-white text-white hover:bg-white hover:text-primary"
-                onClick={() => navigate('/appointments')}
+                onClick={() => {
+                  if (!user) {
+                    toast({
+                      title: "Login Required",
+                      description: "Please log in to schedule consultations.",
+                      variant: "destructive"
+                    });
+                    navigate('/auth');
+                  } else {
+                    navigate('/appointments');
+                  }
+                }}
               >
                 Schedule Consultation
               </Button>
