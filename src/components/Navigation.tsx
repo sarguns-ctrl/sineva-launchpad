@@ -6,13 +6,11 @@ import LanguageSwitcher from './LanguageSwitcher';
 import MagneticButton from './MagneticButton';
 import NavigationSearch from './NavigationSearch';
 import { useAuth } from '@/hooks/useAuth';
-import { useTranslation } from '@/hooks/useTranslation';
 import { Menu, X, Phone, User, LogOut, ChevronDown } from 'lucide-react';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
-  const { t } = useTranslation();
   const location = useLocation();
 
   const navigationItems = [

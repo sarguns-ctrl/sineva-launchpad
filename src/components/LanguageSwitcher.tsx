@@ -1,41 +1,46 @@
-import React from 'react';
-import { Globe } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { Globe, ChevronDown } from 'lucide-react';
 
 const LanguageSwitcher = () => {
-  const { language, setLanguage } = useLanguage();
+  const [currentLanguage, setCurrentLanguage] = useState('EN');
 
   const languages = [
-    { code: 'en' as const, name: 'English', flag: '🇺🇸' },
-    { code: 'es' as const, name: 'Español', flag: '🇪🇸' }
+    { code: 'EN', name: 'English', flag: '🇺🇸' },
+    { code: 'ES', name: 'Español', flag: '🇪🇸' },
+    { code: 'PT', name: 'Português', flag: '🇧🇷' },
+    { code: 'FR', name: 'Français', flag: '🇫🇷' },
+    { code: 'ZH', name: '中文', flag: '🇨🇳' }
   ];
+
+  const handleLanguageChange = (langCode: string) => {
+    setCurrentLanguage(langCode);
+    // Here you would implement actual language switching logic
+    // For now, we'll just update the display
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
+        <Button variant="ghost" size="sm" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground">
           <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">
-            {languages.find(l => l.code === language)?.flag}
-          </span>
+          <span className="text-sm font-medium">{currentLanguage}</span>
+          <ChevronDown className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {languages.map((lang) => (
+      <DropdownMenuContent align="end" className="w-48">
+        {languages.map((language) => (
           <DropdownMenuItem
-            key={lang.code}
-            onClick={() => setLanguage(lang.code)}
-            className="gap-2"
+            key={language.code}
+            onClick={() => handleLanguageChange(language.code)}
+            className="flex items-center space-x-3 cursor-pointer"
           >
-            <span>{lang.flag}</span>
-            <span>{lang.name}</span>
+            <span className="text-lg">{language.flag}</span>
+            <span className="flex-1">{language.name}</span>
+            {currentLanguage === language.code && (
+              <div className="w-2 h-2 bg-primary rounded-full"></div>
+            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

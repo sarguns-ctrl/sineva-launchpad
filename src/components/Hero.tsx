@@ -8,12 +8,10 @@ import { Badge } from "./ui/badge";
 import { Building, Users, MapPin, ArrowRight, Play, TrendingUp, Award, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
-import { useTranslation } from '@/hooks/useTranslation';
 
 const Hero = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const { data: marketData = [], isLoading: loading, error } = useOptimizedMarketData();
-  const { t } = useTranslation();
 
   // Static values to prevent continuous changes
   const staticStats = useMemo(() => ({
@@ -62,7 +60,7 @@ const Hero = () => {
             <Badge className="bg-background/80 text-accent px-3 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-space font-medium border border-accent/40 backdrop-blur-md hover:bg-background/90 transition-all duration-300 group cursor-default shadow-lg">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <span className="w-2 h-2 bg-accent rounded-full animate-glow"></span>
-                <span className="hidden sm:inline">{t.hero.badge}</span>
+                <span className="hidden sm:inline">Premium Business • International Investors</span>
                 <span className="sm:hidden">Premium Business</span>
                 <TrendingUp className="w-3 h-3 group-hover:scale-110 transition-transform" />
               </div>
@@ -71,17 +69,19 @@ const Hero = () => {
           
           {/* Powerful headline with enhanced typography - enhanced for video background */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-clash font-bold text-foreground mb-4 sm:mb-8 leading-tight sm:leading-[0.85] drop-shadow-lg px-2">
-            {t.hero.title.split(' ').slice(0, -2).join(' ')}
+            Premium Business
             <br />
             <span className="text-accent bg-gradient-accent bg-clip-text text-transparent drop-shadow-sm">
-              {t.hero.title.split(' ').slice(-2).join(' ')}
+              Investments
             </span>
           </h1>
           
           {/* Enhanced value proposition with social proof - enhanced for video background */}
           <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2">
             <p className="text-base sm:text-xl md:text-2xl text-foreground/90 max-w-3xl mx-auto font-satoshi leading-relaxed drop-shadow-sm">
-              {t.hero.subtitle}
+              North America's most trusted investment professionals
+              <br className="hidden sm:block" />
+              <span className="text-foreground font-medium">20+ years expertise</span> • Business acquisitions • Visa programs
             </p>
             
             {/* Live social proof - enhanced for video background */}
@@ -117,7 +117,7 @@ const Hero = () => {
             >
               <Link to="/businesses" className="flex items-center justify-center gap-2">
                 <Building className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="text-sm sm:text-base">{t.hero.cta}</span>
+                <span className="text-sm sm:text-base">Browse Businesses</span>
                 <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               </Link>
@@ -129,7 +129,7 @@ const Hero = () => {
               className="border-foreground/30 hover:bg-background/20 backdrop-blur-md group shadow-lg text-foreground w-full sm:w-auto"
             >
               <Play className="w-3 h-3 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-sm sm:text-base">{t.hero.learnMore}</span>
+              <span className="text-sm sm:text-base">Watch Our Story</span>
             </MagneticButton>
           </div>
 
