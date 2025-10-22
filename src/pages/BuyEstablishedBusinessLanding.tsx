@@ -8,6 +8,12 @@ import EstablishedBusinessLeadForm from "@/components/EstablishedBusinessLeadFor
 import { CheckCircle2, TrendingUp, Shield, Users, Building2, Store, Fuel, Sparkles, DollarSign, MapPin, Award, FileCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import LazySection from "@/components/LazySection";
+import heroImage from "@/assets/business-owner-hero.jpg";
+import handshakeImage from "@/assets/professional-handshake-business.jpg";
+import teamMeetingImage from "@/assets/business-team-meeting.jpg";
+import storefrontImage from "@/assets/small-business-storefront.jpg";
+import laundromatImage from "@/assets/laundromat-business.jpg";
+import restaurantImage from "@/assets/restaurant-interior.jpg";
 
 const BuyEstablishedBusinessLanding = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
@@ -103,35 +109,38 @@ const BuyEstablishedBusinessLanding = () => {
       {/* Hero Section */}
       <section 
         ref={heroRef}
-        className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary via-primary-light to-accent"
+        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden"
       >
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2000')] bg-cover bg-center opacity-10" />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary-light/90 to-accent/85" />
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f]/95 via-[#2c5282]/90 to-[#1a202c]/85" />
         
         <div className={`container mx-auto px-4 relative z-10 text-center transition-all duration-1000 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="inline-block mb-4">
-              <Badge variant="secondary" className="text-lg px-6 py-2 bg-white/20 backdrop-blur-sm border-white/30 text-white">
-                Own a Proven, Income-Generating Business in Texas
-              </Badge>
-            </div>
+          <div className="max-w-4xl mx-auto space-y-6">
+            <Badge variant="secondary" className="text-base px-5 py-2 bg-white/20 backdrop-blur-sm border-white/30 text-white shadow-lg">
+              🏢 Own a Proven, Income-Generating Business in Texas
+            </Badge>
             
-            <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-              Buy a Laundromat, Gas Station, Convenience Store, Restaurant, Salon, or Spa
-              <span className="block mt-4 text-gold">Without the Guesswork</span>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight drop-shadow-2xl">
+              Buy Established Businesses
+              <span className="block mt-3 bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] bg-clip-text text-transparent">
+                Without the Risk
+              </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-              Sinevabrokerage helps entrepreneurs and investors acquire profitable, established businesses across Texas. We simplify the process from discovery to closing — so you can focus on growth, not paperwork.
+            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              Acquire profitable laundromats, gas stations, restaurants, salons, and more across Texas with expert guidance every step of the way.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
               <Button 
                 size="lg" 
                 onClick={scrollToForm}
-                className="bg-gold hover:bg-gold/90 text-primary font-semibold text-lg px-8 py-6 shadow-gold"
+                className="bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#1e3a5f] font-bold text-lg px-10 py-7 shadow-2xl hover:shadow-[#f59e0b]/50 transition-all"
               >
-                📩 Get Access to Businesses for Sale
+                📩 View Available Businesses
               </Button>
             </div>
           </div>
@@ -140,41 +149,43 @@ const BuyEstablishedBusinessLanding = () => {
 
       {/* Supporting Copy Section */}
       <LazySection>
-        <section className="py-20 bg-secondary/30">
+        <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto space-y-8">
-              <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground">
-                You don't need to build a business from scratch to succeed in Texas.
-              </h2>
-              <p className="text-xl text-center text-muted-foreground">
-                With Sinevabrokerage, you can buy into proven cash flow and take control of your financial future.
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-6 pt-8">
-                {[
-                  { icon: CheckCircle2, text: "Already operating profitably" },
-                  { icon: FileCheck, text: "Have clean financials and verifiable income" },
-                  { icon: Users, text: "Supported by trained staff and loyal customers" },
-                  { icon: Award, text: "Ready for transfer — not trial and error" },
-                ].map((item, idx) => (
-                  <Card key={idx} className="border-accent/20 hover:shadow-card transition-all">
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <item.icon className="w-8 h-8 text-accent flex-shrink-0" />
-                      <p className="text-lg font-medium">{item.text}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              
-              <div className="text-center pt-8">
-                <Button 
-                  size="lg" 
-                  onClick={scrollToForm}
-                  variant="outline"
-                  className="border-accent text-accent hover:bg-accent hover:text-white"
-                >
-                  📋 See Available Texas Businesses
-                </Button>
+            <div className="max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6">
+                  <h2 className="text-3xl md:text-4xl font-bold text-[#1e3a5f]">
+                    Skip the Startup Struggle
+                  </h2>
+                  <p className="text-lg text-slate-600 leading-relaxed">
+                    Buy into proven cash flow and take control of your financial future with businesses that are:
+                  </p>
+                  
+                  <div className="space-y-4">
+                    {[
+                      { icon: CheckCircle2, text: "Already operating profitably" },
+                      { icon: FileCheck, text: "Clean financials and verifiable income" },
+                      { icon: Users, text: "Trained staff and loyal customers" },
+                      { icon: Award, text: "Ready for transfer — not trial and error" },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all">
+                        <div className="w-10 h-10 rounded-full bg-[#f59e0b]/10 flex items-center justify-center flex-shrink-0">
+                          <item.icon className="w-5 h-5 text-[#f59e0b]" />
+                        </div>
+                        <p className="text-base font-medium text-slate-700 pt-1.5">{item.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#f59e0b]/20 to-[#1e3a5f]/20 rounded-2xl blur-2xl" />
+                  <img 
+                    src={handshakeImage} 
+                    alt="Professional business handshake" 
+                    className="relative rounded-2xl shadow-2xl w-full h-[500px] object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -185,26 +196,34 @@ const BuyEstablishedBusinessLanding = () => {
       <LazySection>
         <section 
           ref={whyTexasRef}
-          className="py-20 bg-background"
+          className="py-20 bg-white relative overflow-hidden"
         >
-          <div className={`container mx-auto px-4 transition-all duration-1000 ${whyTexasVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="absolute inset-0 opacity-5">
+            <img src={storefrontImage} alt="" className="w-full h-full object-cover" />
+          </div>
+          
+          <div className={`container mx-auto px-4 relative z-10 transition-all duration-1000 ${whyTexasVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="max-w-5xl mx-auto text-center space-y-8">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-                Buying the Right Business in Texas Can Change Everything
+              <Badge className="bg-[#1e3a5f] text-white text-sm px-4 py-2">
+                🌟 Texas Advantage
+              </Badge>
+              
+              <h2 className="text-3xl md:text-5xl font-bold text-[#1e3a5f]">
+                Why Texas is Perfect for Business Ownership
               </h2>
-              <h3 className="text-2xl md:text-3xl font-semibold text-accent">
-                Texas Is the Best Place to Own a Small Business — Here's Why
-              </h3>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Texas is one of the fastest-growing economies in the U.S. Low taxes, a booming population, and strong local demand make everyday businesses — laundromats, gas stations, convenience stores, salons, and restaurants — highly resilient and profitable.
+              
+              <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+                Low taxes, booming population, and strong local demand make everyday businesses highly resilient and profitable.
               </p>
               
               <div className="grid md:grid-cols-2 gap-6 pt-8">
                 {marketFacts.map((fact, idx) => (
-                  <Card key={idx} className="border-primary/20 hover:shadow-accent transition-all">
+                  <Card key={idx} className="border-[#f59e0b]/20 hover:shadow-xl hover:border-[#f59e0b] transition-all bg-white/80 backdrop-blur-sm">
                     <CardContent className="p-6 flex items-start gap-4">
-                      <fact.icon className="w-10 h-10 text-primary flex-shrink-0" />
-                      <p className="text-left text-lg">{fact.text}</p>
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f59e0b] to-[#fbbf24] flex items-center justify-center flex-shrink-0">
+                        <fact.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <p className="text-left text-base font-medium text-slate-700 pt-2">{fact.text}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -216,27 +235,34 @@ const BuyEstablishedBusinessLanding = () => {
 
       {/* Why Work With Us Section */}
       <LazySection>
-        <section className="py-20 bg-secondary/30">
-          <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto space-y-12">
+        <section className="py-20 bg-gradient-to-br from-[#1e3a5f] to-[#2c5282] text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <img src={teamMeetingImage} alt="" className="w-full h-full object-cover" />
+          </div>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-6xl mx-auto space-y-12">
               <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-                  Why Work With Sinevabrokerage?
+                <Badge className="bg-[#f59e0b] text-[#1e3a5f] text-sm px-4 py-2">
+                  ⭐ Our Expertise
+                </Badge>
+                <h2 className="text-3xl md:text-5xl font-bold">
+                  Why Choose Sinevabrokerage?
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  We're not a listing website — we're your local brokerage partner with over a decade of experience helping entrepreneurs buy real businesses safely.
+                <p className="text-lg text-white/80 max-w-2xl mx-auto">
+                  Your trusted partner with over a decade of experience helping entrepreneurs acquire businesses safely.
                 </p>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {whyUsFeatures.map((feature, idx) => (
-                  <Card key={idx} className="border-accent/20 hover:shadow-accent hover:-translate-y-1 transition-all">
+                  <Card key={idx} className="border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:-translate-y-2 transition-all">
                     <CardContent className="p-6 text-center space-y-4">
-                      <div className="w-16 h-16 mx-auto rounded-full bg-accent/10 flex items-center justify-center">
-                        <feature.icon className="w-8 h-8 text-accent" />
+                      <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#f59e0b] to-[#fbbf24] flex items-center justify-center shadow-lg">
+                        <feature.icon className="w-8 h-8 text-white" />
                       </div>
-                      <h3 className="font-bold text-lg">{feature.title}</h3>
-                      <p className="text-muted-foreground">{feature.desc}</p>
+                      <h3 className="font-bold text-lg text-white">{feature.title}</h3>
+                      <p className="text-white/70 text-sm">{feature.desc}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -380,8 +406,11 @@ const BuyEstablishedBusinessLanding = () => {
       </LazySection>
 
       {/* Lead Form Section */}
-      <section id="lead-form-section" className="py-20 bg-gradient-to-br from-primary via-primary-light to-accent">
-        <div className="container mx-auto px-4">
+      <section id="lead-form-section" className="py-20 bg-gradient-to-br from-[#1e3a5f] via-[#2c5282] to-[#1a202c] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <img src={laundromatImage} alt="" className="w-full h-full object-cover" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto">
             <EstablishedBusinessLeadForm />
           </div>
@@ -416,36 +445,36 @@ const BuyEstablishedBusinessLanding = () => {
 
       {/* Final CTA Section */}
       <LazySection>
-        <section className="py-20 bg-gradient-to-br from-primary to-accent text-white">
-          <div className="container mx-auto px-4">
+        <section className="py-20 bg-gradient-to-br from-[#f59e0b] via-[#fbbf24] to-[#f59e0b] relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <img src={restaurantImage} alt="" className="w-full h-full object-cover" />
+          </div>
+          
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center space-y-8">
-              <h2 className="text-4xl md:text-6xl font-bold">
+              <h2 className="text-4xl md:text-5xl font-bold text-[#1e3a5f]">
                 Start Owning, Not Just Dreaming
               </h2>
-              <p className="text-xl md:text-2xl text-white/90">
-                Thousands of entrepreneurs have built financial freedom by buying existing businesses instead of starting from scratch. Now it's your turn.
+              <p className="text-xl text-[#1e3a5f]/80 font-medium">
+                Thousands have built financial freedom by buying existing businesses. Now it's your turn.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
                 <Button 
                   size="lg" 
                   onClick={scrollToForm}
-                  className="bg-gold hover:bg-gold/90 text-primary font-semibold text-lg px-8 py-6 shadow-gold"
+                  className="bg-[#1e3a5f] hover:bg-[#2c5282] text-white font-bold text-lg px-10 py-7 shadow-2xl"
                 >
-                  📩 Get Access to Texas Businesses for Sale
+                  📩 Get Your Business Matches
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-primary"
+                  className="border-2 border-[#1e3a5f] text-[#1e3a5f] hover:bg-[#1e3a5f] hover:text-white font-semibold"
                 >
-                  📘 Download "The Texas Business Buyer's Guide (Free)"
+                  📘 Free Buyer's Guide
                 </Button>
               </div>
-              
-              <p className="text-white/80 text-sm pt-4">
-                Receive handpicked listings — laundromats, gas stations, salons, restaurants, spas, and more — all verified and ready for purchase.
-              </p>
             </div>
           </div>
         </section>
