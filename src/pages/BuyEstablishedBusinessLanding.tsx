@@ -105,7 +105,7 @@ const BuyEstablishedBusinessLanding = () => {
       {/* Hero Section */}
       <section 
         ref={heroRef}
-        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
       >
         <div 
           className="absolute inset-0 bg-cover bg-center"
@@ -145,7 +145,7 @@ const BuyEstablishedBusinessLanding = () => {
 
       {/* Supporting Copy Section */}
       <LazySection>
-        <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+        <section className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -179,7 +179,7 @@ const BuyEstablishedBusinessLanding = () => {
                   <img 
                     src={handshakeImage} 
                     alt="Professional business handshake" 
-                    className="relative rounded-2xl shadow-2xl w-full h-[500px] object-cover"
+                    className="relative rounded-2xl shadow-2xl w-full h-[350px] object-cover"
                   />
                 </div>
               </div>
@@ -192,7 +192,7 @@ const BuyEstablishedBusinessLanding = () => {
       <LazySection>
         <section 
           ref={whyTexasRef}
-          className="py-20 bg-white relative overflow-hidden"
+          className="py-16 bg-white relative overflow-hidden"
         >
           <div className="absolute inset-0 opacity-5">
             <img src={storefrontImage} alt="" className="w-full h-full object-cover" />
