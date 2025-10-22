@@ -6,7 +6,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Mail, Phone, MapPin, TrendingUp, Shield, Users, CheckCircle2, Building2, Store, Smartphone, Scissors, UtensilsCrossed, Fuel } from "lucide-react";
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import heroImage from "@/assets/texas-business-collage.jpg";
+import heroImage from "@/assets/texas-business-hero.jpg";
+import logoImage from "@/assets/logo-sineva-grupo.svg";
 import laundromatImage from "@/assets/laundromat-business-interior.jpg";
 import salonImage from "@/assets/salon-spa-interior.jpg";
 import mobileStoreImage from "@/assets/mobile-store-interior.jpg";
@@ -29,7 +30,6 @@ const BuyTexasBusiness = () => {
   const { elementRef: heroRef } = useScrollAnimation();
   const { elementRef: whyChooseRef } = useScrollAnimation();
   const { elementRef: processRef } = useScrollAnimation();
-  const { elementRef: featuredRef } = useScrollAnimation();
   const { elementRef: successRef } = useScrollAnimation();
   const { elementRef: investmentRef } = useScrollAnimation();
   const { elementRef: aboutRef } = useScrollAnimation();
@@ -56,41 +56,53 @@ const BuyTexasBusiness = () => {
           ref={heroRef}
           className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${heroImage})`,
+            backgroundImage: `linear-gradient(rgba(13, 35, 75, 0.85), rgba(13, 35, 75, 0.85)), url(${heroImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="container mx-auto px-4 py-20 text-center relative z-10">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-fade-in">
-              Own a Proven Texas Business
-            </h1>
-            <p className="text-xl md:text-2xl lg:text-3xl text-white/90 mb-4 max-w-5xl mx-auto">
-              Laundromat, Convenience Store, Gas Station, Restaurant & More
-            </p>
-            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-3xl mx-auto">
-              Discover profitable, ready-to-operate businesses across Texas. From small retail shops to established gas stations — Sinevabrokerage helps entrepreneurs buy with confidence, speed, and complete guidance.
-            </p>
-            <Button size="lg" className="text-lg px-8 py-6 hover-scale">
-              📩 Get Access to Available Businesses
-            </Button>
+          <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20 relative z-10">
+            {/* Logo */}
+            <div className="flex justify-center mb-8 md:mb-12">
+              <img 
+                src={logoImage} 
+                alt="Sinevabrokerage Logo" 
+                className="h-16 sm:h-20 md:h-24 w-auto"
+              />
+            </div>
+            
+            {/* Hero Content */}
+            <div className="text-center">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 animate-fade-in px-4">
+                Own a Proven Texas Business
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-3 sm:mb-4 max-w-5xl mx-auto px-4">
+                Laundromat, Convenience Store, Gas Station, Restaurant & More
+              </p>
+              <p className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
+                Discover profitable, ready-to-operate businesses across Texas. From small retail shops to established gas stations — Sinevabrokerage helps entrepreneurs buy with confidence, speed, and complete guidance.
+              </p>
+              <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale">
+                📩 Get Access to Available Businesses
+              </Button>
+            </div>
           </div>
         </section>
 
         {/* Section 1 - Why Choose Sinevabrokerage */}
-        <section ref={whyChooseRef} className="py-20 bg-background">
+        <section ref={whyChooseRef} className="py-12 sm:py-16 md:py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 px-4">
                 Buy a Stable, Cash-Flowing Business — Not Just a Dream
               </h2>
-              <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto px-4">
                 Buying a business is one of the smartest ways to enter or expand in the U.S. market — especially in Texas, where everyday-service businesses thrive. At Sinevabrokerage, we connect you directly with verified owners ready to sell.
               </p>
             </div>
 
             {/* Business Types Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
               <Card className="group hover:shadow-2xl transition-all duration-300 hover-scale">
                 <CardHeader>
                   <div className="w-full h-48 mb-4 rounded-lg overflow-hidden">
@@ -168,9 +180,9 @@ const BuyTexasBusiness = () => {
             </div>
 
             {/* Why Buyers Trust Us */}
-            <div className="bg-card rounded-2xl p-8 md:p-12">
-              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">Why Buyers Trust Us</h3>
-              <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-card rounded-2xl p-6 sm:p-8 md:p-12">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 text-center">Why Buyers Trust Us</h3>
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="flex items-start gap-4">
                   <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                   <div>
@@ -200,8 +212,8 @@ const BuyTexasBusiness = () => {
                   </div>
                 </div>
               </div>
-              <div className="text-center mt-8">
-                <Button size="lg" className="hover-scale">
+              <div className="text-center mt-6 sm:mt-8">
+                <Button size="lg" className="hover-scale w-full sm:w-auto">
                   📩 Request Business Listings
                 </Button>
               </div>
@@ -209,78 +221,16 @@ const BuyTexasBusiness = () => {
           </div>
         </section>
 
-        {/* Section 2 - Featured Opportunities */}
-        <section ref={featuredRef} className="py-20 bg-muted/30">
+        {/* Section 2 - The Buyer Process */}
+        <section ref={processRef} className="py-12 sm:py-16 md:py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">Featured Opportunities Preview</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Get instant access to verified listings like these when you join our private buyer network
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {[
-                {
-                  title: "Busy Laundromat in Houston",
-                  details: "$185K Net Profit, Full Staff, Equipment Included",
-                  location: "Houston, TX"
-                },
-                {
-                  title: "Gas Station + Convenience Store",
-                  details: "Prime Corner Location, 12-Year Lease",
-                  location: "Dallas Suburb, TX"
-                },
-                {
-                  title: "Restaurant Franchise",
-                  details: "$1.2M Revenue, Semi-Absentee Operation",
-                  location: "Austin, TX"
-                },
-                {
-                  title: "Day Spa",
-                  details: "Established 8 Years, Loyal Client Base",
-                  location: "San Antonio, TX"
-                },
-                {
-                  title: "Mobile Store",
-                  details: "High Walk-in Volume, Includes Inventory",
-                  location: "El Paso, TX"
-                }
-              ].map((opportunity, index) => (
-                <Card key={index} className="hover:shadow-xl transition-all duration-300 hover-scale">
-                  <CardHeader>
-                    <CardTitle className="text-xl">{opportunity.title}</CardTitle>
-                    <CardDescription className="flex items-center gap-2 mt-2">
-                      <MapPin className="w-4 h-4" />
-                      {opportunity.location}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">{opportunity.details}</p>
-                    <Button variant="outline" className="w-full">View Details</Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Button size="lg" className="hover-scale">
-                🚀 Show Me Businesses for Sale
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 3 - The Buyer Process */}
-        <section ref={processRef} className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 px-4">
                 From Search to Ownership — We Handle Every Step
               </h2>
             </div>
 
-            <div className="max-w-4xl mx-auto space-y-6 mb-12">
+            <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 mb-8 sm:mb-12">
               {[
                 {
                   step: "1",
@@ -325,21 +275,21 @@ const BuyTexasBusiness = () => {
             </div>
 
             <div className="text-center">
-              <Button size="lg" className="hover-scale">
+              <Button size="lg" className="hover-scale w-full sm:w-auto">
                 📞 Request Access to Listings
               </Button>
             </div>
           </div>
         </section>
 
-        {/* Section 4 - Success Stories */}
-        <section ref={successRef} className="py-20 bg-muted/30">
+        {/* Section 3 - Success Stories */}
+        <section ref={successRef} className="py-12 sm:py-16 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">Success Stories from Real Buyers</h2>
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 px-4">Success Stories from Real Buyers</h2>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto mb-8 sm:mb-12">
               <Card className="hover:shadow-xl transition-all duration-300">
                 <CardContent className="pt-6">
                   <p className="text-lg mb-4 italic">
@@ -360,43 +310,43 @@ const BuyTexasBusiness = () => {
             </div>
 
             {/* Results Section */}
-            <div className="bg-card rounded-2xl p-8 md:p-12">
-              <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">📊 Results You Can Trust</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="bg-card rounded-2xl p-6 sm:p-8 md:p-12">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 text-center">📊 Results You Can Trust</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">200+</div>
-                  <p className="text-muted-foreground">Successful Transactions</p>
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">200+</div>
+                  <p className="text-sm sm:text-base text-muted-foreground">Successful Transactions</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">$75M+</div>
-                  <p className="text-muted-foreground">Total Deal Volume</p>
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">$75M+</div>
+                  <p className="text-sm sm:text-base text-muted-foreground">Total Deal Volume</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">20+</div>
-                  <p className="text-muted-foreground">Years Experience</p>
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">20+</div>
+                  <p className="text-sm sm:text-base text-muted-foreground">Years Experience</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-primary mb-2">BBB</div>
-                  <p className="text-muted-foreground">Accredited Brokerage</p>
+                  <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">BBB</div>
+                  <p className="text-sm sm:text-base text-muted-foreground">Accredited Brokerage</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Section 5 - Why Everyday Businesses */}
-        <section ref={investmentRef} className="py-20 bg-background">
+        {/* Section 4 - Why Everyday Businesses */}
+        <section ref={investmentRef} className="py-12 sm:py-16 md:py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 px-4">
                 Why Everyday Businesses Are Smart Investments
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+              <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
                 These Business Types Work — Because People Always Need Them
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto mb-6 sm:mb-8">
               {[
                 { icon: Building2, title: "Laundromats", description: "Steady, passive income with minimal staff" },
                 { icon: Fuel, title: "Convenience Stores & Gas Stations", description: "Daily cash flow, loyal customer base" },
@@ -416,32 +366,32 @@ const BuyTexasBusiness = () => {
               ))}
             </div>
 
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 max-w-4xl mx-auto mb-8">
-              <p className="text-lg">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 sm:p-6 max-w-4xl mx-auto mb-6 sm:mb-8">
+              <p className="text-base sm:text-lg">
                 🔥 Most of these businesses are owner-absentee or semi-managed — perfect for investors or immigrants starting in the U.S.
               </p>
             </div>
 
             <div className="text-center">
-              <Button size="lg" className="hover-scale">
+              <Button size="lg" className="hover-scale w-full sm:w-auto">
                 📩 Access Verified Texas Listings
               </Button>
             </div>
           </div>
         </section>
 
-        {/* Section 6 - About Sinevabrokerage */}
-        <section ref={aboutRef} className="py-20 bg-muted/30">
+        {/* Section 5 - About Sinevabrokerage */}
+        <section ref={aboutRef} className="py-12 sm:py-16 md:py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 px-4">
                 Your Local Texas Business Brokerage Experts
               </h2>
-              <p className="text-lg text-muted-foreground mb-12">
+              <p className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-12 px-4">
                 Sinevabrokerage is a professional brokerage firm that helps entrepreneurs buy and sell established businesses across Texas. We specialize in connecting buyers with verified listings that offer solid cash flow, proven operations, and long-term stability.
               </p>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
                 {[
                   { icon: Shield, title: "Licensed Texas Brokerage" },
                   { icon: Users, title: "IBBA Member" },
@@ -459,18 +409,18 @@ const BuyTexasBusiness = () => {
                 ))}
               </div>
 
-              <Button size="lg" className="hover-scale">
+              <Button size="lg" className="hover-scale w-full sm:w-auto">
                 📞 Talk to a Texas Broker Today
               </Button>
             </div>
           </div>
         </section>
 
-        {/* Section 7 - FAQ */}
-        <section ref={faqRef} className="py-20 bg-background">
+        {/* Section 6 - FAQ */}
+        <section ref={faqRef} className="py-12 sm:py-16 md:py-20 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">Frequently Asked Questions</h2>
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 px-4">Frequently Asked Questions</h2>
             </div>
 
             <div className="max-w-3xl mx-auto">
@@ -524,15 +474,15 @@ const BuyTexasBusiness = () => {
           </div>
         </section>
 
-        {/* Section 8 - Lead Form */}
-        <section ref={formRef} className="py-20 bg-primary text-primary-foreground">
+        {/* Section 7 - Lead Form */}
+        <section ref={formRef} className="py-12 sm:py-16 md:py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              <div className="text-center mb-8 sm:mb-12">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-4">
                   Get Instant Access to Verified Texas Businesses
                 </h2>
-                <p className="text-lg text-primary-foreground/90">
+                <p className="text-base sm:text-lg text-primary-foreground/90 px-4">
                   Complete this form to receive handpicked opportunities in your preferred industries and cities.
                 </p>
               </div>
@@ -644,20 +594,20 @@ const BuyTexasBusiness = () => {
           </div>
         </section>
 
-        {/* Section 9 - Final CTA */}
-        <section ref={finalCtaRef} className="py-20 bg-background">
+        {/* Section 8 - Final CTA */}
+        <section ref={finalCtaRef} className="py-12 sm:py-16 md:py-20 bg-background">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 px-4">
               Start Your Texas Business Ownership Journey Today
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
               Join hundreds of buyers who found success through Sinevabrokerage. Whether you want to manage your business or invest for income, we'll help you find the right fit.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="text-lg px-8 py-6 hover-scale">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
+              <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale w-full sm:w-auto">
                 📩 Get Access to Listings Now
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 hover-scale">
+              <Button size="lg" variant="outline" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale w-full sm:w-auto">
                 📘 Download "The Texas Small Business Buyer's Guide"
               </Button>
             </div>
