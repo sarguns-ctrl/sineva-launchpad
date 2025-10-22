@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import heroImage from "@/assets/texas-business-hero.jpg";
+import heroImage from "@/assets/texas-business-hero-main.jpg";
 import logoImage from "@/assets/logo-sineva-grupo.svg";
 import laundromatImage from "@/assets/laundromat-business-interior.jpg";
 import salonImage from "@/assets/salon-spa-interior.jpg";
@@ -123,7 +123,11 @@ const BuyTexasBusiness = () => {
               <p className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
                 Discover profitable, ready-to-operate businesses across Texas. From small retail shops to established gas stations — Sinevabrokerage helps entrepreneurs buy with confidence, speed, and complete guidance.
               </p>
-              <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale">
+              <Button 
+                size="lg" 
+                className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale"
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 📩 Get Access to Available Businesses
               </Button>
             </div>
@@ -254,7 +258,11 @@ const BuyTexasBusiness = () => {
                 </div>
               </div>
               <div className="text-center mt-6 sm:mt-8">
-                <Button size="lg" className="hover-scale w-full sm:w-auto">
+                <Button 
+                  size="lg" 
+                  className="hover-scale w-full sm:w-auto"
+                  onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                >
                   📩 Request Business Listings
                 </Button>
               </div>
@@ -316,7 +324,11 @@ const BuyTexasBusiness = () => {
             </div>
 
             <div className="text-center">
-              <Button size="lg" className="hover-scale w-full sm:w-auto">
+              <Button 
+                size="lg" 
+                className="hover-scale w-full sm:w-auto"
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 📞 Request Access to Listings
               </Button>
             </div>
@@ -414,7 +426,11 @@ const BuyTexasBusiness = () => {
             </div>
 
             <div className="text-center">
-              <Button size="lg" className="hover-scale w-full sm:w-auto">
+              <Button 
+                size="lg" 
+                className="hover-scale w-full sm:w-auto"
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 📩 Access Verified Texas Listings
               </Button>
             </div>
@@ -450,7 +466,11 @@ const BuyTexasBusiness = () => {
                 ))}
               </div>
 
-              <Button size="lg" className="hover-scale w-full sm:w-auto">
+              <Button 
+                size="lg" 
+                className="hover-scale w-full sm:w-auto"
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 📞 Talk to a Texas Broker Today
               </Button>
             </div>
@@ -516,7 +536,7 @@ const BuyTexasBusiness = () => {
         </section>
 
         {/* Section 7 - Lead Form */}
-        <section ref={formRef} className="py-12 sm:py-16 md:py-20 bg-primary text-primary-foreground">
+        <section id="contact-form" ref={formRef} className="py-12 sm:py-16 md:py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-8 sm:mb-12">
@@ -650,10 +670,19 @@ const BuyTexasBusiness = () => {
               Join hundreds of buyers who found success through Sinevabrokerage. Whether you want to manage your business or invest for income, we'll help you find the right fit.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
-              <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale w-full sm:w-auto">
+              <Button 
+                size="lg" 
+                className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale w-full sm:w-auto"
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 📩 Get Access to Listings Now
               </Button>
-              <Button size="lg" variant="outline" className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale w-full sm:w-auto">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 hover-scale w-full sm:w-auto"
+                onClick={() => window.open('/contact', '_blank')}
+              >
                 📘 Download "The Texas Small Business Buyer's Guide"
               </Button>
             </div>
