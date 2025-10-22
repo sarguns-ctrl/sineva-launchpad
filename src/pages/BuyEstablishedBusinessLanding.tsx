@@ -11,7 +11,9 @@ import heroImage from "@/assets/business-owner-hero.jpg";
 import teamSuccessImage from "@/assets/team-success-celebration.jpg";
 import teamMeetingImage from "@/assets/business-team-meeting.jpg";
 import storefrontImage from "@/assets/small-business-storefront.jpg";
-import laundromatImage from "@/assets/laundromat-business.jpg";
+import laundromatModernImage from "@/assets/laundromat-modern.jpg";
+import restaurantModernImage from "@/assets/restaurant-modern.jpg";
+import convenienceStoreImage from "@/assets/convenience-store-modern.jpg";
 import restaurantImage from "@/assets/restaurant-interior.jpg";
 import businessGrowthImage from "@/assets/business-growth.jpg";
 import successfulOwnerImage from "@/assets/successful-business-owner.jpg";
@@ -218,21 +220,21 @@ const BuyEstablishedBusinessLanding = () => {
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
-                  <img src={laundromatImage} alt="Laundromat business" className="w-full h-56 object-cover" />
+                  <img src={laundromatModernImage} alt="Laundromat business" className="w-full h-56 object-cover" />
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Laundromats</h3>
                     <p className="text-muted-foreground">Steady cash flow with minimal management required</p>
                   </CardContent>
                 </Card>
                 <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
-                  <img src={restaurantImage} alt="Restaurant business" className="w-full h-56 object-cover" />
+                  <img src={restaurantModernImage} alt="Restaurant business" className="w-full h-56 object-cover" />
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Restaurants & Cafes</h3>
                     <p className="text-muted-foreground">Established customer base and proven menus</p>
                   </CardContent>
                 </Card>
                 <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
-                  <img src={storefrontImage} alt="Retail business" className="w-full h-56 object-cover" />
+                  <img src={convenienceStoreImage} alt="Convenience store business" className="w-full h-56 object-cover" />
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Convenience & Retail</h3>
                     <p className="text-muted-foreground">Prime locations with loyal customer bases</p>
@@ -482,7 +484,7 @@ const BuyEstablishedBusinessLanding = () => {
       {/* Lead Form Section */}
       <section id="lead-form-section" className="py-20 bg-gradient-to-br from-[#1e3a5f] via-[#2c5282] to-[#1a202c] relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
-          <img src={laundromatImage} alt="" className="w-full h-full object-cover" />
+          <img src={laundromatModernImage} alt="" className="w-full h-full object-cover" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto">
