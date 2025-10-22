@@ -12,6 +12,10 @@ import teamMeetingImage from "@/assets/business-team-meeting.jpg";
 import storefrontImage from "@/assets/small-business-storefront.jpg";
 import laundromatImage from "@/assets/laundromat-business.jpg";
 import restaurantImage from "@/assets/restaurant-interior.jpg";
+import businessGrowthImage from "@/assets/business-growth.jpg";
+import successfulOwnerImage from "@/assets/successful-business-owner.jpg";
+import texasBusinessImage from "@/assets/texas-business-buyer.jpg";
+import consultationImage from "@/assets/business-consultation-meeting.jpg";
 
 const BuyEstablishedBusinessLanding = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
@@ -188,41 +192,84 @@ const BuyEstablishedBusinessLanding = () => {
         </section>
       </LazySection>
 
+      {/* Featured Business Types Banner */}
+      <LazySection>
+        <section className="py-12 bg-gradient-to-r from-slate-100 to-blue-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-center text-[#1e3a5f] mb-8">
+                Types of Businesses We Broker
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
+                  <img src={laundromatImage} alt="Laundromat business" className="w-full h-48 object-cover" />
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Laundromats</h3>
+                    <p className="text-muted-foreground">Steady cash flow with minimal management required</p>
+                  </CardContent>
+                </Card>
+                <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
+                  <img src={restaurantImage} alt="Restaurant business" className="w-full h-48 object-cover" />
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Restaurants & Cafes</h3>
+                    <p className="text-muted-foreground">Established customer base and proven menus</p>
+                  </CardContent>
+                </Card>
+                <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
+                  <img src={storefrontImage} alt="Retail business" className="w-full h-48 object-cover" />
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Retail Stores</h3>
+                    <p className="text-muted-foreground">Prime locations with loyal customer bases</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      </LazySection>
+
       {/* Why Texas Section */}
       <LazySection>
         <section 
           ref={whyTexasRef}
           className="py-16 bg-white relative overflow-hidden"
         >
-          <div className="absolute inset-0 opacity-5">
-            <img src={storefrontImage} alt="" className="w-full h-full object-cover" />
-          </div>
-          
-          <div className={`container mx-auto px-4 relative z-10 transition-all duration-1000 ${whyTexasVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="max-w-5xl mx-auto text-center space-y-8">
-              <Badge className="bg-[#1e3a5f] text-white text-sm px-4 py-2">
-                🌟 Texas Advantage
-              </Badge>
-              
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1e3a5f]">
-                Why Texas is Perfect for Business Ownership
-              </h2>
-              
-              <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-                Low taxes, booming population, and strong local demand make everyday businesses highly resilient and profitable.
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-6 pt-8">
-                {marketFacts.map((fact, idx) => (
-                  <Card key={idx} className="border-[#2c5282]/20 hover:shadow-xl hover:border-[#2c5282] transition-all bg-white/80 backdrop-blur-sm">
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1e3a5f] to-[#2c5282] flex items-center justify-center flex-shrink-0">
-                        <fact.icon className="w-6 h-6 text-white" />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="space-y-8">
+                  <Badge className="bg-[#1e3a5f] text-white text-sm px-4 py-2">
+                    🌟 Texas Advantage
+                  </Badge>
+                  
+                  <h2 className="text-3xl md:text-5xl font-bold text-[#1e3a5f]">
+                    Why Texas is Perfect for Business Ownership
+                  </h2>
+                  
+                  <p className="text-lg text-slate-600">
+                    Low taxes, booming population, and strong local demand make everyday businesses highly resilient and profitable.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    {marketFacts.map((fact, idx) => (
+                      <div key={idx} className="flex items-start gap-4 p-4 bg-gradient-to-r from-blue-50 to-transparent rounded-lg hover:from-blue-100 transition-all">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1e3a5f] to-[#2c5282] flex items-center justify-center flex-shrink-0">
+                          <fact.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <p className="text-base font-medium text-slate-700 pt-2">{fact.text}</p>
                       </div>
-                      <p className="text-left text-base font-medium text-slate-700 pt-2">{fact.text}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f]/20 to-[#2c5282]/20 rounded-2xl blur-2xl" />
+                  <img 
+                    src={texasBusinessImage} 
+                    alt="Texas business opportunities" 
+                    className="relative rounded-2xl shadow-2xl w-full h-[450px] object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -370,32 +417,47 @@ const BuyEstablishedBusinessLanding = () => {
 
       {/* Who We Work With Section */}
       <LazySection>
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto space-y-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground">
-                Who We Work With
-              </h2>
-              <p className="text-xl text-center text-muted-foreground">
-                Sinevabrokerage works with:
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-6">
-                {whoWeWorkWith.map((type, idx) => (
-                  <Card key={idx} className="border-primary/20 hover:shadow-accent transition-all">
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <CheckCircle2 className="w-5 h-5 text-primary" />
-                      </div>
-                      <p className="text-lg font-medium">{type}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+            <div className="max-w-6xl mx-auto space-y-12">
+              <div className="text-center space-y-4">
+                <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+                  Who We Work With
+                </h2>
+                <p className="text-xl text-muted-foreground">
+                  Sinevabrokerage works with:
+                </p>
               </div>
               
-              <p className="text-xl text-center text-foreground font-semibold">
-                We make ownership achievable — not complicated.
-              </p>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                  {whoWeWorkWith.map((type, idx) => (
+                    <Card key={idx} className="border-primary/20 hover:shadow-xl transition-all hover:border-[#2c5282]">
+                      <CardContent className="p-6 flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1e3a5f] to-[#2c5282] flex items-center justify-center flex-shrink-0">
+                          <CheckCircle2 className="w-5 h-5 text-white" />
+                        </div>
+                        <p className="text-lg font-medium pt-1.5">{type}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+                
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#f59e0b]/20 to-[#1e3a5f]/20 rounded-2xl blur-2xl" />
+                  <img 
+                    src={consultationImage} 
+                    alt="Business consultation meeting" 
+                    className="relative rounded-2xl shadow-2xl w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              
+              <div className="text-center pt-6">
+                <p className="text-2xl text-foreground font-semibold">
+                  We make ownership achievable — not complicated.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -413,26 +475,43 @@ const BuyEstablishedBusinessLanding = () => {
         </div>
       </section>
 
-      {/* More Testimonials */}
+      {/* Success Stories with Images */}
       <LazySection>
-        <section className="py-20 bg-secondary/30">
+        <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto space-y-12">
+            <div className="max-w-6xl mx-auto space-y-12">
               <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground">
-                What Our Clients Say
+                Success Stories from Real Owners
               </h2>
               
-              <div className="grid md:grid-cols-2 gap-6">
-                {testimonials.slice(2, 4).map((testimonial, idx) => (
-                  <Card key={idx} className="border-primary/20 hover:shadow-card transition-all">
-                    <CardContent className="p-8 space-y-4">
-                      <p className="text-lg italic text-muted-foreground">"{testimonial.quote}"</p>
-                      <div className="font-semibold text-foreground">
-                        — {testimonial.author}, <span className="text-accent">{testimonial.location}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+              <div className="grid md:grid-cols-2 gap-8">
+                <Card className="overflow-hidden hover:shadow-2xl transition-all border-primary/20">
+                  <img 
+                    src={successfulOwnerImage} 
+                    alt="Successful business owner" 
+                    className="w-full h-64 object-cover"
+                  />
+                  <CardContent className="p-8 space-y-4">
+                    <p className="text-lg italic text-muted-foreground">"{testimonials[2].quote}"</p>
+                    <div className="font-semibold text-foreground">
+                      — {testimonials[2].author}, <span className="text-accent">{testimonials[2].location}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="overflow-hidden hover:shadow-2xl transition-all border-primary/20">
+                  <img 
+                    src={businessGrowthImage} 
+                    alt="Business growth and success" 
+                    className="w-full h-64 object-cover"
+                  />
+                  <CardContent className="p-8 space-y-4">
+                    <p className="text-lg italic text-muted-foreground">"{testimonials[3].quote}"</p>
+                    <div className="font-semibold text-foreground">
+                      — {testimonials[3].author}, <span className="text-accent">{testimonials[3].location}</span>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
