@@ -125,7 +125,7 @@ const BuyEstablishedBusinessLanding = () => {
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight drop-shadow-2xl">
               Buy Established Businesses
-              <span className="block mt-3 bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] bg-clip-text text-transparent">
+              <span className="block mt-3 text-white">
                 Without the Risk
               </span>
             </h1>
@@ -138,7 +138,7 @@ const BuyEstablishedBusinessLanding = () => {
               <Button 
                 size="lg" 
                 onClick={scrollToForm}
-                className="bg-gradient-to-r from-[#f59e0b] to-[#fbbf24] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#1e3a5f] font-bold text-lg px-10 py-7 shadow-2xl hover:shadow-[#f59e0b]/50 transition-all"
+                className="bg-white hover:bg-white/90 text-[#1e3a5f] font-bold text-lg px-10 py-7 shadow-2xl transition-all"
               >
                 📩 View Available Businesses
               </Button>
@@ -169,8 +169,8 @@ const BuyEstablishedBusinessLanding = () => {
                       { icon: Award, text: "Ready for transfer — not trial and error" },
                     ].map((item, idx) => (
                       <div key={idx} className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all">
-                        <div className="w-10 h-10 rounded-full bg-[#f59e0b]/10 flex items-center justify-center flex-shrink-0">
-                          <item.icon className="w-5 h-5 text-[#f59e0b]" />
+                        <div className="w-10 h-10 rounded-full bg-[#2c5282]/10 flex items-center justify-center flex-shrink-0">
+                          <item.icon className="w-5 h-5 text-[#2c5282]" />
                         </div>
                         <p className="text-base font-medium text-slate-700 pt-1.5">{item.text}</p>
                       </div>
@@ -218,9 +218,9 @@ const BuyEstablishedBusinessLanding = () => {
               
               <div className="grid md:grid-cols-2 gap-6 pt-8">
                 {marketFacts.map((fact, idx) => (
-                  <Card key={idx} className="border-[#f59e0b]/20 hover:shadow-xl hover:border-[#f59e0b] transition-all bg-white/80 backdrop-blur-sm">
+                  <Card key={idx} className="border-[#2c5282]/20 hover:shadow-xl hover:border-[#2c5282] transition-all bg-white/80 backdrop-blur-sm">
                     <CardContent className="p-6 flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f59e0b] to-[#fbbf24] flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1e3a5f] to-[#2c5282] flex items-center justify-center flex-shrink-0">
                         <fact.icon className="w-6 h-6 text-white" />
                       </div>
                       <p className="text-left text-base font-medium text-slate-700 pt-2">{fact.text}</p>
@@ -243,7 +243,7 @@ const BuyEstablishedBusinessLanding = () => {
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-6xl mx-auto space-y-12">
               <div className="text-center space-y-4">
-                <Badge className="bg-[#f59e0b] text-[#1e3a5f] text-sm px-4 py-2">
+                <Badge className="bg-white text-[#1e3a5f] text-sm px-4 py-2">
                   ⭐ Our Expertise
                 </Badge>
                 <h2 className="text-3xl md:text-5xl font-bold">
@@ -258,8 +258,8 @@ const BuyEstablishedBusinessLanding = () => {
                 {whyUsFeatures.map((feature, idx) => (
                   <Card key={idx} className="border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:-translate-y-2 transition-all">
                     <CardContent className="p-6 text-center space-y-4">
-                      <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#f59e0b] to-[#fbbf24] flex items-center justify-center shadow-lg">
-                        <feature.icon className="w-8 h-8 text-white" />
+                      <div className="w-16 h-16 mx-auto rounded-full bg-white flex items-center justify-center shadow-lg">
+                        <feature.icon className="w-8 h-8 text-[#1e3a5f]" />
                       </div>
                       <h3 className="font-bold text-lg text-white">{feature.title}</h3>
                       <p className="text-white/70 text-sm">{feature.desc}</p>
@@ -295,21 +295,21 @@ const BuyEstablishedBusinessLanding = () => {
               </div>
               
               <div className="grid md:grid-cols-3 gap-6 pt-8">
-                <Card className="border-gold/30 bg-gold/5">
+                <Card className="border-[#2c5282]/30 bg-[#2c5282]/5">
                   <CardContent className="p-8 text-center space-y-2">
-                    <div className="text-4xl font-bold text-gold">$75M+</div>
+                    <div className="text-4xl font-bold text-[#1e3a5f]">$75M+</div>
                     <p className="text-muted-foreground">in completed transactions</p>
                   </CardContent>
                 </Card>
-                <Card className="border-gold/30 bg-gold/5">
+                <Card className="border-[#2c5282]/30 bg-[#2c5282]/5">
                   <CardContent className="p-8 text-center space-y-2">
-                    <div className="text-4xl font-bold text-gold">200+</div>
+                    <div className="text-4xl font-bold text-[#1e3a5f]">200+</div>
                     <p className="text-muted-foreground">Texas business owners matched with buyers</p>
                   </CardContent>
                 </Card>
-                <Card className="border-gold/30 bg-gold/5">
+                <Card className="border-[#2c5282]/30 bg-[#2c5282]/5">
                   <CardContent className="p-8 text-center space-y-2">
-                    <div className="text-4xl font-bold text-gold">20+</div>
+                    <div className="text-4xl font-bold text-[#1e3a5f]">20+</div>
                     <p className="text-muted-foreground">years combined experience</p>
                   </CardContent>
                 </Card>
@@ -445,17 +445,17 @@ const BuyEstablishedBusinessLanding = () => {
 
       {/* Final CTA Section */}
       <LazySection>
-        <section className="py-20 bg-gradient-to-br from-[#f59e0b] via-[#fbbf24] to-[#f59e0b] relative overflow-hidden">
+        <section className="py-20 bg-gradient-to-br from-[#1e3a5f] via-[#2c5282] to-[#1e3a5f] relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <img src={restaurantImage} alt="" className="w-full h-full object-cover" />
           </div>
           
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto text-center space-y-8">
-              <h2 className="text-4xl md:text-5xl font-bold text-[#1e3a5f]">
+              <h2 className="text-4xl md:text-5xl font-bold text-white">
                 Start Owning, Not Just Dreaming
               </h2>
-              <p className="text-xl text-[#1e3a5f]/80 font-medium">
+              <p className="text-xl text-white/90 font-medium">
                 Thousands have built financial freedom by buying existing businesses. Now it's your turn.
               </p>
               
@@ -463,14 +463,14 @@ const BuyEstablishedBusinessLanding = () => {
                 <Button 
                   size="lg" 
                   onClick={scrollToForm}
-                  className="bg-[#1e3a5f] hover:bg-[#2c5282] text-white font-bold text-lg px-10 py-7 shadow-2xl"
+                  className="bg-white hover:bg-white/90 text-[#1e3a5f] font-bold text-lg px-10 py-7 shadow-2xl"
                 >
                   📩 Get Your Business Matches
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="border-2 border-[#1e3a5f] text-[#1e3a5f] hover:bg-[#1e3a5f] hover:text-white font-semibold"
+                  className="border-2 border-white text-white hover:bg-white hover:text-[#1e3a5f] font-semibold"
                 >
                   📘 Free Buyer's Guide
                 </Button>
