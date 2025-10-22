@@ -2735,6 +2735,45 @@ export type Database = {
         }
         Relationships: []
       }
+      texas_business_leads: {
+        Row: {
+          agreed_to_contact: boolean
+          business_type: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          investment_budget: string
+          phone: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          agreed_to_contact?: boolean
+          business_type: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          investment_budget: string
+          phone: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          agreed_to_contact?: boolean
+          business_type?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          investment_budget?: string
+          phone?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       training_modules: {
         Row: {
           content: string | null

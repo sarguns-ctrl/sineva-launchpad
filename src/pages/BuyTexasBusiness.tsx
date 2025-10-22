@@ -6,6 +6,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Mail, Phone, MapPin, TrendingUp, Shield, Users, CheckCircle2, Building2, Store, Smartphone, Scissors, UtensilsCrossed, Fuel } from "lucide-react";
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import heroImage from "@/assets/texas-business-hero.jpg";
 import logoImage from "@/assets/logo-sineva-grupo.svg";
 import laundromatImage from "@/assets/laundromat-business-interior.jpg";
@@ -27,6 +29,8 @@ const BuyTexasBusiness = () => {
     agreeToContact: false,
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { elementRef: heroRef } = useScrollAnimation();
   const { elementRef: whyChooseRef } = useScrollAnimation();
   const { elementRef: processRef } = useScrollAnimation();
@@ -37,9 +41,48 @@ const BuyTexasBusiness = () => {
   const { elementRef: formRef } = useScrollAnimation();
   const { elementRef: finalCtaRef } = useScrollAnimation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+
+    if (!formData.agreeToContact) {
+      toast.error("Please agree to be contacted to continue");
+      return;
+    }
+
+    if (!formData.businessType || !formData.investmentBudget) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke(
+        "texas-business-lead",
+        {
+          body: formData,
+        }
+      );
+
+      if (error) throw error;
+
+      toast.success("Thank you! We'll contact you within 24 hours.");
+      
+      // Reset form
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        businessType: "",
+        investmentBudget: "",
+        agreeToContact: false,
+      });
+    } catch (error: any) {
+      console.error("Error submitting form:", error);
+      toast.error("Failed to submit form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -580,8 +623,13 @@ const BuyTexasBusiness = () => {
                       </Label>
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90">
-                      ✅ Send Me Business Listings
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full bg-primary hover:bg-primary/90"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Submitting..." : "✅ Send Me Business Listings"}
                     </Button>
 
                     <p className="text-sm text-center text-muted-foreground">
