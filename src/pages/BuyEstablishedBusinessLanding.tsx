@@ -2,8 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import EstablishedBusinessLeadForm from "@/components/EstablishedBusinessLeadForm";
 import { CheckCircle2, TrendingUp, Shield, Users, Building2, Store, Fuel, Sparkles, DollarSign, MapPin, Award, FileCheck } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -104,8 +102,6 @@ const BuyEstablishedBusinessLanding = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
-      
       {/* Hero Section */}
       <section 
         ref={heroRef}
@@ -479,8 +475,6 @@ const BuyEstablishedBusinessLanding = () => {
           </div>
         </section>
       </LazySection>
-
-      <Footer />
     </div>
   );
 };
