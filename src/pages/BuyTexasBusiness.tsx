@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Mail, Phone, MapPin, TrendingUp, Shield, Users, CheckCircle2, Building2, Store, Smartphone, Scissors, UtensilsCrossed, Fuel } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -20,6 +21,8 @@ import SEOHead from "@/components/SEOHead";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const BuyTexasBusiness = () => {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -66,17 +69,12 @@ const BuyTexasBusiness = () => {
 
       if (error) throw error;
 
-      toast.success("Thank you! We'll contact you within 24 hours.");
+      toast.success("Thank you! Redirecting...");
       
-      // Reset form
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        businessType: "",
-        investmentBudget: "",
-        agreeToContact: false,
-      });
+      // Redirect to thank you page
+      setTimeout(() => {
+        navigate("/thank-you");
+      }, 1000);
     } catch (error: any) {
       console.error("Error submitting form:", error);
       toast.error("Failed to submit form. Please try again.");
