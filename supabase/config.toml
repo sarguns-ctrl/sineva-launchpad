@@ -55,3 +55,6 @@ verify_jwt = false
 
 [functions.send-daily-newsletter]
 verify_jwt = false
+
+[functions.established-business-leads]
+verify_jwt = false

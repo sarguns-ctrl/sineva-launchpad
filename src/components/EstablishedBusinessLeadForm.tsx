@@ -46,20 +46,18 @@ const EstablishedBusinessLeadForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Insert into contact_submissions table
-      const { error: submissionError } = await supabase
-        .from("contact_submissions")
-        .insert({
-          name: data.full_name,
+      // Call the edge function
+      const { data: responseData, error } = await supabase.functions.invoke('established-business-leads', {
+        body: {
+          full_name: data.full_name,
           email: data.email,
           phone: data.phone || null,
-          message: `Interested in buying established business in Texas`,
-          inquiry_type: "business_purchase",
-          investment_range: data.investment_budget,
-          status: "new",
-        });
+          business_type: data.business_type,
+          investment_budget: data.investment_budget,
+        },
+      });
 
-      if (submissionError) throw submissionError;
+      if (error) throw error;
 
       // Show success state
       setIsSuccess(true);

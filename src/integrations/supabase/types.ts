@@ -1473,6 +1473,42 @@ export type Database = {
           },
         ]
       }
+      established_business_leads: {
+        Row: {
+          business_type: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          investment_budget: string
+          phone: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          business_type: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          investment_budget: string
+          phone?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          business_type?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          investment_budget?: string
+          phone?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       financial_scenarios: {
         Row: {
           calculations: Json | null
@@ -2873,7 +2909,7 @@ export type Database = {
           activity_type: string
           created_at: string | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           referrer: string | null
           user_agent: string | null
           user_id: string | null
@@ -2883,7 +2919,7 @@ export type Database = {
           activity_type: string
           created_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           referrer?: string | null
           user_agent?: string | null
           user_id?: string | null
@@ -2893,7 +2929,7 @@ export type Database = {
           activity_type?: string
           created_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           referrer?: string | null
           user_agent?: string | null
           user_id?: string | null
@@ -3041,10 +3077,7 @@ export type Database = {
         }
         Returns: string
       }
-      get_current_user_email: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      get_current_user_email: { Args: never; Returns: string }
       get_user_role: {
         Args: { _user_id: string }
         Returns: Database["public"]["Enums"]["app_role"]
