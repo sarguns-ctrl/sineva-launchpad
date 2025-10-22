@@ -11,7 +11,7 @@ import heroImage from "@/assets/business-owner-hero.jpg";
 import teamSuccessImage from "@/assets/team-success-celebration.jpg";
 import teamMeetingImage from "@/assets/business-team-meeting.jpg";
 import storefrontImage from "@/assets/small-business-storefront.jpg";
-import laundromatModernImage from "@/assets/laundromat-modern.jpg";
+import laundromatStoreImage from "@/assets/laundromat-store.jpg";
 import restaurantModernImage from "@/assets/restaurant-modern.jpg";
 import convenienceStoreImage from "@/assets/convenience-store-modern.jpg";
 import restaurantImage from "@/assets/restaurant-interior.jpg";
@@ -220,7 +220,7 @@ const BuyEstablishedBusinessLanding = () => {
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
-                  <img src={laundromatModernImage} alt="Laundromat business" className="w-full h-56 object-cover" />
+                  <img src={laundromatStoreImage} alt="Laundromat business with customers" className="w-full h-56 object-cover" />
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Laundromats</h3>
                     <p className="text-muted-foreground">Steady cash flow with minimal management required</p>
@@ -484,7 +484,7 @@ const BuyEstablishedBusinessLanding = () => {
       {/* Lead Form Section */}
       <section id="lead-form-section" className="py-20 bg-gradient-to-br from-[#1e3a5f] via-[#2c5282] to-[#1a202c] relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
-          <img src={laundromatModernImage} alt="" className="w-full h-full object-cover" />
+          <img src={laundromatStoreImage} alt="" className="w-full h-full object-cover" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto">
