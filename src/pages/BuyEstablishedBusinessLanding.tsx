@@ -8,7 +8,7 @@ import { CheckCircle2, TrendingUp, Shield, Users, Building2, Store, Fuel, Sparkl
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import LazySection from "@/components/LazySection";
 import heroImage from "@/assets/business-owner-hero.jpg";
-import handshakeImage from "@/assets/professional-handshake-business.jpg";
+import teamSuccessImage from "@/assets/team-success-celebration.jpg";
 import teamMeetingImage from "@/assets/business-team-meeting.jpg";
 import storefrontImage from "@/assets/small-business-storefront.jpg";
 import laundromatImage from "@/assets/laundromat-business.jpg";
@@ -18,6 +18,8 @@ import successfulOwnerImage from "@/assets/successful-business-owner.jpg";
 import texasBusinessImage from "@/assets/texas-business-buyer.jpg";
 import consultationImage from "@/assets/business-consultation-meeting.jpg";
 import logoImage from "@/assets/logo-sineva-grupo.svg";
+import gasstationImage from "@/assets/commercial-skyline.jpg";
+import franchiseImage from "@/assets/franchise-office.jpg";
 
 const BuyEstablishedBusinessLanding = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
@@ -195,8 +197,8 @@ const BuyEstablishedBusinessLanding = () => {
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#f59e0b]/20 to-[#1e3a5f]/20 rounded-2xl blur-2xl" />
                   <img 
-                    src={handshakeImage} 
-                    alt="Professional business handshake" 
+                    src={teamSuccessImage} 
+                    alt="Successful business team celebration" 
                     className="relative rounded-2xl shadow-2xl w-full h-[350px] object-cover"
                   />
                 </div>
@@ -216,23 +218,23 @@ const BuyEstablishedBusinessLanding = () => {
               </h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
-                  <img src={laundromatImage} alt="Laundromat business" className="w-full h-48 object-cover" />
+                  <img src={laundromatImage} alt="Laundromat business" className="w-full h-56 object-cover" />
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Laundromats</h3>
                     <p className="text-muted-foreground">Steady cash flow with minimal management required</p>
                   </CardContent>
                 </Card>
                 <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
-                  <img src={restaurantImage} alt="Restaurant business" className="w-full h-48 object-cover" />
+                  <img src={restaurantImage} alt="Restaurant business" className="w-full h-56 object-cover" />
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Restaurants & Cafes</h3>
                     <p className="text-muted-foreground">Established customer base and proven menus</p>
                   </CardContent>
                 </Card>
                 <Card className="overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-2">
-                  <img src={storefrontImage} alt="Retail business" className="w-full h-48 object-cover" />
+                  <img src={storefrontImage} alt="Retail business" className="w-full h-56 object-cover" />
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Retail Stores</h3>
+                    <h3 className="text-xl font-bold text-[#1e3a5f] mb-2">Convenience & Retail</h3>
                     <p className="text-muted-foreground">Prime locations with loyal customer bases</p>
                   </CardContent>
                 </Card>
