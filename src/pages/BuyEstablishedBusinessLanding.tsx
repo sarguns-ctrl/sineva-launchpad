@@ -231,7 +231,7 @@ const BuyEstablishedBusinessLanding = () => {
 
       {/* Why Work With Us Section */}
       <LazySection>
-        <section className="py-20 bg-gradient-to-br from-[#1e3a5f] to-[#2c5282] text-white relative overflow-hidden">
+        <section className="py-16 bg-gradient-to-br from-[#1e3a5f] to-[#2c5282] text-white relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <img src={teamMeetingImage} alt="" className="w-full h-full object-cover" />
           </div>
@@ -270,7 +270,7 @@ const BuyEstablishedBusinessLanding = () => {
 
       {/* Client Success Stories */}
       <LazySection>
-        <section className="py-20 bg-background">
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto space-y-12">
               <h2 className="text-4xl md:text-5xl font-bold text-center text-foreground">
@@ -329,7 +329,7 @@ const BuyEstablishedBusinessLanding = () => {
       <LazySection>
         <section 
           ref={howItWorksRef}
-          className="py-20 bg-secondary/30"
+          className="py-16 bg-secondary/30"
         >
           <div className={`container mx-auto px-4 transition-all duration-1000 ${howItWorksVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="max-w-5xl mx-auto space-y-12">
