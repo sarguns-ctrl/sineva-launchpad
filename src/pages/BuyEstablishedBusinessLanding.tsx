@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -16,6 +17,7 @@ import businessGrowthImage from "@/assets/business-growth.jpg";
 import successfulOwnerImage from "@/assets/successful-business-owner.jpg";
 import texasBusinessImage from "@/assets/texas-business-buyer.jpg";
 import consultationImage from "@/assets/business-consultation-meeting.jpg";
+import logoImage from "@/assets/logo-sineva-grupo.svg";
 
 const BuyEstablishedBusinessLanding = () => {
   const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
@@ -116,6 +118,18 @@ const BuyEstablishedBusinessLanding = () => {
           style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a5f]/95 via-[#2c5282]/90 to-[#1a202c]/85" />
+        
+        {/* Logo at top */}
+        <Link 
+          to="/buy-established-business" 
+          className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20 transition-transform hover:scale-105"
+        >
+          <img 
+            src={logoImage} 
+            alt="Sineva Brokerage" 
+            className="h-16 md:h-20 w-auto"
+          />
+        </Link>
         
         <div className={`container mx-auto px-4 relative z-10 text-center transition-all duration-1000 ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="max-w-4xl mx-auto space-y-6">
