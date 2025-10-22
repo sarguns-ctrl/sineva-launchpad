@@ -315,7 +315,7 @@ const BuyEstablishedBusinessLanding = () => {
                 </p>
               </div>
               
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 [&>*:nth-child(4)]:lg:col-start-2">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {whyUsFeatures.map((feature, idx) => (
                   <Card key={idx} className="border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:-translate-y-2 transition-all">
                     <CardContent className="p-6 text-center space-y-4">
